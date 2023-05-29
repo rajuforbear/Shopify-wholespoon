@@ -17,6 +17,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../../../compoents/Loader';
 import CheckBox from '@react-native-community/checkbox';
+import {query} from './queries';
 
 const Cart = ({navigation}) => {
   const dispatch = useDispatch();
@@ -42,112 +43,9 @@ const Cart = ({navigation}) => {
     let data = JSON.stringify({
       query: `{
       cart(id:${JSON.stringify(cartId)}) {
-        id
-        checkoutUrl
-        cost{
-          checkoutChargeAmount {
-              amount
-              currencyCode
-          }
-          subtotalAmount{
-              amount
-              currencyCode
-          }
-          subtotalAmountEstimated
-          totalAmount{
-              amount
-              currencyCode
-          }
-          totalAmountEstimated
-          totalDutyAmount{
-              amount
-              currencyCode
-          }
-          totalDutyAmountEstimated
-          totalTaxAmount{
-              amount
-              currencyCode
-          }
-          totalTaxAmountEstimated
-         }
-    createdAt
-    updatedAt
-    lines(first:10) {
-      edges {
-        node {
-      id
-    quantity
-    merchandise {
-    ... on ProductVariant {
-    id
-    title
-    
-    
-    product{
-        title 
-        priceRange{
-            maxVariantPrice{
-                amount
-                currencyCode
-            }
-            minVariantPrice{
-                amount
-                currencyCode
-            }
-        }
-        availableForSale
-        featuredImage{
-            url
-        }
-         images(first:1){
-            edges
-            {
-                node{
-                    url
-                }
-            }
-         }
+       ${query}
     }
-    }
-    }
-    attributes {
-    key
-    value
-    }
-    }
-    }
-    }
-    attributes {
-    key
-    value
-    }
-    estimatedCost {
-    totalAmount {
-    amount
-    currencyCode
-    }
-    subtotalAmount {
-    amount
-    currencyCode
-    }
-    totalTaxAmount {
-    amount
-    currencyCode
-    }
-    totalDutyAmount {
-    amount
-    currencyCode
-    }
-    }
-    buyerIdentity {
-    email
-    phone
-    customer {
-    id
-    }
-    countryCode
-    }
-    }
+  }
     }`,
       variables: {},
     });
@@ -223,7 +121,7 @@ const Cart = ({navigation}) => {
         return item != id;
       });
       verients = verient.filter((item, index) => {
-        return index != position;
+        return item.variantId != line.variantId;
       });
 
       let unlike = selectedItem.filter(elem => elem !== position);
@@ -247,123 +145,7 @@ const Cart = ({navigation}) => {
       query: `mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
       cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
         cart  {
-        id
-        checkoutUrl
-        cost{
-          checkoutChargeAmount {
-              amount
-              currencyCode
-          }
-          subtotalAmount{
-              amount
-              currencyCode
-          }
-          subtotalAmountEstimated
-          totalAmount{
-              amount
-              currencyCode
-          }
-          totalAmountEstimated
-          totalDutyAmount{
-              amount
-              currencyCode
-          }
-          totalDutyAmountEstimated
-          totalTaxAmount{
-              amount
-              currencyCode
-          }
-          totalTaxAmountEstimated
-         }
-    createdAt
-    updatedAt
-    lines(first:10) {
-      edges {
-        node {
-      id
-    quantity
-    merchandise {
-    ... on ProductVariant {
-    id
-    title
-     
-    
-    product{
-        title 
-        sellingPlanGroups(first:1){
-            edges{
-                node{
-                    sellingPlans(first:1){
-                        edges{
-                            node{
-                                id
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        priceRange{
-            maxVariantPrice{
-                amount
-                currencyCode
-            }
-          minVariantPrice{
-                amount
-                currencyCode
-            }
-        }
-        availableForSale
-        featuredImage{
-            url
-        }
-         images(first:1){
-            edges
-            {
-                node{
-                    url
-                }
-            }
-         }
-    }
-    }
-    }
-    attributes {
-    key
-    value
-    }
-    }
-    }
-    }
-    attributes {
-    key
-    value
-    }
-    estimatedCost {
-    totalAmount {
-    amount
-    currencyCode
-    }
-    subtotalAmount {
-    amount
-    currencyCode
-    }
-    totalTaxAmount {
-    amount
-    currencyCode
-    }
-    totalDutyAmount {
-    amount
-    currencyCode
-    }
-    }
-    buyerIdentity {
-    email
-    phone
-    customer {
-    id
-    }
-    countryCode
+       ${query}
     }
     }
         userErrors {
@@ -397,8 +179,10 @@ const Cart = ({navigation}) => {
     if (bool) {
       return selectedAmout;
     }
+
     return 0;
   };
+  console.log(verient);
 
   const cartLineUpdate = async lines => {
     const cartId = await AsyncStorage.getItem('cartId');
@@ -406,97 +190,7 @@ const Cart = ({navigation}) => {
       query: `mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
       cartLinesUpdate(cartId: $cartId, lines: $lines) {
         cart {
-            id
-        checkoutUrl
-    createdAt
-    updatedAt
-    lines(first:10) {
-      edges {
-        node {
-      id
-    quantity
-    merchandise {
-    ... on ProductVariant {
-    id
-    title
-    
-    
-    product{
-        title 
-        sellingPlanGroups(first:1){
-            edges{
-                node{
-                    sellingPlans(first:1){
-                        edges{
-                            node{
-                                id
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        priceRange{
-            maxVariantPrice{
-                amount
-                currencyCode
-            }
-            minVariantPrice{
-                amount
-                currencyCode
-            }
-        }
-        availableForSale
-        featuredImage{
-            url
-        }
-         images(first:1){
-            edges
-            {
-                node{
-                    url
-                }
-            }
-         }
-    }
-    }
-    }
-    attributes {
-    key
-    value
-    }
-    }
-    }
-    }
-    attributes {
-    key
-    value
-    }
-    estimatedCost {
-    totalAmount {
-    amount
-    currencyCode
-    }
-    subtotalAmount {
-    amount
-    currencyCode
-    }
-    totalTaxAmount {
-    amount
-    currencyCode
-    }
-    totalDutyAmount {
-    amount
-    currencyCode
-    }
-    }
-    buyerIdentity {
-    email
-    phone
-    customer {
-    id
-    }
-    countryCode
+            ${query}
     }
           
         }
@@ -522,8 +216,9 @@ const Cart = ({navigation}) => {
       type: 'sopify/updateCart',
       data: data,
     });
-    console.log(lines.quantity);
+    //console.log(lines.quantity);
   };
+  //  console.log(JSON.stringify(cartItem));
 
   return (
     <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
@@ -637,7 +332,8 @@ const Cart = ({navigation}) => {
                         fontSize: wp(4),
                         fontWeight: '400',
                       }}>
-                      {item?.node.merchandise.product?.title}
+                      {item?.node.merchandise.product?.title?.substring(0, 19)}
+                      ...
                     </Text>
                   </View>
                   <View style={{flexDirection: 'row', marginVertical: wp(1)}}>
@@ -717,9 +413,7 @@ const Cart = ({navigation}) => {
                     selectItem(index, item.node.id, {
                       variantId: item.node.merchandise.id,
                       quantity: item.node.quantity,
-                      price:
-                        item.node.merchandise.product.priceRange.minVariantPrice
-                          .amount,
+                      price: item.node.cost.amountPerQuantity.amount,
                     });
                   }}
                   style={[

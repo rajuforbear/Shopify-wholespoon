@@ -145,13 +145,13 @@ function* createCart(action) {
   }
 }
 function* getCartItem(action) {
-  console.log('raju barde');
+  //console.log('raju barde');
   try {
     const res = yield call(Shopify.userControll, action.data);
-    //console.log(JSON.stringify(res));
+    console.log(JSON.stringify(res));
     yield put({
       type: 'sopify/getCartItemSuccess',
-      payload: res?.data.cart,
+      payload: res?.data?.cart,
     });
   } catch (error) {
     yield put({
@@ -216,7 +216,7 @@ function* updateCart(action) {
       yield put({
         type: 'sopify/updateCartFaill',
       });
-      console.log('something wemnt weong');
+      console.log('this is error', JSON.stringify(res));
     }
   } catch (err) {
     yield put({

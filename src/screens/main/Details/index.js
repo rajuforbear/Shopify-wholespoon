@@ -27,6 +27,7 @@ import {RadioButton} from 'react-native-paper';
 import CheckBox from '@react-native-community/checkbox';
 import Shopify from '../../../sopify/API/Shopify';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {query} from '../Cart/queries';
 //import {useSelector} from 'react-redux';
 const Details = ({route, navigation}) => {
   //descriptionHtml
@@ -199,82 +200,7 @@ const Details = ({route, navigation}) => {
       query: `mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
       cartLinesAdd(cartId: $cartId, lines: $lines) {
         cart {
-         id
-    createdAt
-    updatedAt
-    checkoutUrl
-    cost{
-      checkoutChargeAmount {
-          amount
-          currencyCode
-      }
-      subtotalAmount{
-          amount
-          currencyCode
-      }
-      subtotalAmountEstimated
-      totalAmount{
-          amount
-          currencyCode
-      }
-      totalAmountEstimated
-      totalDutyAmount{
-          amount
-          currencyCode
-      }
-      totalDutyAmountEstimated
-      totalTaxAmount{
-          amount
-          currencyCode
-      }
-      totalTaxAmountEstimated
-     }
-    lines(first:10) {
-      edges {
-        node {
-      id
-    quantity
-    merchandise {
-    ... on ProductVariant {
-    id
-    }
-    }
-    attributes {
-    key
-    value
-    }
-    }
-    }
-    }
-    attributes {
-    key
-    value
-    }
-    estimatedCost {
-    totalAmount {
-    amount
-    currencyCode
-    }
-    subtotalAmount {
-    amount
-    currencyCode
-    }
-    totalTaxAmount {
-    amount
-    currencyCode
-    }
-    totalDutyAmount {
-    amount
-    currencyCode
-    }
-    }
-    buyerIdentity {
-    email
-    phone
-    customer {
-    id
-    }
-    countryCode
+        ${query}
     }
         }
         userErrors {
@@ -362,7 +288,13 @@ const Details = ({route, navigation}) => {
               <EvilIcons name="chevron-down" size={wp(9)} />
             </TouchableOpacity>
             <View style={styles.quantityContainer}>
-              <TouchableOpacity style={styles.quantity}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (quantity > 1) {
+                    setQuantity(quantity - 1);
+                  }
+                }}
+                style={styles.quantity}>
                 <Entypo name="minus" size={wp(4.5)} />
               </TouchableOpacity>
               <View
@@ -377,7 +309,11 @@ const Details = ({route, navigation}) => {
                   {quantity}
                 </Text>
               </View>
-              <TouchableOpacity style={styles.quantity}>
+              <TouchableOpacity
+                onPress={() => {
+                  setQuantity(quantity + 1);
+                }}
+                style={styles.quantity}>
                 <Entypo name="plus" size={wp(4.5)} />
               </TouchableOpacity>
             </View>

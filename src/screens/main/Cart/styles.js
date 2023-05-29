@@ -136,7 +136,7 @@ export default StyleSheet.create({
   },
   checkbox: {
     position: 'absolute',
-    right: '5%',
+    right: '2%',
     top: '4%',
     borderWidth: wp(0.5),
     height: wp(5.5),

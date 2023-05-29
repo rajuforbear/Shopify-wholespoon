@@ -125,7 +125,7 @@ const CostumDrawer = props => {
         <View style={[styles.DrawerItem]}>
           <TouchableOpacity
             onPress={async () => {
-              await AsyncStorage.removeItem('Token');
+              await AsyncStorage.clear();
               navigation.navigate('Login');
             }}
             style={{
