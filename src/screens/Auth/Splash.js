@@ -9,13 +9,7 @@ const Splash = ({navigation}) => {
     }, 2000);
   }, []);
   const goTo = async () => {
-    const Token = await AsyncStorage.getItem('Token');
-    console.log(Token);
-    if (Token === null || Token === undefined) {
-      navigation.navigate('Login');
-    } else {
-      navigation.navigate('Home');
-    }
+    navigation.navigate('Home');
   };
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
