@@ -18,6 +18,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../../../compoents/Loader';
 import CheckBox from '@react-native-community/checkbox';
 import {query} from './queries';
+import Shopify from '../../../sopify/API/Shopify';
 
 const Cart = ({navigation}) => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const Cart = ({navigation}) => {
   const [lineItems, setLineItem] = useState([]);
   const [verient, setVerient] = useState([]);
   const userData = useSelector(state => state.data.userData);
+  const [selectedItemPrice, setSelectedItemPrice] = useState([]);
 
   //console.log('this is cart Item', JSON.stringify(cartItem?.lines.edges));
 
@@ -111,10 +113,12 @@ const Cart = ({navigation}) => {
       data: data,
       navigation,
     });
+    console.log('this is the verient', verient);
   };
-  const selectItem = (position, id, line) => {
+  const selectItem = (position, id, price, line) => {
     var lines = lineItems;
     var verients = verient;
+    var tempPrice = selectedItemPrice;
     //console.log(selectedItem.includes(position));
     if (selectedItem.includes(position)) {
       lines = lineItems.filter((item, index) => {
@@ -123,6 +127,9 @@ const Cart = ({navigation}) => {
       verients = verient.filter((item, index) => {
         return item.variantId != line.variantId;
       });
+      tempPrice = selectedItemPrice.filter((item, index) => {
+        item != price;
+      });
 
       let unlike = selectedItem.filter(elem => elem !== position);
       setSelectedItem(unlike);
@@ -130,10 +137,11 @@ const Cart = ({navigation}) => {
       setSelectedItem([...selectedItem, position]);
       lines.push(id);
       verients.push(line);
-      //  selectedAmout.push(priece);
+      tempPrice.push(price);
     }
     setLineItem(lines);
     setVerient(verients);
+    setSelectedItemPrice(tempPrice);
     //setSelectedAmouunt(selectedAmout);
   };
   //console.log(verient);
@@ -168,14 +176,15 @@ const Cart = ({navigation}) => {
   const handleRemove = id => {
     cartItemRemove(id);
   };
-  console.log(verient);
+  console.log(JSON.stringify(cartItem));
   const itemPrice = () => {
     let selectedAmout = 0;
     let bool = false;
-    verient.map(item => {
-      selectedAmout = selectedAmout + parseInt(item.price * item.quantity);
+    for (let i = 0; i < verient.length; i++) {
+      selectedAmout =
+        selectedAmout + parseInt(verient[i].quantity * selectedItemPrice[i]);
       bool = true;
-    });
+    }
     if (bool) {
       return selectedAmout;
     }
@@ -272,6 +281,9 @@ const Cart = ({navigation}) => {
           data={cartItem?.lines.edges}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => index}
+          onEndReached={() => {
+            console.log('ended');
+          }}
           renderItem={({item, index}) => {
             return (
               <View style={styles.listContainer}>
@@ -410,11 +422,15 @@ const Cart = ({navigation}) => {
                 </View>
                 <TouchableOpacity
                   onPress={() => {
-                    selectItem(index, item.node.id, {
-                      variantId: item.node.merchandise.id,
-                      quantity: item.node.quantity,
-                      price: item.node.cost.amountPerQuantity.amount,
-                    });
+                    selectItem(
+                      index,
+                      item.node.id,
+                      item.node.cost.amountPerQuantity.amount,
+                      {
+                        variantId: item.node.merchandise.id,
+                        quantity: item.node.quantity,
+                      },
+                    );
                   }}
                   style={[
                     styles.checkbox,
@@ -434,9 +450,15 @@ const Cart = ({navigation}) => {
         />
         <View style={styles.placeContainer}>
           <TouchableOpacity
-            onPress={() =>
-              //
-              createCheckout()
+            onPress={
+              () =>
+                //
+                createCheckout()
+              // Shopify.getCountryList()
+              // dispatch({
+              //   type: 'sopify/getCheckout',
+              //   navigation,
+              // })
             }
             style={styles.btn}>
             <Text style={styles.btnText}>CHEKOUT</Text>

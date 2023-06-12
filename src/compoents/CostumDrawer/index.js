@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -24,8 +24,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 
 const CostumDrawer = props => {
+  useEffect(() => {
+    getToken();
+  });
   const navigation = useNavigation();
-  //e6f0f2
+  const [token, setToken] = useState('');
+  const getToken = async () => {
+    let Token = await AsyncStorage.getItem('Token');
+    setToken(Token);
+  };
+
   return (
     <DrawerContentScrollView
       contentContainerStyle={{flex: 1, backgroundColor: '#e6f0f2'}}>
@@ -125,8 +133,13 @@ const CostumDrawer = props => {
         <View style={[styles.DrawerItem]}>
           <TouchableOpacity
             onPress={async () => {
-              await AsyncStorage.clear();
-              navigation.navigate('Login');
+              if (token != null) {
+                await AsyncStorage.clear();
+                //navigation.navigate('Login');
+                setToken(null);
+              } else {
+                navigation.navigate('Login');
+              }
             }}
             style={{
               flexDirection: 'row',
@@ -137,7 +150,7 @@ const CostumDrawer = props => {
             <Foundation name="power" size={wp(7.5)} />
             <Text
               style={{fontSize: wp(4), fontWeight: '500', marginLeft: '7%'}}>
-              Logout
+              {token ? 'Logout' : 'Login'}
             </Text>
           </TouchableOpacity>
         </View>

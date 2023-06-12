@@ -10,6 +10,7 @@ import {
   Platform,
   ImageBackground,
 } from 'react-native';
+
 import React, {useEffect} from 'react';
 import styles from './Styles';
 import {SliderBox} from 'react-native-image-slider-box';
@@ -67,6 +68,7 @@ const Home = () => {
   }, [dispatch]);
   const getUserData = async () => {
     const userToke = await AsyncStorage.getItem('Token');
+    console.log(userToke);
     let data = JSON.stringify({
       query: `query {
     customer(customerAccessToken:${JSON.stringify(userToke)}) {
@@ -104,7 +106,7 @@ const Home = () => {
             renderItem={({item}) => {
               if (item.image) {
                 return (
-                  <TouchableOpacity onPress={() => Shopify.test()}>
+                  <TouchableOpacity onPress={() => getUserData()}>
                     <ImageBackground
                       source={{uri: item.image?.src}}
                       style={styles.photos}>

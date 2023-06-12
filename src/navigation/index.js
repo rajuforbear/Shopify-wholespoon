@@ -19,6 +19,7 @@ import Payment from '../screens/main/Payment';
 import OrderDetails from '../screens/main/OrderDetails';
 import AddressBook from '../screens/main/AdressBook';
 import Splash from '../screens/Auth/Splash';
+
 const Stack = createStackNavigator();
 const myStack = () => {
   return (

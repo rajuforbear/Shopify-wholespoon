@@ -109,7 +109,7 @@ function* doRegister(action) {
 function* getUserData(action) {
   try {
     const user = yield call(Shopify.userControll, action.data);
-    console.log('this is userdata', user.data.customer);
+    console.log(JSON.stringify(user));
     yield put({
       type: 'sopify/userDataSuccess',
       payload: user.data.customer,
@@ -189,8 +189,10 @@ function* removeCartItem(action) {
   // console.log('remove called....');
 }
 function* createCheckout(action) {
+  console.log('create checkout called');
   try {
     const res = yield call(Shopify.userControll, action.data);
+    // console.log(JSON.stringify(res));
 
     yield put({
       type: 'sopify/createCheckoutSuccess',
@@ -225,6 +227,21 @@ function* updateCart(action) {
     console.log(err);
   }
 }
+function* addAddress(action) {
+  try {
+    const res = yield call(Shopify.shippingAddress, action);
+    yield put({
+      type: 'sopify/addAddressSucess',
+      payload: res,
+    });
+    action.navigation.navigate('Payment');
+  } catch (err) {
+    yield put({
+      type: 'sopify/addAdressFaill',
+    });
+    console.log(err);
+  }
+}
 function* Saga() {
   yield takeEvery('sopify/getCollection', getCollection);
   yield takeEvery('sopify/fetchProductById', getProductById);
@@ -240,6 +257,7 @@ function* Saga() {
   yield takeEvery('sopify/cartItemRemove', removeCartItem);
   yield takeEvery('sopify/createCheckout', createCheckout);
   yield takeEvery('sopify/updateCart', updateCart);
+  yield takeEvery('sopify/addAdress', addAddress);
 }
 
 export default Saga;

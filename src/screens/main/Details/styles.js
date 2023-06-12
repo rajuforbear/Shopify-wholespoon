@@ -5,7 +5,7 @@ import {
 } from 'react-native-responsive-screen';
 export default StyleSheet.create({
   container: {
-    height: hp(8),
+    height: hp(2),
     width: '100%',
     alignItems: 'center',
     //justifyContent:'center',
@@ -132,6 +132,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     opacity: 2,
+    alignSelf: 'center',
+    marginTop: wp(7),
   },
   title: {
     fontSize: wp(5),

@@ -18,6 +18,7 @@ export const MySlice = createSlice({
     item: [],
     deletCart: null,
     checkoutData: null,
+    checkout: null,
   },
   reducers: {
     getCollection: state => {
@@ -156,6 +157,16 @@ export const MySlice = createSlice({
     },
     updateCartFaill: state => {
       state.isLoading = false;
+    },
+    addAdressFaill: state => {
+      state.isLoading = false;
+    },
+    addAddressSucess: (state, action) => {
+      state.isLoading = false;
+      state.checkout = action.payload;
+    },
+    addAdress: state => {
+      state.isLoading = true;
     },
   },
 });
