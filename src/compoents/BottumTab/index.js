@@ -9,8 +9,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const BottumTab = () => {
-  const navigation = useNavigation();
+const BottumTab = ({navigation}) => {
   const renderHome = () => {
     return (
       <View style={[styles.itemConatiner]}>

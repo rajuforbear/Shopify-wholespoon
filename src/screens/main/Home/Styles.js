@@ -6,7 +6,7 @@ import {
 export default StyleSheet.create({
   conatainer: {
     flex: 1,
-    marginTop: wp(5),
+    //marginTop: wp(5),
     //#0f3a8d
   },
 

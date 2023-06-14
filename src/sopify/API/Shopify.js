@@ -1,6 +1,6 @@
 import {token, url} from '../Constants';
 import {client, client2} from './client';
-import {ShopifyCountryList} from 'react-native-shopify';
+
 //import { shopify } from '@shopify/shopify-api';
 import axios from 'axios';
 
@@ -95,11 +95,11 @@ class Shopify {
         console.log(er);
       });
   };
-  static shippingAddress = action => {
+  static shippingAddress = (check, address) => {
     //console.log('this is id by checkout', checkoutId);
     try {
       const res = client.checkout
-        .updateShippingAddress(action.check, action.address)
+        .updateShippingAddress(check, address)
         .then(checkout => {
           return checkout;
         });

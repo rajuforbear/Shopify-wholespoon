@@ -19,9 +19,12 @@ import Payment from '../screens/main/Payment';
 import OrderDetails from '../screens/main/OrderDetails';
 import AddressBook from '../screens/main/AdressBook';
 import Splash from '../screens/Auth/Splash';
+// npm i  @shopify/shopify-api
+// npm i react-native-shopify
+//npm i react-native-shopify@0.0.1-alpha.0
 
 const Stack = createStackNavigator();
-const myStack = () => {
+const MyStack = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -46,4 +49,4 @@ const myStack = () => {
     </NavigationContainer>
   );
 };
-export default myStack;
+export default MyStack;

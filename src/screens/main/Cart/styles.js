@@ -5,10 +5,10 @@ import {
 } from 'react-native-responsive-screen';
 export default StyleSheet.create({
   header: {
-    height: hp(6),
+    height: hp(6.5),
     backgroundColor: '#e6f0f2',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    //justifyContent: 'space-between',
     paddingHorizontal: wp(5),
     flexDirection: 'row',
   },
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     // borderWidth:1,
-    width: wp(38),
+
     alignItems: 'center',
   },
   card: {
@@ -56,7 +56,7 @@ export default StyleSheet.create({
   },
   listContainer: {
     height: hp(25),
-    backgroundColor: 'white',
+    backgroundColor: '#f2ede7',
     marginVertical: wp(1),
     paddingHorizontal: wp(2),
     flexDirection: 'row',
@@ -101,7 +101,7 @@ export default StyleSheet.create({
   btn: {
     height: hp(5.5),
     width: wp(95),
-    backgroundColor: '#0f3a8d',
+    backgroundColor: '#A97732',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: wp(1),

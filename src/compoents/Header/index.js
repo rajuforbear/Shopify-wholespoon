@@ -16,16 +16,18 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { useNavigation, StackActions } from '@react-navigation/native';
+import {useNavigation, StackActions} from '@react-navigation/native';
 const header = () => {
   const navigation = useNavigation();
   return (
-    <View style={{ width: '100%', backgroundColor: '#87CEEB' }}>
+    <View style={{width: '100%', backgroundColor: '#87CEEB'}}>
       <View style={[styles.container]}>
         <Feather
-          onPress={() => navigation.openDrawer()}
+          onPress={() => {
+            navigation.openDrawer();
+          }}
           name="menu"
-          style={{ fontSize: wp(9), marginLeft: '2%', color: 'white' }}
+          style={{fontSize: wp(9), marginLeft: '2%', color: 'white'}}
         />
         <View style={styles.search}>
           <AntDesign name="search1" size={wp(5.6)} color="grey" />

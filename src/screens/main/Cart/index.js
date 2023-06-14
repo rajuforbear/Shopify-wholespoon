@@ -57,7 +57,15 @@ const Cart = ({navigation}) => {
     });
   };
 
-  const createCheckout = () => {
+  const createCheckout = async () => {
+    let varients = [];
+    await cartItem?.lines?.edges?.map((item, index) => {
+      let variant = {
+        variantId: item.node.merchandise.id,
+        quantity: item.node.quantity,
+      };
+      varients.push(variant);
+    });
     let data = JSON.stringify({
       query: `mutation checkoutCreate($input: CheckoutCreateInput!) {
         checkoutCreate(input: $input) {
@@ -103,7 +111,7 @@ const Cart = ({navigation}) => {
           allowPartialAddresses: true,
           buyerIdentity: {countryCode: 'CA'},
           email: userData.email,
-          lineItems: verient,
+          lineItems: varients,
         },
         queueToken: '',
       },
@@ -113,7 +121,6 @@ const Cart = ({navigation}) => {
       data: data,
       navigation,
     });
-    console.log('this is the verient', verient);
   };
   const selectItem = (position, id, price, line) => {
     var lines = lineItems;
@@ -176,7 +183,7 @@ const Cart = ({navigation}) => {
   const handleRemove = id => {
     cartItemRemove(id);
   };
-  console.log(JSON.stringify(cartItem));
+  //console.log(JSON.stringify(cartItem));
   const itemPrice = () => {
     let selectedAmout = 0;
     let bool = false;
@@ -191,7 +198,7 @@ const Cart = ({navigation}) => {
 
     return 0;
   };
-  console.log(verient);
+  //console.log(verient);
 
   const cartLineUpdate = async lines => {
     const cartId = await AsyncStorage.getItem('cartId');
@@ -225,9 +232,10 @@ const Cart = ({navigation}) => {
       type: 'sopify/updateCart',
       data: data,
     });
-    //console.log(lines.quantity);
+    //console.log(lines.quantity); //quantity
   };
-  //  console.log(JSON.stringify(cartItem));
+  //  console.log(JSON.stringify(cartItem));//variantId
+  console.log(verient);
 
   return (
     <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
@@ -238,19 +246,28 @@ const Cart = ({navigation}) => {
             onPress={() => navigation.goBack()}
             name="arrowleft"
             size={wp(5.9)}
-            color="grey"
+            color="black"
           />
-          <Text style={{fontSize: wp(4.5), color: 'grey'}}>Shopping Bag</Text>
         </View>
-        <AntDesign name="hearto" style={{fontSize: wp(6), color: 'grey'}} />
+        <Text
+          style={{
+            fontSize: wp(5),
+            color: 'black',
+            alignSelf: 'center',
+            marginLeft: wp(25),
+            fontWeight: 'bold',
+          }}>
+          Your Cart
+        </Text>
+        {/* <AntDesign name="hearto" style={{fontSize: wp(6), color: 'grey'}} /> */}
       </View>
       <View style={{flex: 1}}>
-        <View style={{paddingVertical: wp(1), backgroundColor: '#f2f5f4'}}>
+        {/* <View style={{paddingVertical: wp(1), backgroundColor: 'red'}}>
           <View style={styles.item}>
             <View style={styles.cardCont}>
               <Ionicons
                 onPress={() => {}}
-                na69me="ios-checkbox-outline"
+                name="ios-checkbox-outline"
                 size={wp(6.9)}
                 color="green"
               />
@@ -275,7 +292,7 @@ const Cart = ({navigation}) => {
           <Text style={{marginLeft: wp(5), fontSize: wp(4), marginTop: wp(1)}}>
             Selected item Price : {itemPrice()}
           </Text>
-        </View>
+        </View> */}
 
         <FlatList
           data={cartItem?.lines.edges}
@@ -415,12 +432,12 @@ const Cart = ({navigation}) => {
                         {marginLeft: wp(3), width: wp(25)},
                       ]}>
                       <Text style={{color: 'grey', fontSize: wp(3.5)}}>
-                        details...
+                        Details...
                       </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={() => {
                     selectItem(
                       index,
@@ -443,7 +460,7 @@ const Cart = ({navigation}) => {
                     size={wp(4)}
                     color="white"
                   />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
             );
           }}

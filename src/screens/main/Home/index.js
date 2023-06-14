@@ -30,8 +30,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import Shopify from '../../../sopify/API/Shopify';
 import {getUserData} from '../../../sopify/Constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const Home = () => {
-  const navigation = useNavigation();
+import {url} from '../../../data/url';
+import WebView from 'react-native-webview';
+import YoutubeIframe from 'react-native-youtube-iframe';
+const Home = ({navigation}) => {
+  //const navigation = useNavigation();
   const silder = [
     require('../../../assests/image1.png'),
     require('../../../assests/mobile.png'),
@@ -42,6 +45,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const collection = useSelector(state => state.data.collection);
   const product = useSelector(state => state.data.products);
+  // console.log(product);
   const userData = useSelector(state => state.data.userData);
   const getCollection = () => {
     // console.log('the length....', collection.length);
@@ -52,12 +56,12 @@ const Home = () => {
   };
   const isFocused = useIsFocused();
   useEffect(() => {
-    if (collection.length <= 1) {
+    if (collection?.length <= 1) {
       getCollection();
     }
   }, []);
   useEffect(() => {
-    if (product.length <= 4) {
+    if (product?.length <= 4) {
       dispatch({type: 'sopify/fetchAllProducts', page: 'home'});
     }
   }, []);
@@ -68,7 +72,7 @@ const Home = () => {
   }, [dispatch]);
   const getUserData = async () => {
     const userToke = await AsyncStorage.getItem('Token');
-    console.log(userToke);
+
     let data = JSON.stringify({
       query: `query {
     customer(customerAccessToken:${JSON.stringify(userToke)}) {
@@ -95,7 +99,10 @@ const Home = () => {
       {/* <ImageBackground
         style={{flex: 1}}
         source={require('../../../assests/bgImg.jpg')}> */}
-      <ScrollView style={{width: '100%'}} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={{width: '100%'}}
+        contentContainerStyle={{paddingBottom: wp(2)}}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.conatainer}>
           <FlatList
             data={collection}
@@ -187,7 +194,10 @@ const Home = () => {
           <View style={styles.titleContainer}>
             <Text style={styles.category}>Top Categories</Text>
             <Text
-              onPress={() => navigation.navigate('Categories')}
+              onPress={() =>
+                //navigation.navigate('Categories')
+                dispatch({type: 'sopify/fetchAllProducts', page: 'home'})
+              }
               style={[
                 styles.category,
                 {
@@ -310,10 +320,33 @@ const Home = () => {
             }}
           />
         </View>
+        <View style={{paddingVertical: wp(1), marginTop: wp(-15)}}>
+          <Text
+            style={{fontSize: wp(4), textAlign: 'center', fontWeight: 'bold'}}>
+            MAKE YOUR MEALS IN MINUTES #COOKWITHWHOLESPOON #GIFTWITHWHOLESPOON
+          </Text>
+        </View>
+
+        <YoutubeIframe
+          height={hp(30)}
+          //play={playing}
+          videoId={'moTS8-17BSA'}
+          // onChangeState={onStateChange}
+        />
+
+        <View style={{marginTop: wp(-10)}}>
+          <SliderBox
+            images={url}
+            resizeMode="contain"
+            //sliderBoxHeight={hp(30)}
+            ImageComponentStyle={{height: hp(70), width: wp(100)}}
+            dotStyle={{height: 0, width: 0}}
+          />
+        </View>
       </ScrollView>
       {/* </ImageBackground> */}
 
-      <BottumTab />
+      <BottumTab navigation={navigation} />
     </View>
   );
 };

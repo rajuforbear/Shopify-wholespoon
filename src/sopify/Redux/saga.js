@@ -41,6 +41,7 @@ function* fetchProductOption(action) {
 function* fetAllProducts(action) {
   try {
     const products = yield call(Shopify.fetchAllProducts);
+    // console.log('this is the all products', products);
     yield put({type: 'sopify/fetchAllProductsSuccess', payload: products});
     if (action?.page != 'home') {
       action.navigation.navigate('ProductList');
@@ -148,7 +149,7 @@ function* getCartItem(action) {
   //console.log('raju barde');
   try {
     const res = yield call(Shopify.userControll, action.data);
-    console.log(JSON.stringify(res));
+    //console.log(JSON.stringify(res));
     yield put({
       type: 'sopify/getCartItemSuccess',
       payload: res?.data?.cart,
@@ -189,10 +190,10 @@ function* removeCartItem(action) {
   // console.log('remove called....');
 }
 function* createCheckout(action) {
-  console.log('create checkout called');
+  // console.log('create checkout called');
   try {
     const res = yield call(Shopify.userControll, action.data);
-    // console.log(JSON.stringify(res));
+    console.log('this is checkout data...', JSON.stringify(res));
 
     yield put({
       type: 'sopify/createCheckoutSuccess',
@@ -228,13 +229,17 @@ function* updateCart(action) {
   }
 }
 function* addAddress(action) {
+  let address = action.iseSevedAddres;
+  delete address.email;
+  let chek = action.check;
   try {
-    const res = yield call(Shopify.shippingAddress, action);
+    const res = yield call(Shopify.shippingAddress, chek, address);
+    console.log('this is res from add..', JSON.stringify(res));
     yield put({
       type: 'sopify/addAddressSucess',
       payload: res,
     });
-    action.navigation.navigate('Payment');
+    //action.navigation.navigate('Payment');
   } catch (err) {
     yield put({
       type: 'sopify/addAdressFaill',

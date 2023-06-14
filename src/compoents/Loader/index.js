@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 //import colors from '../colors';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 //Main loader component0
 export default class Loading extends React.Component {
@@ -18,7 +19,7 @@ export default class Loading extends React.Component {
           size={Platform.OS == 'ios' ? 10 : 40}
           color={'green'}
         />
-        <Text></Text>
+        <Text style={{marginTop: wp(4)}}>Loading....</Text>
       </View>
     );
   }
