@@ -24,7 +24,7 @@ export default StyleSheet.create({
     height: '72%',
     width: '65%',
     borderRadius: wp(5),
-    backgroundColor: '#f2f5f4',
+    backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: '4%',

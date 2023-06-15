@@ -17,7 +17,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     // borderWidth:1,
-    width: wp(30),
+    width: wp(55),
     alignItems: 'center',
   },
   card: {

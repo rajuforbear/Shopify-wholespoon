@@ -7,28 +7,63 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import Loading from '../../../compoents/Loader';
 //import { Products } from '../../../data/Products';
-const ProductList = () => {
+const ProductList = props => {
+  const dispatch = useDispatch();
+  const {title} = props.route.params;
   const navigation = useNavigation();
   const Products = useSelector(state => state.data.products);
-  //console.log('products....', Products);
+  const id = useSelector(state => state.data.id);
+  console.log('this is id', id);
+  console.log('products....', Products.length);
+  const isFetching = useSelector(state => state.data.isLoading);
+  const handleOnReachEnd = () => {
+    if (Products.length >= 9) {
+      let length = Products.length + 10;
+      if (id != 'home') {
+        dispatch({
+          type: 'sopify/fetchProductById',
+          prId: id,
+          navigation,
+          title: title,
+          length: length,
+        });
+      } else {
+        dispatch({
+          type: 'sopify/fetchAllProducts',
+          navigation,
+          title: 'Products',
+          id: 'home',
+          length: length,
+        });
+      }
+
+      console.log(length);
+    }
+  };
   return (
     <View style={styles.container}>
+      {isFetching ? <Loading /> : null}
       <View style={styles.header}>
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
+            //  borderWidth: 1,
+            width: wp(100),
+            marginLeft: wp(2),
           }}>
           <AntDesign
             onPress={() => navigation.goBack()}
             name="arrowleft"
-            size={wp(5)}
-            color="grey"
+            size={wp(6)}
+            color="black"
           />
-          <Text style={styles.txt}> Productlist</Text>
+          <Text style={styles.txt}> {title}</Text>
+          <View style={{width: '25%'}}></View>
         </View>
       </View>
       <View style={styles.CardContainer}>
@@ -36,10 +71,8 @@ const ProductList = () => {
           data={Products}
           numColumns={2}
           keyExtractor={(item, index) => index}
+          onEndReached={() => handleOnReachEnd()}
           renderItem={({item, index}) => {
-            if (index == 1) {
-              //console.log(JSON.stringify(item.variants[0].price.amount));
-            }
             return (
               <View style={styles.cardView}>
                 {/* <AntDesign name="hearto" style={styles.icon} /> */}

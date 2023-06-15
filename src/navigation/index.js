@@ -19,6 +19,7 @@ import Payment from '../screens/main/Payment';
 import OrderDetails from '../screens/main/OrderDetails';
 import AddressBook from '../screens/main/AdressBook';
 import Splash from '../screens/Auth/Splash';
+import About from '../screens/main/About';
 // npm i  @shopify/shopify-api
 // npm i react-native-shopify
 //npm i react-native-shopify@0.0.1-alpha.0
@@ -45,6 +46,7 @@ const MyStack = () => {
         <Stack.Screen name="Payment" component={Payment} />
         <Stack.Screen name="OrderDetails" component={OrderDetails} />
         <Stack.Screen name="AddressBook" component={AddressBook} />
+        <Stack.Screen name="About" component={About} />
       </Stack.Navigator>
     </NavigationContainer>
   );

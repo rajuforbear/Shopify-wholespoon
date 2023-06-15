@@ -36,11 +36,12 @@ const Categories = ({navigation}) => {
     });
   };
 
-  const fetchProductById = id => {
+  const fetchProductById = (id, title) => {
     dispatch({
       type: 'sopify/fetchProductById',
       prId: id,
       navigation,
+      title: title,
     });
   };
   // console.log('this is g=home ........................', JSON.stringify(data));
@@ -52,14 +53,12 @@ const Categories = ({navigation}) => {
           <AntDesign
             onPress={() => navigation.goBack()}
             name="arrowleft"
-            size={wp(5.9)}
-            color="grey"
+            size={wp(6)}
+            color="black"
           />
-          <Text style={{fontSize: wp(4.5), color: 'grey'}}>Categories</Text>
-        </View>
-        <View style={[styles.back, {width: wp(20)}]}>
-          <AntDesign name="hearto" style={{fontSize: wp(6), color: 'grey'}} />
-          <Feather name="shopping-bag" size={wp(6)} color="grey" />
+          <Text style={{fontSize: wp(5), color: 'black', fontWeight: '700'}}>
+            Categories
+          </Text>
         </View>
       </View>
       <View
@@ -81,7 +80,7 @@ const Categories = ({navigation}) => {
             }
             return (
               <TouchableOpacity
-                onPress={() => fetchProductById(item.id)}
+                onPress={() => fetchProductById(item.id, item.title)}
                 style={styles.card}>
                 {/* <Text
                   style={{

@@ -34,7 +34,7 @@ const Details = ({route, navigation}) => {
   const [show, setShow] = useState(false);
   const Products = useSelector(state => state.data.products);
   const [veriantId, setVariendtId] = useState();
-  const {item} = route.params;
+  const items = route.params.item;
   const [images, setImages] = useState([]);
   const dispatch = useDispatch();
   const isFetching = useSelector(state => state.data.isLoading);
@@ -42,16 +42,16 @@ const Details = ({route, navigation}) => {
   const [quantity, setQuantity] = useState(1);
   const setArr = () => {
     let arr = [];
-    item?.images?.map((item, index) => {
+    items?.images?.map((item, index) => {
       arr.push(item.src);
     });
     setImages(arr);
   };
   const [toolbox, setTogleBox] = useState();
-  const [variantVlaue, setVariantVlue] = useState(item.variants[0].title);
+  const [variantVlaue, setVariantVlue] = useState(items.variants[0].title);
   useEffect(() => {
     setArr();
-  }, [item]);
+  }, [items]);
   //console.log('this is the item', JSON.stringify(item));
   //console.log('image....', images);
   const getProductOption = () => {
@@ -339,9 +339,9 @@ const Details = ({route, navigation}) => {
               marginVertical: wp(3),
               height: hp(10),
             }}>
-            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.title}>{items.title}</Text>
             <FlatList
-              data={item.variants}
+              data={items.variants}
               renderItem={({item, index}) => {
                 if (item.title === variantVlaue) {
                   setVariendtId(item.id);
@@ -367,7 +367,7 @@ const Details = ({route, navigation}) => {
             />
           </View>
           <FlatList
-            data={item.variants}
+            data={items.variants}
             horizontal={true}
             renderItem={({item, index}) => {
               return (
@@ -422,7 +422,7 @@ const Details = ({route, navigation}) => {
             </TouchableOpacity>
             {show ? (
               <View style={{}}>
-                <HTMLView value={item.descriptionHtml} />
+                <HTMLView value={items.descriptionHtml} />
               </View>
             ) : null}
           </View>
@@ -550,25 +550,27 @@ const Details = ({route, navigation}) => {
               horizontal={true}
               keyExtractor={(item, index) => index}
               renderItem={({item, index}) => {
-                return (
-                  <View style={styles.cardView}>
-                    {/* <AntDesign name="hearto" style={styles.icon} /> */}
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('Details', {item})}
-                      style={styles.imgcontainer}>
-                      <Image
-                        style={styles.img}
-                        source={{uri: item.images[0].src}}
-                      />
-                    </TouchableOpacity>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <Text style={[styles.title, {marginVertical: wp(0)}]}>
-                      {item?.variants[0]?.price.amount +
-                        ' ' +
-                        item?.variants[0]?.price.currencyCode}
-                    </Text>
-                  </View>
-                );
+                if (item.title != items.title) {
+                  return (
+                    <View style={styles.cardView}>
+                      {/* <AntDesign name="hearto" style={styles.icon} /> */}
+                      <TouchableOpacity
+                        onPress={() => navigation.replace('Details', {item})}
+                        style={styles.imgcontainer}>
+                        <Image
+                          style={styles.img}
+                          source={{uri: item.images[0].src}}
+                        />
+                      </TouchableOpacity>
+                      <Text style={styles.title}>{item.title}</Text>
+                      <Text style={[styles.title, {marginVertical: wp(0)}]}>
+                        {item?.variants[0]?.price.amount +
+                          ' ' +
+                          item?.variants[0]?.price.currencyCode}
+                      </Text>
+                    </View>
+                  );
+                }
               }}
             />
           </View>

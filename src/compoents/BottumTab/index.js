@@ -13,13 +13,13 @@ const BottumTab = ({navigation}) => {
   const renderHome = () => {
     return (
       <View style={[styles.itemConatiner]}>
-        <SimpleLineIcons name="home" size={wp(7)} color="white" />
+        <SimpleLineIcons name="home" size={wp(7)} color="black" />
         <Text
           style={{
             textAlign: 'center',
             fontSize: wp(3.5),
             marginTop: wp(1),
-            color: 'white',
+            color: 'black',
           }}>
           Home
         </Text>
@@ -29,13 +29,13 @@ const BottumTab = ({navigation}) => {
   const renderUser = () => {
     return (
       <View style={[styles.itemConatiner]}>
-        <SimpleLineIcons name="user" size={wp(6)} color="white" />
+        <SimpleLineIcons name="user" size={wp(6)} color="black" />
         <Text
           style={{
             textAlign: 'center',
             fontSize: wp(3.5),
             marginTop: wp(1),
-            color: 'white',
+            color: 'black',
           }}>
           Profile
         </Text>
@@ -46,12 +46,12 @@ const BottumTab = ({navigation}) => {
   const renderCategoties = () => {
     return (
       <View style={[styles.itemConatiner]}>
-        <Feather name="grid" size={wp(6)} color="white" />
+        <Feather name="grid" size={wp(6)} color="black" />
         <Text
           style={{
             textAlign: 'center',
             fontSize: wp(3.5),
-            color: 'white',
+            color: 'black',
             marginTop: wp(1),
           }}>
           Categories
@@ -59,30 +59,15 @@ const BottumTab = ({navigation}) => {
       </View>
     );
   };
-  const renderFavorit = () => {
-    return (
-      <View style={[styles.itemConatiner]}>
-        <AntDesign name="hearto" size={wp(7)} color="white" />
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: wp(3.5),
-            color: 'white',
-            marginTop: wp(1),
-          }}>
-          Favorit
-        </Text>
-      </View>
-    );
-  };
+
   const renderCart = () => {
     return (
       <View style={[styles.itemConatiner]}>
-        <Feather color="white" name="shopping-bag" size={wp(7)} />
+        <Feather color="black" name="shopping-bag" size={wp(7)} />
         <Text
           style={{
             textAlign: 'center',
-            color: 'white',
+            color: 'black',
             fontSize: wp(3.5),
             marginTop: wp(1),
           }}>
@@ -105,11 +90,7 @@ const BottumTab = ({navigation}) => {
           onPress={() => navigation.navigate('Categories')}>
           {renderCategoties()}
         </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={9}
-          onPress={() => navigation.navigate('Favorite')}>
-          {renderFavorit()}
-        </TouchableOpacity>
+
         <TouchableOpacity
           activeOpacity={9}
           onPress={() => navigation.navigate('Cart')}>
@@ -129,7 +110,7 @@ export default BottumTab;
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '#87CEEB',
+    backgroundColor: '#e6f0f2',
     height: hp(8),
     position: 'absolute',
     bottom: 0,

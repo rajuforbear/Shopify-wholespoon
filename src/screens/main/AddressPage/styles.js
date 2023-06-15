@@ -18,8 +18,9 @@ export default StyleSheet.create({
     paddingHorizontal: wp(3),
   },
   txt: {
-    fontSize: wp(4),
-    color: 'grey',
+    fontSize: wp(5),
+    color: 'black',
+    fontWeight: '700',
   },
   contact: {
     height: hp(5),
@@ -81,7 +82,7 @@ export default StyleSheet.create({
     borderRadius: wp(1),
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: hp(5),
+    marginTop: wp(8),
   },
   mainList: {
     flexDirection: 'row',

@@ -17,10 +17,11 @@ class Shopify {
       console.log(err);
     }
   };
-  static fetchProductById = productId => {
+  static fetchProductById = (productId, length) => {
+    console.log('called by id');
     try {
       const product = client.collection
-        .fetchWithProducts(productId, {productsFirst: 10})
+        .fetchWithProducts(productId, {productsFirst: length})
         .then(collection => {
           // Do something with the collection
           // console.log('Pord........', collection);
@@ -75,9 +76,9 @@ class Shopify {
       console.log('this is the erroo', err);
     }
   };
-  static fetchAllProducts = () => {
+  static fetchAllProducts = length => {
     try {
-      const pr = client.product.fetchAll().then(products => {
+      const pr = client.product.fetchAll(length).then(products => {
         return products;
       });
       return pr;

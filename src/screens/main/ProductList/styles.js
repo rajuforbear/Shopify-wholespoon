@@ -18,8 +18,9 @@ export default StyleSheet.create({
     paddingHorizontal: wp(3),
   },
   txt: {
-    fontSize: wp(4),
-    color: 'grey',
+    fontSize: wp(5),
+    color: 'black',
+    fontWeight: '700',
   },
   cardView: {
     height: hp(28),

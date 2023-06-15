@@ -13,13 +13,23 @@ function* getCollection() {
 }
 function* getProductById(action) {
   try {
-    const data = yield call(Shopify.fetchProductById, action.prId);
-    yield put({type: 'sopify/fetchProductByIdSuccess', payload: data});
-    action.navigation.navigate('ProductList');
+    console.log('fetch product bt id calleda');
+    const data = yield call(
+      Shopify.fetchProductById,
+      action.prId,
+      action.length,
+    );
+    yield put({
+      type: 'sopify/fetchProductByIdSuccess',
+      payload: data,
+      id: action.prId,
+    });
+    action.navigation.navigate('ProductList', {title: action.title});
   } catch (err) {
     yield put({
       type: 'sopify/fetchProductByIdFaill',
     });
+    console.log(err);
   }
 }
 
@@ -40,14 +50,19 @@ function* fetchProductOption(action) {
 
 function* fetAllProducts(action) {
   try {
-    const products = yield call(Shopify.fetchAllProducts);
+    const products = yield call(Shopify.fetchAllProducts, action.length);
     // console.log('this is the all products', products);
-    yield put({type: 'sopify/fetchAllProductsSuccess', payload: products});
+    yield put({
+      type: 'sopify/fetchAllProductsSuccess',
+      payload: products,
+      id: action.id,
+    });
     if (action?.page != 'home') {
-      action.navigation.navigate('ProductList');
+      action.navigation.navigate('ProductList', {title: action.title});
     }
   } catch (err) {
     yield put({type: 'sopify/fetchAllProductsFaill'});
+    console.log(err);
   }
 }
 function* cartItem(action) {
@@ -87,7 +102,7 @@ function* doLogin(action) {
         type: 'sopify/userDataSuccess',
         payload: user.data.customer,
       });
-      action.navigation.navigate('Home');
+      action.navigation.replace('Home');
     } else {
       yield put({
         type: 'sopify/loginFail',
@@ -104,8 +119,24 @@ function* doLogin(action) {
   }
 }
 function* doRegister(action) {
-  const res = yield call(Shopify.userControll, action.data);
-  console.log('this is res from regis', JSON.stringify(res));
+  try {
+    const res = yield call(Shopify.userControll, action.data);
+    if (res.data) {
+      yield put({
+        type: 'sopify/registerSuccess',
+        payload: res.data.customerCreate.customer,
+      });
+      action.navigation.replace('Login');
+    } else {
+      yield put({
+        type: 'sopify/registerError',
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: 'sopify/registerError',
+    });
+  }
 }
 function* getUserData(action) {
   try {
@@ -247,6 +278,48 @@ function* addAddress(action) {
     console.log(err);
   }
 }
+function* fetchMenu(action) {
+  console.log('call 2');
+  try {
+    const res = yield call(Shopify.userControll, action.data);
+    if (res.data) {
+      yield put({
+        type: 'sopify/fetchMenuSuccess',
+        payload: res.data.menu,
+      });
+      action.navigation.openDrawer();
+    } else {
+      yield put({
+        type: 'sopify/fetchMenuError',
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: 'sopify/fetchMenuError',
+    });
+    console.log(err);
+  }
+}
+function* aboutUs(action) {
+  try {
+    const res = yield call(Shopify.userControll, action.data);
+    if (res.data) {
+      yield put({
+        type: 'sopify/aboutUsSuccess',
+        payload: res.data.page.body,
+      });
+      action.navigation.navigate('About');
+    } else {
+      yield put({
+        type: 'sopify/aboutUsFaill',
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: 'sopify/aboutUsFaill',
+    });
+  }
+}
 function* Saga() {
   yield takeEvery('sopify/getCollection', getCollection);
   yield takeEvery('sopify/fetchProductById', getProductById);
@@ -263,6 +336,8 @@ function* Saga() {
   yield takeEvery('sopify/createCheckout', createCheckout);
   yield takeEvery('sopify/updateCart', updateCart);
   yield takeEvery('sopify/addAdress', addAddress);
+  yield takeEvery('sopify/fetchMenu', fetchMenu);
+  yield takeEvery('sopify/aboutUs', aboutUs);
 }
 
 export default Saga;

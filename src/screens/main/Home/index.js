@@ -62,7 +62,7 @@ const Home = ({navigation}) => {
   }, []);
   useEffect(() => {
     if (product?.length <= 4) {
-      dispatch({type: 'sopify/fetchAllProducts', page: 'home'});
+      dispatch({type: 'sopify/fetchAllProducts', page: 'home', length: 10});
     }
   }, []);
   useEffect(() => {
@@ -118,7 +118,7 @@ const Home = ({navigation}) => {
                       source={{uri: item.image?.src}}
                       style={styles.photos}>
                       <View style={styles.con}>
-                        <View style={styles.ViewContainer}>
+                        {/* <View style={styles.ViewContainer}>
                           <Text
                             style={{
                               alignSelf: 'flex-start',
@@ -140,7 +140,7 @@ const Home = ({navigation}) => {
                             Sale Up To 70% Off
                           </Text>
                         </View>
-                        <View style={styles.img2}></View>
+                        <View style={styles.img2}></View> */}
                       </View>
                       {/* <TouchableOpacity style={styles.btn}>
                       <Text style={{color: 'white'}}>{'Shop Now ->'}</Text>
@@ -194,9 +194,9 @@ const Home = ({navigation}) => {
           <View style={styles.titleContainer}>
             <Text style={styles.category}>Top Categories</Text>
             <Text
-              onPress={() =>
-                //navigation.navigate('Categories')
-                dispatch({type: 'sopify/fetchAllProducts', page: 'home'})
+              onPress={
+                () => navigation.navigate('Categories')
+                // dispatch({type: 'sopify/fetchAllProducts', page: 'home'})
               }
               style={[
                 styles.category,
@@ -237,7 +237,17 @@ const Home = ({navigation}) => {
                 if (item.image) {
                   return (
                     <TouchableOpacity
-                      onPress={() => navigation.navigate('ProductList')}
+                      onPress={() =>
+                        // navigation.navigate('ProductList', {title: item.title})
+                        {
+                          dispatch({
+                            type: 'sopify/fetchProductById',
+                            prId: item.id,
+                            navigation,
+                            title: item.title,
+                          });
+                        }
+                      }
                       activeOpacity={8}
                       style={{
                         height: hp(15),
@@ -246,10 +256,18 @@ const Home = ({navigation}) => {
                         // borderWidth: 1,
                       }}>
                       {item.image ? (
-                        <Image
+                        <ImageBackground
                           style={styles.cardImage}
-                          source={{uri: item?.image.src}}
-                        />
+                          source={{uri: item?.image.src}}>
+                          <Text
+                            style={{
+                              color: 'white',
+                              fontSize: wp(4),
+                              fontWeight: '700',
+                            }}>
+                            {item.title}
+                          </Text>
+                        </ImageBackground>
                       ) : null}
                     </TouchableOpacity>
                   );
@@ -272,7 +290,13 @@ const Home = ({navigation}) => {
             </Text>
             <Text
               onPress={() => {
-                dispatch({type: 'sopify/fetchAllProducts', navigation});
+                dispatch({
+                  type: 'sopify/fetchAllProducts',
+                  navigation,
+                  title: 'Products',
+                  id: 'home',
+                  length: 10,
+                });
               }}
               style={[
                 styles.category,

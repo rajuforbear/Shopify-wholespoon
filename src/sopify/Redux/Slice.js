@@ -19,6 +19,9 @@ export const MySlice = createSlice({
     deletCart: null,
     checkoutData: null,
     checkout: null,
+    menu: null,
+    id: null,
+    about: null,
   },
   reducers: {
     getCollection: state => {
@@ -34,7 +37,8 @@ export const MySlice = createSlice({
       state.isLoading = true;
     },
     fetchProductByIdSuccess: (state, action) => {
-      (state.isLoading = false), (state.products = action.payload);
+      (state.isLoading = false),
+        ((state.products = action.payload), (state.id = action.id));
     },
     fetchProductByIdFaill: state => {
       state.isLoading = false;
@@ -74,7 +78,8 @@ export const MySlice = createSlice({
     fetchAllProductsSuccess: (state, action) => {
       (state.isLoading = false),
         (state.products = action.payload),
-        (state.checkoutId = action.checkId);
+        (state.checkoutId = action.checkId),
+        (state.id = action.id);
     },
     fetchAllProductsFlaill: (state, action) => {
       state.isLoading = false;
@@ -167,6 +172,25 @@ export const MySlice = createSlice({
     },
     addAdress: state => {
       state.isLoading = true;
+    },
+    fetchMenu: state => {
+      state.isLoading = true;
+    },
+    fetchMenuSuccess: (state, action) => {
+      state.isLoading = false;
+      state.menu = action.payload;
+    },
+    fetchMenuError: state => {
+      state.isLoading = false;
+    },
+    aboutUs: state => {
+      state.isLoading = true;
+    },
+    aboutUsSuccess: (state, action) => {
+      (state.isLoading = true), (state.about = action.payload);
+    },
+    aboutUsFail: state => {
+      state.isLoading = false;
     },
   },
 });

@@ -86,15 +86,17 @@ const Address = ({navigation}) => {
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
           }}>
           <AntDesign
             onPress={() => navigation.goBack()}
             name="arrowleft"
-            size={wp(5)}
-            color="grey"
+            size={wp(6)}
+            color="black"
           />
-          <Text style={styles.txt}> Add Address</Text>
+          <Text style={styles.txt}> Checkout</Text>
+          <View style={{width: '20%'}}></View>
         </View>
       </View>
       <ScrollView>
@@ -587,33 +589,34 @@ const Address = ({navigation}) => {
             </View>
           </View>
         )}
+
+        <TouchableOpacity
+          onPress={async () => {
+            if (toggleCheckBox) {
+              await AsyncStorage.setItem('address', JSON.stringify(address));
+              console.log('this is saved');
+            }
+            if (iseSevedAddres === null) {
+              setIsSavedAddress(address);
+              setSHow(true);
+            } else {
+              dispatch({
+                type: 'sopify/addAdress',
+                iseSevedAddres,
+                check: checkout.id,
+                navigation,
+              });
+              console.log(iseSevedAddres);
+            }
+          }}
+          style={styles.btn2}>
+          <Text style={{color: 'white', fontWeight: '500', fontSize: wp(3.5)}}>
+            {iseSevedAddres == null
+              ? 'Continue Shipping'
+              : 'Continue for Payment'}
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
-      <TouchableOpacity
-        onPress={async () => {
-          if (toggleCheckBox) {
-            await AsyncStorage.setItem('address', JSON.stringify(address));
-            console.log('this is saved');
-          }
-          if (iseSevedAddres === null) {
-            setIsSavedAddress(address);
-            setSHow(true);
-          } else {
-            dispatch({
-              type: 'sopify/addAdress',
-              iseSevedAddres,
-              check: checkout.id,
-              navigation,
-            });
-            console.log(iseSevedAddres);
-          }
-        }}
-        style={styles.btn2}>
-        <Text style={{color: 'white', fontWeight: '500', fontSize: wp(3.5)}}>
-          {iseSevedAddres == null
-            ? 'Continue Shipping'
-            : 'Continue for Payment'}
-        </Text>
-      </TouchableOpacity>
     </View>
   );
 };

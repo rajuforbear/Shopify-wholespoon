@@ -147,6 +147,8 @@ export default StyleSheet.create({
     width: '100%',
     //borderRadius: wp(3),
     resizeMode: 'cover',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     alignSelf: 'center',
