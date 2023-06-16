@@ -7,10 +7,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import MyStack from './src/navigation';
+import MyStack from './src/navigation/Helper/index.js';
 
 import {Provider} from 'react-redux';
 import store from './src/sopify/Redux/store';
+import Root from './src/Root';
+import RootNavigation from './src/navigation/index.js';
 
 const App = () => {
   return (
@@ -26,7 +28,7 @@ const App = () => {
             flex: 1,
             backgroundColor: '#e6f0f2',
           }}>
-          <MyStack />
+          <RootNavigation />
         </SafeAreaView>
       </Provider>
     </View>

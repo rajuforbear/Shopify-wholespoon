@@ -2,6 +2,7 @@ import {put, takeEvery, call} from 'redux-saga/effects';
 import Shopify from '../API/Shopify';
 import {getCollectionSuccess} from './Slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Alert} from 'react-native';
 
 function* getCollection() {
   try {
@@ -141,15 +142,24 @@ function* doRegister(action) {
 function* getUserData(action) {
   try {
     const user = yield call(Shopify.userControll, action.data);
-    console.log(JSON.stringify(user));
-    yield put({
-      type: 'sopify/userDataSuccess',
-      payload: user.data.customer,
-    });
+    console.log(user);
+    if (user.data) {
+      yield put({
+        type: 'sopify/userDataSuccess',
+        payload: user.data.customer,
+      });
+      if (action.page != 'home') {
+        action.navigation.navigate('Profile');
+      }
+    } else {
+      yield put({
+        type: 'sopify/userDataError',
+      });
+    }
   } catch (err) {
-    // yield put({
-    //   type: 'sopify/userDataError',
-    // });
+    yield put({
+      type: 'sopify/userDataError',
+    });
   }
 }
 function* createCart(action) {
@@ -168,7 +178,8 @@ function* createCart(action) {
       type: 'sopify/createCartSuccess',
       payload: tempdartdata,
     });
-    action.navigation.navigate('Cart');
+    //action.navigation.navigate('Cart');
+    Alert.alert('Added successs');
   } catch (error) {
     yield put({
       type: 'sopify/createCartError',

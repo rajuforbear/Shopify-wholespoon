@@ -1,6 +1,7 @@
 import {View, Text, Image} from 'react-native';
 import React, {useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import netinfo from '@react-native-community/netinfo';
 
 const Splash = ({navigation}) => {
   useEffect(() => {
@@ -9,7 +10,18 @@ const Splash = ({navigation}) => {
     }, 2000);
   }, []);
   const goTo = async () => {
-    navigation.navigate('Home');
+    // if (netinfo.isConnected === true) {
+    //   navigation.navigate('Home');
+    // } else {
+    //   navigation.navigate('Internet');
+    // }
+    netinfo.addEventListener(state => {
+      if (state.isConnected) {
+        navigation.navigate('Home');
+      } else {
+        navigation.navigate('Internet');
+      }
+    });
   };
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

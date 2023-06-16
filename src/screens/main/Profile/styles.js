@@ -119,4 +119,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  title: {
+    alignSelf: 'center',
+    marginTop: wp(5),
+    fontWeight: 'bold',
+    fontSize: wp(5),
+  },
+  line: {
+    borderWidth: wp(0.5),
+    width: wp(25),
+    alignSelf: 'center',
+    borderRadius: wp(3),
+    marginTop: wp(1),
+  },
 });

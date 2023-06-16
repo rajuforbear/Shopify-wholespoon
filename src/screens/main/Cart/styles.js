@@ -55,7 +55,7 @@ export default StyleSheet.create({
     width: wp(42),
   },
   listContainer: {
-    height: hp(25),
+    height: hp(20),
     backgroundColor: '#f2ede7',
     marginVertical: wp(1),
     paddingHorizontal: wp(2),
@@ -64,9 +64,9 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   imgContainer: {
-    height: '85%',
+    height: hp(20),
     width: '40%',
-    marginTop: '-5%',
+    marginTop: '3%',
     //backgroundColor: '#e6f0f2',
   },
   img: {
@@ -105,6 +105,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: wp(1),
+    marginBottom: wp(30),
   },
   btnText: {
     fontSize: wp(4),
@@ -112,7 +113,7 @@ export default StyleSheet.create({
     color: 'white',
   },
   quantity: {
-    height: hp(4),
+    height: '100%',
     width: hp(4),
     alignItems: 'center',
     // borderWidth: 1,
@@ -122,8 +123,8 @@ export default StyleSheet.create({
   },
   quantityContainer: {
     flexDirection: 'row',
-    height: hp(4.5),
-    width: '100%',
+    height: hp(4),
+    width: '60%',
     justifyContent: 'space-between',
     alignItems: 'center',
 
@@ -148,9 +149,11 @@ export default StyleSheet.create({
   },
   btnContainer: {
     // borderWidth: 1,
-    marginTop: wp(8),
-    width: '100%',
+    marginTop: wp(5),
+    width: '90%',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   delebtn: {
     backgroundColor: '#ededed',

@@ -48,7 +48,7 @@ const Categories = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
       {isLoading ? <Loader /> : null}
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <View style={styles.back}>
           <AntDesign
             onPress={() => navigation.goBack()}
@@ -60,7 +60,7 @@ const Categories = ({navigation}) => {
             Categories
           </Text>
         </View>
-      </View>
+      </View> */}
       <View
         style={{
           flex: 1,

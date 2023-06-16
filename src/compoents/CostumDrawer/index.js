@@ -36,12 +36,13 @@ const CostumDrawer = props => {
   });
   const navigation = useNavigation();
   const [token, setToken] = useState('');
+  //console.log('thisi ss token', token);
   const getToken = async () => {
     let Token = await AsyncStorage.getItem('Token');
     setToken(Token);
   };
   const menu = useSelector(state => state.data.menu);
-  console.log('this is menu', menu);
+  // console.log('this is menu', menu);
   const handleOnPress = (type, title, id) => {
     let data = JSON.stringify({
       query: `{
@@ -73,16 +74,199 @@ const CostumDrawer = props => {
       await AsyncStorage.clear();
       navigation.replace('Home');
     } else {
-      navigation.navigate('Login');
+    
     }
+  
   };
   const handleProfile = () => {
+    let data = JSON.stringify({
+      query: `query{
+        customer(customerAccessToken:${JSON.stringify(token)}){
+            firstName
+            lastName
+            email
+            acceptsMarketing
+            createdAt
+            numberOfOrders
+            defaultAddress{
+                address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+            }
+            addresses(first:10){
+                nodes{
+                    address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                }
+                edges{
+                    cursor
+                    node{
+                        address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                    }
+                }
+            }
+            orders(first:10){
+                edges{
+                    cursor
+                    node{
+                        billingAddress{
+                            address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                        }
+                    }
+                }
+               nodes{
+                   billingAddress{
+                        address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                   }
+                   canceledAt
+                   cancelReason
+                   currencyCode
+                  currentSubtotalPrice{
+                      amount
+                      currencyCode
+                  }
+                  totalPrice{
+                      amount
+                      currencyCode
+                  }
+                  subtotalPrice{
+                      amount
+                      currencyCode
+                  }
+                  currentTotalDuties{
+                      amount
+                      currencyCode
+                  }
+                  billingAddress{
+                      address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                  }
+                  email
+                  totalShippingPrice{
+                      amount
+                      currencyCode
+                  }
+                  originalTotalPrice{
+                      amount
+                      currencyCode
+                  }
+                  orderNumber
+                 
+               }
+            }
+        }
+    }`,
+      variables: {},
+    });
     if (token === null) {
       navigation.navigate('Register');
     } else {
-      navigation.navigate('Profile');
+      dispatch({
+        type: 'sopify/userDatareq',
+        data: data,
+        page: 'raju',
+        navigation,
+      });
     }
   };
+  console.log(token);
 
   return (
     <View style={{height: hp(100), backgroundColor: 'black'}}>
@@ -95,7 +279,7 @@ const CostumDrawer = props => {
         <View style={styles.input}>
           <TextInput
             placeholder="Search our store"
-            style={{fontSize: wp(4)}}
+            style={{fontSize: wp(4), flex: 1}}
             placeholderTextColor={'grey'}
           />
           <View style={styles.searchIocnCOntianer}>
@@ -206,7 +390,7 @@ export default CostumDrawer;
 const styles = StyleSheet.create({
   input: {
     backgroundColor: 'white',
-    height: hp(4.7),
+    height: hp(5.7),
     marginHorizontal: wp(4),
     marginTop: wp(5),
     borderRadius: wp(1),

@@ -231,7 +231,7 @@ const Details = ({route, navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
       {isFetching ? <Loading /> : null}
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.btn2}>
@@ -246,8 +246,8 @@ const Details = ({route, navigation}) => {
             fontWeight: 'bold',
           }}>
           {item?.title}
-        </Text> */}
-      </View>
+        </Text>
+      </View> */}
       <View style={styles.details}>
         <ScrollView
           contentContainerStyle={{
@@ -280,13 +280,21 @@ const Details = ({route, navigation}) => {
           />
 
           <View style={styles.cont}>
-            <TouchableOpacity
+            <View
               onPress={() => getProductOption()}
               style={[styles.prDeta, {flexDirection: 'row'}]}>
-              <Text style={{fontSize: wp(4)}}>Options</Text>
+              {/* <Text style={{fontSize: wp(4)}}>Options</Text>
 
-              <EvilIcons name="chevron-down" size={wp(9)} />
-            </TouchableOpacity>
+              <EvilIcons name="chevron-down" size={wp(9)} /> */}
+              <View style={styles.ratting}>
+                <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
+                <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
+                <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
+                <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
+                <AntDesign name="staro" size={wp(3.5)} color="#FFD700" />
+                <Text style={{fontSize: wp(3)}}>{'(170)'}</Text>
+              </View>
+            </View>
             <View style={styles.quantityContainer}>
               <TouchableOpacity
                 onPress={() => {
@@ -317,14 +325,6 @@ const Details = ({route, navigation}) => {
                 <Entypo name="plus" size={wp(4.5)} />
               </TouchableOpacity>
             </View>
-          </View>
-          <View style={styles.ratting}>
-            <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
-            <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
-            <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
-            <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
-            <AntDesign name="staro" size={wp(3.5)} color="#FFD700" />
-            <Text style={{fontSize: wp(3)}}>{'(170)'}</Text>
           </View>
 
           {/* <TouchableOpacity onPress={() => setArr()} style={styles.btn}>

@@ -5,7 +5,6 @@ import {
 } from 'react-native-responsive-screen';
 export default StyleSheet.create({
   container: {
-    height: hp(7),
     width: '100%',
     alignItems: 'center',
 
@@ -18,6 +17,7 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.15,
     shadowRadius: 2.84,
+    justifyContent: 'space-between',
   },
   search: {
     // borderWidth:1,
@@ -37,5 +37,29 @@ export default StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 2.84,
     marginLeft: '4%',
+  },
+  bell: {
+    height: '72%',
+    width: '11%',
+    //borderWidth: 1,
+    //marginLeft: '6%',
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ebeded',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2.84,
+  },
+  container2: {
+    width: wp(20),
+    marginRight: wp(7),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

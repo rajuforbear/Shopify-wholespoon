@@ -81,7 +81,7 @@ const Address = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <View
           style={{
             flexDirection: 'row',
@@ -98,8 +98,8 @@ const Address = ({navigation}) => {
           <Text style={styles.txt}> Checkout</Text>
           <View style={{width: '20%'}}></View>
         </View>
-      </View>
-      <ScrollView>
+      </View> */}
+      <ScrollView contentContainerStyle={{paddingBottom: wp(20)}}>
         <View
           style={[
             styles.contact,
@@ -354,6 +354,12 @@ const Address = ({navigation}) => {
                 }}
                 onSelect={(selectedItem, index) => {
                   handleonSubmit('country', selectedItem);
+                }}
+                // dropdownOverlayColor="red"
+                style={{
+                  button: {
+                    backgroundColor: 'red',
+                  },
                 }}
               />
               <Fontisto

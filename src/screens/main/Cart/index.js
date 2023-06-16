@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import BottumTab from '../../../compoents/BottumTab';
 import styles from './styles';
 import {
@@ -24,6 +31,7 @@ const Cart = ({navigation}) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const cartItem = useSelector(state => state.data.cartItem);
+  console.log('this ithe', cartItem);
   const isLoading = useSelector(state => state.data.isLoading);
   const [selectedItem, setSelectedItem] = useState(
     new Array(cartItem?.lines.edges.length).fill({checked: false}),
@@ -240,7 +248,8 @@ const Cart = ({navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
       {isLoading ? <Loading /> : null}
-      <View style={styles.header}>
+
+      {/* <View style={styles.header}>
         <View style={styles.back}>
           <AntDesign
             onPress={() => navigation.goBack()}
@@ -259,8 +268,8 @@ const Cart = ({navigation}) => {
           }}>
           Your Cart
         </Text>
-        {/* <AntDesign name="hearto" style={{fontSize: wp(6), color: 'grey'}} /> */}
-      </View>
+        {/* <AntDesign name="hearto" style={{fontSize: wp(6), color: 'grey'}} /> 
+      </View> */}
       {cartItem ? (
         <View style={{flex: 1}}>
           {/* <View style={{paddingVertical: wp(1), backgroundColor: 'red'}}>
@@ -297,6 +306,7 @@ const Cart = ({navigation}) => {
 
           <FlatList
             data={cartItem?.lines.edges}
+            //scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index}
             onEndReached={() => {
@@ -312,46 +322,6 @@ const Cart = ({navigation}) => {
                         uri: item?.node.merchandise.product?.featuredImage.url,
                       }}
                     />
-                    <View style={styles.quantityContainer}>
-                      <TouchableOpacity
-                        onPress={() =>
-                          cartLineUpdate({
-                            verId: item.node.merchandise.id,
-                            quantity: parseInt(item.node.quantity) - 1,
-                            cartLineId: item.node.id,
-                          })
-                        }
-                        style={styles.quantity}>
-                        {item.node.quantity >= 2 ? (
-                          <Entypo name="minus" size={wp(4.5)} />
-                        ) : (
-                          <Mat name="delete-outline" size={wp(6.5)} />
-                        )}
-                      </TouchableOpacity>
-                      <View
-                        style={{
-                          height: '100%',
-                          backgroundColor: 'lightgrey',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '40%',
-                        }}>
-                        <Text style={{fontSize: wp(4), fontWeight: '600'}}>
-                          {item.node.quantity}
-                        </Text>
-                      </View>
-                      <TouchableOpacity
-                        onPress={() =>
-                          cartLineUpdate({
-                            verId: item.node.merchandise.id,
-                            quantity: parseInt(item.node.quantity) + 1,
-                            cartLineId: item.node.id,
-                          })
-                        }
-                        style={styles.quantity}>
-                        <Entypo name="plus" size={wp(4.5)} />
-                      </TouchableOpacity>
-                    </View>
                   </View>
 
                   <View style={styles.itemContainer}>
@@ -421,6 +391,46 @@ const Cart = ({navigation}) => {
                       14 days return policy
                     </Text>
                     <View style={styles.btnContainer}>
+                      <View style={styles.quantityContainer}>
+                        <TouchableOpacity
+                          onPress={() =>
+                            cartLineUpdate({
+                              verId: item.node.merchandise.id,
+                              quantity: parseInt(item.node.quantity) - 1,
+                              cartLineId: item.node.id,
+                            })
+                          }
+                          style={styles.quantity}>
+                          {item.node.quantity >= 2 ? (
+                            <Entypo name="minus" size={wp(4.5)} />
+                          ) : (
+                            <Mat name="delete-outline" size={wp(6.5)} />
+                          )}
+                        </TouchableOpacity>
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: 'lightgrey',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '40%',
+                          }}>
+                          <Text style={{fontSize: wp(4), fontWeight: '600'}}>
+                            {item.node.quantity}
+                          </Text>
+                        </View>
+                        <TouchableOpacity
+                          onPress={() =>
+                            cartLineUpdate({
+                              verId: item.node.merchandise.id,
+                              quantity: parseInt(item.node.quantity) + 1,
+                              cartLineId: item.node.id,
+                            })
+                          }
+                          style={styles.quantity}>
+                          <Entypo name="plus" size={wp(4.5)} />
+                        </TouchableOpacity>
+                      </View>
                       <TouchableOpacity
                         onPress={() => {
                           handleRemove(item.node.id);
@@ -428,15 +438,6 @@ const Cart = ({navigation}) => {
                         style={styles.delebtn}>
                         <Text style={{color: 'grey', fontSize: wp(3.5)}}>
                           Delete
-                        </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={[
-                          styles.delebtn,
-                          {marginLeft: wp(3), width: wp(25)},
-                        ]}>
-                        <Text style={{color: 'grey', fontSize: wp(3.5)}}>
-                          Details...
                         </Text>
                       </TouchableOpacity>
                     </View>

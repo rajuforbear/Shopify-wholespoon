@@ -90,12 +90,13 @@ const Home = ({navigation}) => {
     dispatch({
       type: 'sopify/userDatareq',
       data: data,
+      page: 'home',
+      navigation,
     });
   };
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Header />
       {/* <ImageBackground
         style={{flex: 1}}
         source={require('../../../assests/bgImg.jpg')}> */}
@@ -369,8 +370,6 @@ const Home = ({navigation}) => {
         </View>
       </ScrollView>
       {/* </ImageBackground> */}
-
-      <BottumTab navigation={navigation} />
     </View>
   );
 };
