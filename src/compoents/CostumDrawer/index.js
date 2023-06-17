@@ -29,7 +29,8 @@ import Loading from '../Loader';
 
 const CostumDrawer = props => {
   const [show, setShow] = useState(false);
-  const isLoading = useSelector(state => state.isLoading);
+  const isLoading = useSelector(state => state.data.isLoading);
+  console.log('this is isLoadinf', isLoading);
   const dispatch = useDispatch();
   useEffect(() => {
     getToken();
@@ -74,10 +75,10 @@ const CostumDrawer = props => {
       await AsyncStorage.clear();
       navigation.replace('Home');
     } else {
-    
+      navigation.navigate('Login');
     }
-  
   };
+  const userData = useSelector(state => state.data.userData);
   const handleProfile = () => {
     let data = JSON.stringify({
       query: `query{
@@ -376,7 +377,18 @@ const CostumDrawer = props => {
             </Text>
 
             <Text
-              onPress={() => handleProfile()}
+              onPress={() => {
+                if (
+                  userData === null ||
+                  userData === undefined ||
+                  token === null ||
+                  token === undefined
+                ) {
+                  handleProfile();
+                } else {
+                  navigation.navigate('Profile');
+                }
+              }}
               style={{color: 'lightgrey', marginTop: wp(4), fontSize: wp(5)}}>
               {token === null ? 'Create an Account' : 'Profile'}
             </Text>

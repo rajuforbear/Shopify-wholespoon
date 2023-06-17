@@ -12,8 +12,199 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {query} from '../../screens/main/Cart/queries';
 import {useSelector, useDispatch} from 'react-redux';
 const BottumTab = ({navigation}) => {
+  const handleProfile = async () => {
+    const token = await AsyncStorage.getItem('Token');
+
+    let data = JSON.stringify({
+      query: `query{
+        customer(customerAccessToken:${JSON.stringify(token)}){
+            firstName
+            lastName
+            email
+            acceptsMarketing
+            createdAt
+            numberOfOrders
+            defaultAddress{
+                address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+            }
+            addresses(first:10){
+                nodes{
+                    address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                }
+                edges{
+                    cursor
+                    node{
+                        address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                    }
+                }
+            }
+            orders(first:10){
+                edges{
+                    cursor
+                    node{
+                        billingAddress{
+                            address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                        }
+                    }
+                }
+               nodes{
+                   billingAddress{
+                        address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                   }
+                   canceledAt
+                   cancelReason
+                   currencyCode
+                  currentSubtotalPrice{
+                      amount
+                      currencyCode
+                  }
+                  totalPrice{
+                      amount
+                      currencyCode
+                  }
+                  subtotalPrice{
+                      amount
+                      currencyCode
+                  }
+                  currentTotalDuties{
+                      amount
+                      currencyCode
+                  }
+                  billingAddress{
+                      address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                  }
+                  email
+                  totalShippingPrice{
+                      amount
+                      currencyCode
+                  }
+                  originalTotalPrice{
+                      amount
+                      currencyCode
+                  }
+                  orderNumber
+                 
+               }
+            }
+        }
+    }`,
+      variables: {},
+    });
+    if (token != null || token != undefined) {
+      dispatch({
+        type: 'sopify/userDatareq',
+        data: data,
+        page: 'raju',
+        navigation,
+      });
+    } else {
+      navigation.navigate('Login');
+    }
+  };
   const dispatch = useDispatch();
   const cartItem = useSelector(state => state.data.cartItem);
+  const userData = useSelector(state => state.data.userData);
   console.log('this is the cartItme', cartItem?.lines?.edges?.length);
   useEffect(() => {
     getCartItem();
@@ -141,7 +332,13 @@ const BottumTab = ({navigation}) => {
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={9}
-          onPress={() => navigation.navigate('Profile')}>
+          onPress={() => {
+            if (userData === null || userData === undefined) {
+              handleProfile();
+            } else {
+              navigation.navigate('Profile');
+            }
+          }}>
           {renderUser()}
         </TouchableOpacity>
       </View>

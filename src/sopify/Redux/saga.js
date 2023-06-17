@@ -73,35 +73,16 @@ function* cartItem(action) {
 function* doLogin(action) {
   try {
     const res = yield call(Shopify.userControll, action.data);
-    console.log(JSON.stringify(res));
+    //console.log(JSON.stringify(res));
     const costumerToken =
       res.data.customerAccessTokenCreate.customerAccessToken?.accessToken;
     console.log(costumerToken);
     if (costumerToken != null) {
       yield AsyncStorage.setItem('Token', costumerToken);
-      let data = JSON.stringify({
-        query: `query {
-      customer(customerAccessToken:${JSON.stringify(costumerToken)}) {
-        id
-        firstName
-        lastName
-        acceptsMarketing
-        email
-        phone
-      }
-    }`,
-        variables: {},
-      });
       yield put({
         type: 'sopify/loginSuccess',
         payload:
           res?.data.customerAccessTokenCreate.customerAccessToken.accessToken,
-      });
-      const user = yield call(Shopify.userControll, data);
-      // console.log(user);
-      yield put({
-        type: 'sopify/userDataSuccess',
-        payload: user.data.customer,
       });
       action.navigation.replace('Home');
     } else {

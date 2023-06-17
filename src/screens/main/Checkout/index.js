@@ -25,7 +25,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import SelectDropdown from 'react-native-select-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Address = ({navigation}) => {
+const Checkout = ({navigation}) => {
   const dispatch = useDispatch();
   const checkout = useSelector(state => state.data.checkoutData);
   const checoutAfterAddress = useSelector(state => state.data.checkout);
@@ -627,4 +627,4 @@ const Address = ({navigation}) => {
   );
 };
 
-export default Address;
+export default Checkout;

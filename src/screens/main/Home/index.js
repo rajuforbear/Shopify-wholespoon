@@ -33,6 +33,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {url} from '../../../data/url';
 import WebView from 'react-native-webview';
 import YoutubeIframe from 'react-native-youtube-iframe';
+import Loading from '../../../compoents/Loader';
 const Home = ({navigation}) => {
   //const navigation = useNavigation();
   const silder = [
@@ -44,6 +45,7 @@ const Home = ({navigation}) => {
   const dele = item => {};
   const dispatch = useDispatch();
   const collection = useSelector(state => state.data.collection);
+  const isLoading = useSelector(state => state.data.isLoading);
   const product = useSelector(state => state.data.products);
   // console.log(product);
   const userData = useSelector(state => state.data.userData);
@@ -74,16 +76,179 @@ const Home = ({navigation}) => {
     const userToke = await AsyncStorage.getItem('Token');
 
     let data = JSON.stringify({
-      query: `query {
-    customer(customerAccessToken:${JSON.stringify(userToke)}) {
-      id
-      firstName
-      lastName
-      acceptsMarketing
-      email
-      phone
-    }
-  }`,
+      query: `query{
+        customer(customerAccessToken:${JSON.stringify(userToke)}){
+            firstName
+            lastName
+            email
+            acceptsMarketing
+            createdAt
+            numberOfOrders
+            defaultAddress{
+                address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+            }
+            addresses(first:10){
+                nodes{
+                    address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                }
+                edges{
+                    cursor
+                    node{
+                        address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                    }
+                }
+            }
+            orders(first:10){
+                edges{
+                    cursor
+                    node{
+                        billingAddress{
+                            address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                        }
+                    }
+                }
+               nodes{
+                   billingAddress{
+                        address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                   }
+                   canceledAt
+                   cancelReason
+                   currencyCode
+                  currentSubtotalPrice{
+                      amount
+                      currencyCode
+                  }
+                  totalPrice{
+                      amount
+                      currencyCode
+                  }
+                  subtotalPrice{
+                      amount
+                      currencyCode
+                  }
+                  currentTotalDuties{
+                      amount
+                      currencyCode
+                  }
+                  billingAddress{
+                      address1
+                            address2
+                            city
+                            company
+                            country
+                            countryCodeV2
+                            firstName
+                            formatted
+                            formattedArea
+                            id
+                            lastName
+                            latitude
+                            longitude
+                            zip
+                            provinceCode
+                            province
+                            phone
+                            name
+                  }
+                  email
+                  totalShippingPrice{
+                      amount
+                      currencyCode
+                  }
+                  originalTotalPrice{
+                      amount
+                      currencyCode
+                  }
+                  orderNumber
+                 
+               }
+            }
+        }
+    }`,
       variables: {},
     });
     //console.log(userToke);
@@ -97,6 +262,7 @@ const Home = ({navigation}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
+      {isLoading ? <Loading /> : null}
       {/* <ImageBackground
         style={{flex: 1}}
         source={require('../../../assests/bgImg.jpg')}> */}

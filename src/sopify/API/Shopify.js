@@ -1,7 +1,6 @@
 import {token, url} from '../Constants';
 import {client, client2} from './client';
-
-//import { shopify } from '@shopify/shopify-api';
+// import {Shopify} from '@shopify/shopify-api';
 import axios from 'axios';
 
 class Shopify {
@@ -163,6 +162,38 @@ class Shopify {
         console.log(error);
       });
     return check;
+  };
+
+  static province = () => {
+    const shopifyStorefrontUrl = 'wholespoon-india.myshopify.com';
+    const storefrontAccessToken = 'd099c1a3a200a215e22a93f50d551938';
+    const countryIsoCode = 'IN'; // Replace with the desired country ISO code
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: `${shopifyStorefrontUrl}/admin/api/2023-04/countries/${countryIsoCode}.json`,
+      headers: {
+        'X-Shopify-Storefront-Access-Token': token,
+        'Access-Control-Origin': '*',
+        'Content-Type': 'application/json',
+      },
+      // data: query,
+    };
+    fetch(
+      `${shopifyStorefrontUrl}/admin/api/2021-09/countries/${countryIsoCode}.json`,
+      {
+        headers: {
+          'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
+        },
+      },
+    )
+      .then(res => {
+        console.log(res);
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(eerr => console.log(eerr));
   };
 }
 export default Shopify;
