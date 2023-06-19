@@ -30,7 +30,7 @@ import Loading from '../Loader';
 const CostumDrawer = props => {
   const [show, setShow] = useState(false);
   const isLoading = useSelector(state => state.data.isLoading);
-  console.log('this is isLoadinf', isLoading);
+  //console.log('this is isLoadinf', isLoading);
   const dispatch = useDispatch();
   useEffect(() => {
     getToken();
@@ -61,10 +61,11 @@ const CostumDrawer = props => {
         navigation,
         title: title,
         length: 10,
+        page: 'home',
       });
     } else if (type === 'PAGE') {
       dispatch({
-        type: 'sopify/aboutUs',
+        type: 'sopify/pageDeatails',
         data: data,
         navigation,
       });
@@ -79,6 +80,8 @@ const CostumDrawer = props => {
     }
   };
   const userData = useSelector(state => state.data.userData);
+  const pages = useSelector(state => state.data.pages);
+
   const handleProfile = () => {
     let data = JSON.stringify({
       query: `query{
@@ -267,7 +270,56 @@ const CostumDrawer = props => {
       });
     }
   };
-  console.log(token);
+
+  const fetchPeges = () => {
+    let data = JSON.stringify({
+      query: `{
+        pages(first:10){
+            edges{
+                cursor
+                node{
+                    body
+                    bodySummary
+                    createdAt
+                    handle
+                    id
+                    onlineStoreUrl
+                    seo{
+                        description
+                        title
+                    }
+                    title
+                    updatedAt
+                    
+                }
+                node{
+                    body
+                    bodySummary
+                    createdAt
+                    handle
+                    id
+                    onlineStoreUrl
+                    seo{
+                        description
+                        title
+                    }
+                    title
+                    updatedAt
+                    
+                }
+            }
+        }
+    }`,
+      variables: {},
+    });
+    dispatch({
+      type: 'sopify/fetchPages',
+      data: data,
+    });
+  };
+  useEffect(() => {
+    fetchPeges();
+  }, []);
 
   return (
     <View style={{height: hp(100), backgroundColor: 'black'}}>
@@ -362,37 +414,66 @@ const CostumDrawer = props => {
               );
             }}
           />
+          <Text
+            onPress={() => handleLogin()}
+            style={[styles.title, {marginTop: wp(1)}]}>
+            {token === null ? 'Login' : 'Logout'}
+          </Text>
 
+          <Text
+            onPress={() => {
+              if (
+                userData === null ||
+                userData === undefined ||
+                token === null ||
+                token === undefined
+              ) {
+                handleProfile();
+              } else {
+                navigation.navigate('Profile');
+              }
+            }}
+            style={[styles.title, {marginTop: wp(4)}]}>
+            {token === null ? 'Create an Account' : 'Profile'}
+          </Text>
           {/*  <View style={{marginLeft: wp(14)}}>
           <Text style={styles.terms}>FAQs</Text>
           <Text style={styles.terms}>ABOUT US</Text>
           <Text style={styles.terms}>TERMS OF USE</Text>
           <Text style={styles.terms}>PRIVACY POLICY</Text>
         </View>*/}
-          <View style={{marginTop: wp(5)}}>
-            <Text
-              onPress={() => handleLogin()}
-              style={{color: 'lightgrey', marginTop: wp(4), fontSize: wp(5)}}>
-              {token === null ? 'Login' : 'Logout'}
-            </Text>
-
-            <Text
-              onPress={() => {
-                if (
-                  userData === null ||
-                  userData === undefined ||
-                  token === null ||
-                  token === undefined
-                ) {
-                  handleProfile();
-                } else {
-                  navigation.navigate('Profile');
-                }
-              }}
-              style={{color: 'lightgrey', marginTop: wp(4), fontSize: wp(5)}}>
-              {token === null ? 'Create an Account' : 'Profile'}
-            </Text>
-          </View>
+          <View style={{marginTop: wp(5)}}></View>
+          <FlatList
+            scrollEnabled={false}
+            data={pages.pages?.edges}
+            keyExtractor={(item, index) => index}
+            renderItem={({item, index}) => {
+              return (
+                <View style={{marginTop: wp(1)}}>
+                  <Text
+                    onPress={() => {
+                      let data = JSON.stringify({
+                        query: `{
+                      page(id: ${JSON.stringify(item.node.id)}) {
+                        title
+                        body
+                      }
+                    }`,
+                        variables: {},
+                      });
+                      dispatch({
+                        type: 'sopify/pageDeatails',
+                        data: data,
+                        navigation,
+                      });
+                    }}
+                    style={styles.terms}>
+                    {item.node.title}
+                  </Text>
+                </View>
+              );
+            }}
+          />
         </View>
       </DrawerContentScrollView>
     </View>

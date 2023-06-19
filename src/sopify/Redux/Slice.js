@@ -22,6 +22,7 @@ export const MySlice = createSlice({
     menu: null,
     id: null,
     about: null,
+    pages: [],
   },
   reducers: {
     getCollection: state => {
@@ -183,13 +184,22 @@ export const MySlice = createSlice({
     fetchMenuError: state => {
       state.isLoading = false;
     },
-    aboutUs: state => {
+    pageDeatails: state => {
       state.isLoading = true;
     },
-    aboutUsSuccess: (state, action) => {
-      (state.isLoading = true), (state.about = action.payload);
+    pageDeatailsSuccess: (state, action) => {
+      (state.isLoading = false), (state.about = action.payload);
     },
-    aboutUsFail: state => {
+    pageDeatailsFaill: state => {
+      state.isLoading = false;
+    },
+    fetchPages: state => {
+      state.isLoading = true;
+    },
+    fetchPagesSuccess: (state, action) => {
+      (state.isLoading = false), (state.pages = action.payload);
+    },
+    fetchPagesError: state => {
       state.isLoading = false;
     },
   },

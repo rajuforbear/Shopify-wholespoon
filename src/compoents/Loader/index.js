@@ -16,10 +16,19 @@ export default class Loading extends React.Component {
     return (
       <View style={styles.container}>
         <ActivityIndicator
-          size={Platform.OS == 'ios' ? 10 : 40}
-          color={'green'}
+          size={Platform.OS == 'ios' ? 20 : 40}
+          color={'#71797E'}
         />
-        <Text style={{marginTop: wp(4)}}>Loading....</Text>
+        <Text
+          style={{
+            marginTop: wp(4),
+            alignItems: 'center',
+            color: '#71797E',
+            fontWeight: 'bold',
+            marginLeft: 23,
+          }}>
+          Loading....
+        </Text>
       </View>
     );
   }

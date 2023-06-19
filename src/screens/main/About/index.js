@@ -11,37 +11,30 @@ import {
 } from 'react-native-responsive-screen';
 
 const About = ({navigation}) => {
+  const injectedJavaScript = `
+  (function() {
+    var style = document.createElement('style');
+    style.innerHTML = \`
+          
+      p {
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+      }
+    \`;
+    document.head.appendChild(style);
+  })();
+`;
   const about = useSelector(state => state.data.about);
+  console.log(about);
   console.log('this is about', about);
   return (
     <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
-      <View
-        style={{
-          //borderWidth: 1,
-          width: wp(54),
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginTop: wp(2),
-          marginLeft: wp(4),
-        }}>
-        <AntDesign
-          onPress={() => navigation.replace('Home')}
-          name="arrowleft"
-          size={wp(7)}
-          color="black"
-        />
-        <Text style={{fontSize: wp(5), fontWeight: '700', color: 'black'}}>
-          About us
-        </Text>
-      </View>
       <ScrollView
-        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          width: '95%',
-          alignSelf: 'center',
-          marginTop: wp(4),
+          marginHorizontal: wp(5),
+          paddingBottom: wp(20),
         }}>
-        <RenderHtml source={{html: about}} contentWidth={hp(100)} />
+        <RenderHtml source={{html: about}} style={{height: hp(100)}} />
       </ScrollView>
     </View>
   );

@@ -1,22 +1,24 @@
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/AntDesign';
-const Input = ({iconName, lable, ...Propes}) => {
+import Eye from 'react-native-vector-icons/MaterialCommunityIcons';
+const Input = ({iconName, error, onFocus = () => {}, password, ...Propes}) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const [secureText, setSecureText] = useState(true);
   return (
     <View style={{}}>
-      {lable && (
+      {error && (
         <Text
           style={{
             fontSize: 18,
-            color: 'grey',
+            color: 'red',
             marginLeft: wp('5%'),
-            marginVertical: wp('2%'),
           }}>
-          {lable}
+          {error}
         </Text>
       )}
       <View
@@ -25,12 +27,12 @@ const Input = ({iconName, lable, ...Propes}) => {
             height: hp('6%'),
             marginBottom: hp('2%'),
             marginHorizontal: wp('5%'),
-            backgroundColor: 'white',
+            backgroundColor: null,
             flexDirection: 'row',
             borderRadius: hp('.5%'),
             flexDirection: 'row',
-            borderWidth: 1.5,
-            borderColor: 'grey',
+            borderWidth: error ? wp(0.3) : wp(0.2),
+            borderColor: isFocused ? '#a26a39' : error ? 'red' : '#c1c0c2',
             elevation: 1,
           },
         ]}>
@@ -38,9 +40,10 @@ const Input = ({iconName, lable, ...Propes}) => {
           <Icon
             style={{
               fontSize: hp('3.5%'),
-              color: 'grey',
+              color: '#a26a39',
               alignSelf: 'center',
               marginLeft: '2.5%',
+              fontStyle: 'italic',
             }}
             name={iconName}
           />
@@ -49,13 +52,35 @@ const Input = ({iconName, lable, ...Propes}) => {
         <TextInput
           style={{
             flex: 1,
-            fontSize: hp('2.5%'),
+            fontSize: hp('2.3%'),
             fontWeight: '400',
             paddingHorizontal: wp('4%'),
+            fontStyle: 'italic',
+            color: '#a26a39',
           }}
-          placeholderTextColor={'grey'}
+          placeholderTextColor={'#a26a39'}
           {...Propes}
+          onFocus={() => {
+            onFocus();
+            setIsFocused(true);
+          }}
+          onBlur={() => setIsFocused(false)}
+          secureTextEntry={password && secureText}
         />
+        {password ? (
+          <Eye
+            onPress={() => {
+              setSecureText(!secureText);
+            }}
+            name={secureText ? 'eye-outline' : 'eye-off-outline'}
+            style={{
+              alignSelf: 'center',
+              marginRight: wp(5.6),
+              fontSize: wp(6.8),
+              color: '#a26a39',
+            }}
+          />
+        ) : null}
       </View>
     </View>
   );

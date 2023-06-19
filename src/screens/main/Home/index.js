@@ -25,10 +25,10 @@ import Header from '../../../compoents/Header';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import BottumTab from '../../../compoents/BottumTab';
 import {TouchableWithoutFeedback} from 'react-native';
-import Anty from 'react-native-vector-icons/AntDesign';
+
 import {useDispatch, useSelector} from 'react-redux';
 import Shopify from '../../../sopify/API/Shopify';
-import {getUserData} from '../../../sopify/Constants';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {url} from '../../../data/url';
 import WebView from 'react-native-webview';
@@ -42,7 +42,7 @@ const Home = ({navigation}) => {
     require('../../../assests/watch.png'),
   ];
 
-  const dele = item => {};
+  
   const dispatch = useDispatch();
   const collection = useSelector(state => state.data.collection);
   const isLoading = useSelector(state => state.data.isLoading);
@@ -412,6 +412,8 @@ const Home = ({navigation}) => {
                             prId: item.id,
                             navigation,
                             title: item.title,
+                            length: 10,
+                            page: 'home',
                           });
                         }
                       }

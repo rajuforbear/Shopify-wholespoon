@@ -77,9 +77,14 @@ const Header = () => {
       style={{
         width: '100%',
         backgroundColor: '#e6f0f2',
-        paddingBottom: wp(2),
+
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: '4%',
+        paddingBottom: wp(1),
       }}>
-      <View style={[styles.container, {borderWidth: 0}]}>
+      <View style={{width: '33.67%'}}>
         <Feather
           onPress={() => {
             if (menu === null) {
@@ -89,30 +94,36 @@ const Header = () => {
             }
           }}
           name="menu"
-          style={{fontSize: wp(9), marginLeft: '4%', color: 'black'}}
+          style={{fontSize: wp(9), color: 'black'}}
         />
+      </View>
+      <View
+        style={{
+          width: '33.67%',
+          alignItems: 'center',
+
+          justifyContent: 'center',
+        }}>
         <Image
           style={{
             height: hp(10),
             width: hp(10),
-            left: wp(20),
-            marginRight: wp(25),
           }}
           source={{
             uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
           }}
         />
-        <View style={styles.container2}>
-          <AntDesign name="search1" size={wp(5.6)} color="black" />
-          <FontAwesome5
-            name={token ? 'log-out' : 'login'}
-            size={wp(6)}
-            color="grey"
-            onPress={() => {
-              handleLogin();
-            }}
-          />
-        </View>
+      </View>
+      <View style={[styles.container2, {width: '33.67%', paddingLeft: wp(14)}]}>
+        <AntDesign name="search1" size={wp(5.6)} color="black" />
+        <FontAwesome5
+          name={token ? 'log-out' : 'login'}
+          size={wp(6)}
+          color="grey"
+          onPress={() => {
+            handleLogin();
+          }}
+        />
       </View>
     </View>
   );

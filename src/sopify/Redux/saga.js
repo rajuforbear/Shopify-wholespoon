@@ -25,7 +25,9 @@ function* getProductById(action) {
       payload: data,
       id: action.prId,
     });
-    action.navigation.navigate('ProductList', {title: action.title});
+    if (action.page === 'home') {
+      action.navigation.navigate('ProductList', {title: action.title});
+    }
   } catch (err) {
     yield put({
       type: 'sopify/fetchProductByIdFaill',
@@ -58,7 +60,7 @@ function* fetAllProducts(action) {
       payload: products,
       id: action.id,
     });
-    if (action?.page != 'home') {
+    if (action?.id === 'home') {
       action.navigation.navigate('ProductList', {title: action.title});
     }
   } catch (err) {
@@ -297,19 +299,40 @@ function* aboutUs(action) {
     const res = yield call(Shopify.userControll, action.data);
     if (res.data) {
       yield put({
-        type: 'sopify/aboutUsSuccess',
+        type: 'sopify/pageDeatailsSuccess',
         payload: res.data.page.body,
       });
+
       action.navigation.navigate('About');
     } else {
       yield put({
-        type: 'sopify/aboutUsFaill',
+        type: 'sopify/pageDeatailsFaill',
       });
     }
   } catch (error) {
     yield put({
-      type: 'sopify/aboutUsFaill',
+      type: 'sopify/pageDeatailsFaill',
     });
+  }
+}
+function* fetchPages(action) {
+  try {
+    const res = yield call(Shopify.userControll, action.data);
+    if (res.data) {
+      yield put({
+        type: 'sopify/fetchPagesSuccess',
+        payload: res.data,
+      });
+    } else {
+      yield put({
+        type: 'sopify/fetchPagesError',
+      });
+    }
+  } catch (er) {
+    yield put({
+      type: 'sopify/fetchPagesError',
+    });
+    console.log(er);
   }
 }
 function* Saga() {
@@ -329,7 +352,8 @@ function* Saga() {
   yield takeEvery('sopify/updateCart', updateCart);
   yield takeEvery('sopify/addAdress', addAddress);
   yield takeEvery('sopify/fetchMenu', fetchMenu);
-  yield takeEvery('sopify/aboutUs', aboutUs);
+  yield takeEvery('sopify/pageDeatails', aboutUs);
+  yield takeEvery('sopify/fetchPages', fetchPages);
 }
 
 export default Saga;

@@ -15,7 +15,7 @@ const Button = ({name, onFocus, ...props}) => {
         height: hp('6%'),
         marginVertical: hp('2%'),
         marginHorizontal: wp('3%'),
-        backgroundColor: isFocused ? '#0f3a8d' : '#0d52d6',
+        backgroundColor: '#A97732',
         elevation: 5,
         flexDirection: 'row',
         borderRadius: hp('.50%'),
@@ -34,6 +34,7 @@ const Button = ({name, onFocus, ...props}) => {
           fontWeight: 'bold',
           color: 'white',
           alignSelf: 'center',
+          fontStyle: 'italic',
         }}>
         {name}
       </Text>

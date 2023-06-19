@@ -42,6 +42,7 @@ const Categories = ({navigation}) => {
       prId: id,
       navigation,
       title: title,
+      page: 'home',
     });
   };
   // console.log('this is g=home ........................', JSON.stringify(data));

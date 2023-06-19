@@ -58,7 +58,7 @@ export default StyleSheet.create({
   },
   container2: {
     width: wp(20),
-    marginRight: wp(7),
+    //marginRight: wp(7),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

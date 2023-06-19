@@ -7,6 +7,7 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Pencil from 'react-native-vector-icons/FontAwesome5';
 const Profile = ({navigation}) => {
   const userData = useSelector(state => state.data.userData);
   const handleAddress = () => {
@@ -15,8 +16,16 @@ const Profile = ({navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
       <ScrollView>
-        <Text style={styles.title}>
+        <Text style={[styles.title, {marginLeft: wp(14)}]}>
           {userData?.firstName + ' ' + userData?.lastName}
+          {'        '}
+          <Pencil
+            onPress={() => {
+              navigation.navigate('Register');
+            }}
+            name="edit"
+            size={wp(4)}
+          />{' '}
         </Text>
         <Text style={{alignSelf: 'center', color: '#A36B25'}}>
           {userData?.email}

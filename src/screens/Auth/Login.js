@@ -78,6 +78,7 @@ const Login = ({navigation}) => {
           iconName="lock"
           lable="Password"
           onChangeText={text => handleOnchange(text, 'password')}
+          password
         />
         <Button name="Login" onPress={() => handleLogin()} />
         <Text

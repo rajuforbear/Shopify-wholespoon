@@ -37,13 +37,14 @@ const ProductList = props => {
           navigation,
           title: title,
           length: length,
+          page: 'raju',
         });
       } else {
         dispatch({
           type: 'sopify/fetchAllProducts',
           navigation,
           title: 'Products',
-          id: 'home',
+          id: 'raju',
           length: length,
         });
       }
@@ -54,7 +55,10 @@ const ProductList = props => {
   return (
     <View style={styles.container}>
       {isFetching ? <Loading /> : null}
-      <ScrollView onTouchEnd={() => handleOnReachEnd()}>
+      <ScrollView
+        onTouchEnd={() => {
+          handleOnReachEnd();
+        }}>
         {/* <View style={styles.header}>
           <View
             style={{
