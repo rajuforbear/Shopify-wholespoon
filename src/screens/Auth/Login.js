@@ -52,20 +52,22 @@ const Login = ({navigation}) => {
   return (
     <View style={styles.container}>
       {isLoading ? <Loading /> : null}
-      <View style={styles.logoConatainer}>
-        <Image
-          style={styles.img}
-          source={{
-            uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
-          }}
-        />
-      </View>
       <ScrollView>
+        <View style={styles.logoConatainer}>
+          <Image
+            style={styles.img}
+            source={{
+              uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
+            }}
+          />
+        </View>
+
         <View style={styles.infoTextContainer}>
           <Text style={styles.login}>Login</Text>
-          <Text style={styles.info}>
+          {/* <Text style={styles.info}>
             Please enter the details below to continue
-          </Text>
+          </Text> */}
+          <View style={styles.line}></View>
         </View>
         <Input
           placeholder="Enter email address"
@@ -80,8 +82,8 @@ const Login = ({navigation}) => {
           onChangeText={text => handleOnchange(text, 'password')}
           password
         />
-        <Button name="Login" onPress={() => handleLogin()} />
-        <Text
+        <Button name="LOGIN" onPress={() => handleLogin()} />
+        {/* <Text
           style={{
             alignSelf: 'flex-end',
             marginRight: '5%',
@@ -92,24 +94,44 @@ const Login = ({navigation}) => {
         </Text>
         <Text
           style={{
+            fontSize: hp('2.4%'),
             alignSelf: 'center',
-            marginVertical: hp('5%'),
-            fontSize: hp('2.5%'),
-            color: 'grey',
+            marginVertical: '3%',
+            color: '#a26a39',
+            fontStyle: 'italic',
           }}>
           Dont't have an account ?
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
             <Text
               style={{
-                color: '#0f3a8d',
                 fontSize: hp('2.4%'),
+                color: '#a26a39',
                 fontWeight: 'bold',
+                fontStyle: 'italic',
               }}>
               {' '}
               Sign Up!
             </Text>
           </TouchableOpacity>
-        </Text>
+        </Text> */}
+        <View
+          style={{
+            width: wp(65),
+            alignSelf: 'center',
+            marginTop: wp(5),
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            onPress={() => navigation.navigate('Register')}
+            style={styles.text}>
+            Create Account
+          </Text>
+          <Text onPress={() => navigation.replace('home')} style={styles.text}>
+            Return to Store
+          </Text>
+          <Text style={styles.text}>Forgot your password?</Text>
+        </View>
       </ScrollView>
     </View>
   );
@@ -120,7 +142,7 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#e6f0f2',
   },
   logoConatainer: {
     top: hp('1%'),
@@ -133,9 +155,12 @@ const styles = StyleSheet.create({
     marginVertical: '1%',
   },
   login: {
-    fontSize: hp('4%'),
+    fontSize: wp('6%'),
     fontWeight: 'bold',
-    color: 'grey',
+    color: 'black', //'#a26a39',
+    //fontStyle: 'italic',
+    alignSelf: 'center',
+    marginTop: wp(6),
   },
   img: {
     height: '100%',
@@ -146,5 +171,20 @@ const styles = StyleSheet.create({
     fontSize: hp('2%'),
     fontWeight: '400',
     color: 'grey',
+  },
+
+  line: {
+    borderWidth: wp(0.5),
+    marginTop: wp(1),
+    width: wp(12),
+    alignSelf: 'center',
+    borderRadius: wp(4),
+    marginBottom: wp(4),
+  },
+  text: {
+    fontSize: wp(5),
+    fontWeight: '400',
+    color: 'black',
+    marginTop: wp(1),
   },
 });

@@ -143,15 +143,16 @@ const SignUp = ({navigation}) => {
           />
         </View>
         <View style={styles.infoTextContainer}>
-          <Text style={styles.login}>Register</Text>
-          <Text style={styles.info}>
+          <Text style={styles.login}>Create Account</Text>
+          {/* <Text style={styles.info}>
             Please enter the details below to continue
-          </Text>
+          </Text> */}
+          <View style={styles.line}></View>
         </View>
 
         <Input
           //  lable="First Name"
-          placeholder="First name"
+          lable="First name"
           onChangeText={text => {
             handleOnchange(text, 'firstName');
           }}
@@ -161,7 +162,7 @@ const SignUp = ({navigation}) => {
         />
         <Input
           //  /lable="Last Name"
-          placeholder="Last name"
+          lable="Last name"
           onChangeText={text => {
             handleOnchange(text, 'lastName');
           }}
@@ -171,7 +172,7 @@ const SignUp = ({navigation}) => {
         />
         <Input
           // /lable="E-mail"
-          placeholder="E-mail"
+          lable="E-mail"
           onChangeText={text => {
             handleOnchange(text, 'email');
           }}
@@ -181,7 +182,7 @@ const SignUp = ({navigation}) => {
         />
         <Input
           // lable="Telephone"
-          placeholder="Telephone"
+          lable="Telephone"
           onChangeText={text => {
             handleOnchange(text, 'phone');
           }}
@@ -191,7 +192,7 @@ const SignUp = ({navigation}) => {
         />
         <Input
           // lable="Password"
-          placeholder="Password"
+          lable="Password"
           onChangeText={text => {
             handleOnchange(text, 'password');
           }}
@@ -202,7 +203,7 @@ const SignUp = ({navigation}) => {
         />
         <Input
           // lable="Confirm Password"
-          placeholder="Confirm  Password"
+          lable="Confirm  Password"
           onChangeText={text => {
             handleOnchange(text, 'confrimPassword');
           }}
@@ -212,7 +213,7 @@ const SignUp = ({navigation}) => {
           onFocus={() => handleError(null, 'confrimPassword')}
         />
         <Button
-          name="Register"
+          name="CREATE"
           onPress={() => {
             //hanleOnPress();
             Vailidate();
@@ -265,10 +266,12 @@ const styles = StyleSheet.create({
     marginVertical: '4%',
   },
   login: {
-    fontSize: hp('4%'),
+    fontSize: wp('6%'),
     fontWeight: 'bold',
-    color: '#a26a39',
-    fontStyle: 'italic',
+    color: 'black', //'#a26a39',
+    //fontStyle: 'italic',
+    alignSelf: 'center',
+    marginTop: wp(6),
   },
   img: {
     height: '100%',
@@ -280,5 +283,12 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: '#a26a39',
     fontStyle: 'italic',
+  },
+  line: {
+    borderWidth: wp(0.6),
+    marginTop: wp(2),
+    width: wp(30),
+    alignSelf: 'center',
+    borderRadius: wp(4),
   },
 });

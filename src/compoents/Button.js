@@ -15,7 +15,7 @@ const Button = ({name, onFocus, ...props}) => {
         height: hp('6%'),
         marginVertical: hp('2%'),
         marginHorizontal: wp('3%'),
-        backgroundColor: '#A97732',
+        backgroundColor: 'black',
         elevation: 5,
         flexDirection: 'row',
         borderRadius: hp('.50%'),
@@ -30,11 +30,11 @@ const Button = ({name, onFocus, ...props}) => {
       onBlur={() => setIsfocused(false)}>
       <Text
         style={{
-          fontSize: hp('3%'),
-          fontWeight: 'bold',
+          fontSize: wp('4.5%'),
+          fontWeight: '600',
           color: 'white',
           alignSelf: 'center',
-          fontStyle: 'italic',
+          //  fontStyle: 'italic',
         }}>
         {name}
       </Text>
