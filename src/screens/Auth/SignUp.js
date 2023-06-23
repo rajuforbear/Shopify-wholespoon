@@ -77,36 +77,36 @@ const SignUp = ({navigation}) => {
   const Vailidate = () => {
     let valid = true;
     if (!inputs.firstName) {
-      handleError('please enter first name', 'firstName');
+      handleError('Please Enter First Name', 'firstName');
       valid = false;
     }
     if (!inputs.lastName) {
-      handleError('please enter last name', 'lastName');
+      handleError('Please Enter Last Name', 'lastName');
       valid = false;
     }
     if (!inputs.email) {
-      handleError('please enter email', 'email');
+      handleError('Please Enter Email', 'email');
       valid = false;
     } else if (
       !inputs.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
     ) {
-      handleError('email not vailid', 'email');
+      handleError('Please Enter Valid Email', 'email');
       valid = false;
     }
 
     if (!inputs.phone) {
-      handleError('please enter mobile numer', 'phone');
+      handleError('Please Enter Mobile Numer', 'phone');
       valid = false;
     } else if (inputs.phone.length < 10) {
-      handleError('please enter 10 digit of mobile', 'phone');
+      handleError('Please Enter 10 Digit Mobile Number', 'phone');
       valid = false;
     }
     if (!inputs.password) {
-      handleError('please enter password', 'password');
+      handleError('Please Enter Password', 'password');
       valid = false;
     } else if (!inputs.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {
       handleError(
-        'pasword must be an Uppercase,a special charter and A number and greater then 8 character ',
+        'Password Must Contain Special Charecters',
         'password',
       );
       valid = false;
@@ -116,7 +116,7 @@ const SignUp = ({navigation}) => {
       handleError('please re-enter your password', 'confrimPassword');
       valid = false;
     } else if (inputs.password != inputs.confrimPassword) {
-      handleError("password dosen't matched", 'confrimPassword');
+      handleError("Password Dosen't Matched", 'confrimPassword');
       valid = false;
     }
     if (valid) {

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,Fragment} from 'react';
 import {
   View,
   Text,
@@ -14,13 +14,11 @@ import store from './src/sopify/Redux/store';
 import Root from './src/Root';
 import RootNavigation from './src/navigation/index.js';
 
+
 const App = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'lightgrey', //#e6f0f2 //#87CEEB
-      }}>
+    <Fragment>
+    
       <Provider store={store}>
         <StatusBar backgroundColor={'#e6f0f2'} />
         <SafeAreaView
@@ -28,10 +26,10 @@ const App = () => {
             flex: 1,
             backgroundColor: '#e6f0f2',
           }}>
-          <RootNavigation />
+        <RootNavigation/>
         </SafeAreaView>
       </Provider>
-    </View>
+      </Fragment>
   );
 };
 export default App;

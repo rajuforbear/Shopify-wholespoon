@@ -18,24 +18,19 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import Cat from '../../../data/Cat';
-import Card from '../../../compoents/Card';
-import {Products} from '../../../data/Products';
-import Header from '../../../compoents/Header';
+
 import {useIsFocused, useNavigation} from '@react-navigation/native';
-import BottumTab from '../../../compoents/BottumTab';
-import {TouchableWithoutFeedback} from 'react-native';
+
 
 import {useDispatch, useSelector} from 'react-redux';
-import Shopify from '../../../sopify/API/Shopify';
+
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {url} from '../../../data/url';
-import WebView from 'react-native-webview';
 import YoutubeIframe from 'react-native-youtube-iframe';
 import Loading from '../../../compoents/Loader';
 const Home = ({navigation}) => {
-  //const navigation = useNavigation();
+
   const silder = [
     require('../../../assests/image1.png'),
     require('../../../assests/mobile.png'),
