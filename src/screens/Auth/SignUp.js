@@ -6,17 +6,18 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import Input from '../../compoents/Input';
 import Button from '../../compoents/Button';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../compoents/Loader';
 
-const SignUp = ({navigation}) => {
+
+const SignUp = ({ navigation }) => {
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
     firstName: '',
@@ -29,15 +30,9 @@ const SignUp = ({navigation}) => {
   const [errors, setErros] = useState({});
   const isLoading = useSelector(state => state.data.isLoading);
   const handleOnchange = (input, name) => {
-    setInputs(prev => ({...prev, [name]: input}));
+    setInputs(prev => ({ ...prev, [name]: input }));
   };
-  const hanleOnPress = () => {
-    if (inputs.password != inputs.confrimPassword) {
-      alert('Please match the password');
-    } else {
-      Register();
-    }
-  };
+
   const Register = () => {
     let data = JSON.stringify({
       query: `mutation customerCreate($input: CustomerCreateInput!) {
@@ -120,12 +115,12 @@ const SignUp = ({navigation}) => {
       valid = false;
     }
     if (valid) {
-      //hanleOnPress();
+      Register();
     }
     console.log(valid);
   };
   const handleError = (errorMassege, input) => {
-    setErros(prevState => ({...prevState, [input]: errorMassege}));
+    setErros(prevState => ({ ...prevState, [input]: errorMassege }));
   };
 
   return (
@@ -133,7 +128,7 @@ const SignUp = ({navigation}) => {
       {isLoading ? <Loading /> : null}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{marginBottom: 30}}>
+        style={{ marginBottom: 30 }}>
         <View style={styles.logoConatainer}>
           <Image
             style={styles.img}
@@ -217,9 +212,10 @@ const SignUp = ({navigation}) => {
           onPress={() => {
             //hanleOnPress();
             Vailidate();
+
           }}
         />
-        <View style={{height: hp('8%')}}>
+        <View style={{ height: hp('8%') }}>
           <Text
             style={{
               fontSize: hp('2.4%'),
@@ -242,6 +238,7 @@ const SignUp = ({navigation}) => {
             </TouchableOpacity>
           </Text>
         </View>
+
       </ScrollView>
     </View>
   );

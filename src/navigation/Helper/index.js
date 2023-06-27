@@ -1,6 +1,6 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 import Home from '../../screens/main/Home';
 import Login from '../../screens/Auth/Login';
 import SignUp from '../../screens/Auth/SignUp';
@@ -21,7 +21,7 @@ import AddressBook from '../../screens/main/AdressBook';
 import Splash from '../../screens/Auth/Splash';
 import About from '../../screens/main/About';
 import Root from '../../Root';
-import Address from '../../screens/main/Checkout/Address';
+import Address from '../../screens/main/Checkout';
 // npm i  @shopify/shopify-api
 // npm i react-native-shopify
 //npm i react-native-shopify@0.0.1-alpha.0
@@ -31,7 +31,7 @@ const MyStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="HomeScreen"
-      screenOptions={{headerShown: false}}>
+      screenOptions={{ headerShown: false }}>
       <Stack.Screen name="HomeScreen" component={Home} />
       <Stack.Screen name="Cart" component={Cart} />
       <Stack.Screen name="Profile" component={Profile} />

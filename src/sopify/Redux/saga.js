@@ -1,15 +1,17 @@
-import {put, takeEvery, call} from 'redux-saga/effects';
+import { put, takeEvery, call } from 'redux-saga/effects';
 import Shopify from '../API/Shopify';
-import {getCollectionSuccess} from './Slice';
+import { getCollectionSuccess } from './Slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
+import Toast from 'react-native-toast-message'
+
 
 function* getCollection() {
   try {
     const data = yield call(Shopify.getCollection);
     yield put(getCollectionSuccess(data));
   } catch (err) {
-    yield put({type: 'spify/getCollectionFail'});
+    yield put({ type: 'spify/getCollectionFail' });
   }
 }
 function* getProductById(action) {
@@ -26,7 +28,7 @@ function* getProductById(action) {
       id: action.prId,
     });
     if (action.page === 'home') {
-      action.navigation.navigate('ProductList', {title: action.title});
+      action.navigation.navigate('ProductList', { title: action.title });
     }
   } catch (err) {
     yield put({
@@ -61,10 +63,10 @@ function* fetAllProducts(action) {
       id: action.id,
     });
     if (action?.id === 'home') {
-      action.navigation.navigate('ProductList', {title: action.title});
+      action.navigation.navigate('ProductList', { title: action.title });
     }
   } catch (err) {
-    yield put({type: 'sopify/fetchAllProductsFaill'});
+    yield put({ type: 'sopify/fetchAllProductsFaill' });
     console.log(err);
   }
 }
@@ -86,14 +88,19 @@ function* doLogin(action) {
         payload:
           res?.data.customerAccessTokenCreate.customerAccessToken.accessToken,
       });
+      Toast.show({
+        type: 'info',
+        text1: 'Successfully Loged in'
+      })
       action.navigation.replace('Home');
     } else {
       yield put({
         type: 'sopify/loginFail',
       });
-      console.log(
-        res.data.customerAccessTokenCreate.customerUserErrors[0].message,
-      );
+      Toast.show({
+        type: 'info',
+        text1: res.data.customerAccessTokenCreate.customerUserErrors[0].message,
+      });
     }
     //
   } catch (err) {
@@ -105,22 +112,34 @@ function* doLogin(action) {
 function* doRegister(action) {
   try {
     const res = yield call(Shopify.userControll, action.data);
-    if (res.data) {
+    console.log(JSON.stringify(res.data))
+    if (res.data.customerCreate.customer != null) {
       yield put({
         type: 'sopify/registerSuccess',
         payload: res.data.customerCreate.customer,
+      });
+      Toast.show({
+        type: 'info',
+        text1: 'Account created  Successfully'
       });
       action.navigation.replace('Login');
     } else {
       yield put({
         type: 'sopify/registerError',
       });
+      Toast.show({
+        type: 'info',
+        text1: 'somethig went wrong'
+      })
     }
   } catch (err) {
     yield put({
       type: 'sopify/registerError',
     });
   }
+
+
+
 }
 function* getUserData(action) {
   try {

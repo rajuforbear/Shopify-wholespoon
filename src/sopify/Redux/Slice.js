@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 export const MySlice = createSlice({
   name: 'sopify',
   initialState: {
@@ -204,6 +204,6 @@ export const MySlice = createSlice({
     },
   },
 });
-export const {getCollection, getCollectionSuccess, getCollectionFail} =
+export const { getCollection, getCollectionSuccess, getCollectionFail } =
   MySlice.actions;
 export default MySlice.reducer;

@@ -1,9 +1,10 @@
-import {View, Text, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import { View, Text, Image } from 'react-native';
+import React, { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import netinfo from '@react-native-community/netinfo';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-const Splash = ({navigation}) => {
+const Splash = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       goTo();
@@ -24,9 +25,9 @@ const Splash = ({navigation}) => {
     });
   };
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Image
-        style={{height: '41%', width: '80%'}}
+        style={{ height: hp(40), width: wp(79) }}
         source={{
           uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
         }}

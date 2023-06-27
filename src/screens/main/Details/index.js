@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   ScrollView,
@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   View,
   Image,
+  Alert,
 } from 'react-native';
-import {SliderBox} from 'react-native-image-slider-box';
+import { SliderBox } from 'react-native-image-slider-box';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -18,18 +19,18 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import HTMLView from 'react-native-htmlview';
-import {WebView} from 'react-native-webview';
-import {useDispatch, useSelector} from 'react-redux';
+import { WebView } from 'react-native-webview';
+import { useDispatch, useSelector } from 'react-redux';
 import Mat from 'react-native-vector-icons/MaterialCommunityIcons';
 import Loading from '../../../compoents/Loader';
 import DropDown from '../../../compoents/DropDown';
-import {RadioButton} from 'react-native-paper';
+import { RadioButton } from 'react-native-paper';
 import CheckBox from '@react-native-community/checkbox';
 import Shopify from '../../../sopify/API/Shopify';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {query} from '../Cart/queries';
+import { query } from '../Cart/queries';
 //import {useSelector} from 'react-redux';
-const Details = ({route, navigation}) => {
+const Details = ({ route, navigation }) => {
   //descriptionHtml
   const [show, setShow] = useState(false);
   const Products = useSelector(state => state.data.products);
@@ -213,7 +214,7 @@ const Details = ({route, navigation}) => {
         cartId: cartId,
         lines: [
           {
-            attributes: [{key: 'name', value: 'bhai barde'}],
+            attributes: [{ key: 'name', value: 'bhai barde' }],
             merchandiseId: veriantId,
             quantity: quantity,
           },
@@ -227,9 +228,22 @@ const Details = ({route, navigation}) => {
       navigation,
     });
   };
+  const createThreeButtonAlert = () =>
+    Alert.alert('Request Login', 'Please Login', [
+      {
+        text: 'Ok',
+        onPress: () => navigation.navigate('Login'),
+      },
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+
+    ]);
 
   return (
-    <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
+    <View style={{ flex: 1, backgroundColor: '#e6f0f2' }}>
       {isFetching ? <Loading /> : null}
       {/* <View style={styles.container}>
         <TouchableOpacity
@@ -282,7 +296,7 @@ const Details = ({route, navigation}) => {
           <View style={styles.cont}>
             <View
               onPress={() => getProductOption()}
-              style={[styles.prDeta, {flexDirection: 'row'}]}>
+              style={[styles.prDeta, { flexDirection: 'row' }]}>
               {/* <Text style={{fontSize: wp(4)}}>Options</Text>
 
               <EvilIcons name="chevron-down" size={wp(9)} /> */}
@@ -292,7 +306,7 @@ const Details = ({route, navigation}) => {
                 <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
                 <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
                 <AntDesign name="staro" size={wp(3.5)} color="#FFD700" />
-                <Text style={{fontSize: wp(3)}}>{'(170)'}</Text>
+                <Text style={{ fontSize: wp(3) }}>{'(170)'}</Text>
               </View>
             </View>
             <View style={styles.quantityContainer}>
@@ -313,7 +327,7 @@ const Details = ({route, navigation}) => {
                   justifyContent: 'center',
                   width: '40%',
                 }}>
-                <Text style={{fontSize: wp(4), fontWeight: '600'}}>
+                <Text style={{ fontSize: wp(4), fontWeight: '600' }}>
                   {quantity}
                 </Text>
               </View>
@@ -342,11 +356,11 @@ const Details = ({route, navigation}) => {
             <Text style={styles.title}>{items.title}</Text>
             <FlatList
               data={items.variants}
-              renderItem={({item, index}) => {
+              renderItem={({ item, index }) => {
                 if (item.title === variantVlaue) {
                   setVariendtId(item.id);
                   return (
-                    <Text style={[styles.title, {marginVertical: wp(0)}]}>
+                    <Text style={[styles.title, { marginVertical: wp(0) }]}>
                       {item?.price.amount +
                         ' ' +
                         item.price.currencyCode +
@@ -369,7 +383,7 @@ const Details = ({route, navigation}) => {
           <FlatList
             data={items.variants}
             horizontal={true}
-            renderItem={({item, index}) => {
+            renderItem={({ item, index }) => {
               return (
                 <View
                   style={{
@@ -415,10 +429,10 @@ const Details = ({route, navigation}) => {
                 height: hp(4),
                 alignItems: 'center',
               }}>
-              <Text style={{fontWeight: 'bold', fontSize: wp(4)}}>
+              <Text style={{ fontWeight: 'bold', fontSize: wp(4) }}>
                 Specification
               </Text>
-              <Entypo name="chevron-down" style={{fontSize: wp(6)}} />
+              <Entypo name="chevron-down" style={{ fontSize: wp(6) }} />
             </TouchableOpacity>
             {show ? (
               <View style={{}}>
@@ -437,23 +451,25 @@ const Details = ({route, navigation}) => {
             <TouchableOpacity
               style={styles.btn3}
               onPress={() => {
-                cartOperation();
+                if (userData != null || userData != undefined) { cartOperation(); } else {
+                  createThreeButtonAlert()
+                }
               }}>
               <Text
-                style={{fontSize: wp(5), fontWeight: '500', color: 'white'}}>
+                style={{ fontSize: wp(5), fontWeight: '500', color: 'white' }}>
                 Add to Card
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                addProduct();
+
               }}
               style={[
                 styles.btn3,
-                {marginTop: wp(3), backgroundColor: 'black'},
+                { marginTop: wp(3), backgroundColor: 'black' },
               ]}>
               <Text
-                style={{fontSize: wp(5), fontWeight: '500', color: 'white'}}>
+                style={{ fontSize: wp(5), fontWeight: '500', color: 'white' }}>
                 Buy It Now
               </Text>
             </TouchableOpacity>
@@ -468,7 +484,7 @@ const Details = ({route, navigation}) => {
               alignSelf: 'center',
               borderColor: 'lightgrey',
             }}>
-            <Text style={{fontSize: wp(4), fontWeight: '500'}}>
+            <Text style={{ fontSize: wp(4), fontWeight: '500' }}>
               Costumer Reviews
             </Text>
             <Text style={{}}>No Reviews yet</Text>
@@ -481,7 +497,7 @@ const Details = ({route, navigation}) => {
                 alignItems: 'center',
                 paddingVertical: wp(2),
               }}>
-              <Text style={{fontSize: wp(4), fontWeight: '500'}}>
+              <Text style={{ fontSize: wp(4), fontWeight: '500' }}>
                 Write a review
               </Text>
             </View>
@@ -503,7 +519,7 @@ const Details = ({route, navigation}) => {
               }}>
               <Fontisto name="facebook" size={wp(3)} color={'grey'} />
               <Text
-                style={{fontWeight: '300', fontSize: wp(3.5), color: 'grey'}}>
+                style={{ fontWeight: '300', fontSize: wp(3.5), color: 'grey' }}>
                 Share
               </Text>
             </View>
@@ -516,7 +532,7 @@ const Details = ({route, navigation}) => {
               }}>
               <Fontisto name="twitter" size={wp(3)} color={'grey'} />
               <Text
-                style={{fontWeight: '300', fontSize: wp(3.5), color: 'grey'}}>
+                style={{ fontWeight: '300', fontSize: wp(3.5), color: 'grey' }}>
                 Tweet
               </Text>
             </View>
@@ -529,12 +545,12 @@ const Details = ({route, navigation}) => {
               }}>
               <Fontisto name="pinterest" size={wp(3)} color={'grey'} />
               <Text
-                style={{fontWeight: '300', fontSize: wp(3.5), color: 'grey'}}>
+                style={{ fontWeight: '300', fontSize: wp(3.5), color: 'grey' }}>
                 Pin it
               </Text>
             </View>
           </View>
-          <View style={{width: '100%', marginVertical: wp(4)}}>
+          <View style={{ width: '100%', marginVertical: wp(4) }}>
             <Text
               style={{
                 marginLeft: wp(5),
@@ -549,21 +565,21 @@ const Details = ({route, navigation}) => {
               //numColumns={2}
               horizontal={true}
               keyExtractor={(item, index) => index}
-              renderItem={({item, index}) => {
+              renderItem={({ item, index }) => {
                 if (item.title != items.title) {
                   return (
                     <View style={styles.cardView}>
                       {/* <AntDesign name="hearto" style={styles.icon} /> */}
                       <TouchableOpacity
-                        onPress={() => navigation.replace('Details', {item})}
+                        onPress={() => navigation.replace('Details', { item })}
                         style={styles.imgcontainer}>
                         <Image
                           style={styles.img}
-                          source={{uri: item.images[0].src}}
+                          source={{ uri: item.images[0].src }}
                         />
                       </TouchableOpacity>
                       <Text style={styles.title}>{item.title}</Text>
-                      <Text style={[styles.title, {marginVertical: wp(0)}]}>
+                      <Text style={[styles.title, { marginVertical: wp(0) }]}>
                         {item?.variants[0]?.price.amount +
                           ' ' +
                           item?.variants[0]?.price.currencyCode}

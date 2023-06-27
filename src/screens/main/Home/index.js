@@ -11,25 +11,25 @@ import {
   ImageBackground,
 } from 'react-native';
 
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import styles from './Styles';
-import {SliderBox} from 'react-native-image-slider-box';
+import { SliderBox } from 'react-native-image-slider-box';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 
-import {useIsFocused, useNavigation} from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {url} from '../../../data/url';
+import { url } from '../../../data/url';
 import YoutubeIframe from 'react-native-youtube-iframe';
 import Loading from '../../../compoents/Loader';
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
 
   const silder = [
     require('../../../assests/image1.png'),
@@ -37,7 +37,7 @@ const Home = ({navigation}) => {
     require('../../../assests/watch.png'),
   ];
 
-  
+
   const dispatch = useDispatch();
   const collection = useSelector(state => state.data.collection);
   const isLoading = useSelector(state => state.data.isLoading);
@@ -59,7 +59,7 @@ const Home = ({navigation}) => {
   }, []);
   useEffect(() => {
     if (product?.length <= 4) {
-      dispatch({type: 'sopify/fetchAllProducts', page: 'home', length: 10});
+      dispatch({ type: 'sopify/fetchAllProducts', page: 'home', length: 10 });
     }
   }, []);
   useEffect(() => {
@@ -256,14 +256,14 @@ const Home = ({navigation}) => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
       {isLoading ? <Loading /> : null}
       {/* <ImageBackground
         style={{flex: 1}}
         source={require('../../../assests/bgImg.jpg')}> */}
       <ScrollView
-        style={{width: '100%'}}
-        contentContainerStyle={{paddingBottom: wp(2)}}
+        style={{ width: '100%' }}
+        contentContainerStyle={{ paddingBottom: wp(2) }}
         showsVerticalScrollIndicator={false}>
         <View style={styles.conatainer}>
           <FlatList
@@ -272,12 +272,12 @@ const Home = ({navigation}) => {
             showsHorizontalScrollIndicator={false}
             pagingEnabled
             keyExtractor={(item, index) => index}
-            renderItem={({item}) => {
+            renderItem={({ item }) => {
               if (item.image) {
                 return (
                   <TouchableOpacity onPress={() => getUserData()}>
                     <ImageBackground
-                      source={{uri: item.image?.src}}
+                      source={{ uri: item.image?.src }}
                       style={styles.photos}>
                       <View style={styles.con}>
                         {/* <View style={styles.ViewContainer}>
@@ -352,7 +352,7 @@ const Home = ({navigation}) => {
           <Text style={styles.category}>Top Categories</Text>
           <Text style={[styles.category, { color: '#0f3a8d',fontWeight:'400', textDecorationLine: 'underline' }]}>See All</Text> 
         </View> */}
-        <View style={{height: hp(5), width: '100%', backgroundColor: 'white'}}>
+        <View style={{ height: hp(5), width: '100%', backgroundColor: 'white' }}>
           <View style={styles.titleContainer}>
             <Text style={styles.category}>Top Categories</Text>
             <Text
@@ -390,27 +390,27 @@ const Home = ({navigation}) => {
             elevation: 1,
             //borderWidth:1
           }}>
-          <View style={{marginTop: '4%'}}>
+          <View style={{ marginTop: '4%' }}>
             <FlatList
               data={collection}
               showsHorizontalScrollIndicator={false}
               horizontal
-              renderItem={({item}) => {
+              renderItem={({ item }) => {
                 if (item.image) {
                   return (
                     <TouchableOpacity
                       onPress={() =>
-                        // navigation.navigate('ProductList', {title: item.title})
-                        {
-                          dispatch({
-                            type: 'sopify/fetchProductById',
-                            prId: item.id,
-                            navigation,
-                            title: item.title,
-                            length: 10,
-                            page: 'home',
-                          });
-                        }
+                      // navigation.navigate('ProductList', {title: item.title})
+                      {
+                        dispatch({
+                          type: 'sopify/fetchProductById',
+                          prId: item.id,
+                          navigation,
+                          title: item.title,
+                          length: 10,
+                          page: 'home',
+                        });
+                      }
                       }
                       activeOpacity={8}
                       style={{
@@ -422,7 +422,7 @@ const Home = ({navigation}) => {
                       {item.image ? (
                         <ImageBackground
                           style={styles.cardImage}
-                          source={{uri: item?.image.src}}>
+                          source={{ uri: item?.image.src }}>
                           <Text
                             style={{
                               color: 'white',
@@ -447,9 +447,9 @@ const Home = ({navigation}) => {
             backgroundColor: 'white',
             marginTop: wp(5),
           }}>
-          <View style={[styles.titleContainer, {height: hp(5)}]}>
+          <View style={[styles.titleContainer, { height: hp(5) }]}>
             <Text
-              style={[styles.category, {marginTop: '-6%', marginLeft: wp(2)}]}>
+              style={[styles.category, { marginTop: '-6%', marginLeft: wp(2) }]}>
               Featured
             </Text>
             <Text
@@ -476,29 +476,29 @@ const Home = ({navigation}) => {
             </Text>
           </View>
         </View>
-        <View style={{width: '97%', alignSelf: 'center', paddingBottom: hp(8)}}>
+        <View style={{ width: '97%', alignSelf: 'center', paddingBottom: hp(8) }}>
           <FlatList
             data={product.slice(0, 6)}
             numColumns={2}
             keyExtractor={(item, index) => index}
-            renderItem={({item}) => {
+            renderItem={({ item }) => {
               // console.log(item);
               return (
                 <View style={styles.cardView}>
                   {/* <AntDesign name="hearto" style={styles.icon} /> */}
                   <TouchableOpacity
                     onPress={
-                      () => navigation.navigate('Details', {item})
+                      () => navigation.navigate('Details', { item })
                       //getUserData()
                     }
                     style={styles.imgcontainer}>
                     <Image
                       style={styles.img}
-                      source={{uri: item.images[0].src}}
+                      source={{ uri: item.images[0].src }}
                     />
                   </TouchableOpacity>
                   <Text style={styles.title}>{item.title}</Text>
-                  <Text style={[styles.title, {marginVertical: wp(0)}]}>
+                  <Text style={[styles.title, { marginVertical: wp(0) }]}>
                     {item?.variants[0]?.price.amount +
                       ' ' +
                       item?.variants[0]?.price.currencyCode}
@@ -508,27 +508,27 @@ const Home = ({navigation}) => {
             }}
           />
         </View>
-        <View style={{paddingVertical: wp(1), marginTop: wp(-15)}}>
+        <View style={{ paddingVertical: wp(1), marginTop: wp(-15) }}>
           <Text
-            style={{fontSize: wp(4), textAlign: 'center', fontWeight: 'bold'}}>
+            style={{ fontSize: wp(4), textAlign: 'center', fontWeight: 'bold' }}>
             MAKE YOUR MEALS IN MINUTES #COOKWITHWHOLESPOON #GIFTWITHWHOLESPOON
           </Text>
         </View>
 
-        <YoutubeIframe
+        {/* <YoutubeIframe
           height={hp(30)}
           //play={playing}
           videoId={'moTS8-17BSA'}
           // onChangeState={onStateChange}
-        />
+        /> */}
 
-        <View style={{marginTop: wp(-10)}}>
+        <View style={{ marginTop: wp(-10) }}>
           <SliderBox
             images={url}
             resizeMode="contain"
             //sliderBoxHeight={hp(30)}
-            ImageComponentStyle={{height: hp(70), width: wp(100)}}
-            dotStyle={{height: 0, width: 0}}
+            ImageComponentStyle={{ height: hp(70), width: wp(100) }}
+            dotStyle={{ height: 0, width: 0 }}
           />
         </View>
       </ScrollView>
