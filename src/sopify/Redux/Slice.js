@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 export const MySlice = createSlice({
   name: 'sopify',
   initialState: {
@@ -23,6 +23,8 @@ export const MySlice = createSlice({
     id: null,
     about: null,
     pages: [],
+    deleteAddress: null,
+    updateAddress: null,
   },
   reducers: {
     getCollection: state => {
@@ -164,7 +166,7 @@ export const MySlice = createSlice({
     updateCartFaill: state => {
       state.isLoading = false;
     },
-    addAdressFaill: state => {
+    addAddressFaill: state => {
       state.isLoading = false;
     },
     addAddressSucess: (state, action) => {
@@ -202,8 +204,26 @@ export const MySlice = createSlice({
     fetchPagesError: state => {
       state.isLoading = false;
     },
+    deleteAddress: state => {
+      state.isLoading = true;
+    },
+    deleteAddressSuccess: (state, action) => {
+      (state.isLoading = true), (state.deleteAddress = action.payload);
+    },
+    deleteAddressError: state => {
+      state.isLoading = false;
+    },
+    updateAddress: state => {
+      state.isLoading = true;
+    },
+    updateAddressSuccess: (state, action) => {
+      (state.isLoading = false), (state.updateAddress = action.payload);
+    },
+    updateAddressFail: state => {
+      state.isLoading = false;
+    },
   },
 });
-export const { getCollection, getCollectionSuccess, getCollectionFail } =
+export const {getCollection, getCollectionSuccess, getCollectionFail} =
   MySlice.actions;
 export default MySlice.reducer;

@@ -49,4 +49,10 @@ export default StyleSheet.create({
     fontWeight: '800',
     textDecorationLine: 'underline',
   },
+  plusIcon: {
+    fontSize: wp(12),
+    position: 'absolute',
+    bottom: wp(23),
+    right: wp(5),
+  },
 });

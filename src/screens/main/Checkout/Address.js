@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
-import CheckBox from '@react-native-community/checkbox';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -15,37 +14,123 @@ import {
 import Input from './component';
 import SelectDropdown from 'react-native-select-dropdown';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import Shopify from '../../../sopify/API/Shopify';
-import {getSessionToken} from '@shopify/app-bridge/utilities';
-import {App} from '../../../sopify/API/client';
-
-const Address = () => {
-  const test = async () => {
-    console.log('called');
-    const der = await getSessionToken(App);
-    console.log(der);
-
-    console.log('end');
-  };
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import Loading from '../../../compoents/Loader';
+const Address = props => {
+  const dispatch = useDispatch();
+  const data = props.route.params.data;
+  const navigation = useNavigation();
   const countries = ['India', 'Canada', 'Australia', 'Ireland'];
+  const isLoading = useSelector(state => state.data.isLoading);
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [address, setAddress] = React.useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    address1: '',
-    address2: '',
-    city: '',
-    country: '',
-    province: '',
-    phone: '',
-    zip: '',
+    firstName: data.firstName ? data.firstName : '',
+    lastName: data.lastName ? data.lastName : '',
+    email: data.email ? data.email : '',
+    address1: data.address1 ? data.address1 : '',
+    address2: data.address2 ? data.address2 : '',
+    city: data.city ? data.city : '',
+    country: data.country ? data.country : '',
+    province: data.province ? data.province : '',
+    phone: data.phone ? data.phone : '',
+    zip: data.zip ? data.zip : '',
+    company: data.company ? data.company : '',
   });
-  const handleonSubmit = (text, input) => {
+  const handleOnChangeText = (text, input) => {
     setAddress(prev => ({...prev, [text]: input}));
+  };
+  const handleOnSave = async () => {
+    const userToke = await AsyncStorage.getItem('Token');
+    if (data === 'add') {
+      let data1 = JSON.stringify({
+        query: `mutation customerAddressCreate($address: MailingAddressInput!, $customerAccessToken: String!) {
+        customerAddressCreate(address: $address, customerAccessToken: $customerAccessToken) {
+            
+          customerAddress {
+            address1
+            address2
+            city
+            company
+            countryCodeV2
+            firstName
+            lastName
+          }
+          customerUserErrors {
+            code
+            field
+            message
+          }
+        }
+      }`,
+        variables: {
+          address: {
+            address1: address.address1,
+            address2: address.address2,
+            city: address.city,
+            company: address.company,
+            country: address.country,
+            firstName: address.firstName,
+            lastName: address.lastName,
+            phone: address.phone,
+            province: address.province,
+            zip: address.zip,
+          },
+          customerAccessToken: userToke,
+        },
+      });
+      dispatch({
+        type: 'sopify/addAdress',
+        data: data1,
+        navigation,
+        msg: 'Adress Added Succesfully',
+        token: userToke,
+      });
+    } else {
+      let data2 = JSON.stringify({
+        query: `mutation customerAddressUpdate($address: MailingAddressInput!, $customerAccessToken: String!, $id: ID!) {
+        customerAddressUpdate(address: $address, customerAccessToken: $customerAccessToken, id: $id) {
+          customerAddress {
+            address1
+          }
+          customerUserErrors {
+            code
+            field
+            message
+            
+          }
+        }
+      }`,
+        variables: {
+          address: {
+            address1: address.address1,
+            address2: address.address2,
+            city: address.city,
+            company: address.company,
+            country: address.country,
+            firstName: address.firstName,
+            lastName: address.lastName,
+            phone: address.phone,
+            province: address.province,
+            zip: address.zip,
+          },
+          customerAccessToken: userToke,
+          id: data.id,
+        },
+      });
+      dispatch({
+        type: 'sopify/updateAddress',
+        data: data2,
+        navigation,
+        msg: 'Address updated Successfully',
+        token: userToke,
+      });
+    }
   };
   return (
     <View style={{flex: 1}}>
+      {isLoading ? <Loading /> : null}
       <ScrollView contentContainerStyle={{paddingBottom: wp(20)}}>
         <View>
           <View style={[styles.contact, {marginTop: wp(4)}]}>
@@ -73,7 +158,7 @@ const Address = () => {
                 placeholder="Firstname*"
                 value={address.firstName}
                 onChangeText={input => {
-                  handleonSubmit('firstName', input);
+                  handleOnChangeText('firstName', input);
                 }}
                 style={{flex: 1, fontSize: wp(4)}}
               />
@@ -93,7 +178,7 @@ const Address = () => {
                 placeholder="Lastname*"
                 value={address.lastName}
                 onChangeText={input => {
-                  handleonSubmit('lastName', input);
+                  handleOnChangeText('lastName', input);
                 }}
               />
             </View>
@@ -104,15 +189,15 @@ const Address = () => {
             placeholder="Mobile/Phone*"
             value={address.phone}
             onChangeText={input => {
-              handleonSubmit('phone', input);
+              handleOnChangeText('phone', input);
             }}
           />
           <Input
             notlable
-            placeholder="Email*"
-            value={address.email}
+            placeholder="Company*"
+            value={address.company}
             onChangeText={input => {
-              handleonSubmit('email', input);
+              handleOnChangeText('company', input);
             }}
           />
           <View style={styles.contact}>
@@ -122,12 +207,12 @@ const Address = () => {
             <SelectDropdown
               title="selexr"
               data={countries}
-              defaultButtonText="Country"
+              defaultButtonText={data.country ? data.country : 'Country'}
               dropdownStyle={{
                 width: '100%',
               }}
               onSelect={(selectedItem, index) => {
-                handleonSubmit('country', selectedItem);
+                handleOnChangeText('country', selectedItem);
               }}
               // dropdownOverlayColor="red"
               style={{
@@ -148,14 +233,14 @@ const Address = () => {
             placeholder="Address (House NO,Building,Street,Area)*"
             value={address.address1}
             onChangeText={input => {
-              handleonSubmit('address1', input);
+              handleOnChangeText('address1', input);
             }}
           />
           <Input
             notlable
             placeholder="Address(2) (House NO,Building,Street,Area)"
             value={address.address2}
-            onChangeText={input => handleonSubmit('address2', input)}
+            onChangeText={input => handleOnChangeText('address2', input)}
           />
 
           <View
@@ -180,7 +265,7 @@ const Address = () => {
                 placeholder="City"
                 value={address.city}
                 onChangeText={input => {
-                  handleonSubmit('city', input);
+                  handleOnChangeText('city', input);
                 }}
                 style={{flex: 1, fontSize: wp(4)}}
               />
@@ -201,7 +286,7 @@ const Address = () => {
                 style={{flex: 1, fontSize: wp(4)}}
                 value={address.province}
                 onChangeText={input => {
-                  handleonSubmit('province', input);
+                  handleOnChangeText('province', input);
                 }}
               />
             </View>
@@ -221,7 +306,7 @@ const Address = () => {
                 style={{flex: 1, fontSize: wp(4)}}
                 value={address.zip}
                 onChangeText={input => {
-                  handleonSubmit('zip', input);
+                  handleOnChangeText('zip', input);
                 }}
               />
             </View>
@@ -247,7 +332,7 @@ const Address = () => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            test();
+            handleOnSave();
           }}
           style={[styles.btn2, {marginTop: wp(-10)}]}>
           <Text style={{color: 'white', fontWeight: '500', fontSize: wp(4)}}>

@@ -26,10 +26,13 @@ import SelectDropdown from 'react-native-select-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Checkout = ({navigation}) => {
+  const iseSevedAddres = useSelector(
+    state => state.data.userData?.addresses?.nodes,
+  );
   const dispatch = useDispatch();
   const checkout = useSelector(state => state.data.checkoutData);
   const checoutAfterAddress = useSelector(state => state.data.checkout);
-  const [iseSevedAddres, setIsSavedAddress] = useState({});
+
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const useData = useSelector(state => state.data.userData);
   //console.log(useData.email);
@@ -51,9 +54,7 @@ const Checkout = ({navigation}) => {
     getAddress();
   }, []);
   const getAddress = async () => {
-    let add = JSON.parse(await AsyncStorage.getItem('address'));
-    setIsSavedAddress(add);
-    if (add != null) {
+    if (iseSevedAddres.length > 0) {
       setSHow(true);
     }
 
@@ -272,7 +273,7 @@ const Checkout = ({navigation}) => {
             </View>
           </View>
         ) : null}
-        {iseSevedAddres === null ? (
+        {iseSevedAddres.length <= 0 ? (
           <View>
             <View style={[styles.contact, {marginTop: wp(4)}]}>
               <Text style={styles.cont}>Contact</Text>
@@ -499,7 +500,7 @@ const Checkout = ({navigation}) => {
               <Text
                 onPress={() => {
                   setAddress(iseSevedAddres);
-                  setIsSavedAddress(null);
+
                   setSHow(false);
                 }}
                 style={{
@@ -545,7 +546,7 @@ const Checkout = ({navigation}) => {
               <Text
                 onPress={() => {
                   setAddress(iseSevedAddres);
-                  setIsSavedAddress(null);
+
                   setSHow(false);
                 }}
                 style={{
@@ -599,11 +600,9 @@ const Checkout = ({navigation}) => {
         <TouchableOpacity
           onPress={async () => {
             if (toggleCheckBox) {
-              await AsyncStorage.setItem('address', JSON.stringify(address));
               console.log('this is saved');
             }
             if (iseSevedAddres === null) {
-              setIsSavedAddress(address);
               setSHow(true);
             } else {
               dispatch({

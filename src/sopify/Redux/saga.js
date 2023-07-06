@@ -1,17 +1,17 @@
-import { put, takeEvery, call } from 'redux-saga/effects';
+import {put, takeEvery, call} from 'redux-saga/effects';
 import Shopify from '../API/Shopify';
-import { getCollectionSuccess } from './Slice';
+import {getCollectionSuccess} from './Slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert } from 'react-native';
-import Toast from 'react-native-toast-message'
-
+import {Alert} from 'react-native';
+import Toast from 'react-native-toast-message';
+import {query} from '../../screens/main/Home/query';
 
 function* getCollection() {
   try {
     const data = yield call(Shopify.getCollection);
     yield put(getCollectionSuccess(data));
   } catch (err) {
-    yield put({ type: 'spify/getCollectionFail' });
+    yield put({type: 'spify/getCollectionFail'});
   }
 }
 function* getProductById(action) {
@@ -28,7 +28,7 @@ function* getProductById(action) {
       id: action.prId,
     });
     if (action.page === 'home') {
-      action.navigation.navigate('ProductList', { title: action.title });
+      action.navigation.navigate('ProductList', {title: action.title});
     }
   } catch (err) {
     yield put({
@@ -63,10 +63,10 @@ function* fetAllProducts(action) {
       id: action.id,
     });
     if (action?.id === 'home') {
-      action.navigation.navigate('ProductList', { title: action.title });
+      action.navigation.navigate('ProductList', {title: action.title});
     }
   } catch (err) {
-    yield put({ type: 'sopify/fetchAllProductsFaill' });
+    yield put({type: 'sopify/fetchAllProductsFaill'});
     console.log(err);
   }
 }
@@ -90,8 +90,8 @@ function* doLogin(action) {
       });
       Toast.show({
         type: 'info',
-        text1: 'Successfully Loged in'
-      })
+        text1: 'Successfully Loged in',
+      });
       action.navigation.replace('Home');
     } else {
       yield put({
@@ -112,7 +112,7 @@ function* doLogin(action) {
 function* doRegister(action) {
   try {
     const res = yield call(Shopify.userControll, action.data);
-    console.log(JSON.stringify(res.data))
+    console.log(JSON.stringify(res.data));
     if (res.data.customerCreate.customer != null) {
       yield put({
         type: 'sopify/registerSuccess',
@@ -120,7 +120,7 @@ function* doRegister(action) {
       });
       Toast.show({
         type: 'info',
-        text1: 'Account created  Successfully'
+        text1: 'Account created  Successfully',
       });
       action.navigation.replace('Login');
     } else {
@@ -129,27 +129,30 @@ function* doRegister(action) {
       });
       Toast.show({
         type: 'info',
-        text1: 'somethig went wrong'
-      })
+        text1: 'somethig went wrong',
+      });
     }
   } catch (err) {
     yield put({
       type: 'sopify/registerError',
     });
   }
-
-
-
 }
 function* getUserData(action) {
   try {
     const user = yield call(Shopify.userControll, action.data);
-    console.log(user);
+    // console.log(user);
     if (user.data) {
       yield put({
         type: 'sopify/userDataSuccess',
         payload: user.data.customer,
       });
+      if (action.msg) {
+        Toast.show({
+          type: 'info',
+          text1: action.msg,
+        });
+      }
       if (action.page != 'home') {
         action.navigation.navigate('Profile');
       }
@@ -243,7 +246,7 @@ function* createCheckout(action) {
       type: 'sopify/createCheckoutSuccess',
       payload: res.data.checkoutCreate.checkout,
     });
-    action.navigation.navigate('Address');
+    action.navigation.navigate('Checkout');
   } catch (error) {
     yield put({
       type: '/sopify/createCheckoutFaill',
@@ -273,22 +276,50 @@ function* updateCart(action) {
   }
 }
 function* addAddress(action) {
-  let address = action.iseSevedAddres;
-  delete address.email;
-  let chek = action.check;
   try {
-    const res = yield call(Shopify.shippingAddress, chek, address);
-    console.log('this is res from add..', JSON.stringify(res));
-    yield put({
-      type: 'sopify/addAddressSucess',
-      payload: res,
+    let data = JSON.stringify({
+      query: `query{
+        customer(customerAccessToken:${JSON.stringify(action.token)}){
+        ${query}
+    }`,
+      variables: {},
     });
-    //action.navigation.navigate('Payment');
-  } catch (err) {
-    yield put({
-      type: 'sopify/addAdressFaill',
+    const res = yield call(Shopify.userControll, action.data);
+    if (res.data.customerAddressCreate.customerAddress != null) {
+      console.log(true);
+      yield put({
+        type: 'sopify/addAddressSucess',
+        payload: res.data.customerAddressCreate.customerAddress,
+      });
+      action.navigation.goBack();
+      yield put({
+        type: 'sopify/userDatareq',
+        data: data,
+        page: 'home',
+        navigation: action.navigation,
+        msg: action.msg,
+      });
+    } else {
+      yield put({
+        type: 'sopify/addAddressFaill',
+      });
+      console.log(res.data.customerAddressCreate);
+      Toast.show({
+        type: 'info',
+        text1: res.data
+          ? res?.data?.customerAddressCreate.customerUserErrors[0]?.code
+          : 'Message',
+        text2: res.data
+          ? res?.data?.customerAddressCreate.customerUserErrors[0]?.message
+          : 'Something went wrong',
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    Toast.show({
+      type: 'info',
+      text1: 'something went wrong',
     });
-    console.log(err);
   }
 }
 function* fetchMenu(action) {
@@ -354,6 +385,92 @@ function* fetchPages(action) {
     console.log(er);
   }
 }
+function* deleteAddress(action) {
+  try {
+    let data = JSON.stringify({
+      query: `query{
+        customer(customerAccessToken:${JSON.stringify(action.token)}){
+        ${query}
+    }`,
+      variables: {},
+    });
+    const res = yield call(Shopify.userControll, action.data);
+    if (res.data.customerAddressDelete.deletedCustomerAddressId != null) {
+      yield put({
+        type: 'sopify/deleteAddressSuccess',
+        payload: 1,
+      });
+
+      yield put({
+        type: 'sopify/userDatareq',
+        data: data,
+        page: 'home',
+        navigation: action.navigation,
+        msg: 'Address Deleted Successfully',
+      });
+    } else {
+      yield put({
+        type: 'sopify/deleteAddressError',
+      });
+      Toast.show({
+        type: 'info',
+        text1: 'Somethig went wrong',
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: 'sopify/deleteAddressError',
+    });
+    console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Somethig went wrong',
+    });
+  }
+}
+function* updateAddress(action) {
+  try {
+    let data = JSON.stringify({
+      query: `query{
+        customer(customerAccessToken:${JSON.stringify(action.token)}){
+        ${query}
+    }`,
+      variables: {},
+    });
+    const res = yield call(Shopify.userControll, action.data);
+    if (res.data.customerAddressUpdate.customerAddress != null) {
+      yield put({
+        type: 'sopify/updateAddressSuccess',
+        payload: res.data.customerAddressUpdate.customerAddress,
+      });
+      action.navigation.goBack();
+      yield put({
+        type: 'sopify/userDatareq',
+        data: data,
+        page: 'home',
+        navigation: action.navigation,
+        msg: action.msg,
+      });
+    } else {
+      yield put({
+        type: 'sopify/updateAddressFail',
+      });
+      Toast.show({
+        type: 'info',
+        text1: 'Something went wrong',
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    yield put({
+      type: 'sopify/updateAddressFail',
+    });
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
+  }
+}
 function* Saga() {
   yield takeEvery('sopify/getCollection', getCollection);
   yield takeEvery('sopify/fetchProductById', getProductById);
@@ -373,6 +490,8 @@ function* Saga() {
   yield takeEvery('sopify/fetchMenu', fetchMenu);
   yield takeEvery('sopify/pageDeatails', aboutUs);
   yield takeEvery('sopify/fetchPages', fetchPages);
+  yield takeEvery('sopify/deleteAddress', deleteAddress);
+  yield takeEvery('sopify/updateAddress', updateAddress);
 }
 
 export default Saga;
