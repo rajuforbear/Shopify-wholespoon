@@ -222,6 +222,45 @@ export const MySlice = createSlice({
     updateAddressFail: state => {
       state.isLoading = false;
     },
+    userLogout: state => {
+      state.userData = null;
+    },
+    setDefaulAddress: state => {
+      state.isLoading = true;
+    },
+    setDefaulAddressSuccess: state => {
+      state.isLoading = true;
+    },
+    setDefaulAddressError: state => {
+      state.isLoading = false;
+    },
+    updateProfile: state => {
+      state.isLoading = true;
+    },
+    updateProfileSuccess: state => {
+      state.isLoading = false;
+    },
+    updateProfileFaill: state => {
+      state.isLoading = false;
+    },
+    resetPassword: state => {
+      state.isLoading = true;
+    },
+    resetPasswordSuccess: state => {
+      state.isLoading = false;
+    },
+    resetPasswordError: state => {
+      state.isLoading = false;
+    },
+    updateCheckout: state => {
+      state.isLoading = true;
+    },
+    updateCheckoutSuccess: (state, action) => {
+      (state.isLoading = false), (state.checkoutData = action.payload);
+    },
+    updateCheckoutError: state => {
+      state.isLoading = false;
+    },
   },
 });
 export const {getCollection, getCollectionSuccess, getCollectionFail} =

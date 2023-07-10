@@ -10,6 +10,7 @@ import {
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../../compoents/Loader';
+import {query} from '../Home/query';
 
 const AddressBook = ({navigation}) => {
   const dispatch = useDispatch();
@@ -50,24 +51,23 @@ const AddressBook = ({navigation}) => {
       query: `mutation customerDefaultAddressUpdate($addressId: ID!, $customerAccessToken: String!) {
       customerDefaultAddressUpdate(addressId: $addressId, customerAccessToken: $customerAccessToken) {
         customer {
-         defaultAddress{
-             address1
-             address2
-             city
-    
-         }
+             firstName
         }
         customerUserErrors {
           code
           field
           message
         }
-      }
-    }`,
+      } 
+  }`,
       variables: {
         addressId: id,
         customerAccessToken: userToken,
       },
+    });
+    dispatch({
+      type: 'sopify/setDefaulAddress',
+      data: data,
     });
   };
 
@@ -94,6 +94,23 @@ const AddressBook = ({navigation}) => {
                     borderRadius: wp(1),
                     //backgroundColor: '#787878',
                   }}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      index != 0 ? setDefaultAddress(item.id) : null
+                    }>
+                    <Text
+                      style={[
+                        styles.default,
+                        {
+                          color:
+                            userData.defaultAddress.id === item.id
+                              ? 'black'
+                              : '#D9C5AA',
+                        },
+                      ]}>
+                      {userData.defaultAddress.id == item.id ? 'Default' : null}
+                    </Text>
+                  </TouchableOpacity>
                   <Text style={styles.adText}>{item?.firstName}</Text>
                   <Text style={styles.adText}>{item?.lastName}</Text>
                   {item.phone ? (

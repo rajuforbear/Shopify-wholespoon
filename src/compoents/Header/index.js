@@ -66,6 +66,7 @@ const Header = () => {
   };
   const handleLogin = async () => {
     if (token != null) {
+      dispatch({type: 'sopify/userLogout'});
       await AsyncStorage.clear();
       navigation.replace('Home');
     } else {

@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import Loading from '../../../compoents/Loader';
+import CheckBox from '@react-native-community/checkbox';
 const Address = props => {
   const dispatch = useDispatch();
   const data = props.route.params.data;
@@ -26,17 +27,16 @@ const Address = props => {
   const isLoading = useSelector(state => state.data.isLoading);
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [address, setAddress] = React.useState({
-    firstName: data.firstName ? data.firstName : '',
-    lastName: data.lastName ? data.lastName : '',
-    email: data.email ? data.email : '',
-    address1: data.address1 ? data.address1 : '',
-    address2: data.address2 ? data.address2 : '',
-    city: data.city ? data.city : '',
-    country: data.country ? data.country : '',
-    province: data.province ? data.province : '',
-    phone: data.phone ? data.phone : '',
-    zip: data.zip ? data.zip : '',
-    company: data.company ? data.company : '',
+    firstName: data?.firstName ? data.firstName : '',
+    lastName: data?.lastName ? data.lastName : '',
+    address1: data?.address1 ? data.address1 : '',
+    address2: data?.address2 ? data.address2 : '',
+    city: data?.city ? data.city : '',
+    country: data?.country ? data.country : '',
+    province: data?.province ? data.province : '',
+    phone: data?.phone ? data.phone : '',
+    zip: data?.zip ? data.zip : '',
+    company: data?.company ? data.company : '',
   });
   const handleOnChangeText = (text, input) => {
     setAddress(prev => ({...prev, [text]: input}));
@@ -65,18 +65,7 @@ const Address = props => {
         }
       }`,
         variables: {
-          address: {
-            address1: address.address1,
-            address2: address.address2,
-            city: address.city,
-            company: address.company,
-            country: address.country,
-            firstName: address.firstName,
-            lastName: address.lastName,
-            phone: address.phone,
-            province: address.province,
-            zip: address.zip,
-          },
+          address: address,
           customerAccessToken: userToke,
         },
       });
@@ -86,6 +75,7 @@ const Address = props => {
         navigation,
         msg: 'Adress Added Succesfully',
         token: userToke,
+        op: 'add',
       });
     } else {
       let data2 = JSON.stringify({
@@ -103,18 +93,7 @@ const Address = props => {
         }
       }`,
         variables: {
-          address: {
-            address1: address.address1,
-            address2: address.address2,
-            city: address.city,
-            company: address.company,
-            country: address.country,
-            firstName: address.firstName,
-            lastName: address.lastName,
-            phone: address.phone,
-            province: address.province,
-            zip: address.zip,
-          },
+          address: address,
           customerAccessToken: userToke,
           id: data.id,
         },
@@ -125,6 +104,9 @@ const Address = props => {
         navigation,
         msg: 'Address updated Successfully',
         token: userToke,
+        op: 'update',
+        id: data.id,
+        check: toggleCheckBox,
       });
     }
   };
@@ -203,11 +185,11 @@ const Address = props => {
           <View style={styles.contact}>
             <Text style={styles.cont}>Shipping Address</Text>
           </View>
-          <View style={styles.inputfield2}>
+          <View style={[styles.inputfield2]}>
             <SelectDropdown
               title="selexr"
               data={countries}
-              defaultButtonText={data.country ? data.country : 'Country'}
+              defaultButtonText={data?.country ? data.country : 'Country'}
               dropdownStyle={{
                 width: '100%',
               }}
@@ -256,10 +238,12 @@ const Address = props => {
                 //alignItems: 'center',
                 justifyContent: 'center',
                 // backgroundColor: 'white',
-                width: wp(30),
+                width: wp(25),
                 borderRadius: wp(2),
-                paddingHorizontal: wp(3),
+
                 borderWidth: wp(0.1),
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
               <TextInput
                 placeholder="City"
@@ -275,11 +259,12 @@ const Address = props => {
                 height: hp(5),
                 justifyContent: 'center',
                 // backgroundColor: 'lightgrey',
-                width: wp(30),
+                width: wp(40),
                 borderRadius: wp(2),
                 marginLeft: wp(3),
                 borderWidth: wp(0.1),
-                paddingHorizontal: wp(3),
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
               <TextInput
                 placeholder="State"
@@ -295,15 +280,16 @@ const Address = props => {
                 height: hp(5),
                 justifyContent: 'center',
                 // backgroundColor: 'lightgrey',
-                width: wp(30),
+                width: wp(25),
                 borderRadius: wp(2),
                 marginLeft: wp(3),
                 borderWidth: wp(0.1),
-                paddingHorizontal: wp(3),
+                //paddingHorizontal: wp(3),
+                alignItems: 'center',
               }}>
               <TextInput
                 placeholder="Pincode"
-                style={{flex: 1, fontSize: wp(4)}}
+                style={{flex: 1, fontSize: wp(3.8)}}
                 value={address.zip}
                 onChangeText={input => {
                   handleOnChangeText('zip', input);
@@ -312,29 +298,31 @@ const Address = props => {
             </View>
           </View>
 
-          <View
-            style={{
-              height: hp(5),
-              marginHorizontal: wp(3),
-              marginVertical: wp(3),
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            {/* <CheckBox
-              disabled={false}
-              value={toggleCheckBox}
-              onValueChange={() => setToggleCheckBox(!toggleCheckBox)}
-            /> */}
-            {/* <Text style={{fontWeight: '500', marginLeft: wp(2)}}>
-              save it for latter
-            </Text> */}
-          </View>
+          {data != 'add' ? (
+            <View
+              style={{
+                height: hp(4),
+                marginHorizontal: wp(3),
+                marginVertical: wp(3),
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <CheckBox
+                disabled={false}
+                value={toggleCheckBox}
+                onValueChange={() => setToggleCheckBox(!toggleCheckBox)}
+              />
+              <Text style={{fontWeight: '500', marginLeft: wp(2)}}>
+                Set it default
+              </Text>
+            </View>
+          ) : null}
         </View>
         <TouchableOpacity
           onPress={() => {
             handleOnSave();
           }}
-          style={[styles.btn2, {marginTop: wp(-10)}]}>
+          style={[styles.btn2, {marginTop: data === 'add' ? wp(3) : null}]}>
           <Text style={{color: 'white', fontWeight: '500', fontSize: wp(4)}}>
             {'Save'}
           </Text>

@@ -1,31 +1,33 @@
 export const query = `firstName
 lastName
 email
+phone
 acceptsMarketing
 createdAt
 numberOfOrders
 defaultAddress{
+    address1
     address2
-                city
-                company
-                country
-                countryCodeV2
-                firstName
-                formatted
-                formattedArea
-                id
-                lastName
-                latitude
-                longitude
-                zip
-                provinceCode
-                province
-                phone
-                name
+    city
+    company
+    country
+    countryCodeV2
+    firstName
+    formatted
+    formattedArea
+    id
+    lastName
+    latitude
+    longitude
+    zip
+    provinceCode
+    province
+    phone
+    name
 }
 addresses(first:10){
     nodes{
-        address1
+                address1
                 address2
                 city
                 company

@@ -24,32 +24,53 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import SelectDropdown from 'react-native-select-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '../../../compoents/Loader';
 
 const Checkout = ({navigation}) => {
   const iseSevedAddres = useSelector(
     state => state.data.userData?.addresses?.nodes,
   );
+
   const dispatch = useDispatch();
+  const [isEdited, setIsEdited] = useState(false);
   const checkout = useSelector(state => state.data.checkoutData);
+  const isLoading = useSelector(state => state.data.isLoading);
+  console.log(isLoading);
   const checoutAfterAddress = useSelector(state => state.data.checkout);
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const useData = useSelector(state => state.data.userData);
-  //console.log(useData.email);
+  console.log(checkout);
 
   //console.log(toggleCheckBox);
   const [address, setAddress] = React.useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    address1: '',
-    address2: '',
-    city: '',
-    country: '',
-    province: '',
-    phone: '',
-    zip: '',
+    firstName: useData?.defaultAddress?.firstName
+      ? useData?.defaultAddress?.firstName
+      : '',
+    lastName: useData?.defaultAddress?.lastName
+      ? useData?.defaultAddress?.lastName
+      : '',
+    company: useData?.defaultAddress?.company
+      ? useData?.defaultAddress?.company
+      : '',
+    address1: useData?.defaultAddress?.address1
+      ? useData?.defaultAddress?.address1
+      : '',
+    address2: useData?.defaultAddress?.address2
+      ? useData?.defaultAddress?.address2
+      : '',
+    city: useData?.defaultAddress?.city ? useData?.defaultAddress?.city : '',
+    country: useData?.defaultAddress?.country
+      ? useData?.defaultAddress?.country
+      : '',
+    province: useData?.defaultAddress?.province
+      ? useData?.defaultAddress?.province
+      : '',
+    phone: useData?.defaultAddress?.phone ? useData?.defaultAddress?.phone : '',
+    zip: useData?.defaultAddress?.zip ? useData?.defaultAddress?.zip : '',
   });
+  console.log(checkout?.id);
+
   useEffect(() => {
     getAddress();
   }, []);
@@ -60,8 +81,6 @@ const Checkout = ({navigation}) => {
 
     return false;
   };
-  //console.log(iseSevedAddres.email);
-  //  console.log('this is checkout data', JSON.stringify(checoutAfterAddress));
   const handleonSubmit = (text, input) => {
     setAddress(prev => ({...prev, [text]: input}));
   };
@@ -80,8 +99,78 @@ const Checkout = ({navigation}) => {
   };
   const countries = ['India', 'Canada', 'Australia', 'Ireland'];
 
+  const createAddress = async () => {
+    const userToke = await AsyncStorage.getItem('Token');
+
+    let data1 = JSON.stringify({
+      query: `mutation customerAddressCreate($address: MailingAddressInput!, $customerAccessToken: String!) {
+        customerAddressCreate(address: $address, customerAccessToken: $customerAccessToken) {
+            
+          customerAddress {
+            address1
+            address2
+            city
+            company
+            countryCodeV2
+            firstName
+            lastName
+          }
+          customerUserErrors {
+            code
+            field
+            message
+          }
+        }
+      }`,
+      variables: {
+        address: address,
+        customerAccessToken: userToke,
+      },
+    });
+    dispatch({
+      type: 'sopify/addAdress',
+      data: data1,
+      navigation,
+      msg: 'Adress Added Succesfully',
+      token: userToke,
+      op: 'create',
+    });
+  };
+  const editAddress = async () => {
+    const userToke = await AsyncStorage.getItem('Token');
+    let data2 = JSON.stringify({
+      query: `mutation customerAddressUpdate($address: MailingAddressInput!, $customerAccessToken: String!, $id: ID!) {
+      customerAddressUpdate(address: $address, customerAccessToken: $customerAccessToken, id: $id) {
+        customerAddress {
+          address1
+        }
+        customerUserErrors {
+          code
+          field
+          message
+          
+        }
+      }
+    }`,
+      variables: {
+        address: address,
+        customerAccessToken: userToke,
+        id: useData.defaultAddress?.id,
+      },
+    });
+    dispatch({
+      type: 'sopify/updateAddress',
+      data: data2,
+      navigation,
+      msg: 'Address updated Successfully',
+      token: userToke,
+      op: 'create',
+    });
+  };
+
   return (
     <View style={styles.container}>
+      {isLoading ? <Loading /> : null}
       {/* <View style={styles.header}>
         <View
           style={{
@@ -140,6 +229,7 @@ const Checkout = ({navigation}) => {
         {show ? (
           <View style={{paddingVertical: wp(2), backgroundColor: '#FAFAFA'}}>
             <FlatList
+              scrollEnabled={false}
               data={checkout?.lineItems?.edges}
               renderItem={({item, index}) => {
                 return (
@@ -273,7 +363,7 @@ const Checkout = ({navigation}) => {
             </View>
           </View>
         ) : null}
-        {iseSevedAddres.length <= 0 ? (
+        {iseSevedAddres.length <= 0 || isEdited ? (
           <View>
             <View style={[styles.contact, {marginTop: wp(4)}]}>
               <Text style={styles.cont}>Contact</Text>
@@ -336,10 +426,10 @@ const Checkout = ({navigation}) => {
             />
             <Input
               notlable
-              placeholder="Email*"
-              value={address.email}
+              placeholder="Company"
+              value={address.company}
               onChangeText={input => {
-                handleonSubmit('email', input);
+                handleonSubmit('company', input);
               }}
             />
             <View style={styles.contact}>
@@ -454,7 +544,7 @@ const Checkout = ({navigation}) => {
               </View>
             </View>
 
-            <View
+            {/* <View
               style={{
                 height: hp(5),
                 marginHorizontal: wp(3),
@@ -470,7 +560,7 @@ const Checkout = ({navigation}) => {
               <Text style={{fontWeight: '500', marginLeft: wp(2)}}>
                 save it for latter
               </Text>
-            </View>
+            </View> */}
           </View>
         ) : (
           <View style={{marginTop: hp(3)}}>
@@ -494,9 +584,11 @@ const Checkout = ({navigation}) => {
               <Text style={{fontSize: wp(4), fontWeight: '600', color: 'grey'}}>
                 contact
               </Text>
-              <Text style={{fontSize: wp(4), fontWeight: '600'}}>
-                {iseSevedAddres.email}
-              </Text>
+              <View style={{width: '66%'}}>
+                <Text style={{fontSize: wp(4), fontWeight: '600'}}>
+                  {useData.defaultAddress?.phone + '\n' + useData.email}
+                </Text>
+              </View>
               <Text
                 onPress={() => {
                   setAddress(iseSevedAddres);
@@ -509,7 +601,7 @@ const Checkout = ({navigation}) => {
                   textDecorationLine: 'underline',
                   color: '#A36B25',
                 }}>
-                Edit
+                {null}
               </Text>
             </View>
             <View
@@ -531,21 +623,23 @@ const Checkout = ({navigation}) => {
               <Text style={{fontSize: wp(4), fontWeight: '600', color: 'grey'}}>
                 ship to
               </Text>
-              <View style={{width: '61%'}}>
+              <View style={{width: '50%'}}>
                 <Text
                   style={{fontSize: wp(4), fontWeight: '600', color: 'black'}}>
-                  {iseSevedAddres.address1 +
+                  {useData?.defaultAddress?.address1 +
                     ', ' +
-                    iseSevedAddres.city +
+                    useData.defaultAddress?.city +
                     ', ' +
-                    iseSevedAddres.province +
+                    useData.defaultAddress?.province +
                     ', ' +
-                    iseSevedAddres.zip}
+                    useData.defaultAddress?.country +
+                    ', ' +
+                    useData.defaultAddress?.zip}
                 </Text>
               </View>
               <Text
                 onPress={() => {
-                  setAddress(iseSevedAddres);
+                  setIsEdited(true);
 
                   setSHow(false);
                 }}
@@ -555,7 +649,7 @@ const Checkout = ({navigation}) => {
                   textDecorationLine: 'underline',
                   color: '#A36B25',
                 }}>
-                Edit
+                Change
               </Text>
             </View>
             <Text
@@ -599,24 +693,32 @@ const Checkout = ({navigation}) => {
 
         <TouchableOpacity
           onPress={async () => {
-            if (toggleCheckBox) {
-              console.log('this is saved');
-            }
-            if (iseSevedAddres === null) {
+            // if (toggleCheckBox) {
+            //   console.log('this is saved');
+            // }
+            // if (iseSevedAddres.length > 0) {
+            //   setSHow(true);
+            // } else {
+            //   createAddress();
+            // }
+            if (iseSevedAddres?.length <= 0) {
               setSHow(true);
+              createAddress();
+            } else if (isEdited) {
+              editAddress();
+              setSHow(true);
+              setIsEdited(false);
             } else {
               dispatch({
-                type: 'sopify/addAdress',
-                iseSevedAddres,
-                check: checkout.id,
-                navigation,
+                type: 'sopify/updateCheckout',
+                id: checkout?.id,
+                address: address,
               });
-              console.log(iseSevedAddres);
             }
           }}
           style={styles.btn2}>
           <Text style={{color: 'white', fontWeight: '500', fontSize: wp(3.5)}}>
-            {iseSevedAddres == null
+            {iseSevedAddres.length <= 0 || isEdited
               ? 'Continue Shipping'
               : 'Continue for Payment'}
           </Text>

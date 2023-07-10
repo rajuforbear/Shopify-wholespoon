@@ -1,5 +1,5 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -10,27 +10,32 @@ const Input = ({
   iconName,
   lable,
   error,
-  onFocus = () => { },
+  isPhone,
+  isOtp,
+  onFocus = () => {},
   password,
   ...Propes
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [secureText, setSecureText] = useState(true);
   return (
-
     <View
-      style=
-      {{
+      style={{
         height: wp(12.8),
         marginBottom: hp('2%'),
         marginHorizontal: wp('5%'),
         backgroundColor: null,
-        borderWidth: error ? 1 : 1,
-        borderColor: isFocused ? '#a26a39' : error ? 'red' : '#c1c0c2',
+        borderWidth: isOtp ? 1.9 : error ? 1 : 1,
+        borderColor: isOtp
+          ? '#a26a39'
+          : isFocused
+          ? '#a26a39'
+          : error
+          ? 'red'
+          : '#c1c0c2',
         borderRadius: wp(1.5),
-        justifyContentZ: 'center'
-      }
-      }>
+        justifyContentZ: 'center',
+      }}>
       {error ? (
         <Text
           style={{
@@ -39,46 +44,53 @@ const Input = ({
             color: 'red',
             marginLeft: wp('4%'),
             fontWeight: '600',
-            top: 1
+            top: 1,
           }}>
           {error}
         </Text>
-      ) : lable? <Text
-      style={{
-        position: 'absolute',
-        fontSize: wp(3),
-        color: 'grey',
-        marginLeft: wp('4%'),
-        fontWeight: '600',
-        top: 1
-      }}>
-      {lable}
-    </Text>:null}
-      <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
-        {/* {!iconName && (
-            <Icon
-              style={{
-                fontSize: hp('3.5%'),
-                color: '#a26a39',
-                alignSelf: 'center',
-                marginLeft: '2.5%',
-                fontStyle: 'italic',
-              }}
-              name={iconName}
-            />
-          )} */}
+      ) : lable ? (
+        <Text
+          style={{
+            position: 'absolute',
+            fontSize: wp(3),
+            color: 'grey',
+            marginLeft: wp('4%'),
+            fontWeight: '600',
+            top: 1,
+          }}>
+          {lable}
+        </Text>
+      ) : null}
+      <View
+        style={{
+          flexDirection: 'row',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        {isPhone && (
+          <Text
+            style={{
+              marginLeft: wp(4),
+              alignSelf: 'center',
+              fontSize: wp(4.4),
+              fontWeight: '600',
+              fontStyle: 'italic',
+              color: 'grey',
+            }}>
+            +91
+          </Text>
+        )}
 
         <TextInput
           style={{
             flex: 1,
             fontSize: wp('4.4%'),
             fontWeight: '400',
-            paddingHorizontal: wp('4%'),
+            paddingHorizontal: !isPhone ? wp('4%') : wp(1),
             fontStyle: 'italic',
             fontWeight: '500',
-            height:wp(15)
-
-
+            height: wp(15),
           }}
           placeholderTextColor={'#a26a39'}
           {...Propes}
@@ -97,7 +109,6 @@ const Input = ({
             }}
             name={secureText ? 'eye-outline' : 'eye-off-outline'}
             style={{
-           
               marginRight: wp(5.6),
               fontSize: wp(6.8),
               color: '#a26a39',
@@ -109,7 +120,6 @@ const Input = ({
         ) : null}
       </View>
     </View>
-
   );
 };
 

@@ -55,4 +55,13 @@ export default StyleSheet.create({
     bottom: wp(23),
     right: wp(5),
   },
+  default: {
+    position: 'absolute',
+    right: wp(4),
+    top: wp(4),
+    fontSize: wp(4),
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+    color: '#D9C5AA',
+  },
 });

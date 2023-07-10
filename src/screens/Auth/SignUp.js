@@ -6,32 +6,38 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import Input from '../../compoents/Input';
 import Button from '../../compoents/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../../compoents/Loader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {query} from '../main/Home/query';
+import CheckBox from '@react-native-community/checkbox';
 
-
-const SignUp = ({ navigation }) => {
+const SignUp = ({navigation, route}) => {
+  const userData = useSelector(state => state.data.userData);
+  const page = route.params?.page;
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
+    firstName: userData?.firstName ? userData.firstName : '',
+    lastName: userData?.lastName ? userData.lastName : '',
+    email: userData?.email ? userData.email : '',
+    phone: userData?.phone ? userData.phone?.slice(3, 13) : '',
     password: '',
     confrimPassword: '',
   });
   const [errors, setErros] = useState({});
   const isLoading = useSelector(state => state.data.isLoading);
   const handleOnchange = (input, name) => {
-    setInputs(prev => ({ ...prev, [name]: input }));
+    setInputs(prev => ({...prev, [name]: input}));
   };
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  console.log(toggleCheckBox);
 
   const Register = () => {
     let data = JSON.stringify({
@@ -53,18 +59,57 @@ const SignUp = ({ navigation }) => {
       }`,
       variables: {
         input: {
-          acceptsMarketing: true,
+          acceptsMarketing: toggleCheckBox,
           email: inputs.email,
           firstName: inputs.firstName,
           lastName: inputs.lastName,
           password: inputs.password,
-          phone: inputs.phone,
+          phone: `+91${inputs.phone}`,
         },
       },
     });
 
     dispatch({
       type: 'sopify/register',
+      data: data,
+      navigation,
+    });
+  };
+  const updateCotumer = async () => {
+    const token = await AsyncStorage.getItem('Token');
+
+    let data = JSON.stringify({
+      query: `mutation customerUpdate($customer: CustomerUpdateInput!, $customerAccessToken: String!) {
+      customerUpdate(customer: $customer, customerAccessToken: $customerAccessToken) {
+        customer {
+            firstName
+            acceptsMarketing
+        }
+        customerAccessToken {
+          accessToken
+          expiresAt
+        }
+        customerUserErrors {
+          code
+          field
+          message
+         
+        }
+      }
+    }`,
+      variables: {
+        customer: {
+          acceptsMarketing: toggleCheckBox,
+          email: inputs.email,
+          firstName: inputs.firstName,
+          lastName: inputs.lastName,
+          phone: `+91${inputs.phone}`,
+        },
+        customerAccessToken: token,
+      },
+    });
+    dispatch({
+      type: 'sopify/updateProfile',
       data: data,
       navigation,
     });
@@ -98,29 +143,26 @@ const SignUp = ({ navigation }) => {
     }
     if (!inputs.password) {
       handleError('Please Enter Password', 'password');
-      valid = false;
+      valid = page != 'update' ? false : true;
     } else if (!inputs.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {
-      handleError(
-        'Password Must Contain Special Charecters',
-        'password',
-      );
-      valid = false;
+      handleError('Password Must Contain Special Charecters', 'password');
+      valid = page != 'update' ? false : true;
     }
 
     if (!inputs.confrimPassword) {
       handleError('please re-enter your password', 'confrimPassword');
-      valid = false;
+      valid = page != 'update' ? false : true;
     } else if (inputs.password != inputs.confrimPassword) {
       handleError("Password Dosen't Matched", 'confrimPassword');
-      valid = false;
+      valid = page != 'update' ? false : true;
     }
     if (valid) {
-      Register();
+      page != 'update' ? Register() : updateCotumer();
     }
     console.log(valid);
   };
   const handleError = (errorMassege, input) => {
-    setErros(prevState => ({ ...prevState, [input]: errorMassege }));
+    setErros(prevState => ({...prevState, [input]: errorMassege}));
   };
 
   return (
@@ -128,7 +170,7 @@ const SignUp = ({ navigation }) => {
       {isLoading ? <Loading /> : null}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ marginBottom: 30 }}>
+        style={{marginBottom: 30}}>
         <View style={styles.logoConatainer}>
           <Image
             style={styles.img}
@@ -138,7 +180,9 @@ const SignUp = ({ navigation }) => {
           />
         </View>
         <View style={styles.infoTextContainer}>
-          <Text style={styles.login}>Create Account</Text>
+          <Text style={styles.login}>
+            {page != 'update' ? 'Create Account' : 'Update Account'}
+          </Text>
           {/* <Text style={styles.info}>
             Please enter the details below to continue
           </Text> */}
@@ -148,6 +192,7 @@ const SignUp = ({ navigation }) => {
         <Input
           //  lable="First Name"
           lable="First name"
+          value={inputs.firstName}
           onChangeText={text => {
             handleOnchange(text, 'firstName');
           }}
@@ -158,6 +203,7 @@ const SignUp = ({ navigation }) => {
         <Input
           //  /lable="Last Name"
           lable="Last name"
+          value={inputs.lastName}
           onChangeText={text => {
             handleOnchange(text, 'lastName');
           }}
@@ -166,8 +212,8 @@ const SignUp = ({ navigation }) => {
           error={errors.lastName}
         />
         <Input
-          // /lable="E-mail"
           lable="E-mail"
+          value={inputs.email}
           onChangeText={text => {
             handleOnchange(text, 'email');
           }}
@@ -178,67 +224,91 @@ const SignUp = ({ navigation }) => {
         <Input
           // lable="Telephone"
           lable="Telephone"
+          value={inputs.phone}
           onChangeText={text => {
             handleOnchange(text, 'phone');
           }}
+          isPhone
           iconName="phone"
           error={errors.phone}
           onFocus={() => handleError(null, 'phone')}
         />
-        <Input
-          // lable="Password"
-          lable="Password"
-          onChangeText={text => {
-            handleOnchange(text, 'password');
-          }}
-          iconName="lock"
-          password
-          error={errors.password}
-          onFocus={() => handleError(null, 'password')}
-        />
-        <Input
-          // lable="Confirm Password"
-          lable="Confirm  Password"
-          onChangeText={text => {
-            handleOnchange(text, 'confrimPassword');
-          }}
-          iconName="lock"
-          password
-          error={errors.confrimPassword}
-          onFocus={() => handleError(null, 'confrimPassword')}
-        />
+        {page != 'update' ? (
+          <>
+            <Input
+              lable="Password"
+              value={inputs.password}
+              onChangeText={text => {
+                handleOnchange(text, 'password');
+              }}
+              iconName="lock"
+              password
+              error={errors.password}
+              onFocus={() => handleError(null, 'password')}
+            />
+            <Input
+              // lable="Confirm Password"
+              lable="Confirm  Password"
+              onChangeText={text => {
+                handleOnchange(text, 'confrimPassword');
+              }}
+              iconName="lock"
+              password
+              value={inputs.confrimPassword}
+              error={errors.confrimPassword}
+              onFocus={() => handleError(null, 'confrimPassword')}
+            />
+          </>
+        ) : null}
+        <View
+          style={{
+            height: hp(4),
+            marginHorizontal: wp(4),
+            marginVertical: wp(2),
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <CheckBox
+            disabled={false}
+            value={toggleCheckBox}
+            onValueChange={() => setToggleCheckBox(!toggleCheckBox)}
+          />
+          <Text style={{fontWeight: '500', marginLeft: wp(2)}}>
+            Subscribe for Newsletter
+          </Text>
+        </View>
         <Button
-          name="CREATE"
+          name={page === 'update' ? 'UPDATE' : 'REGISTER'}
           onPress={() => {
             //hanleOnPress();
             Vailidate();
-
           }}
         />
-        <View style={{ height: hp('8%') }}>
-          <Text
-            style={{
-              fontSize: hp('2.4%'),
-              alignSelf: 'center',
-              marginVertical: '3%',
-              color: '#a26a39',
-              fontStyle: 'italic',
-            }}>
-            Already have an account ?{' '}
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text
-                style={{
-                  fontSize: hp('2.4%'),
-                  color: '#a26a39',
-                  fontWeight: 'bold',
-                  fontStyle: 'italic',
-                }}>
-                Login
-              </Text>
-            </TouchableOpacity>
-          </Text>
-        </View>
-
+        {page != 'update' ? (
+          <View style={{height: hp('8%')}}>
+            <Text
+              style={{
+                fontSize: hp('2.4%'),
+                alignSelf: 'center',
+                marginVertical: '3%',
+                color: '#a26a39',
+                fontStyle: 'italic',
+              }}>
+              Already have an account ?{' '}
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Text
+                  style={{
+                    fontSize: hp('2.4%'),
+                    color: '#a26a39',
+                    fontWeight: 'bold',
+                    fontStyle: 'italic',
+                  }}>
+                  Login
+                </Text>
+              </TouchableOpacity>
+            </Text>
+          </View>
+        ) : null}
       </ScrollView>
     </View>
   );

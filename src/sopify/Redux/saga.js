@@ -141,7 +141,7 @@ function* doRegister(action) {
 function* getUserData(action) {
   try {
     const user = yield call(Shopify.userControll, action.data);
-    // console.log(user);
+    // console.log('this is neew user', user);
     if (user.data) {
       yield put({
         type: 'sopify/userDataSuccess',
@@ -285,13 +285,16 @@ function* addAddress(action) {
       variables: {},
     });
     const res = yield call(Shopify.userControll, action.data);
-    if (res.data.customerAddressCreate.customerAddress != null) {
+    console.log(JSON.stringify(res));
+    if (res.data?.customerAddressCreate.customerAddress != null) {
       console.log(true);
       yield put({
         type: 'sopify/addAddressSucess',
         payload: res.data.customerAddressCreate.customerAddress,
       });
-      action.navigation.goBack();
+      if (action.op != 'create') {
+        action.navigation.goBack();
+      }
       yield put({
         type: 'sopify/userDatareq',
         data: data,
@@ -319,6 +322,9 @@ function* addAddress(action) {
     Toast.show({
       type: 'info',
       text1: 'something went wrong',
+    });
+    yield put({
+      type: 'sopify/addAddressFaill',
     });
   }
 }
@@ -438,12 +444,15 @@ function* updateAddress(action) {
       variables: {},
     });
     const res = yield call(Shopify.userControll, action.data);
+    console.log(JSON.stringify(res));
     if (res.data.customerAddressUpdate.customerAddress != null) {
       yield put({
         type: 'sopify/updateAddressSuccess',
         payload: res.data.customerAddressUpdate.customerAddress,
       });
-      action.navigation.goBack();
+      if (action.op != 'create') {
+        action.navigation.goBack();
+      }
       yield put({
         type: 'sopify/userDatareq',
         data: data,
@@ -451,6 +460,24 @@ function* updateAddress(action) {
         navigation: action.navigation,
         msg: action.msg,
       });
+      if (action.check) {
+        yield put({
+          type: 'sopify/setDefaulAddress',
+          id: action.id,
+          token: action.token,
+          navigation: action.navigation,
+          msg: action.msg,
+          data: data,
+        });
+      } else {
+        yield put({
+          type: 'sopify/userDatareq',
+          data: data,
+          page: 'home',
+          navigation: action.navigation,
+          msg: action.msg,
+        });
+      }
     } else {
       yield put({
         type: 'sopify/updateAddressFail',
@@ -468,6 +495,169 @@ function* updateAddress(action) {
     Toast.show({
       type: 'info',
       text1: 'Something went wrong',
+    });
+  }
+}
+function* setDefaulAddress(action) {
+  try {
+    console.log('jhfdfdjfj   calledd.......................');
+    let data = JSON.stringify({
+      query: `mutation customerDefaultAddressUpdate($addressId: ID!, $customerAccessToken: String!) {
+    customerDefaultAddressUpdate(addressId: $addressId, customerAccessToken: $customerAccessToken) {
+      customer {
+           firstName
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    } 
+}`,
+      variables: {
+        addressId: action.id,
+        customerAccessToken: action.token,
+      },
+    });
+    const res = yield call(Shopify.userControll, data);
+    if (res.data.customerDefaultAddressUpdate.customer != null) {
+      yield put({
+        type: 'setDefaulAddressSuccess',
+      });
+      yield put({
+        type: 'sopify/userDatareq',
+        data: action.data,
+        page: 'home',
+        navigation: action.navigation,
+        msg: action.msg,
+      });
+    } else {
+      yield put({
+        type: 'setDefaulAddressError',
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: 'setDefaulAddressError',
+    });
+  }
+}
+function* updateProfile(action) {
+  try {
+    const res = yield call(Shopify.userControll, action.data);
+    console.log('this is acceptmarketinhg ', JSON.stringify(res));
+    if (res?.data?.customerUpdate?.customer != null) {
+      yield put({
+        type: 'sopify/updateProfileSuccess',
+      });
+      let accessToken = res?.data.customerUpdate.customerAccessToken;
+      console.log('this is access Token', accessToken);
+      if (accessToken != null) {
+        console.log('this is saved accestoken');
+        yield AsyncStorage.setItem('Token', accessToken);
+      }
+      action.navigation.goBack();
+      const token = yield AsyncStorage.getItem('Token');
+      console.log('this is saved accestoken', token);
+      let data = JSON.stringify({
+        query: `query{
+        customer(customerAccessToken:${JSON.stringify(token)}){
+        ${query}
+    }`,
+        variables: {},
+      });
+      yield put({
+        type: 'sopify/userDatareq',
+        data: data,
+        page: 'home',
+        navigation: action.navigation,
+      });
+      Toast.show({
+        type: 'info',
+        text1: 'Profile update Successfull',
+      });
+    } else {
+      yield put({
+        type: 'sopify/updateProfileFaill',
+      });
+      Toast.show({
+        type: 'info',
+        text1: res.data.customerUpdate.customerUserErrors[0]?.code,
+        text2: res.data.customerUpdate.customerUserErrors[0]?.message,
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: 'sopify/updateProfileFaill',
+    });
+    console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
+  }
+}
+function* resetPassword(action) {
+  try {
+    const res = yield call(Shopify.userControll, action.data);
+    console.log(JSON.stringify(res));
+
+    if (res.data?.customerRecover?.customerUserErrors.length <= 0) {
+      yield put({
+        type: 'sopify/resetPasswordSuccess',
+      });
+      Toast.show({
+        type: 'info',
+        text1: 'Eamil Sent Success',
+        text2: 'Please check your email box',
+      });
+
+      setTimeout(() => {
+        action.navigation.goBack();
+      }, 1500);
+    } else if (res.data?.customerRecover?.customerUserErrors.length > 0) {
+      yield put({
+        type: 'sopify/resetPasswordError',
+      });
+      console.log(JSON.stringify(res));
+      Toast.show({
+        type: 'info',
+        text1: res.data?.customerRecover?.customerUserErrors[0]?.message,
+      });
+    } else {
+      yield put({
+        type: 'sopify/resetPasswordError',
+      });
+      Toast.show({
+        type: 'info',
+        text1: 'Limit Exceeded',
+        text2: 'Resetting password limit exceeded. Please try again later.',
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    yield put({
+      type: 'sopify/resetPasswordError',
+    });
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
+  }
+}
+function* updateCheckout(action) {
+  try {
+    const res = yield call(Shopify.updateCheckout, action.id, action.address);
+    if (res.data.id) {
+      yield put({
+        type: 'sopify/updateCheckoutSuccess',
+        payload: res.data,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    yield put({
+      type: 'sopify/updateCheckoutError',
     });
   }
 }
@@ -492,6 +682,10 @@ function* Saga() {
   yield takeEvery('sopify/fetchPages', fetchPages);
   yield takeEvery('sopify/deleteAddress', deleteAddress);
   yield takeEvery('sopify/updateAddress', updateAddress);
+  yield takeEvery('sopify/setDefaulAddress', setDefaulAddress);
+  yield takeEvery('sopify/updateProfile', updateProfile);
+  yield takeEvery('sopify/resetPassword', resetPassword);
+  yield takeEvery('sopify/updateCheckout', updateCheckout);
 }
 
 export default Saga;

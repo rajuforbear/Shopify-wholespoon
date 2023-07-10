@@ -22,6 +22,7 @@ import Splash from '../../screens/Auth/Splash';
 import About from '../../screens/main/About';
 import Root from '../../Root';
 import Address from '../../screens/main/Checkout/Address';
+import Opt from '../../screens/Auth/OptPage';
 // npm i  @shopify/shopify-api
 // npm i react-native-shopify
 //npm i react-native-shopify@0.0.1-alpha.0
@@ -46,6 +47,7 @@ const MyStack = () => {
       <Stack.Screen name="AddressBook" component={AddressBook} />
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="Address" component={Address} />
+      
     </Stack.Navigator>
   );
 };

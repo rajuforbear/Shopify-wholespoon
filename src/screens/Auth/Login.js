@@ -15,8 +15,10 @@ import Input from '../../compoents/Input';
 import Button from '../../compoents/Button';
 import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../../compoents/Loader';
+import {useNavigation} from '@react-navigation/native';
 
-const Login = ({navigation}) => {
+const Login = () => {
+  const navigation = useNavigation();
   const [input, setInput] = useState({
     email: '',
     password: '',
@@ -127,10 +129,12 @@ const Login = ({navigation}) => {
             style={styles.text}>
             Create Account
           </Text>
-          <Text onPress={() => navigation.replace('home')} style={styles.text}>
+          <Text onPress={() => navigation.replace('Home')} style={styles.text}>
             Return to Store
           </Text>
-          <Text style={styles.text}>Forgot your password?</Text>
+          <Text onPress={() => navigation.navigate('Otp')} style={styles.text}>
+            Forgot your password?
+          </Text>
         </View>
       </ScrollView>
     </View>

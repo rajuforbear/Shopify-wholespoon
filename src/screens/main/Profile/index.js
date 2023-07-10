@@ -21,7 +21,7 @@ const Profile = ({navigation}) => {
           {'        '}
           <Pencil
             onPress={() => {
-              navigation.navigate('Register');
+              navigation.navigate('Register', {page: 'update'});
             }}
             name="edit"
             size={wp(4)}

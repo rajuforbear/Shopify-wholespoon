@@ -95,7 +95,7 @@ class Shopify {
         console.log(er);
       });
   };
-  static shippingAddress = (check, address) => {
+  static updateCheckout = (check, address) => {
     //console.log('this is id by checkout', checkoutId);
     try {
       const res = client.checkout
@@ -110,7 +110,6 @@ class Shopify {
   };
 
   static userControll = async query => {
-    console.log('calleddd,.....');
     try {
       let config = {
         method: 'post',
@@ -142,7 +141,7 @@ class Shopify {
       throw new Error(error.message);
     }
   };
-  static getCountryList = async () => {
+  static getCou24ntryList = async () => {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,

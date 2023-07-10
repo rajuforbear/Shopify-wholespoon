@@ -9,6 +9,7 @@ import Splash from '../screens/Auth/Splash';
 import Login from '../screens/Auth/Login';
 import SignUp from '../screens/Auth/SignUp';
 import Innternet from '../screens/Auth/Innternet';
+import Opt from '../screens/Auth/OptPage';
 
 const RootNavigation = () => {
   const Stack = createStackNavigator();
@@ -23,6 +24,7 @@ const RootNavigation = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={SignUp} />
         <Stack.Screen name="Internet" component={Innternet} />
+        <Stack.Screen name="Otp" component={Opt} />
       </Stack.Navigator>
     </NavigationContainer>
   );
