@@ -171,144 +171,142 @@ const SignUp = ({navigation, route}) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{marginBottom: 30}}>
-        <View style={styles.logoConatainer}>
-          <Image
-            style={styles.img}
-            source={{
-              uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
-            }}
-          />
-        </View>
-        <View style={styles.infoTextContainer}>
-          <Text style={styles.login}>
-            {page != 'update' ? 'Create Account' : 'Update Account'}
-          </Text>
-          {/* <Text style={styles.info}>
+        <View style={{marginTop: wp(25)}}>
+          <View style={styles.logoConatainer}>
+            <Image
+              style={styles.img}
+              source={{
+                uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
+              }}
+            />
+          </View>
+          <View style={styles.infoTextContainer}>
+            <Text style={styles.login}>
+              {page != 'update' ? 'Create Account' : 'Update Account'}
+            </Text>
+            {/* <Text style={styles.info}>
             Please enter the details below to continue
           </Text> */}
-          <View style={styles.line}></View>
-        </View>
+            <View style={styles.line}></View>
+          </View>
 
-        <Input
-          //  lable="First Name"
-          lable="First name"
-          value={inputs.firstName}
-          onChangeText={text => {
-            handleOnchange(text, 'firstName');
-          }}
-          iconName="user"
-          error={errors.firstName}
-          onFocus={() => handleError(null, 'firstName')}
-        />
-        <Input
-          //  /lable="Last Name"
-          lable="Last name"
-          value={inputs.lastName}
-          onChangeText={text => {
-            handleOnchange(text, 'lastName');
-          }}
-          iconName="user"
-          onFocus={() => handleError(null, 'lastName')}
-          error={errors.lastName}
-        />
-        <Input
-          lable="E-mail"
-          value={inputs.email}
-          onChangeText={text => {
-            handleOnchange(text, 'email');
-          }}
-          iconName="mail"
-          onFocus={() => handleError(null, 'email')}
-          error={errors.email}
-        />
-        <Input
-          // lable="Telephone"
-          lable="Telephone"
-          value={inputs.phone}
-          onChangeText={text => {
-            handleOnchange(text, 'phone');
-          }}
-          isPhone
-          iconName="phone"
-          error={errors.phone}
-          onFocus={() => handleError(null, 'phone')}
-        />
-        {page != 'update' ? (
-          <>
-            <Input
-              lable="Password"
-              value={inputs.password}
-              onChangeText={text => {
-                handleOnchange(text, 'password');
-              }}
-              iconName="lock"
-              password
-              error={errors.password}
-              onFocus={() => handleError(null, 'password')}
-            />
-            <Input
-              // lable="Confirm Password"
-              lable="Confirm  Password"
-              onChangeText={text => {
-                handleOnchange(text, 'confrimPassword');
-              }}
-              iconName="lock"
-              password
-              value={inputs.confrimPassword}
-              error={errors.confrimPassword}
-              onFocus={() => handleError(null, 'confrimPassword')}
-            />
-          </>
-        ) : null}
-        <View
-          style={{
-            height: hp(4),
-            marginHorizontal: wp(4),
-            marginVertical: wp(2),
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <CheckBox
-            disabled={false}
-            value={toggleCheckBox}
-            onValueChange={() => setToggleCheckBox(!toggleCheckBox)}
+          <Input
+            //  lable="First Name"
+            lable="First name"
+            value={inputs.firstName}
+            onChangeText={text => {
+              handleOnchange(text, 'firstName');
+            }}
+            iconName="user"
+            error={errors.firstName}
+            onFocus={() => handleError(null, 'firstName')}
           />
-          <Text style={{fontWeight: '500', marginLeft: wp(2)}}>
-            Subscribe for Newsletter
-          </Text>
-        </View>
-        <Button
-          name={page === 'update' ? 'UPDATE' : 'REGISTER'}
-          onPress={() => {
-            //hanleOnPress();
-            Vailidate();
-          }}
-        />
-        {page != 'update' ? (
-          <View style={{height: hp('8%')}}>
-            <Text
-              style={{
-                fontSize: hp('2.4%'),
-                alignSelf: 'center',
-                marginVertical: '3%',
-                color: '#a26a39',
-                fontStyle: 'italic',
-              }}>
-              Already have an account ?{' '}
-              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text
-                  style={{
-                    fontSize: hp('2.4%'),
-                    color: '#a26a39',
-                    fontWeight: 'bold',
-                    fontStyle: 'italic',
-                  }}>
-                  Login
-                </Text>
-              </TouchableOpacity>
+          <Input
+            //  /lable="Last Name"
+            lable="Last name"
+            value={inputs.lastName}
+            onChangeText={text => {
+              handleOnchange(text, 'lastName');
+            }}
+            iconName="user"
+            onFocus={() => handleError(null, 'lastName')}
+            error={errors.lastName}
+          />
+          <Input
+            lable="E-mail"
+            value={inputs.email}
+            onChangeText={text => {
+              handleOnchange(text, 'email');
+            }}
+            iconName="mail"
+            onFocus={() => handleError(null, 'email')}
+            error={errors.email}
+          />
+          <Input
+            // lable="Telephone"
+            lable="Telephone"
+            value={inputs.phone}
+            onChangeText={text => {
+              handleOnchange(text, 'phone');
+            }}
+            isPhone
+            iconName="phone"
+            error={errors.phone}
+            onFocus={() => handleError(null, 'phone')}
+          />
+          {page != 'update' ? (
+            <>
+              <Input
+                lable="Password"
+                value={inputs.password}
+                onChangeText={text => {
+                  handleOnchange(text, 'password');
+                }}
+                iconName="lock"
+                password
+                error={errors.password}
+                onFocus={() => handleError(null, 'password')}
+              />
+              <Input
+                // lable="Confirm Password"
+                lable="Confirm  Password"
+                onChangeText={text => {
+                  handleOnchange(text, 'confrimPassword');
+                }}
+                iconName="lock"
+                password
+                value={inputs.confrimPassword}
+                error={errors.confrimPassword}
+                onFocus={() => handleError(null, 'confrimPassword')}
+              />
+            </>
+          ) : null}
+          <View
+            style={{
+              height: hp(4),
+              marginHorizontal: wp(4),
+              marginVertical: wp(2),
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <CheckBox
+              disabled={false}
+              value={toggleCheckBox}
+              onValueChange={() => setToggleCheckBox(!toggleCheckBox)}
+            />
+            <Text style={{fontWeight: '500', marginLeft: wp(2)}}>
+              Subscribe for Newsletter
             </Text>
           </View>
-        ) : null}
+          <Button
+            name={page === 'update' ? 'UPDATE' : 'REGISTER'}
+            onPress={() => {
+              //hanleOnPress();
+              Vailidate();
+            }}
+          />
+          {page != 'update' ? (
+            <View
+              style={{
+                width: wp(65),
+                alignSelf: 'center',
+                marginTop: wp(5),
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                onPress={() => navigation.navigate('Login')}
+                style={styles.text}>
+                Login
+              </Text>
+              <Text
+                onPress={() => navigation.replace('Home')}
+                style={styles.text}>
+                Return to Store
+              </Text>
+            </View>
+          ) : null}
+        </View>
       </ScrollView>
     </View>
   );
@@ -357,5 +355,11 @@ const styles = StyleSheet.create({
     width: wp(30),
     alignSelf: 'center',
     borderRadius: wp(4),
+  },
+  text: {
+    fontSize: wp(5),
+    fontWeight: '400',
+    color: 'black',
+    marginTop: wp(1),
   },
 });

@@ -55,37 +55,38 @@ const Login = () => {
     <View style={styles.container}>
       {isLoading ? <Loading /> : null}
       <ScrollView>
-        <View style={styles.logoConatainer}>
-          <Image
-            style={styles.img}
-            source={{
-              uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
-            }}
-          />
-        </View>
+        <View style={{marginTop: wp(25)}}>
+          <View style={styles.logoConatainer}>
+            <Image
+              style={styles.img}
+              source={{
+                uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
+              }}
+            />
+          </View>
 
-        <View style={styles.infoTextContainer}>
-          <Text style={styles.login}>Login</Text>
-          {/* <Text style={styles.info}>
+          <View style={styles.infoTextContainer}>
+            <Text style={styles.login}>Login</Text>
+            {/* <Text style={styles.info}>
             Please enter the details below to continue
           </Text> */}
-          <View style={styles.line}></View>
-        </View>
-        <Input
-          placeholder="Enter email address"
-          iconName="mail"
-          lable="Email"
-          onChangeText={text => handleOnchange(text, 'email')}
-        />
-        <Input
-          placeholder="Enter password"
-          iconName="lock"
-          lable="Password"
-          onChangeText={text => handleOnchange(text, 'password')}
-          password
-        />
-        <Button name="LOGIN" onPress={() => handleLogin()} />
-        {/* <Text
+            <View style={styles.line}></View>
+          </View>
+          <Input
+            placeholder="Enter email address"
+            iconName="mail"
+            lable="Email"
+            onChangeText={text => handleOnchange(text, 'email')}
+          />
+          <Input
+            placeholder="Enter password"
+            iconName="lock"
+            lable="Password"
+            onChangeText={text => handleOnchange(text, 'password')}
+            password
+          />
+          <Button name="LOGIN" onPress={() => handleLogin()} />
+          {/* <Text
           style={{
             alignSelf: 'flex-end',
             marginRight: '5%',
@@ -116,25 +117,30 @@ const Login = () => {
             </Text>
           </TouchableOpacity>
         </Text> */}
-        <View
-          style={{
-            width: wp(65),
-            alignSelf: 'center',
-            marginTop: wp(5),
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            onPress={() => navigation.navigate('Register')}
-            style={styles.text}>
-            Create Account
-          </Text>
-          <Text onPress={() => navigation.replace('Home')} style={styles.text}>
-            Return to Store
-          </Text>
-          <Text onPress={() => navigation.navigate('Otp')} style={styles.text}>
-            Forgot your password?
-          </Text>
+          <View
+            style={{
+              width: wp(65),
+              alignSelf: 'center',
+              marginTop: wp(5),
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text
+              onPress={() => navigation.navigate('Register')}
+              style={styles.text}>
+              Create Account
+            </Text>
+            <Text
+              onPress={() => navigation.replace('Home')}
+              style={styles.text}>
+              Return to Store
+            </Text>
+            <Text
+              onPress={() => navigation.navigate('Otp')}
+              style={styles.text}>
+              Forgot your password?
+            </Text>
+          </View>
         </View>
       </ScrollView>
     </View>

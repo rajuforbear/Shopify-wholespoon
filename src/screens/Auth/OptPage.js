@@ -58,59 +58,60 @@ const Opt = ({navigation}) => {
     <View style={styles.container}>
       {isLoading ? <Loading /> : null}
       <ScrollView>
-        <View style={styles.logoConatainer}>
-          <Image
-            style={styles.img}
-            source={{
-              uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
-            }}
-          />
-        </View>
-        <View style={styles.infoTextContainer}>
-          <Text style={styles.login}>Reset Your Passwod</Text>
-          {/* <Text style={styles.info}>
+        <View style={{marginTop: wp(25)}}>
+          <View style={styles.logoConatainer}>
+            <Image
+              style={styles.img}
+              source={{
+                uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
+              }}
+            />
+          </View>
+          <View style={styles.infoTextContainer}>
+            <Text style={styles.login}>Reset Your Passwod</Text>
+            {/* <Text style={styles.info}>
             Please enter the details below to continue
           </Text> */}
-          <View style={{width: wp(60), alignSelf: 'center'}}>
+            <View style={{width: wp(60), alignSelf: 'center'}}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  marginVertical: wp(1),
+                  fontSize: wp(4),
+                  fontStyle: 'italic',
+                  color: 'grey',
+                }}>
+                We will send you an email to reset your password.
+              </Text>
+            </View>
+            <View style={styles.line}></View>
+          </View>
+          <View style={styles.input}>
+            <Input
+              isOtp
+              lable="Email"
+              onChangeText={text => {
+                setEmail(text);
+              }}
+              value={email}
+              error={err}
+            />
+            <Button name="SUBMIT" onPress={() => validate()} />
             <Text
+              onPress={() => {
+                navigation.goBack();
+              }}
               style={{
-                textAlign: 'center',
-                marginVertical: wp(1),
-                fontSize: wp(4),
+                alignSelf: 'center',
+                fontSize: wp(5),
                 fontStyle: 'italic',
-                color: 'grey',
+                fontWeight: '600',
+                color: 'black',
               }}>
-              We will send you an email to reset your password.
+              Cancel
             </Text>
           </View>
-          <View style={styles.line}></View>
         </View>
-        <View style={styles.input}>
-          <Input
-            isOtp
-            lable="Email"
-            onChangeText={text => {
-              setEmail(text);
-            }}
-            value={email}
-            error={err}
-          />
-          <Button name="SUBMIT" onPress={() => validate()} />
-          <Text
-            onPress={() => {
-              navigation.goBack();
-            }}
-            style={{
-              alignSelf: 'center',
-              fontSize: wp(5),
-              fontStyle: 'italic',
-              fontWeight: '600',
-              color: 'black',
-            }}>
-            Cancel
-          </Text>
-        </View>
-        <View style={{}}></View>
       </ScrollView>
     </View>
   );
@@ -161,6 +162,6 @@ const styles = StyleSheet.create({
   },
   input: {
     height: hp(55),
-    marginTop: wp(25),
+    marginTop: wp(10),
   },
 });
