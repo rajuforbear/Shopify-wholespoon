@@ -2,6 +2,7 @@ import type {StackScreenProps,StackNavigationProp} from '@react-navigation/stack
 import { RootNavigationParams } from './NavigationProps'
 import { DrawerNavigationProp, } from "@react-navigation/drawer";
 import { DrawerNavigationPramas } from "../navigation/drawer";
+import { Node } from './user';
 export interface action{
     type:string,
     prId:string,
@@ -17,6 +18,6 @@ export interface action{
     token:string,
     op:string,
     check:boolean,
-    address:{},
+    address:Node,
     navigations:DrawerNavigationProp<DrawerNavigationPramas>
 }
