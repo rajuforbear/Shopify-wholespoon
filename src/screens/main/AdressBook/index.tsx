@@ -14,6 +14,7 @@ import {query} from '../Home/query';
 import {StackScreenProps} from '@react-navigation/stack';
 import {HelperNavigationParams} from '../../../navigation/Helper';
 import {RootState} from '../../../sopify/Redux/store';
+import { Node } from '../../../Types/user';
 type Props = StackScreenProps<HelperNavigationParams, 'AddressBook'>;
 const AddressBook: React.FC<Props> = ({navigation}) => {
   const dispatch = useDispatch();
@@ -45,10 +46,10 @@ const AddressBook: React.FC<Props> = ({navigation}) => {
       navigation,
     });
   };
-  const editAddress = item => {
+  const editAddress = (item:Node) => {
     navigation.navigate('Address', {data: item});
   };
-  const setDefaultAddress = async id => {
+  const setDefaultAddress = async (id:string) => {
     const userToken = await AsyncStorage.getItem('Token');
     let data = JSON.stringify({
       query: `mutation customerDefaultAddressUpdate($addressId: ID!, $customerAccessToken: String!) {
@@ -84,7 +85,7 @@ const AddressBook: React.FC<Props> = ({navigation}) => {
           <FlatList
             scrollEnabled={false}
             data={userData?.addresses?.nodes}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => item.id}
             renderItem={({item, index}) => {
               return (
                 <View
@@ -174,7 +175,7 @@ const AddressBook: React.FC<Props> = ({navigation}) => {
       </ScrollView>
       <AntDesign
         onPress={() => {
-          navigation.navigate('Address', {data: 'add'});
+          navigation.navigate('Address', {data:{} as Node});
         }}
         name="pluscircle"
         style={styles.plusIcon}
