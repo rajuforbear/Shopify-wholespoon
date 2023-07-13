@@ -648,6 +648,8 @@ function* resetPassword(action: action) {
 }
 function* updateCheckout(action: action) {
   try {
+    console.log('update calledd');
+    
     const res: updateCheckouts = yield call(
       Shopify.updateCheckout,
       action.id,
@@ -656,8 +658,9 @@ function* updateCheckout(action: action) {
     if (res.id) {
       yield put({
         type: 'sopify/updateCheckoutSuccess',
-        payload: res.id,
+        payload: res
       });
+      console.log('saved.........')
     }
   } catch (err) {
     console.log(err);

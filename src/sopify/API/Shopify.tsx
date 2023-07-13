@@ -14,7 +14,7 @@ class Shopify {
   
   static getCollection = async () => {
     try {
-      const cls = client.collection.fetchAllWithProducts().then((collections:collections) => {
+      const cls = client.collection.fetchAllWithProducts().then((collections:any) => {
         return collections;
       });
       return cls;
@@ -41,7 +41,7 @@ class Shopify {
   };
   static fetchProductOptionre = (productId:string) => {
     try {
-      const data = client.product.fetch(productId).then((product:product) => {
+      const data = client.product.fetch(productId).then((product:any) => {
         return product;
       });
       return data;
@@ -50,11 +50,11 @@ class Shopify {
     }
   };
  
-  static addLineItems = (checkoutId:string, lineItemsToAdd:Lines) => {
+  static addLineItems = (checkoutId:string, lineItemsToAdd:any) => {
     try {
       const checkItems = client.checkout
         .addLineItems(checkoutId, lineItemsToAdd)
-        .then((checkout:Checkout) => {
+        .then((checkout:any) => {
           // Do something with the updated checkout
           // Array with one additional line item
           return checkout.lineItems;
@@ -71,7 +71,7 @@ class Shopify {
     try {
       const res = client.checkout
         .updateShippingAddress(check, address)
-        .then((checkout:updateCheckouts) => {
+        .then((checkout:any) => {
           return checkout;
         });
       return res;
@@ -104,7 +104,7 @@ class Shopify {
   };
   static fetchProduct = (productId:string) => {
     try {
-      const data = client.product.fetch(productId).then((product:product) => {
+      const data = client.product.fetch(productId).then((product:any) => {
         return product;
       });
       return data;
@@ -117,7 +117,7 @@ class Shopify {
   
   static fetchAllProducts = (length:number) => {
     try {
-      const pr = client.product.fetchAll(length).then((products:Products) => {
+      const pr = client.product.fetchAll(length).then((products:any) => {
         return products;
       });
       return pr;

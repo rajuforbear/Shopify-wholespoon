@@ -33,7 +33,8 @@ const Checkout:React.FC<Props> = ({navigation}) => {
   const iseSevedAddres = useSelector(
     (state:RootState)=> state.data.userData?.addresses?.nodes,
   );
-
+  const updateCheckout=useSelector((state:RootState)=>state.data.updateCheckout)
+  console.log('this is chekcu',updateCheckout)
   const dispatch = useDispatch();
   const [isEdited, setIsEdited] = useState(false);
   const checkout = useSelector((state:RootState) => state.data.checkoutData);
@@ -69,7 +70,7 @@ const Checkout:React.FC<Props> = ({navigation}) => {
     phone: useData?.defaultAddress?.phone ? useData?.defaultAddress?.phone : '',
     zip: useData?.defaultAddress?.zip ? useData?.defaultAddress?.zip : '',
   });
-  console.log(checkout?.id);
+  
 
   useEffect(() => {
     getAddress();

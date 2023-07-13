@@ -6,6 +6,7 @@ import { Cart } from '../../Types/cart';
 import { Checkout } from '../../Types/checkoutdata';
 import { Menu } from '../../Types/Menu';
 import { Data, Edge, Pages } from '../../Types/Pages.d';
+import { updateCheckouts } from '../../Types/updateCheckout';
 export const MySlice = createSlice({
   name: 'sopify',
   initialState: {
@@ -31,6 +32,7 @@ export const MySlice = createSlice({
     pages: {} as Data,
     deleteAddress: null,
     updateAddress: null,
+    updateCheckout:{} as updateCheckouts
   },
   reducers: {
     getCollection: state => {
@@ -258,7 +260,7 @@ export const MySlice = createSlice({
       state.isLoading = true;
     },
     updateCheckoutSuccess: (state, action) => {
-      (state.isLoading = false), (state.checkoutData = action.payload);
+      (state.isLoading = false), (state.updateCheckout = action.payload);
     },
     updateCheckoutError: state => {
       state.isLoading = false;
