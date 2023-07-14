@@ -493,7 +493,7 @@ const Checkout:React.FC<Props> = ({navigation}) => {
               }}>
               <View
                 style={{
-                  height: hp(5),
+                  height: hp(5.5),
                   //alignItems: 'center',
                   justifyContent: 'center',
                   // backgroundColor: 'white',
@@ -513,7 +513,7 @@ const Checkout:React.FC<Props> = ({navigation}) => {
               </View>
               <View
                 style={{
-                  height: hp(5),
+                  height: hp(5.5),
                   justifyContent: 'center',
                   // backgroundColor: 'lightgrey',
                   width: wp(30),
@@ -533,7 +533,7 @@ const Checkout:React.FC<Props> = ({navigation}) => {
               </View>
               <View
                 style={{
-                  height: hp(5),
+                  height: hp(5.5),
                   justifyContent: 'center',
                   // backgroundColor: 'lightgrey',
                   width: wp(30),
