@@ -47,7 +47,7 @@ const Address:React.FC<Props> = props => {
   };
   const handleOnSave = async () => {
     const userToke = await AsyncStorage.getItem('Token');
-    if (data === null) {
+    if (data === undefined) {
       let data1 = JSON.stringify({
         query: `mutation customerAddressCreate($address: MailingAddressInput!, $customerAccessToken: String!) {
         customerAddressCreate(address: $address, customerAccessToken: $customerAccessToken) {
@@ -305,7 +305,7 @@ const Address:React.FC<Props> = props => {
             </View>
           </View>
 
-          {data != null ? (
+          {data != undefined ? (
             <View
               style={{
                 height: hp(4),

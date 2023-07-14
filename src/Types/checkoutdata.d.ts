@@ -1,4 +1,4 @@
-export interface Checkout {
+export interface Checkouts {
     data: Data
   }
   

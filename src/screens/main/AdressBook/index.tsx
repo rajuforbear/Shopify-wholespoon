@@ -175,7 +175,7 @@ const AddressBook: React.FC<Props> = ({navigation}) => {
       </ScrollView>
       <AntDesign
         onPress={() => {
-          navigation.navigate('Address', {data:{} as Node});
+          navigation.navigate('Address', {data:undefined as any});
         }}
         name="pluscircle"
         style={styles.plusIcon}

@@ -1,12 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
   Image,
-  SafeAreaView,
-  Text,
   View,
-  StatusBar,
-  Platform,
-  TextInput,
 } from 'react-native';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/FontAwesome5';
@@ -33,6 +28,9 @@ const Header = () => {
   const menu = useSelector((state: RootState) => state.data.menu);
   console.log(menu)
   const dispatch = useDispatch();
+  useEffect(()=>{
+    getToken()
+  },[])
   const getToken = async () => {
     let token = await AsyncStorage.getItem('Token');
     if (token != null) {
@@ -42,7 +40,6 @@ const Header = () => {
   };
   
   const handleMenu = () => {
-    console.log('called 1');
     let data = JSON.stringify({
       query: `query{
      
@@ -97,13 +94,14 @@ const Header = () => {
       <View style={{width: '33.67%'}}>
         <Feather
           onPress={() => {
-            if (menu==={} as Menu) {
+            if (menu.id===undefined) {
               handleMenu();
-              console.log('called')
+              console.log('called1')
             } else {
-             // navigation2.openDrawer();
-              handleMenu()
+              navigation2.openDrawer();   
             }
+         
+            
           }}
           name="menu"
           style={{fontSize: wp(9), color: 'black'}}

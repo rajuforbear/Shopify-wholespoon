@@ -1,39 +1,67 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { collections } from '../../Types/collection';
-import { Products, product } from '../../Types/product';
-import { Customer } from '../../Types/user';
-import { Cart } from '../../Types/cart';
-import { Checkout } from '../../Types/checkoutdata';
-import { Menu } from '../../Types/Menu';
-import { Data, Edge, Pages } from '../../Types/Pages.d';
-import { updateCheckouts } from '../../Types/updateCheckout';
+import {collections} from '../../Types/collection';
+import {Products, product} from '../../Types/product';
+import {Customer} from '../../Types/user';
+import {Cart} from '../../Types/cart';
+import {Checkout} from '../../Types/checkoutdata';
+import {Menu} from '../../Types/Menu';
+import {Data, Edge, Pages} from '../../Types/Pages.d';
+import {updateCheckouts} from '../../Types/updateCheckout';
+
+type initialState ={
+  collection: collections;
+  isLoading: boolean;
+  products: Products;
+  product: product;
+  lineItems: null;
+  cartItem: Cart;
+  vid: null;
+  checkoutId: string;
+  userDetails: null;
+  userToken: null;
+  userRegDetails: null;
+  userData: Customer;
+  item: Products;
+  deletCart: null;
+  checkoutData: Checkout;
+  checkout: null;
+  menu: Menu;
+  id: string;
+  about: string;
+  pages: Data;
+  deleteAddress: null;
+  updateAddress: null;
+  updateCheckout: updateCheckouts;
+}
+const initialState: initialState = {
+  collection: [],
+  isLoading: false,
+  products: [] as any ,
+  product: {} as any ,
+  lineItems: null,
+  cartItem: {} as any,
+  vid: null,
+  checkoutId: '',
+  userDetails: null,
+  userToken: null,
+  userRegDetails: null,
+  userData: {} as any,
+  item: [],
+  deletCart: null,
+  checkoutData: {} as any,
+  checkout: null,
+  menu: {} as any,
+  id: '',
+  about: '',
+  pages: {} as any,
+  deleteAddress: null,
+  updateAddress: null,
+  updateCheckout: {} as any,
+};
+
 export const MySlice = createSlice({
   name: 'sopify',
-  initialState: {
-    collection: [] as collections,
-    isLoading: false as boolean,
-    products: [] as Products,
-    product: {} as product,
-    lineItems: null,
-    cartItem: {} as Cart,
-    vid: null,
-    checkoutId:'' as string,
-    userDetails: null,
-    userToken: null,
-    userRegDetails: null,
-    userData:{} as Customer,
-    item: [] as Products,
-    deletCart: null,
-    checkoutData: {} as Checkout,
-    checkout: null,
-    menu:{} as Menu,
-    id:'' as string,
-    about:'' as string,
-    pages: {} as Data,
-    deleteAddress: null,
-    updateAddress: null,
-    updateCheckout:{} as updateCheckouts
-  },
+  initialState,
   reducers: {
     getCollection: state => {
       state.isLoading = true;

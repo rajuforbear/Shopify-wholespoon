@@ -15,8 +15,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-const Payment = ({navigation}) => {
+import {StackScreenProps} from '@react-navigation/stack';
+import {HelperNavigationParams} from '../../../navigation/Helper';
+type Props = StackScreenProps<HelperNavigationParams, 'Payment'>;
+const Payment: React.FC<Props> = ({navigation}) => {
   const [show, setShow] = useState(false);
   return (
     <View style={styles.container}>
