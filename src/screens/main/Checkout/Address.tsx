@@ -247,7 +247,7 @@ const Address:React.FC<Props> = props => {
             }}>
             <View
               style={{
-                height: hp(5),
+                height: hp(5.5),
                 width: wp(25),
                 borderRadius: wp(2),
                 borderWidth: wp(0.1),
@@ -265,7 +265,7 @@ const Address:React.FC<Props> = props => {
             </View>
             <View
               style={{
-                height: hp(5),
+                height: hp(5.5),
                 width: wp(40),
                 borderRadius: wp(2),
                 marginLeft: wp(3),
@@ -284,7 +284,7 @@ const Address:React.FC<Props> = props => {
             </View>
             <View
               style={{
-                height: hp(5),
+                height: hp(5.5),
                 justifyContent: 'center',
                 // backgroundColor: 'lightgrey',
                 width: wp(25),

@@ -31,7 +31,7 @@ import {DrawerNavigationPramas} from '../../navigation/drawer';
 import {RootState} from '../../sopify/Redux/store';
 import {RootNavigationParams} from '../../Types/NavigationProps';
 type Props = DrawerScreenProps<DrawerNavigationPramas>;
-const CostumDrawer: React.FC<Props> = props => {
+const CostumDrawer: React.FC<Props> = () => {
   const [show, setShow] = useState(false);
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
 

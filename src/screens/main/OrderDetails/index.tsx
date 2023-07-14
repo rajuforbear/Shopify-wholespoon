@@ -1,7 +1,7 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-const OrderDetails = () => {
+const OrderDetails:React.FC = () => {
   return (
     <View>
       <Text>OrderDetails</Text>

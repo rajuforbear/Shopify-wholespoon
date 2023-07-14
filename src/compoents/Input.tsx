@@ -104,6 +104,7 @@ const Input: React.FC<Props> = ({
             fontStyle: 'italic',
             fontWeight: '500',
             height: wp(15),
+            marginTop:10
           }}
           placeholderTextColor={'#a26a39'}
            {...Props}
