@@ -182,7 +182,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
     <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
       {isLoading ? <Loading /> : null}
 
-      {cartItem ? (
+      {cartItem?.lines?.edges?.length>0 ? (
         <View style={{flex: 1}}>
           <FlatList
             data={cartItem?.lines.edges}

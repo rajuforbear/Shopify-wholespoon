@@ -36,6 +36,7 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
   const Products = useSelector((state:RootState) => state.data.products);
   const [veriantId, setVariendtId] = useState<string>('');
   const items = route.params.item;
+  console.log(items)
   const [images, setImages] = useState<string[]>([]);
   const dispatch = useDispatch();
   const isFetching = useSelector((state:RootState) => state.data.isLoading);

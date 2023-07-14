@@ -26,7 +26,6 @@ const Header = () => {
   const navigation2 = useNavigation<DrawerNavigationProp<DrawerNavigationPramas>>();
   const [token,setToken]=useState<string>()
   const menu = useSelector((state: RootState) => state.data.menu);
-  console.log(menu)
   const dispatch = useDispatch();
   useEffect(()=>{
     getToken()
