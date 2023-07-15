@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   ScrollView,
@@ -8,7 +8,7 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import { SliderBox } from 'react-native-image-slider-box';
+import {SliderBox} from 'react-native-image-slider-box';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -18,52 +18,49 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import HTMLView from 'react-native-htmlview';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../../../compoents/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { query } from '../Cart/queries';
-import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper';
-import { RootState } from '../../../sopify/Redux/store';
-import { CompositeScreenProps } from '@react-navigation/native';
-import { NavigationParams } from '../../../navigation';
+import {query} from '../Cart/queries';
+import {StackScreenProps} from '@react-navigation/stack';
+import {HelperNavigationParams} from '../../../navigation/Helper';
+import {RootState} from '../../../sopify/Redux/store';
+import {CompositeScreenProps} from '@react-navigation/native';
+import {NavigationParams} from '../../../navigation';
+import productquery from '../../../data/productquery';
 type Props = CompositeScreenProps<
-StackScreenProps<HelperNavigationParams, 'Details'>,
-StackScreenProps<NavigationParams, 'Login'>
+  StackScreenProps<HelperNavigationParams, 'Details'>,
+  StackScreenProps<NavigationParams, 'Login'>
 >;
-const Details:React.FC<Props> = ({ route, navigation }) => {
+const Details: React.FC<Props> = ({navigation}) => {
   const [show, setShow] = useState(false);
-  const Products = useSelector((state:RootState) => state.data.products);
+  const Products = useSelector((state: RootState) => state.data.products);
   const [veriantId, setVariendtId] = useState<string>('');
-  const items = route.params.item;
-  console.log(items)
+  const items = useSelector((state: RootState) => state.data.productDetail);
+
   const [images, setImages] = useState<string[]>([]);
+
   const dispatch = useDispatch();
-  const isFetching = useSelector((state:RootState) => state.data.isLoading);
-  const product = useSelector((state:RootState) => state.data.product);
+  const isFetching = useSelector((state: RootState) => state.data.isLoading);
+  const product = useSelector((state: RootState) => state.data.product);
   const [quantity, setQuantity] = useState(1);
   const setArr = () => {
     let arr = [] as string[];
-    items?.images?.map((item, index) => {
-      arr.push(item.src);
+    items?.images.nodes.map((item, index) => {
+      arr.push(item.url);
     });
     setImages(arr);
   };
   const [toolbox, setTogleBox] = useState();
-  const [variantVlaue, setVariantVlue] = useState(items.variants[0].title);
+  const [variantVlaue, setVariantVlue] = useState(
+    items.variants.nodes[0].title,
+  );
   useEffect(() => {
     setArr();
   }, [items]);
- 
-  const getProductOption = () => {
-    dispatch({
-      type: 'sopify/fetchPorductOption',
-      options: veriantId,
-    });
-  };
-  const userData = useSelector((state:RootState) => state.data.userData);
 
-  
+  const userData = useSelector((state: RootState) => state.data.userData);
+
   const cartOperation = async () => {
     const cartId = await AsyncStorage.getItem('cartId');
     if (cartId === null || cartId === undefined) {
@@ -182,6 +179,24 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
       navigation,
     });
   };
+  const fetDetails = (id: string) => {
+    const axios = require('axios');
+    let data = JSON.stringify({
+      query: `query getProductById($id: ID!) {
+  product(id: $id) 
+  {
+    ${productquery}
+  }
+}`,
+      variables: {id: id},
+    });
+    dispatch({
+      type: 'sopify/ProductDetails',
+      data: data,
+      navigation,
+      page: 'details',
+    });
+  };
   const addItemtoCart = async () => {
     console.log('called');
     const cartId = await AsyncStorage.getItem('cartId');
@@ -202,7 +217,7 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
         cartId: cartId,
         lines: [
           {
-            attributes: [{ key: 'name', value: 'bhai barde' }],
+            attributes: [{key: 'name', value: 'bhai barde'}],
             merchandiseId: veriantId,
             quantity: quantity,
           },
@@ -227,25 +242,82 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-
     ]);
+  const createCheckout = async () => {
+    let verints = {
+      variantId: veriantId,
+      quantity: quantity,
+    };
+    let data = JSON.stringify({
+      query: `mutation checkoutCreate($input: CheckoutCreateInput!) {
+          checkoutCreate(input: $input) {
+            checkout {
+              id 
+              lineItemsSubtotalPrice{
+                  amount
+                  currencyCode
+              }
+              lineItems(first:10){
+                
+                  edges{
+                      node{
+                         id
+                         quantity
+                         title
+                        variant{
+                            id
+                            image{
+                                id
+                                url
+                            }
+                            price{
+                              amount
+                              currencyCode
+                          }
+                        }
+        
+        
+                      }
+                  }
+              }
+            }
+            checkoutUserErrors {
+               field
+              message
+            }
+            queueToken
+          }
+        }`,
+      variables: {
+        input: {
+          allowPartialAddresses: true,
+          buyerIdentity: {countryCode: 'CA'},
+          email: userData.email,
+          lineItems: verints,
+        },
+        queueToken: '',
+      },
+    });
+    dispatch({
+      type: 'sopify/createCheckout',
+      data: data,
+      navigation,
+    });
+  };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#e6f0f2' }}>
+    <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
       {isFetching ? <Loading /> : null}
 
       <View style={styles.details}>
         <ScrollView
           contentContainerStyle={{
-      
             paddingBottom: wp(7),
           }}>
           <SliderBox
             images={images}
-            
             dotColor="#fddae8"
             inactiveDotColor="#cccccc"
-            
             dotStyle={{
               width: wp(5),
               height: wp(5),
@@ -260,9 +332,7 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
           />
 
           <View style={styles.cont}>
-            <View
-              
-              style={[styles.prDeta, { flexDirection: 'row' }]}>
+            <View style={[styles.prDeta, {flexDirection: 'row'}]}>
               {/* <Text style={{fontSize: wp(4)}}>Options</Text>
 
               <EvilIcons name="chevron-down" size={wp(9)} /> */}
@@ -272,7 +342,7 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
                 <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
                 <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
                 <AntDesign name="staro" size={wp(3.5)} color="#FFD700" />
-                <Text style={{ fontSize: wp(3) }}>{'(170)'}</Text>
+                <Text style={{fontSize: wp(3)}}>{'(170)'}</Text>
               </View>
             </View>
             <View style={styles.quantityContainer}>
@@ -293,7 +363,7 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
                   justifyContent: 'center',
                   width: '40%',
                 }}>
-                <Text style={{ fontSize: wp(4), fontWeight: '600' }}>
+                <Text style={{fontSize: wp(4), fontWeight: '600'}}>
                   {quantity}
                 </Text>
               </View>
@@ -307,7 +377,6 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
             </View>
           </View>
 
-          
           <View
             style={{
               alignSelf: 'center',
@@ -316,12 +385,12 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
             }}>
             <Text style={styles.title}>{items.title}</Text>
             <FlatList
-              data={items.variants}
-              renderItem={({ item, index }) => {
+              data={items.variants.nodes}
+              renderItem={({item, index}) => {
                 if (item.title === variantVlaue) {
                   setVariendtId(item.id);
                   return (
-                    <Text style={[styles.title, { marginVertical: wp(0) }]}>
+                    <Text style={[styles.title, {marginVertical: wp(0)}]}>
                       {item?.price.amount +
                         ' ' +
                         item.price.currencyCode +
@@ -337,17 +406,16 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
                       </Text>
                     </Text>
                   );
-                }
-                else{
-                  return null
+                } else {
+                  return null;
                 }
               }}
             />
           </View>
           <FlatList
-            data={items.variants}
+            data={items.variants.nodes}
             horizontal={true}
-            renderItem={({ item, index }) => {
+            renderItem={({item, index}) => {
               return (
                 <View
                   style={{
@@ -393,10 +461,10 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
                 height: hp(4),
                 alignItems: 'center',
               }}>
-              <Text style={{ fontWeight: 'bold', fontSize: wp(4) }}>
+              <Text style={{fontWeight: 'bold', fontSize: wp(4)}}>
                 Specification
               </Text>
-              <Entypo name="chevron-down" style={{ fontSize: wp(6) }} />
+              <Entypo name="chevron-down" style={{fontSize: wp(6)}} />
             </TouchableOpacity>
             {show ? (
               <View style={{}}>
@@ -414,26 +482,34 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
             }}>
             <TouchableOpacity
               style={styles.btn3}
-              onPress={() => {
-                if (userData != null || userData != undefined) { cartOperation(); } else {
-                  createThreeButtonAlert()
+              onPress={async() => {
+               const token= await AsyncStorage.getItem('Token')
+                if (token != null || token != undefined) {
+                  cartOperation();
+                } else {
+                  createThreeButtonAlert();
                 }
               }}>
               <Text
-                style={{ fontSize: wp(5), fontWeight: '500', color: 'white' }}>
+                style={{fontSize: wp(5), fontWeight: '500', color: 'white'}}>
                 Add to Card
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => {
-
+              onPress={async() => {
+                const token= await AsyncStorage.getItem('Token')
+                if (token != null || token != undefined) {
+                  createCheckout();
+                } else {
+                  createThreeButtonAlert();
+                }
               }}
               style={[
                 styles.btn3,
-                { marginTop: wp(3), backgroundColor: 'black' },
+                {marginTop: wp(3), backgroundColor: 'black'},
               ]}>
               <Text
-                style={{ fontSize: wp(5), fontWeight: '500', color: 'white' }}>
+                style={{fontSize: wp(5), fontWeight: '500', color: 'white'}}>
                 Buy It Now
               </Text>
             </TouchableOpacity>
@@ -448,7 +524,7 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
               alignSelf: 'center',
               borderColor: 'lightgrey',
             }}>
-            <Text style={{ fontSize: wp(4), fontWeight: '500' }}>
+            <Text style={{fontSize: wp(4), fontWeight: '500'}}>
               Costumer Reviews
             </Text>
             <Text style={{}}>No Reviews yet</Text>
@@ -461,7 +537,7 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
                 alignItems: 'center',
                 paddingVertical: wp(2),
               }}>
-              <Text style={{ fontSize: wp(4), fontWeight: '500' }}>
+              <Text style={{fontSize: wp(4), fontWeight: '500'}}>
                 Write a review
               </Text>
             </View>
@@ -483,7 +559,7 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
               }}>
               <Fontisto name="facebook" size={wp(3)} color={'grey'} />
               <Text
-                style={{ fontWeight: '300', fontSize: wp(3.5), color: 'grey' }}>
+                style={{fontWeight: '300', fontSize: wp(3.5), color: 'grey'}}>
                 Share
               </Text>
             </View>
@@ -496,7 +572,7 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
               }}>
               <Fontisto name="twitter" size={wp(3)} color={'grey'} />
               <Text
-                style={{ fontWeight: '300', fontSize: wp(3.5), color: 'grey' }}>
+                style={{fontWeight: '300', fontSize: wp(3.5), color: 'grey'}}>
                 Tweet
               </Text>
             </View>
@@ -509,12 +585,12 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
               }}>
               <Fontisto name="pinterest" size={wp(3)} color={'grey'} />
               <Text
-                style={{ fontWeight: '300', fontSize: wp(3.5), color: 'grey' }}>
+                style={{fontWeight: '300', fontSize: wp(3.5), color: 'grey'}}>
                 Pin it
               </Text>
             </View>
           </View>
-          <View style={{ width: '100%', marginVertical: wp(4) }}>
+          <View style={{width: '100%', marginVertical: wp(4)}}>
             <Text
               style={{
                 marginLeft: wp(5),
@@ -528,29 +604,29 @@ const Details:React.FC<Props> = ({ route, navigation }) => {
               data={Products.slice(0, 4)}
               horizontal={true}
               keyExtractor={(item, index) => item.id}
-              renderItem={({ item, index }) => {
+              renderItem={({item, index}) => {
                 if (item.title != items.title) {
                   return (
                     <View style={styles.cardView}>
                       {/* <AntDesign name="hearto" style={styles.icon} /> */}
                       <TouchableOpacity
-                        onPress={() => navigation.replace('Details', { item })}
+                        onPress={() => fetDetails(item.id)}
                         style={styles.imgcontainer}>
                         <Image
                           style={styles.img}
-                          source={{ uri: item.images[0].src }}
+                          source={{uri: item.images[0].src}}
                         />
                       </TouchableOpacity>
                       <Text style={styles.title}>{item.title}</Text>
-                      <Text style={[styles.title, { marginVertical: wp(0) }]}>
+                      <Text style={[styles.title, {marginVertical: wp(0)}]}>
                         {item?.variants[0]?.price.amount +
                           ' ' +
                           item?.variants[0]?.price.currencyCode}
                       </Text>
                     </View>
                   );
-                }else{
-                  return null
+                } else {
+                  return null;
                 }
               }}
             />

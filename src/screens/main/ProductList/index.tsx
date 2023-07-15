@@ -62,7 +62,9 @@ const ProductList:React.FC<Props> = props => {
       <ScrollView
         onTouchEnd={() => {
           handleOnReachEnd();
-        }}>
+        }}
+        contentContainerStyle={{paddingBottom:wp(8)}}
+        >
         <List Products={Products}  />
       </ScrollView>
     </View>

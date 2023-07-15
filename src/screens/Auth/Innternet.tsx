@@ -10,7 +10,7 @@ import { NavigationParams } from '../../navigation';
  type Props=StackScreenProps<NavigationParams,'Internet'>
 const Innternet:React.FC<Props> = ({navigation}) => {
   const betInfo = useNetInfo();
-  console.log(betInfo.isConnected);
+  
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text style={{fontSize: wp(4), fontWeight: '700'}}>

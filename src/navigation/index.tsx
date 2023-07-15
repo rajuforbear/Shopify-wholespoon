@@ -9,6 +9,7 @@ import Innternet from '../screens/Auth/Innternet';
 import Opt from '../screens/Auth/OptPage';
 import type { CompositeNavigationProp } from '@react-navigation/native';
 import { HelperNavigationParams } from './Helper';
+import Search from '../screens/main/Search';
 export type NavigationParams = {
   Splash: undefined;
   Home: undefined;
@@ -18,6 +19,9 @@ export type NavigationParams = {
   };
   Internet: undefined;
   Otp: undefined;
+  Search:{
+    searchText:string
+  };
 };
 
 const RootNavigation: React.FC = () => {
@@ -34,6 +38,7 @@ const RootNavigation: React.FC = () => {
         <Stack.Screen name="Register" component={SignUp} />
         <Stack.Screen name="Internet" component={Innternet} />
         <Stack.Screen name="Otp" component={Opt} />
+        <Stack.Screen name='Search' component={Search}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

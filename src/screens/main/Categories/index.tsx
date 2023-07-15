@@ -51,6 +51,7 @@ const Categories:React.FC<Props> = ({navigation}) => {
           alignSelf: 'center',
           alignItems: 'center',
           justifyContent: 'center',
+          paddingBottom:wp(8)
         }}>
         <FlatList
           data={data}

@@ -20,6 +20,8 @@ import {updateCheckouts} from '../../Types/updateCheckout';
 import {Page} from '../../Types/Pages.d';
 import {PageDetail} from '../../Types/PageDetails';
 import {Menus} from '../../Types/Menu';
+import {SearchProduct} from '../../Types/SerachProduct';
+import { ProductDetail } from '../../Types/ProductDetail';
 
 function* getCollection() {
   try {
@@ -649,7 +651,7 @@ function* resetPassword(action: action) {
 function* updateCheckout(action: action) {
   try {
     console.log('update calledd');
-    
+
     const res: updateCheckouts = yield call(
       Shopify.updateCheckout,
       action.id,
@@ -658,9 +660,9 @@ function* updateCheckout(action: action) {
     if (res.id) {
       yield put({
         type: 'sopify/updateCheckoutSuccess',
-        payload: res
+        payload: res,
       });
-      console.log('saved.........')
+      console.log('saved.........');
     }
   } catch (err) {
     console.log(err);
@@ -668,6 +670,67 @@ function* updateCheckout(action: action) {
       type: 'sopify/updateCheckoutError',
     });
   }
+}
+function* searchProduct(action: action) {
+  try {
+    const res: SearchProduct = yield call(Shopify.userControll, action.data);
+    if (res.data?.products) {
+      yield put({
+        type: 'sopify/searchProductSuccess',
+        payload: res.data?.products,
+      });
+    } else {
+      Toast.show({
+        type: 'info',
+        text1: 'No Products found',
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
+  }
+}
+function* productDetails(action:action){
+  
+
+   try {
+    const res:ProductDetail=yield call(Shopify.userControll,action.data)
+    
+    if(res.data?.product){
+      yield put({
+        type:"sopify/ProductDetailsSuccess",
+        payload:res.data.product
+      })
+      if(action?.page==='details'){
+        action.navigation.replace('Details')
+      }else{
+      action.navigation.navigate('Details')
+      }
+    }else
+    {
+      yield put({
+        type:"sopify/ProductDetailsError"
+      })
+      Toast.show({
+        type:'info',
+        text1:'Something went wrong'
+      })
+      console.log(res.data)
+    }
+  }
+    catch(err){
+      console.log(err)
+      yield put({
+        type:"sopify/ProductDetailsError"
+      })
+      Toast.show({
+        type:'info',
+        text1:'Something went wrong'
+      })
+    }
 }
 function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/getCollection', getCollection);
@@ -693,6 +756,8 @@ function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/updateProfile', updateProfile);
   yield takeEvery('sopify/resetPassword', resetPassword);
   yield takeEvery('sopify/updateCheckout', updateCheckout);
+  yield takeEvery('sopify/searchProduct', searchProduct);
+  yield takeEvery('sopify/ProductDetails', productDetails);
 }
 
 export default Saga;

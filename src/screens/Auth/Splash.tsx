@@ -18,7 +18,7 @@ const Splash:React.FC<Props> = ({navigation}) => {
   const goTo = async () => {
     netinfo.addEventListener(state => {
       if (state.isConnected) {
-        navigation.navigate('Home');
+        navigation.replace('Home');
       } else {
         navigation.navigate('Internet');
       }

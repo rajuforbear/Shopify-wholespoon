@@ -128,9 +128,7 @@ const Input: React.FC<Props> = ({
               marginRight: wp(5.6),
               fontSize: wp(6.8),
               color: '#a26a39',
-              position: 'absolute',
-              right: 0,
-              top: wp(2.5),
+             
             }}
           />
         ) : null}

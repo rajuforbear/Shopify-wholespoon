@@ -124,7 +124,7 @@ const Header = () => {
         />
       </View>
       <View style={[styles.container2, {width: '33.67%', paddingLeft: wp(14)}]}>
-        <AntDesign name="search1" size={wp(5.6)} color="black" />
+        <AntDesign name="search1" onPress={()=>navigation.navigate('Search',{searchText:''})} size={wp(5.6)} color="black" />
         <FontAwesome5
           name={token ? 'log-out' : 'login'}
           size={wp(6)}

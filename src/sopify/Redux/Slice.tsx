@@ -7,8 +7,10 @@ import {Checkout} from '../../Types/checkoutdata';
 import {Menu} from '../../Types/Menu';
 import {Data, Edge, Pages} from '../../Types/Pages.d';
 import {updateCheckouts} from '../../Types/updateCheckout';
+import {SearchProducts} from '../../Types/SerachProduct';
+import { ProductDetails } from '../../Types/ProductDetail';
 
-type initialState ={
+type initialState = {
   collection: collections;
   isLoading: boolean;
   products: Products;
@@ -32,12 +34,14 @@ type initialState ={
   deleteAddress: null;
   updateAddress: null;
   updateCheckout: updateCheckouts;
-}
+  searchProduct: SearchProducts;
+  productDetail: ProductDetails;
+};
 const initialState: initialState = {
   collection: [],
   isLoading: false,
-  products: [] as any ,
-  product: {} as any ,
+  products: [] as any,
+  product: {} as any,
   lineItems: null,
   cartItem: {} as any,
   vid: null,
@@ -57,6 +61,8 @@ const initialState: initialState = {
   deleteAddress: null,
   updateAddress: null,
   updateCheckout: {} as any,
+  searchProduct: {} as any,
+  productDetail: {} as any,
 };
 
 export const MySlice = createSlice({
@@ -293,6 +299,19 @@ export const MySlice = createSlice({
     updateCheckoutError: state => {
       state.isLoading = false;
     },
+    searchProductSuccess: (state, action) => {
+      state.searchProduct = action.payload;
+    },
+    ProductDetails: state => {
+      state.isLoading = true;
+    },
+    ProductDetailsSuccess: (state, action) => {
+      state.isLoading = false;
+      state.productDetail = action.payload;
+    },
+    ProductDetailsError:(state)=>{
+      state.isLoading=false
+    }
   },
 });
 export const {getCollection, getCollectionSuccess, getCollectionFail} =

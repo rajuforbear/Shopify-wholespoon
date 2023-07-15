@@ -1,4 +1,4 @@
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView,TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import styles from './styles';
@@ -18,7 +18,10 @@ type Props = CompositeScreenProps<
   StackScreenProps<NavigationParams, 'Register'>
 >;
 const Profile: React.FC<Props> = ({navigation}) => {
+  
+  
   const userData = useSelector((state: RootState) => state.data.userData);
+  console.log(userData?.addresses?.nodes?.length);
   const handleAddress = () => {
     navigation.navigate('AddressBook');
   };
@@ -41,7 +44,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
         </Text>
         <View style={styles.line}></View>
         <View style={{flex: 1, marginTop: wp(3)}}>
-          <View
+          <TouchableOpacity
             style={{
               flexDirection: 'row',
               paddingVertical: wp(3),
@@ -65,8 +68,11 @@ const Profile: React.FC<Props> = ({navigation}) => {
               <Text style={{marginTop: wp(1)}}>No orders yet</Text>
             </View>
             <AntDesign name="right" size={wp(5)} color="black" />
-          </View>
-          <View
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              handleAddress();
+            }}
             style={[
               styles.list,
               userData?.addresses?.nodes?.length > 0
@@ -75,9 +81,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
             ]}>
             <View>
               <Text
-                onPress={() => {
-                  handleAddress();
-                }}
+              
                 style={{
                   fontSize: wp(5),
 
@@ -97,14 +101,12 @@ const Profile: React.FC<Props> = ({navigation}) => {
               </Text>
             </View>
             <AntDesign
-              onPress={() => {
-                handleAddress();
-              }}
+            
               name="right"
               size={wp(5)}
               color="black"
             />
-          </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>

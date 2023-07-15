@@ -327,7 +327,7 @@ const CostumDrawer: React.FC<Props> = () => {
   useEffect(() => {
     fetchPeges();
   }, []);
-
+      const [text,setText]=useState<string>('');
   return (
     <View style={{height: hp(100), backgroundColor: 'black'}}>
       {isLoading ? <Loading /> : null}
@@ -341,10 +341,12 @@ const CostumDrawer: React.FC<Props> = () => {
             placeholder="Search our store"
             style={{fontSize: wp(4), flex: 1}}
             placeholderTextColor={'grey'}
+            value={text}
+            onChangeText={(input)=>setText(input)}
           />
-          <View style={styles.searchIocnCOntianer}>
+          <TouchableOpacity onPress={()=>navigation.navigate('Search',{searchText:text})} style={styles.searchIocnCOntianer}>
             <AntDesign name="search1" size={wp(5)} color="white" />
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={{marginTop: hp(3), marginLeft: wp(8)}}>
           <FlatList

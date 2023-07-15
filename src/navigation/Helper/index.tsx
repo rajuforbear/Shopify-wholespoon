@@ -20,7 +20,7 @@ export type HelperNavigationParams = {
   HomeScreen: undefined;
   Cart: undefined;
   Profile: undefined;
-  Details: {item: product};
+  Details: undefined;
   Categories: undefined;
   ProductList: {
     title: string;

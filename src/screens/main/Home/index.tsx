@@ -31,6 +31,7 @@ import {query} from './query';
 import type {HelperNavigationParams} from '../../../navigation/Helper';
 import type {StackScreenProps} from '@react-navigation/stack';
 import {RootState} from '../../../sopify/Redux/store';
+import productquery from '../../../data/productquery';
 type Props = StackScreenProps<HelperNavigationParams, 'HomeScreen'>;
 const Home: React.FC<Props> = ({navigation}) => {
   const silder = [
@@ -86,7 +87,23 @@ const Home: React.FC<Props> = ({navigation}) => {
       navigation,
     });
   };
-
+  const fetDetails = (id:string) => {
+    const axios = require('axios');
+    let data = JSON.stringify({
+      query: `query getProductById($id: ID!) {
+  product(id: $id) 
+  {
+    ${productquery}
+  }
+}`,
+      variables: {id:id},
+    });
+    dispatch({
+      type: 'sopify/ProductDetails',
+      data: data,
+      navigation,
+    });
+  };
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       {isLoading ? <Loading /> : null}
@@ -260,10 +277,7 @@ const Home: React.FC<Props> = ({navigation}) => {
                 <View style={styles.cardView}>
                   {/* <AntDesign name="hearto" style={styles.icon} /> */}
                   <TouchableOpacity
-                    onPress={
-                      () => navigation.navigate('Details', {item})
-                      //getUserData()
-                    }
+                    onPress={()=>fetDetails(item.id)}
                     style={styles.imgcontainer}>
                     <Image
                       style={styles.img}
