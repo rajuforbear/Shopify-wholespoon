@@ -40,8 +40,6 @@ const Checkout:React.FC<Props> = ({navigation}) => {
   const checkout = useSelector((state:RootState) => state.data.checkoutData);
   const isLoading = useSelector((state:RootState) => state.data.isLoading);
   console.log(isLoading);
-  const checoutAfterAddress = useSelector((state:RootState) => state.data.checkout);
-
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const useData = useSelector((state:RootState) => state.data.userData)
   const [address, setAddress] = React.useState({
@@ -76,7 +74,7 @@ const Checkout:React.FC<Props> = ({navigation}) => {
     getAddress();
   }, []);
   const getAddress = async () => {
-    if (iseSevedAddres.length > 0) {
+    if (iseSevedAddres?.length > 0) {
       setSHow(true);
     }
 
@@ -364,7 +362,7 @@ const Checkout:React.FC<Props> = ({navigation}) => {
             </View>
           </View>
         ) : null}
-        {iseSevedAddres.length <= 0 || isEdited ? (
+        {iseSevedAddres?.length <= 0 || iseSevedAddres===undefined|| isEdited ? (
           <View>
             <View style={[styles.contact, {marginTop: wp(4)}]}>
               <Text style={styles.cont}>Contact</Text>
@@ -708,7 +706,7 @@ const Checkout:React.FC<Props> = ({navigation}) => {
           }}
           style={styles.btn2}>
           <Text style={{color: 'white', fontWeight: '500', fontSize: wp(3.5)}}>
-            {iseSevedAddres.length <= 0 || isEdited
+            {iseSevedAddres?.length <= 0 || isEdited
               ? 'Continue Shipping'
               : 'Continue for Payment'}
           </Text>

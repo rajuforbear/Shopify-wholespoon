@@ -18,6 +18,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import HTMLView from 'react-native-htmlview';
+import {RadioButton} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../../../compoents/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,6 +29,7 @@ import {RootState} from '../../../sopify/Redux/store';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {NavigationParams} from '../../../navigation';
 import productquery from '../../../data/productquery';
+import RenderHTML from 'react-native-render-html';
 type Props = CompositeScreenProps<
   StackScreenProps<HelperNavigationParams, 'Details'>,
   StackScreenProps<NavigationParams, 'Login'>
@@ -35,8 +37,10 @@ type Props = CompositeScreenProps<
 const Details: React.FC<Props> = ({navigation}) => {
   const [show, setShow] = useState(false);
   const Products = useSelector((state: RootState) => state.data.products);
-  const [veriantId, setVariendtId] = useState<string>('');
   const items = useSelector((state: RootState) => state.data.productDetail);
+  const [veriantId, setVariendtId] = useState<string>(
+    items.variants.edges[0].node.id,
+  );
 
   const [images, setImages] = useState<string[]>([]);
 
@@ -81,12 +85,7 @@ const Details: React.FC<Props> = ({navigation}) => {
             }
           ],
           # The information about the buyer that's interacting with the cart.
-          buyerIdentity: {
-            email: ${JSON.stringify(userData?.email)},
-            countryCode: CA,
-            # An ordered set of delivery addresses associated with the buyer that's interacting with the cart. The rank of the preferences is determined by the order of the addresses in the array. You can use preferences to populate relevant fields in the checkout flow.
-           
-          }
+          
           attributes: {
             key: "cart_attribute",
             value: "This is a cart attribute"
@@ -231,6 +230,7 @@ const Details: React.FC<Props> = ({navigation}) => {
       navigation,
     });
   };
+  console.log(veriantId);
   const createThreeButtonAlert = () =>
     Alert.alert('Request Login', 'Please Login', [
       {
@@ -292,7 +292,6 @@ const Details: React.FC<Props> = ({navigation}) => {
         input: {
           allowPartialAddresses: true,
           buyerIdentity: {countryCode: 'CA'},
-          email: userData.email,
           lineItems: verints,
         },
         queueToken: '',
@@ -387,7 +386,7 @@ const Details: React.FC<Props> = ({navigation}) => {
             <FlatList
               data={items.variants.nodes}
               renderItem={({item, index}) => {
-                if (item.title === variantVlaue) {
+                if (item.id === veriantId) {
                   setVariendtId(item.id);
                   return (
                     <Text style={[styles.title, {marginVertical: wp(0)}]}>
@@ -412,45 +411,35 @@ const Details: React.FC<Props> = ({navigation}) => {
               }}
             />
           </View>
-          <FlatList
+          {items?.variants.nodes.length>1?<FlatList
             data={items.variants.nodes}
             horizontal={true}
             renderItem={({item, index}) => {
               return (
-                <View
-                  style={{
-                    height: hp(4),
-                    width: wp(35),
-                    /// borderWidth: 1,
-                    // flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    alignSelf: 'center',
-                    marginLeft: wp(10),
-                  }}>
+                <TouchableOpacity
+                  style={[
+                    styles.varBtn,
+                    {borderColor: item.id === veriantId ? '#A36B25' : 'grey'},
+                  ]}
+                  onPress={() => setVariendtId(item.id)}>
                   <Text
-                    onPress={() => setVariantVlue(item.title)}
-                    style={{
-                      fontWeight: 'bold',
-                      fontSize: wp(4),
-                      marginLeft: wp(2),
-                    }}>
+                    style={[
+                      styles.varTitle,
+                      {color: item.id === veriantId ? '#A36B25' : 'grey'},
+                    ]}>
                     {item.title}
                   </Text>
-                  {variantVlaue === item.title ? (
-                    <View
-                      style={{
-                        height: wp(1),
-                        width: wp(20),
-                        //borderWidth: 1,
-                        marginTop: wp(1),
-                        backgroundColor: 'black',
-                      }}></View>
-                  ) : null}
-                </View>
+                  <RadioButton
+                    value={variantVlaue}
+                    status={item.id === veriantId ? 'checked' : 'unchecked'}
+                    onPress={() => setVariendtId(item.id)}
+                    uncheckedColor="grey"
+                    color={item.id === veriantId ? '#A36B25' : 'grey'}
+                  />
+                </TouchableOpacity>
               );
             }}
-          />
+          />:null}
           <View style={styles.specification}>
             <TouchableOpacity
               onPress={() => setShow(!show)}
@@ -468,7 +457,7 @@ const Details: React.FC<Props> = ({navigation}) => {
             </TouchableOpacity>
             {show ? (
               <View style={{}}>
-                <HTMLView value={items.descriptionHtml} />
+                <RenderHTML source={{html: items.descriptionHtml}} />
               </View>
             ) : null}
           </View>
@@ -482,12 +471,13 @@ const Details: React.FC<Props> = ({navigation}) => {
             }}>
             <TouchableOpacity
               style={styles.btn3}
-              onPress={async() => {
-               const token= await AsyncStorage.getItem('Token')
+              onPress={async () => {
+                const token = await AsyncStorage.getItem('Token');
                 if (token != null || token != undefined) {
                   cartOperation();
                 } else {
-                  createThreeButtonAlert();
+                  // createThreeButtonAlert();
+                  cartOperation()
                 }
               }}>
               <Text
@@ -496,12 +486,12 @@ const Details: React.FC<Props> = ({navigation}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={async() => {
-                const token= await AsyncStorage.getItem('Token')
+              onPress={async () => {
+                const token = await AsyncStorage.getItem('Token');
                 if (token != null || token != undefined) {
                   createCheckout();
                 } else {
-                  createThreeButtonAlert();
+                  createCheckout()
                 }
               }}
               style={[

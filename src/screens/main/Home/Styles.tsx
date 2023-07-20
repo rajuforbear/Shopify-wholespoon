@@ -141,8 +141,8 @@ export default StyleSheet.create({
     // shadowRadius: 2.84,
   },
   cardImage: {
-    height: '100%',
-    width: '100%',
+    height: hp(15),
+    width: hp(15),
     //borderRadius: wp(3),
     resizeMode: 'cover',
     alignItems: 'center',

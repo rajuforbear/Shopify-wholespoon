@@ -23,7 +23,7 @@ export default StyleSheet.create({
   card: {
     // borderWidth: 1,
     width: wp(47),
-    height: hp(20),
+    height: hp(28),
     marginHorizontal: wp(1),
     borderRadius: wp(0),
     backgroundColor: '#e6f0f2',

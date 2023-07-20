@@ -109,11 +109,11 @@ export default StyleSheet.create({
     alignSelf: 'center',
     // borderWidth:1,
     // top: wp(30),
-    paddingVertical: wp(1),
+
     borderRadius: wp(2),
     backgroundColor: '#f2f5f4',
     paddingHorizontal: wp(5),
-    alignItems: 'center',
+
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: wp(4),
@@ -135,12 +135,12 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: wp(7),
   },
-  title: {
-    fontSize: wp(5),
-    textAlign: 'center',
-    marginTop: wp(1),
-    fontWeight: 'bold',
-  },
+  // title: {
+  //   fontSize: wp(5),
+  //   textAlign: 'center',
+  //   marginTop: wp(1),
+  //   fontWeight: 'bold',
+  // },
   btn3: {
     height: hp(5.5),
     width: '100%',
@@ -202,5 +202,24 @@ export default StyleSheet.create({
     borderWidth: wp(0.1),
     marginTop: wp(1),
     marginRight: wp(3),
+  },
+  varBtn: {
+    height: hp(4),
+    width: wp(30),
+    /// borderWidth: 1,
+    // flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+    marginLeft: wp(10),
+    borderWidth: wp(0.5),
+    flexDirection: 'row',
+    paddingHorizontal: wp(3),
+  },
+  varTitle: {
+    fontSize: wp(4),
+    color: '#A36B25',
+    fontWeight: '600',
+    fontStyle: 'italic',
   },
 });

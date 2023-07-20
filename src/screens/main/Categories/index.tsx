@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {
   FlatList,
+  Image,
   ImageBackground,
   Text,
   TouchableOpacity,
@@ -13,25 +14,28 @@ import {
 } from 'react-native-responsive-screen';
 import {useDispatch, useSelector} from 'react-redux';
 import Loader from '../../../compoents/Loader';
-import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper';
-import { RootState } from '../../../sopify/Redux/store';
+import {StackScreenProps} from '@react-navigation/stack';
+import {HelperNavigationParams} from '../../../navigation/Helper';
+import {RootState} from '../../../sopify/Redux/store';
+import {collections, collection} from '../../../Types/collection';
 type Props = StackScreenProps<HelperNavigationParams, 'Categories'>;
-const Categories:React.FC<Props> = ({navigation}) => {
-  const data = useSelector((state:RootState) => state.data.collection);
-  const isLoading = useSelector((state:RootState) => state.data.isLoading);
+type List = {
+  item: collection;
+};
+const Categories: React.FC<Props> = ({navigation}) => {
+  const data = useSelector((state: RootState) => state.data.collection);
+  const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const dispatch = useDispatch();
   useEffect(() => {
     if (data.length <= 0) getData();
   }, [dispatch]);
-
   const getData = () => {
     dispatch({
       type: 'sopify/getCollection',
     });
   };
 
-  const fetchProductById = (id:string, title:string) => {
+  const fetchProductById = (id: string, title: string) => {
     dispatch({
       type: 'sopify/fetchProductById',
       prId: id,
@@ -40,6 +44,43 @@ const Categories:React.FC<Props> = ({navigation}) => {
       page: 'home',
     });
   };
+  
+
+  const RenderList: React.FC<List> = ({item}) => {
+    return (
+      <TouchableOpacity
+                onPress={() => fetchProductById(item.id, item.title)}
+                style={styles.card}>
+                <Image
+                  style={{
+                    height: '80%',
+                    width: '100%',
+                    alignSelf: 'center',
+                    //resizeMode: 'contain',
+                    borderRadius: wp(0),
+                    justifyContent: 'center',
+                  }}
+                  source={
+                    item?.image
+                      ? {uri: item?.image?.src}
+                      : require('../../../assests/noimg.jpeg')
+                  }/>
+                  <Text
+                    style={{
+                      alignSelf: 'center',
+                      color: 'black',
+                      fontWeight: '400',
+                      fontSize: wp(4.5),
+                      fontStyle:'italic',
+                      marginTop:5
+                    }}>
+                    {item.title}
+                  </Text>
+                
+              </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={{flex: 1}}>
       {isLoading ? <Loader /> : null}
@@ -51,44 +92,24 @@ const Categories:React.FC<Props> = ({navigation}) => {
           alignSelf: 'center',
           alignItems: 'center',
           justifyContent: 'center',
-          paddingBottom:wp(8)
+          paddingBottom: wp(8),
         }}>
-        <FlatList
+        {/* <FlatList
           data={data}
           numColumns={2}
           keyExtractor={(item, index) => item.id}
           renderItem={({item, index}) => {
             return (
-              <TouchableOpacity
-                onPress={() => fetchProductById(item.id, item.title)}
-                style={styles.card}>
-                <ImageBackground
-                  style={{
-                    height: '100%',
-                    width: '100%',
-                    alignSelf: 'center',
-                    //resizeMode: 'contain',
-                    borderRadius: wp(0),
-                    justifyContent: 'center',
-                  }}
-                  source={
-                    item?.image
-                      ? {uri: item?.image?.src}
-                      : require('../../../assests/noimg.jpeg')
-                  }>
-                  <Text
-                    style={{
-                      alignSelf: 'center',
-                      color: 'white',
-                      fontWeight: 'bold',
-                      fontSize: wp(6),
-                    }}>
-                    {item.title}
-                  </Text>
-                </ImageBackground>
-              </TouchableOpacity>
+             
             );
           }}
+        /> */}
+        <FlatList
+          data={data}
+          numColumns={2}
+          keyExtractor={item => item.id}
+          pagingEnabled={true}
+          renderItem={({item, index}) => <RenderList item={item} />}
         />
       </View>
     </View>

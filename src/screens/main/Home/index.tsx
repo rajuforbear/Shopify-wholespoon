@@ -44,7 +44,9 @@ const Home: React.FC<Props> = ({navigation}) => {
   const collection = useSelector((state: RootState) => state.data.collection);
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const product = useSelector((state: RootState) => state.data.products);
-  // console.log(product);
+  const HomeData = useSelector((state: RootState) => state.data.homeData);
+  console.log('thois isi ', HomeData);
+
   const userData = useSelector((state: RootState) => state.data.userData);
   const getCollection = () => {
     // console.log('the length....', collection.length);
@@ -67,6 +69,7 @@ const Home: React.FC<Props> = ({navigation}) => {
   useEffect(() => {
     if (true) {
       getUserData();
+      FetchHome();
     }
   }, [dispatch]);
   const getUserData = async () => {
@@ -87,8 +90,7 @@ const Home: React.FC<Props> = ({navigation}) => {
       navigation,
     });
   };
-  const fetDetails = (id:string) => {
-    const axios = require('axios');
+  const fetDetails = (id: string) => {
     let data = JSON.stringify({
       query: `query getProductById($id: ID!) {
   product(id: $id) 
@@ -96,12 +98,64 @@ const Home: React.FC<Props> = ({navigation}) => {
     ${productquery}
   }
 }`,
-      variables: {id:id},
+      variables: {id: id},
     });
     dispatch({
       type: 'sopify/ProductDetails',
       data: data,
       navigation,
+    });
+  };
+  const data = HomeData?.collections?.edges?.filter(
+    item => item.node.products.edges.length > 1,
+  );
+  const FetchHome = () => {
+    let data = JSON.stringify({
+      query: `query {
+      shop {
+        name
+        description
+    
+      }
+      collections(first: 10) {
+        edges {
+          node {
+            title
+            id
+            image{
+                id
+                url
+    
+            }
+            products(first: 5) {
+              edges {
+                node {
+                  title
+                  id
+                  images(first:10){
+                     nodes{
+                         id
+                         url
+                     }
+                  }
+                  priceRange {
+                    minVariantPrice {
+                      amount
+                      currencyCode
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }`,
+      variables: {},
+    });
+    dispatch({
+      type: 'sopify/fetchHome',
+      data: data,
     });
   };
   return (
@@ -116,17 +170,17 @@ const Home: React.FC<Props> = ({navigation}) => {
         showsVerticalScrollIndicator={false}>
         <View style={styles.conatainer}>
           <FlatList
-            data={collection}
+            data={data}
             horizontal
             showsHorizontalScrollIndicator={false}
             pagingEnabled
-            keyExtractor={(item, index) => item.id}
+            keyExtractor={(item, index) => item.node.id}
             renderItem={({item}) => {
-              if (item.image) {
+              if (item.node.image) {
                 return (
                   <TouchableOpacity onPress={() => getUserData()}>
                     <ImageBackground
-                      source={{uri: item.image?.src}}
+                      source={{uri: item.node?.image.url}}
                       style={styles.photos}>
                       <View style={styles.con}></View>
                     </ImageBackground>
@@ -164,7 +218,7 @@ const Home: React.FC<Props> = ({navigation}) => {
           style={{
             width: '100%',
             backgroundColor: 'white',
-            height: hp('16%'),
+            height: hp('22%'),
             justifyContent: 'center',
             alignItems: 'center',
             shadowColor: '#000',
@@ -179,11 +233,11 @@ const Home: React.FC<Props> = ({navigation}) => {
           }}>
           <View style={{marginTop: '4%'}}>
             <FlatList
-              data={collection}
+              data={data}
               showsHorizontalScrollIndicator={false}
               horizontal
               renderItem={({item}) => {
-                if (item.image) {
+                if (item.node.image) {
                   return (
                     <TouchableOpacity
                       onPress={() =>
@@ -191,9 +245,9 @@ const Home: React.FC<Props> = ({navigation}) => {
                         {
                           dispatch({
                             type: 'sopify/fetchProductById',
-                            prId: item.id,
+                            prId: item.node.id,
                             navigation,
-                            title: item.title,
+                            title: item.node.title,
                             length: 10,
                             page: 'home',
                           });
@@ -201,25 +255,26 @@ const Home: React.FC<Props> = ({navigation}) => {
                       }
                       activeOpacity={8}
                       style={{
-                        height: hp(15),
+                        height: hp(18),
                         width: hp(15),
                         marginHorizontal: wp(1.3),
-                        // borderWidth: 1,
+                        //borderWidth: 1,
                       }}>
-                      {item.image ? (
-                        <ImageBackground
-                          style={styles.cardImage}
-                          source={{uri: item?.image.src}}>
-                          <Text
-                            style={{
-                              color: 'white',
-                              fontSize: wp(4),
-                              fontWeight: '700',
-                            }}>
-                            {item.title}
-                          </Text>
-                        </ImageBackground>
-                      ) : null}
+                      <Image
+                        style={styles.cardImage}
+                        source={{uri: item?.node.image.url}}
+                      />
+                      <Text
+                        style={{
+                          color: 'black',
+                          fontSize: wp(3.5),
+                          fontWeight: '700',
+                          textAlign: 'center',
+                          fontStyle: 'italic',
+                          marginTop: wp(1),
+                        }}>
+                        {item.node.title}
+                      </Text>
                     </TouchableOpacity>
                   );
                 } else {
@@ -267,28 +322,45 @@ const Home: React.FC<Props> = ({navigation}) => {
         </View>
         <View style={{width: '97%', alignSelf: 'center', paddingBottom: hp(8)}}>
           <FlatList
-            data={product.slice(0, 6)}
+            data={data}
             numColumns={2}
             scrollEnabled={false}
-            keyExtractor={(item, index) => item.id}
+            keyExtractor={(item, index) => item.node.id}
             renderItem={({item}) => {
               // console.log(item);
+
               return (
                 <View style={styles.cardView}>
                   {/* <AntDesign name="hearto" style={styles.icon} /> */}
                   <TouchableOpacity
-                    onPress={()=>fetDetails(item.id)}
+                    onPress={() =>
+                      fetDetails(item.node.products.edges[0].node.id)
+                    }
                     style={styles.imgcontainer}>
                     <Image
                       style={styles.img}
-                      source={{uri: item.images[0].src}}
+                      source={{
+                        uri: item.node.products.edges[0]?.node.images.nodes[0]
+                          .url,
+                      }}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.title}>{item.title}</Text>
+                  <Text style={styles.title}>
+                    {item?.node?.products?.edges.length > 0
+                      ? item?.node?.products?.edges[1]?.node?.title
+                        ? item?.node?.products?.edges[1]?.node?.title
+                        : item?.node?.products?.edges[0]?.node?.title
+                      : 'Thai Paste'}
+                  </Text>
                   <Text style={[styles.title, {marginVertical: wp(0)}]}>
-                    {item?.variants[0]?.price.amount +
-                      ' ' +
-                      item?.variants[0]?.price.currencyCode}
+                    {item?.node?.products?.edges.length > 0
+                      ? item?.node?.products?.edges[1]?.node?.priceRange
+                          .minVariantPrice.amount
+                      : item?.node?.products?.edges[0]?.node?.priceRange
+                          .minVariantPrice.amount +
+                        ' ' +
+                        item?.node.products?.edges[0]?.node.priceRange
+                          .minVariantPrice.currencyCode}
                   </Text>
                 </View>
               );

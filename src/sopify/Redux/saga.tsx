@@ -21,7 +21,8 @@ import {Page} from '../../Types/Pages.d';
 import {PageDetail} from '../../Types/PageDetails';
 import {Menus} from '../../Types/Menu';
 import {SearchProduct} from '../../Types/SerachProduct';
-import { ProductDetail } from '../../Types/ProductDetail';
+import {ProductDetail} from '../../Types/ProductDetail';
+import {HomeType} from '../../Types/HomeType';
 
 function* getCollection() {
   try {
@@ -693,44 +694,69 @@ function* searchProduct(action: action) {
     });
   }
 }
-function* productDetails(action:action){
-  
+function* productDetails(action: action) {
+  try {
+    const res: ProductDetail = yield call(Shopify.userControll, action.data);
 
-   try {
-    const res:ProductDetail=yield call(Shopify.userControll,action.data)
-    
-    if(res.data?.product){
+    if (res.data?.product) {
       yield put({
-        type:"sopify/ProductDetailsSuccess",
-        payload:res.data.product
-      })
-      if(action?.page==='details'){
-        action.navigation.replace('Details')
-      }else{
-      action.navigation.navigate('Details')
+        type: 'sopify/ProductDetailsSuccess',
+        payload: res.data.product,
+      });
+      if (action?.page === 'details') {
+        action.navigation.replace('Details');
+      } else {
+        action.navigation.navigate('Details');
       }
-    }else
-    {
+    } else {
       yield put({
-        type:"sopify/ProductDetailsError"
-      })
+        type: 'sopify/ProductDetailsError',
+      });
       Toast.show({
-        type:'info',
-        text1:'Something went wrong'
-      })
-      console.log(res.data)
+        type: 'info',
+        text1: 'Something went wrong',
+      });
+      console.log(res.data);
     }
+  } catch (err) {
+    console.log(err);
+    yield put({
+      type: 'sopify/ProductDetailsError',
+    });
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
-    catch(err){
-      console.log(err)
+}
+function* fetchHome(action: action) {
+  try {
+    const res: HomeType = yield call(Shopify.userControll, action.data);
+
+    if (res.data) {
       yield put({
-        type:"sopify/ProductDetailsError"
-      })
+        type: 'sopify/fetchHomeSuccess',
+        payload: res.data,
+      });
+    } else {
+      yield put({
+        type: 'sopify/fetchHomeFail',
+      });
       Toast.show({
-        type:'info',
-        text1:'Something went wrong'
-      })
+        type: 'info',
+        text1: 'Something went wrong',
+      });
     }
+  } catch (err) {
+    yield put({
+      type: 'sopify/fetchHomeFail',
+    });
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
+    console.log(err);
+  }
 }
 function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/getCollection', getCollection);
@@ -758,6 +784,7 @@ function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/updateCheckout', updateCheckout);
   yield takeEvery('sopify/searchProduct', searchProduct);
   yield takeEvery('sopify/ProductDetails', productDetails);
+  yield takeEvery('sopify/fetchHome', fetchHome);
 }
 
 export default Saga;

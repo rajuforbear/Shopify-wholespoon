@@ -8,9 +8,10 @@ import {Menu} from '../../Types/Menu';
 import {Data, Edge, Pages} from '../../Types/Pages.d';
 import {updateCheckouts} from '../../Types/updateCheckout';
 import {SearchProducts} from '../../Types/SerachProduct';
-import { ProductDetails } from '../../Types/ProductDetail';
+import {ProductDetails} from '../../Types/ProductDetail';
+import {HomeData} from '../../Types/HomeType';
 
-type initialState = {
+type initialStates = {
   collection: collections;
   isLoading: boolean;
   products: Products;
@@ -36,8 +37,9 @@ type initialState = {
   updateCheckout: updateCheckouts;
   searchProduct: SearchProducts;
   productDetail: ProductDetails;
+  homeData: HomeData;
 };
-const initialState: initialState = {
+const initialState: initialStates = {
   collection: [],
   isLoading: false,
   products: [] as any,
@@ -63,6 +65,7 @@ const initialState: initialState = {
   updateCheckout: {} as any,
   searchProduct: {} as any,
   productDetail: {} as any,
+  homeData: {} as any,
 };
 
 export const MySlice = createSlice({
@@ -309,9 +312,18 @@ export const MySlice = createSlice({
       state.isLoading = false;
       state.productDetail = action.payload;
     },
-    ProductDetailsError:(state)=>{
-      state.isLoading=false
-    }
+    ProductDetailsError: state => {
+      state.isLoading = false;
+    },
+    fetchHome: state => {
+      state.isLoading = true;
+    },
+    fetchHomeSuccess: (state, action) => {
+      (state.isLoading = false), (state.homeData = action.payload);
+    },
+    fetchHomeFail: state => {
+      state.isLoading = false;
+    },
   },
 });
 export const {getCollection, getCollectionSuccess, getCollectionFail} =

@@ -51,7 +51,7 @@ const Search: React.FC<Props> = ({navigation,route}) => {
   };
   const isFocused=useIsFocused()
   useEffect(() => {
-    const delay = 500;
+    const delay = 200;
     const deBounce = setTimeout(() => {
       handleonSearch();
     }, delay);
