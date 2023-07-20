@@ -1,4 +1,4 @@
-package com.newprjewct;
+package com.wholespoon;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

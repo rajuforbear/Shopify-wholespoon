@@ -21,7 +21,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'newPrjewct' do
+target 'Wholespoon' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -43,7 +43,7 @@ target 'newPrjewct' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'newPrjewctTests' do
+  target 'WholespoonTests' do
     inherit! :complete
     # Pods for testing
   end

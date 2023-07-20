@@ -1,4 +1,4 @@
-package com.newprjewct;
+package com.wholespoon;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

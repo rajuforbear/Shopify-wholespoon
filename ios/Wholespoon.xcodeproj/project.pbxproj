@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* newPrjewctTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* newPrjewctTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-newPrjewct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-newPrjewct.a */; };
+		00E356F31AD99517003FC87E /* WholespoonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WholespoonTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18CA36C22A0A3B10009CB8EB /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 18CA36C12A0A3B10009CB8EB /* Fonts */; };
-		7699B88040F8A987B510C191 /* libPods-newPrjewct-newPrjewctTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-newPrjewct-newPrjewctTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		9C738E9F7F4CBC3B6ED82AB9 /* libPods-Wholespoon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 565EC2455B13EF1EC1F1650A /* libPods-Wholespoon.a */; };
+		B02468383D5BCC57CCB98C50 /* libPods-Wholespoon-WholespoonTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A98FD98F2D438C4AAB89DF4 /* libPods-Wholespoon-WholespoonTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,28 +23,32 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = newPrjewct;
+			remoteInfo = Wholespoon;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* newPrjewctTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = newPrjewctTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* WholespoonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WholespoonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* newPrjewctTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = newPrjewctTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* newPrjewct.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newPrjewct.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = newPrjewct/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = newPrjewct/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = newPrjewct/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = newPrjewct/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = newPrjewct/main.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* WholespoonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholespoonTests.m; sourceTree = "<group>"; };
+		11299430CD822C1DC592577B /* Pods-Wholespoon-WholespoonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wholespoon-WholespoonTests.release.xcconfig"; path = "Target Support Files/Pods-Wholespoon-WholespoonTests/Pods-Wholespoon-WholespoonTests.release.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Wholespoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wholespoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Wholespoon/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Wholespoon/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Wholespoon/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Wholespoon/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Wholespoon/main.m; sourceTree = "<group>"; };
 		18CA36C12A0A3B10009CB8EB /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-newPrjewct-newPrjewctTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-newPrjewct-newPrjewctTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-newPrjewct.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newPrjewct.debug.xcconfig"; path = "Target Support Files/Pods-newPrjewct/Pods-newPrjewct.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-newPrjewct.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newPrjewct.release.xcconfig"; path = "Target Support Files/Pods-newPrjewct/Pods-newPrjewct.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-newPrjewct-newPrjewctTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newPrjewct-newPrjewctTests.debug.xcconfig"; path = "Target Support Files/Pods-newPrjewct-newPrjewctTests/Pods-newPrjewct-newPrjewctTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-newPrjewct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-newPrjewct.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = newPrjewct/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-newPrjewct-newPrjewctTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newPrjewct-newPrjewctTests.release.xcconfig"; path = "Target Support Files/Pods-newPrjewct-newPrjewctTests/Pods-newPrjewct-newPrjewctTests.release.xcconfig"; sourceTree = "<group>"; };
+		2AF55DB55BC81525211C4E80 /* Pods-Wholespoon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wholespoon.release.xcconfig"; path = "Target Support Files/Pods-Wholespoon/Pods-Wholespoon.release.xcconfig"; sourceTree = "<group>"; };
+		3B4392A12AC88292D35C810B /* Pods-Wholespoon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wholespoon.debug.xcconfig"; path = "Target Support Files/Pods-Wholespoon/Pods-Wholespoon.debug.xcconfig"; sourceTree = "<group>"; };
+		565EC2455B13EF1EC1F1650A /* libPods-Wholespoon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wholespoon.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5709B34CF0A7D63546082F79 /* Pods-Wholespoon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wholespoon.release.xcconfig"; path = "Target Support Files/Pods-Wholespoon/Pods-Wholespoon.release.xcconfig"; sourceTree = "<group>"; };
+		5B7EB9410499542E8C5724F5 /* Pods-Wholespoon-WholespoonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wholespoon-WholespoonTests.debug.xcconfig"; path = "Target Support Files/Pods-Wholespoon-WholespoonTests/Pods-Wholespoon-WholespoonTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7A98FD98F2D438C4AAB89DF4 /* libPods-Wholespoon-WholespoonTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wholespoon-WholespoonTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		80BF87EDD7AFA5BAC7EB3EBF /* Pods-Wholespoon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wholespoon.debug.xcconfig"; path = "Target Support Files/Pods-Wholespoon/Pods-Wholespoon.debug.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Wholespoon/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89C6BE57DB24E9ADA2F236DE /* Pods-Wholespoon-WholespoonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wholespoon-WholespoonTests.release.xcconfig"; path = "Target Support Files/Pods-Wholespoon-WholespoonTests/Pods-Wholespoon-WholespoonTests.release.xcconfig"; sourceTree = "<group>"; };
+		9E6849CD31D600F3BE4BD9B0 /* Pods-Wholespoon-WholespoonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wholespoon-WholespoonTests.debug.xcconfig"; path = "Target Support Files/Pods-Wholespoon-WholespoonTests/Pods-Wholespoon-WholespoonTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -53,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-newPrjewct-newPrjewctTests.a in Frameworks */,
+				B02468383D5BCC57CCB98C50 /* libPods-Wholespoon-WholespoonTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,20 +65,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-newPrjewct.a in Frameworks */,
+				9C738E9F7F4CBC3B6ED82AB9 /* libPods-Wholespoon.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* newPrjewctTests */ = {
+		00E356EF1AD99517003FC87E /* WholespoonTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* newPrjewctTests.m */,
+				00E356F21AD99517003FC87E /* WholespoonTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = newPrjewctTests;
+			path = WholespoonTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -85,7 +89,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* newPrjewct */ = {
+		13B07FAE1A68108700A75B9A /* Wholespoon */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -95,15 +99,15 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = newPrjewct;
+			name = Wholespoon;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-newPrjewct.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-newPrjewct-newPrjewctTests.a */,
+				565EC2455B13EF1EC1F1650A /* libPods-Wholespoon.a */,
+				7A98FD98F2D438C4AAB89DF4 /* libPods-Wholespoon-WholespoonTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -119,9 +123,9 @@
 			isa = PBXGroup;
 			children = (
 				18CA36C12A0A3B10009CB8EB /* Fonts */,
-				13B07FAE1A68108700A75B9A /* newPrjewct */,
+				13B07FAE1A68108700A75B9A /* Wholespoon */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* newPrjewctTests */,
+				00E356EF1AD99517003FC87E /* WholespoonTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -134,8 +138,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* newPrjewct.app */,
-				00E356EE1AD99517003FC87E /* newPrjewctTests.xctest */,
+				13B07F961A680F5B00A75B9A /* Wholespoon.app */,
+				00E356EE1AD99517003FC87E /* WholespoonTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,10 +147,14 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-newPrjewct.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-newPrjewct.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-newPrjewct-newPrjewctTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-newPrjewct-newPrjewctTests.release.xcconfig */,
+				3B4392A12AC88292D35C810B /* Pods-Wholespoon.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-Wholespoon.release.xcconfig */,
+				5B7EB9410499542E8C5724F5 /* Pods-Wholespoon-WholespoonTests.debug.xcconfig */,
+				89C6BE57DB24E9ADA2F236DE /* Pods-Wholespoon-WholespoonTests.release.xcconfig */,
+				80BF87EDD7AFA5BAC7EB3EBF /* Pods-Wholespoon.debug.xcconfig */,
+				2AF55DB55BC81525211C4E80 /* Pods-Wholespoon.release.xcconfig */,
+				9E6849CD31D600F3BE4BD9B0 /* Pods-Wholespoon-WholespoonTests.debug.xcconfig */,
+				11299430CD822C1DC592577B /* Pods-Wholespoon-WholespoonTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -154,9 +162,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* newPrjewctTests */ = {
+		00E356ED1AD99517003FC87E /* WholespoonTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "newPrjewctTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "WholespoonTests" */;
 			buildPhases = (
 				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -170,14 +178,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = newPrjewctTests;
-			productName = newPrjewctTests;
-			productReference = 00E356EE1AD99517003FC87E /* newPrjewctTests.xctest */;
+			name = WholespoonTests;
+			productName = WholespoonTests;
+			productReference = 00E356EE1AD99517003FC87E /* WholespoonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* newPrjewct */ = {
+		13B07F861A680F5B00A75B9A /* Wholespoon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "newPrjewct" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Wholespoon" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -192,9 +200,9 @@
 			);
 			dependencies = (
 			);
-			name = newPrjewct;
-			productName = newPrjewct;
-			productReference = 13B07F961A680F5B00A75B9A /* newPrjewct.app */;
+			name = Wholespoon;
+			productName = Wholespoon;
+			productReference = 13B07F961A680F5B00A75B9A /* Wholespoon.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -214,7 +222,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "newPrjewct" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Wholespoon" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -227,8 +235,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* newPrjewct */,
-				00E356ED1AD99517003FC87E /* newPrjewctTests */,
+				13B07F861A680F5B00A75B9A /* Wholespoon */,
+				00E356ED1AD99517003FC87E /* WholespoonTests */,
 			);
 		};
 /* End PBXProject section */
@@ -276,15 +284,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-newPrjewct/Pods-newPrjewct-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Wholespoon/Pods-Wholespoon-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-newPrjewct/Pods-newPrjewct-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Wholespoon/Pods-Wholespoon-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-newPrjewct/Pods-newPrjewct-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Wholespoon/Pods-Wholespoon-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
@@ -302,7 +310,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-newPrjewct-newPrjewctTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Wholespoon-WholespoonTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -324,7 +332,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-newPrjewct-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Wholespoon-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -337,15 +345,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-newPrjewct-newPrjewctTests/Pods-newPrjewct-newPrjewctTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Wholespoon-WholespoonTests/Pods-Wholespoon-WholespoonTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-newPrjewct-newPrjewctTests/Pods-newPrjewct-newPrjewctTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Wholespoon-WholespoonTests/Pods-Wholespoon-WholespoonTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-newPrjewct-newPrjewctTests/Pods-newPrjewct-newPrjewctTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Wholespoon-WholespoonTests/Pods-Wholespoon-WholespoonTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -354,15 +362,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-newPrjewct/Pods-newPrjewct-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Wholespoon/Pods-Wholespoon-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-newPrjewct/Pods-newPrjewct-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Wholespoon/Pods-Wholespoon-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-newPrjewct/Pods-newPrjewct-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Wholespoon/Pods-Wholespoon-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -371,15 +379,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-newPrjewct-newPrjewctTests/Pods-newPrjewct-newPrjewctTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Wholespoon-WholespoonTests/Pods-Wholespoon-WholespoonTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-newPrjewct-newPrjewctTests/Pods-newPrjewct-newPrjewctTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Wholespoon-WholespoonTests/Pods-Wholespoon-WholespoonTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-newPrjewct-newPrjewctTests/Pods-newPrjewct-newPrjewctTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Wholespoon-WholespoonTests/Pods-Wholespoon-WholespoonTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -408,7 +416,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* newPrjewctTests.m in Sources */,
+				00E356F31AD99517003FC87E /* WholespoonTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,7 +434,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* newPrjewct */;
+			target = 13B07F861A680F5B00A75B9A /* Wholespoon */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -434,14 +442,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-newPrjewct-newPrjewctTests.debug.xcconfig */;
+			baseConfigurationReference = 9E6849CD31D600F3BE4BD9B0 /* Pods-Wholespoon-WholespoonTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = newPrjewctTests/Info.plist;
+				INFOPLIST_FILE = WholespoonTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -455,17 +463,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/newPrjewct.app/newPrjewct";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wholespoon.app/Wholespoon";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-newPrjewct-newPrjewctTests.release.xcconfig */;
+			baseConfigurationReference = 11299430CD822C1DC592577B /* Pods-Wholespoon-WholespoonTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = newPrjewctTests/Info.plist;
+				INFOPLIST_FILE = WholespoonTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -479,19 +487,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/newPrjewct.app/newPrjewct";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wholespoon.app/Wholespoon";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-newPrjewct.debug.xcconfig */;
+			baseConfigurationReference = 80BF87EDD7AFA5BAC7EB3EBF /* Pods-Wholespoon.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = newPrjewct/Info.plist;
+				INFOPLIST_FILE = Wholespoon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -503,7 +511,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = newPrjewct;
+				PRODUCT_NAME = Wholespoon;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -512,12 +520,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-newPrjewct.release.xcconfig */;
+			baseConfigurationReference = 2AF55DB55BC81525211C4E80 /* Pods-Wholespoon.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = newPrjewct/Info.plist;
+				INFOPLIST_FILE = Wholespoon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -529,7 +537,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = newPrjewct;
+				PRODUCT_NAME = Wholespoon;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -675,7 +683,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "newPrjewctTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "WholespoonTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -684,7 +692,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "newPrjewct" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Wholespoon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -693,7 +701,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "newPrjewct" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Wholespoon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
