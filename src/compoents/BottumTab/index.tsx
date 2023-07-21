@@ -204,7 +204,7 @@ const BottumTab = () => {
         navigation,
       });
     } else {
-      navigation.navigate('Login');
+      navigation.navigate('Profile');
     }
   };
   const dispatch = useDispatch();
