@@ -15,7 +15,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import Loader from '../../../compoents/Loader';
 import {StackScreenProps} from '@react-navigation/stack';
-import {HelperNavigationParams} from '../../../navigation/Helper';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import {RootState} from '../../../sopify/Redux/store';
 import {collections, collection} from '../../../Types/collection';
 type Props = StackScreenProps<HelperNavigationParams, 'Categories'>;

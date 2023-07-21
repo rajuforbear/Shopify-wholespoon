@@ -3,7 +3,7 @@ import {DrawerNavigationProp, createDrawerNavigator} from '@react-navigation/dra
 //import MyTab from "../bottumtab";
 import Home from '../../screens/main/Home';
 import CostumDrawer from '../../compoents/CostumDrawer';
-import Root from '../../Root';
+import HelperRoot from '../Helper';
 import { DrawerRouterOptions, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 export type DrawerNavigationPramas = {
@@ -19,7 +19,7 @@ const MyDrawer:React.FC = () => {
       drawerContent={pros => <CostumDrawer  navigation={navigation} route={route} />}
       initialRouteName="Home"
       screenOptions={{headerShown: false}}>
-      <Drawer.Screen name="home" component={Root} />
+      <Drawer.Screen name="home" component={HelperRoot} />
     </Drawer.Navigator>
   );
 };

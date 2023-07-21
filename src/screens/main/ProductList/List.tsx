@@ -16,7 +16,7 @@ import { product ,Products} from '../../../Types/product';
 import { RootNavigationParams } from '../../../Types/NavigationProps';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper';
+import { HelperNavigationParams } from '../../../navigation/Helper/Helper';
 import productquery from '../../../data/productquery';
 import { useDispatch } from 'react-redux';
 type Props={

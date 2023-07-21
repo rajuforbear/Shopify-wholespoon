@@ -8,7 +8,7 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper';
+import { HelperNavigationParams } from '../../../navigation/Helper/Helper';
 import { RootState } from '../../../sopify/Redux/store';
 type Props=StackScreenProps<HelperNavigationParams,'About'>
 const About:React.FC<Props> = ({navigation}) => {

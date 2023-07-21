@@ -10,7 +10,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Pencil from 'react-native-vector-icons/FontAwesome5';
 import {RootState} from '../../../sopify/Redux/store';
 import {StackScreenProps} from '@react-navigation/stack';
-import {HelperNavigationParams} from '../../../navigation/Helper';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import {NavigationParams} from '../../../navigation';
 import {CompositeScreenProps} from '@react-navigation/native';
 type Props = CompositeScreenProps<

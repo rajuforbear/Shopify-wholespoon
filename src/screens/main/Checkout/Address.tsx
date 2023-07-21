@@ -20,7 +20,7 @@ import {useNavigation} from '@react-navigation/native';
 import Loading from '../../../compoents/Loader';
 import CheckBox from '@react-native-community/checkbox';
 import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper';
+import { HelperNavigationParams } from '../../../navigation/Helper/Helper';
 import { RootState } from '../../../sopify/Redux/store';
 type Props=StackScreenProps<HelperNavigationParams,'Address'>
 const Address:React.FC<Props> = props => {

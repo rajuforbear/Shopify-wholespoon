@@ -8,7 +8,7 @@ import SignUp from '../screens/Auth/SignUp';
 import Innternet from '../screens/Auth/Innternet';
 import Opt from '../screens/Auth/OptPage';
 import type { CompositeNavigationProp } from '@react-navigation/native';
-import { HelperNavigationParams } from './Helper';
+import { HelperNavigationParams } from './Helper/Helper';
 import Search from '../screens/main/Search';
 export type NavigationParams = {
   Splash: undefined;

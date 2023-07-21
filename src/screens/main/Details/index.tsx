@@ -24,7 +24,7 @@ import Loading from '../../../compoents/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {query} from '../Cart/queries';
 import {StackScreenProps} from '@react-navigation/stack';
-import {HelperNavigationParams} from '../../../navigation/Helper';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import {RootState} from '../../../sopify/Redux/store';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {NavigationParams} from '../../../navigation';

@@ -15,7 +15,7 @@ import query from './query';
 import productquery from '../../../data/productquery';
 import { StackScreenProps} from '@react-navigation/stack';
 import {CompositeScreenProps, useIsFocused} from '@react-navigation/native';
-import {HelperNavigationParams} from '../../../navigation/Helper';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import {NavigationParams} from '../../../navigation';
 type Props = CompositeScreenProps<
   StackScreenProps<NavigationParams, 'Search'>,

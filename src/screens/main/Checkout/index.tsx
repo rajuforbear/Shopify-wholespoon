@@ -26,7 +26,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../../compoents/Loader';
 import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper';
+import { HelperNavigationParams } from '../../../navigation/Helper/Helper';
 import { RootState } from '../../../sopify/Redux/store';
 type Props=StackScreenProps<HelperNavigationParams>
 const Checkout:React.FC<Props> = ({navigation}) => {

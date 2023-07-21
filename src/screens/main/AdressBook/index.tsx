@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../../compoents/Loader';
 import {query} from '../Home/query';
 import {StackScreenProps} from '@react-navigation/stack';
-import {HelperNavigationParams} from '../../../navigation/Helper';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import {RootState} from '../../../sopify/Redux/store';
 import { Node } from '../../../Types/user';
 type Props = StackScreenProps<HelperNavigationParams, 'AddressBook'>;

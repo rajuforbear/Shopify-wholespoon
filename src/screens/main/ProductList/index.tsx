@@ -18,7 +18,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../../../compoents/Loader';
 import List from './List';
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper';
+import { HelperNavigationParams } from '../../../navigation/Helper/Helper';
 import { RootState } from '../../../sopify/Redux/store';
 type Props = StackScreenProps<HelperNavigationParams, 'ProductList'>;
 const ProductList:React.FC<Props> = props => {

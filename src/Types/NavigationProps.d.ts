@@ -1,4 +1,4 @@
-import { HelperNavigationParams } from "../navigation/Helper";
+import { HelperNavigationParams } from "../navigation/Helper/Helper";
 import { NavigationParams } from "../navigation";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { StackScreenProps,StackNavigationProp } from "@react-navigation/stack";

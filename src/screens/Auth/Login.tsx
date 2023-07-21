@@ -18,7 +18,7 @@ import Loading from '../../compoents/Loader';
 import {CompositeScreenProps, useNavigation} from '@react-navigation/native';
 import { RootState } from '../../sopify/Redux/store';
 import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../navigation/Helper';
+import { HelperNavigationParams } from '../../navigation/Helper/Helper';
 import { NavigationParams } from '../../navigation';
 type Props = CompositeScreenProps<
 StackScreenProps<NavigationParams,'Login'>,

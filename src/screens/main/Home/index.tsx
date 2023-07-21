@@ -28,7 +28,7 @@ import {url} from '../../../data/url';
 import YoutubeIframe from 'react-native-youtube-iframe';
 import Loading from '../../../compoents/Loader';
 import {query} from './query';
-import type {HelperNavigationParams} from '../../../navigation/Helper';
+import type {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import type {StackScreenProps} from '@react-navigation/stack';
 import {RootState} from '../../../sopify/Redux/store';
 import productquery from '../../../data/productquery';

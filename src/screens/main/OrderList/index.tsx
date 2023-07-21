@@ -10,7 +10,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../sopify/Redux/store';
 import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper';
+import { HelperNavigationParams } from '../../../navigation/Helper/Helper';
 type Props = StackScreenProps<HelperNavigationParams, 'OrderList'>;
 const OrderList:React.FC<Props> = ({navigation}) => {
 const products=  useSelector((state:RootState)=>state.data.products)

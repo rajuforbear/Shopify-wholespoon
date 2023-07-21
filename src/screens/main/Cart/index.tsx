@@ -14,7 +14,7 @@ import Loading from '../../../compoents/Loader';
 import {query} from './queries';
 import {RootState} from '../../../sopify/Redux/store';
 import {StackScreenProps} from '@react-navigation/stack';
-import {HelperNavigationParams} from '../../../navigation/Helper';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 
 type Props = StackScreenProps<HelperNavigationParams, 'Cart'>;
 const Cart: React.FC<Props> = ({navigation}) => {
