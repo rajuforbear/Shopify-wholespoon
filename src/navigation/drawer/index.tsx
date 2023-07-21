@@ -1,10 +1,8 @@
 import React from 'react';
 import {DrawerNavigationProp, createDrawerNavigator} from '@react-navigation/drawer';
-//import MyTab from "../bottumtab";
-import Home from '../../screens/main/Home';
 import CostumDrawer from '../../compoents/CostumDrawer';
 import HelperRoot from '../Helper';
-import { DrawerRouterOptions, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 export type DrawerNavigationPramas = {
   Home: undefined;
