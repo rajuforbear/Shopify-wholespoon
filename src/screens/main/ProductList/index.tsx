@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import styles from './styles';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,

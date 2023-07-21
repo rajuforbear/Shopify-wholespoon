@@ -1,8 +1,3 @@
-import { Lines } from '../../Types/cart';
-import { Checkout } from '../../Types/checkoutdata';
-import { collections } from '../../Types/collection';
-import { Products, product } from '../../Types/product';
-import { updateCheckouts } from '../../Types/updateCheckout';
 import { Node } from '../../Types/user';
 import {token, url} from '../Constants';
 import {client} from './client';

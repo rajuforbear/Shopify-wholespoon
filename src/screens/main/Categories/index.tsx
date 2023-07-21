@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {
   FlatList,
   Image,
-  ImageBackground,
   Text,
   TouchableOpacity,
   View,
@@ -17,7 +16,7 @@ import Loader from '../../../compoents/Loader';
 import {StackScreenProps} from '@react-navigation/stack';
 import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import {RootState} from '../../../sopify/Redux/store';
-import {collections, collection} from '../../../Types/collection';
+import { collection} from '../../../Types/collection';
 type Props = StackScreenProps<HelperNavigationParams, 'Categories'>;
 type List = {
   item: collection;

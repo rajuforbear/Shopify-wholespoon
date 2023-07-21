@@ -758,6 +758,10 @@ function* fetchHome(action: action) {
     console.log(err);
   }
 }
+function* updateCheckoutEMail(action:action){
+  const res:string= yield call(Shopify.userControll,action.data)
+  console.log(JSON.stringify(res))
+}
 function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/getCollection', getCollection);
   yield takeEvery('sopify/fetchProductById', getProductById);
@@ -785,6 +789,7 @@ function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/searchProduct', searchProduct);
   yield takeEvery('sopify/ProductDetails', productDetails);
   yield takeEvery('sopify/fetchHome', fetchHome);
+  yield takeEvery('sopify/updateCheckoutEMail',updateCheckoutEMail)
 }
 
 export default Saga;

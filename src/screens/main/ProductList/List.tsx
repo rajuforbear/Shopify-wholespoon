@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   FlatList,
@@ -12,8 +11,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import styles from './styles';
-import { product ,Products} from '../../../Types/product';
-import { RootNavigationParams } from '../../../Types/NavigationProps';
+import {Products} from '../../../Types/product';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { HelperNavigationParams } from '../../../navigation/Helper/Helper';

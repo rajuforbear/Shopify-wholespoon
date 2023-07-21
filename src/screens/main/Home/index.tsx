@@ -1,13 +1,10 @@
 import {
   View,
   Text,
-  SafeAreaView,
   ScrollView,
   Image,
-  TextInput,
   FlatList,
   TouchableOpacity,
-  Platform,
   ImageBackground,
 } from 'react-native';
 
@@ -34,11 +31,7 @@ import {RootState} from '../../../sopify/Redux/store';
 import productquery from '../../../data/productquery';
 type Props = StackScreenProps<HelperNavigationParams, 'HomeScreen'>;
 const Home: React.FC<Props> = ({navigation}) => {
-  const silder = [
-    require('../../../assests/image1.png'),
-    require('../../../assests/mobile.png'),
-    require('../../../assests/watch.png'),
-  ];
+ 
 
   const dispatch = useDispatch();
   const collection = useSelector((state: RootState) => state.data.collection);

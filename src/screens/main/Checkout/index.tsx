@@ -13,85 +13,137 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-
 import Input from './component';
-import CheckBox from '@react-native-community/checkbox';
 import {useDispatch, useSelector} from 'react-redux';
-import Shopify from '../../../sopify/API/Shopify';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import SelectDropdown from 'react-native-select-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../../compoents/Loader';
-import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper/Helper';
-import { RootState } from '../../../sopify/Redux/store';
-type Props=StackScreenProps<HelperNavigationParams>
-const Checkout:React.FC<Props> = ({navigation}) => {
+import {StackScreenProps} from '@react-navigation/stack';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
+import {RootState} from '../../../sopify/Redux/store';
+type Props = StackScreenProps<HelperNavigationParams>;
+const Checkout: React.FC<Props> = ({navigation}) => {
   const iseSevedAddres = useSelector(
-    (state:RootState)=> state.data.userData?.addresses?.nodes,
+    (state: RootState) => state.data.userData?.addresses?.nodes,
   );
-  const updateCheckout=useSelector((state:RootState)=>state.data.updateCheckout)
-  console.log('this is chekcu',updateCheckout)
+  const updateCheckout = useSelector(
+    (state: RootState) => state.data.updateCheckout,
+  );
   const dispatch = useDispatch();
   const [isEdited, setIsEdited] = useState(false);
-  const checkout = useSelector((state:RootState) => state.data.checkoutData);
-  const isLoading = useSelector((state:RootState) => state.data.isLoading);
+  const checkout = useSelector((state: RootState) => state.data.checkoutData);
+  const isLoading = useSelector((state: RootState) => state.data.isLoading);
   console.log(isLoading);
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  const useData = useSelector((state:RootState) => state.data.userData)
+  const useData = useSelector((state: RootState) => state.data.userData);
   const [address, setAddress] = React.useState({
     firstName: useData?.defaultAddress?.firstName
       ? useData?.defaultAddress?.firstName
+      : updateCheckout?.shippingAddress?.firstName
+      ? updateCheckout?.shippingAddress?.firstName
       : '',
     lastName: useData?.defaultAddress?.lastName
       ? useData?.defaultAddress?.lastName
+      : updateCheckout?.shippingAddress?.lastName
+      ? updateCheckout?.shippingAddress?.lastName
       : '',
     company: useData?.defaultAddress?.company
       ? useData?.defaultAddress?.company
+      : updateCheckout?.shippingAddress?.company
+      ? updateCheckout?.shippingAddress?.company
       : '',
     address1: useData?.defaultAddress?.address1
       ? useData?.defaultAddress?.address1
+      : updateCheckout?.shippingAddress?.address1
+      ? updateCheckout?.shippingAddress?.address1
       : '',
     address2: useData?.defaultAddress?.address2
       ? useData?.defaultAddress?.address2
+      : updateCheckout?.shippingAddress?.address2
+      ? updateCheckout?.shippingAddress?.address2
       : '',
-    city: useData?.defaultAddress?.city ? useData?.defaultAddress?.city : '',
+    city: useData?.defaultAddress?.city
+      ? useData?.defaultAddress?.city
+      : updateCheckout?.shippingAddress?.city
+      ? updateCheckout?.shippingAddress?.city
+      : '',
     country: useData?.defaultAddress?.country
       ? useData?.defaultAddress?.country
+      : updateCheckout?.shippingAddress?.country
+      ? updateCheckout?.shippingAddress?.country
       : '',
     province: useData?.defaultAddress?.province
       ? useData?.defaultAddress?.province
+      : updateCheckout?.shippingAddress?.province
+      ? updateCheckout?.shippingAddress?.province
       : '',
-    phone: useData?.defaultAddress?.phone ? useData?.defaultAddress?.phone : '',
-    zip: useData?.defaultAddress?.zip ? useData?.defaultAddress?.zip : '',
+    phone: useData?.defaultAddress?.phone
+      ? useData?.defaultAddress?.phone
+      : updateCheckout?.shippingAddress?.phone
+      ? updateCheckout?.shippingAddress?.phone
+      : '',
+    zip: useData?.defaultAddress?.zip
+      ? useData?.defaultAddress?.zip
+      : updateCheckout?.shippingAddress?.zip
+      ? updateCheckout?.shippingAddress?.zip
+      : '',
   });
-  
+  const [email, setEmail] = useState<string>(
+    useData?.email ? useData.email : updateCheckout.email,
+  );
+  const updateCheckoutEmail = () => {
+    let data = JSON.stringify({
+      query: `mutation checkoutEmailUpdateV2($checkoutId: ID!, $email: String!) {
+  checkoutEmailUpdateV2(checkoutId: $checkoutId, email: $email) {
+    checkout {
+       id
+    }
+    checkoutUserErrors {
+      code
+      field
+      message
+    }
+  }
+}`,
+      variables: {checkoutId: checkout.id, email: email},
+    });
+
+    dispatch({
+      type: 'sopify/updateCheckoutEMail',
+      data: data,
+    });
+  };
 
   useEffect(() => {
     getAddress();
   }, []);
+   
+
   const getAddress = async () => {
-    if (iseSevedAddres?.length > 0) {
+    if (
+      iseSevedAddres?.length > 0 ||
+      updateCheckout.shippingAddress != undefined ||
+      updateCheckout.shippingAddress != null
+    ) {
       setSHow(true);
     }
 
     return false;
   };
-  const handleonSubmit = (text:string, input:string) => {
+  const handleonSubmit = (text: string, input: string) => {
     setAddress(prev => ({...prev, [text]: input}));
   };
   const [show, setSHow] = useState(false);
 
-  const itemprice = (price:string) => {
+  const itemprice = (price: string) => {
     // console.log(checkout?.lineItems?.edges[0].node?.variant?.price?.amount);
     let amount = 0;
     checkout?.lineItems?.edges?.map((item, index) => {
       amount =
         amount +
-       item?.node?.quantity * parseInt(item?.node?.variant?.price?.amount);
+        item?.node?.quantity * parseInt(item?.node?.variant?.price?.amount);
     });
     if (price === '') return '₹ ' + amount;
     return amount + parseInt(price);
@@ -270,9 +322,8 @@ const Checkout:React.FC<Props> = ({navigation}) => {
                           fontSize: wp(3.5),
                         }}>
                         ₹
-                        {parseInt(
-                          item.node.variant.price.amount) * item.node.quantity
-                        }
+                        {parseInt(item.node.variant.price.amount) *
+                          item.node.quantity}
                       </Text>
                     </View>
                   </View>
@@ -362,7 +413,9 @@ const Checkout:React.FC<Props> = ({navigation}) => {
             </View>
           </View>
         ) : null}
-        {iseSevedAddres?.length <= 0 || iseSevedAddres===undefined|| isEdited ? (
+        {iseSevedAddres?.length <= 0 ||
+        updateCheckout?.shippingAddress === undefined ||
+        isEdited ? (
           <View>
             <View style={[styles.contact, {marginTop: wp(4)}]}>
               <Text style={styles.cont}>Contact</Text>
@@ -422,9 +475,20 @@ const Checkout:React.FC<Props> = ({navigation}) => {
               onChangeText={input => {
                 handleonSubmit('phone', input);
               }}
-              lable=''
+              lable=""
               notInput={false}
-              lable2=''
+              lable2=""
+            />
+            <Input
+              notlable
+              placeholder="Email*"
+              value={email}
+              onChangeText={input => {
+                setEmail(input);
+              }}
+              lable=""
+              notInput={false}
+              lable2=""
             />
             <Input
               notlable
@@ -433,8 +497,8 @@ const Checkout:React.FC<Props> = ({navigation}) => {
               onChangeText={input => {
                 handleonSubmit('company', input);
               }}
-              lable=''
-              lable2=''
+              lable=""
+              lable2=""
               notInput={false}
             />
             <View style={styles.contact}>
@@ -442,7 +506,6 @@ const Checkout:React.FC<Props> = ({navigation}) => {
             </View>
             <View style={styles.inputfield2}>
               <SelectDropdown
-                
                 data={countries}
                 defaultButtonText="Country"
                 dropdownStyle={{
@@ -452,7 +515,6 @@ const Checkout:React.FC<Props> = ({navigation}) => {
                   handleonSubmit('country', selectedItem);
                 }}
                 // dropdownOverlayColor="red"
-               
               />
               <Fontisto
                 name="angle-down"
@@ -468,8 +530,8 @@ const Checkout:React.FC<Props> = ({navigation}) => {
               onChangeText={input => {
                 handleonSubmit('address1', input);
               }}
-              lable=''
-              lable2=''
+              lable=""
+              lable2=""
               notInput={false}
             />
             <Input
@@ -477,8 +539,8 @@ const Checkout:React.FC<Props> = ({navigation}) => {
               placeholder="Address(2) (House NO,Building,Street,Area)"
               value={address.address2}
               onChangeText={input => handleonSubmit('address2', input)}
-              lable=''
-              lable2=''
+              lable=""
+              lable2=""
               notInput={false}
             />
 
@@ -550,8 +612,6 @@ const Checkout:React.FC<Props> = ({navigation}) => {
                 />
               </View>
             </View>
-
-           
           </View>
         ) : (
           <View style={{marginTop: hp(3)}}>
@@ -575,7 +635,7 @@ const Checkout:React.FC<Props> = ({navigation}) => {
               </Text>
               <View style={{width: '66%'}}>
                 <Text style={{fontSize: wp(4), fontWeight: '600'}}>
-                  {useData.defaultAddress?.phone + '\n' + useData.email}
+                  {email}
                 </Text>
               </View>
               <Text
@@ -601,7 +661,6 @@ const Checkout:React.FC<Props> = ({navigation}) => {
                 paddingHorizontal: wp(4),
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                //borderRadius: wp(1),
                 borderBottomWidth: wp(0.1),
                 borderRightWidth: wp(0.1),
                 borderLeftWidth: wp(0.1),
@@ -614,15 +673,15 @@ const Checkout:React.FC<Props> = ({navigation}) => {
               <View style={{width: '50%'}}>
                 <Text
                   style={{fontSize: wp(4), fontWeight: '600', color: 'black'}}>
-                  {useData?.defaultAddress?.address1 +
+                  {address?.address1 +
                     ', ' +
-                    useData.defaultAddress?.city +
+                    address?.city +
                     ', ' +
-                    useData.defaultAddress?.province +
+                    address?.province +
                     ', ' +
-                    useData.defaultAddress?.country +
+                    address?.country +
                     ', ' +
-                    useData.defaultAddress?.zip}
+                    address?.zip}
                 </Text>
               </View>
               <Text
@@ -681,32 +740,43 @@ const Checkout:React.FC<Props> = ({navigation}) => {
 
         <TouchableOpacity
           onPress={async () => {
-            // if (toggleCheckBox) {
-            //   console.log('this is saved');
-            // }
-            // if (iseSevedAddres.length > 0) {
-            //   setSHow(true);
-            // } else {
-            //   createAddress();
-            // }
-            if (iseSevedAddres?.length <= 0) {
-              setSHow(true);
-              createAddress();
-            } else if (isEdited) {
-              editAddress();
-              setSHow(true);
-              setIsEdited(false);
+            const token = await AsyncStorage.getItem('Token');
+            updateCheckoutEmail()
+            if (token) {
+              if (iseSevedAddres?.length <= 0) {
+                setSHow(true);
+                createAddress();
+              } else if (isEdited) {
+                editAddress();
+                setSHow(true);
+                setIsEdited(false);
+              } else {
+                
+                dispatch({
+                  type: 'sopify/updateCheckout',
+                  id: checkout?.id,
+                  address: address,
+                });
+              }
             } else {
               dispatch({
                 type: 'sopify/updateCheckout',
                 id: checkout?.id,
                 address: address,
               });
+             
+              setIsEdited(false);
+              setSHow(true);
             }
+           
+           
           }}
           style={styles.btn2}>
           <Text style={{color: 'white', fontWeight: '500', fontSize: wp(3.5)}}>
-            {iseSevedAddres?.length <= 0 || isEdited
+            {iseSevedAddres?.length <= 0 ||
+            isEdited ||
+            updateCheckout.shippingAddress === null ||
+            updateCheckout.shippingAddress === undefined
               ? 'Continue Shipping'
               : 'Continue for Payment'}
           </Text>

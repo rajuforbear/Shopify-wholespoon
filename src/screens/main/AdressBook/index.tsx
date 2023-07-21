@@ -10,11 +10,10 @@ import {
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../../compoents/Loader';
-import {query} from '../Home/query';
 import {StackScreenProps} from '@react-navigation/stack';
 import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import {RootState} from '../../../sopify/Redux/store';
-import { Node } from '../../../Types/user';
+import {Node} from '../../../Types/user';
 type Props = StackScreenProps<HelperNavigationParams, 'AddressBook'>;
 const AddressBook: React.FC<Props> = ({navigation}) => {
   const dispatch = useDispatch();
@@ -46,10 +45,10 @@ const AddressBook: React.FC<Props> = ({navigation}) => {
       navigation,
     });
   };
-  const editAddress = (item:Node) => {
+  const editAddress = (item: Node) => {
     navigation.navigate('Address', {data: item});
   };
-  const setDefaultAddress = async (id:string) => {
+  const setDefaultAddress = async (id: string) => {
     const userToken = await AsyncStorage.getItem('Token');
     let data = JSON.stringify({
       query: `mutation customerDefaultAddressUpdate($addressId: ID!, $customerAccessToken: String!) {
@@ -175,7 +174,7 @@ const AddressBook: React.FC<Props> = ({navigation}) => {
       </ScrollView>
       <AntDesign
         onPress={() => {
-          navigation.navigate('Address', {data:undefined as any});
+          navigation.navigate('Address', {data: undefined as any});
         }}
         name="pluscircle"
         style={styles.plusIcon}

@@ -5,7 +5,7 @@ import store from '../sopify/Redux/store';
 import RootNavigation from '../navigation';
 import Toast from 'react-native-toast-message';
 import netInfo from '@react-native-community/netinfo'
-import { PaperProvider } from 'react-native-paper';
+
 
 const App:React.FC = () => {
   netInfo.addEventListener(state=>{
@@ -16,7 +16,6 @@ const App:React.FC = () => {
   return (
     <Fragment>
       <Provider store={store}>
-        <PaperProvider>
         <StatusBar backgroundColor={'#e6f0f2'} />
         <SafeAreaView
           style={{
@@ -26,7 +25,6 @@ const App:React.FC = () => {
           <RootNavigation />
           <Toast position="bottom" bottomOffset={50} />
         </SafeAreaView>
-        </PaperProvider>
       </Provider>
     </Fragment>
   );
