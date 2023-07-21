@@ -40,14 +40,32 @@ const Payment: React.FC<Props> = ({navigation}) => {
       </View>
       <ScrollView contentContainerStyle={{paddingVertical: wp(5)}}>
         <View style={styles.lable}>
-          <Text style={{fontSize: wp(3.5), fontWeight: 'bold', color: 'grey'}}>
+          <Text
+            style={{
+              fontSize: wp(3.5),
+              fontWeight: 'bold',
+              color: 'grey',
+              fontStyle: 'italic',
+            }}>
             Secure Payment
           </Text>
-          <Text style={{fontSize: wp(3.5), fontWeight: 'bold', color: 'grey'}}>
+          <Text
+            style={{
+              fontSize: wp(3.5),
+              fontWeight: 'bold',
+              color: 'grey',
+              fontStyle: 'italic',
+            }}>
             Easy Return
           </Text>
 
-          <Text style={{fontSize: wp(3.5), fontWeight: 'bold', color: 'grey'}}>
+          <Text
+            style={{
+              fontSize: wp(3.5),
+              fontWeight: 'bold',
+              color: 'grey',
+              fontStyle: 'italic',
+            }}>
             Fast Refund
           </Text>
         </View>
@@ -69,29 +87,54 @@ const Payment: React.FC<Props> = ({navigation}) => {
             </Text>
           </View>
           <View style={{paddingVertical: wp(3)}}>
-            <Text style={{fontSize: wp(3.5)}}>
+            <Text style={{fontSize: wp(3.5), fontStyle: 'italic'}}>
               . 10% Instant Discount on Kotak Creadit and Debit Cards on a min
               spend of Rs 3,000 TCA
             </Text>
             {show ? (
               <View>
-                <Text style={{fontSize: wp(3.5), marginTop: wp(3)}}>
+                <Text
+                  style={{
+                    fontSize: wp(3.5),
+                    marginTop: wp(3),
+                    fontStyle: 'italic',
+                  }}>
                   . 10% Instant Discount on Kotak Creadit and Debit Cards on a
                   min spend of Rs 3,000 TCA
                 </Text>
-                <Text style={{fontSize: wp(3.5), marginTop: wp(3)}}>
+                <Text
+                  style={{
+                    fontSize: wp(3.5),
+                    marginTop: wp(3),
+                    fontStyle: 'italic',
+                  }}>
                   . 10% Instant Discount on Kotak Creadit and Debit Cards on a
                   min spend of Rs 3,000 TCA
                 </Text>
-                <Text style={{fontSize: wp(3.5), marginTop: wp(3)}}>
+                <Text
+                  style={{
+                    fontSize: wp(3.5),
+                    marginTop: wp(3),
+                    fontStyle: 'italic',
+                  }}>
                   . 10% Instant Discount on Kotak Creadit and Debit Cards on a
                   min spend of Rs 3,000 TCA
                 </Text>
-                <Text style={{fontSize: wp(3.5), marginTop: wp(3)}}>
+                <Text
+                  style={{
+                    fontSize: wp(3.5),
+                    marginTop: wp(3),
+                    fontStyle: 'italic',
+                  }}>
                   . 10% Instant Discount on Kotak Creadit and Debit Cards on a
                   min spend of Rs 3,000 TCA
                 </Text>
-                <Text style={{fontSize: wp(3.5), marginTop: wp(3)}}>
+                <Text
+                  style={{
+                    fontSize: wp(3.5),
+                    marginTop: wp(3),
+                    fontStyle: 'italic',
+                  }}>
                   . 10% Instant Discount on Kotak Creadit and Debit Cards on a
                   min spend of Rs 3,000 TCA
                 </Text>
@@ -101,7 +144,12 @@ const Payment: React.FC<Props> = ({navigation}) => {
           <View style={{marginLeft: wp(5), flexDirection: 'row'}}>
             <Text
               onPress={() => setShow(!show)}
-              style={{fontSize: wp(4), fontWeight: 'bold', color: '#AA336A'}}>
+              style={{
+                fontSize: wp(4),
+                fontWeight: 'bold',
+                color: '#AA336A',
+                fontStyle: 'italic',
+              }}>
               {show ? 'Show Less' : 'Show More'}
             </Text>
             <Entypo
@@ -118,6 +166,7 @@ const Payment: React.FC<Props> = ({navigation}) => {
             fontSize: wp(3),
             fontWeight: 'bold',
             color: 'black',
+            fontStyle: 'italic',
           }}>
           RECOMENDED PAYMENT OPTION
         </Text>
@@ -138,6 +187,7 @@ const Payment: React.FC<Props> = ({navigation}) => {
             fontSize: wp(3),
             fontWeight: 'bold',
             color: 'black',
+            fontStyle: 'italic',
           }}>
           OTHER PAYMENT OPTION
         </Text>
@@ -145,7 +195,12 @@ const Payment: React.FC<Props> = ({navigation}) => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <MaterialCommunityIcons name="cash-100" size={wp(5)} />
             <Text
-              style={{fontSize: wp(4), fontWeight: '500', marginLeft: wp(3)}}>
+              style={{
+                fontSize: wp(4),
+                fontWeight: '500',
+                marginLeft: wp(3),
+                fontStyle: 'italic',
+              }}>
               Cash On Delivery
             </Text>
           </View>
@@ -156,7 +211,12 @@ const Payment: React.FC<Props> = ({navigation}) => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <AntDesign name="creditcard" size={wp(5)} />
             <Text
-              style={{fontSize: wp(4), fontWeight: '500', marginLeft: wp(3)}}>
+              style={{
+                fontSize: wp(4),
+                fontWeight: '500',
+                marginLeft: wp(3),
+                fontStyle: 'italic',
+              }}>
               Cradit/Debit Card
             </Text>
           </View>
@@ -178,7 +238,12 @@ const Payment: React.FC<Props> = ({navigation}) => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Entypo name="wallet" size={wp(5)} />
             <Text
-              style={{fontSize: wp(4), fontWeight: '500', marginLeft: wp(3)}}>
+              style={{
+                fontSize: wp(4),
+                fontWeight: '500',
+                marginLeft: wp(3),
+                fontStyle: 'italic',
+              }}>
               Paytm/Wallets
             </Text>
           </View>
@@ -200,7 +265,12 @@ const Payment: React.FC<Props> = ({navigation}) => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <MaterialCommunityIcons name="account-cash" size={wp(5)} />
             <Text
-              style={{fontSize: wp(4), fontWeight: '500', marginLeft: wp(3)}}>
+              style={{
+                fontSize: wp(4),
+                fontWeight: '500',
+                marginLeft: wp(3),
+                fontStyle: 'italic',
+              }}>
               EMI
             </Text>
           </View>
@@ -211,7 +281,12 @@ const Payment: React.FC<Props> = ({navigation}) => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <MaterialCommunityIcons name="account-cash" size={wp(5)} />
             <Text
-              style={{fontSize: wp(4), fontWeight: '500', marginLeft: wp(3)}}>
+              style={{
+                fontSize: wp(4),
+                fontWeight: '500',
+                marginLeft: wp(3),
+                fontStyle: 'italic',
+              }}>
               Have a Gift Card
             </Text>
           </View>
@@ -233,6 +308,7 @@ const Payment: React.FC<Props> = ({navigation}) => {
               fontSize: wp(4),
               color: 'black',
               fontWeight: '500',
+              fontStyle: 'italic',
             }}>
             Price Details<Text style={{fontWeight: '400'}}>{' (1 item)'}</Text>
           </Text>
@@ -310,6 +386,7 @@ const Payment: React.FC<Props> = ({navigation}) => {
                 fontSize: wp(4),
                 fontWeight: 'bold',
                 marginLeft: wp(4),
+                fontStyle: 'italic',
               }}>
               $41
             </Text>
@@ -320,6 +397,7 @@ const Payment: React.FC<Props> = ({navigation}) => {
                 fontWeight: '500',
                 marginLeft: wp(4),
                 color: '#AA336A',
+                fontStyle: 'italic',
               }}>
               Details
             </Text>
@@ -335,7 +413,13 @@ const Payment: React.FC<Props> = ({navigation}) => {
               justifyContent: 'center',
               marginTop: wp(1),
             }}>
-            <Text style={{fontSize: wp(5), color: 'white', fontWeight: '500'}}>
+            <Text
+              style={{
+                fontSize: wp(5),
+                color: 'white',
+                fontWeight: '500',
+                fontStyle: 'italic',
+              }}>
               Place Order
             </Text>
           </TouchableOpacity>

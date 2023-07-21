@@ -28,6 +28,7 @@ export default StyleSheet.create({
     fontSize: hp('5%'),
     color: '#0f3a8d',
     alignSelf: 'center',
+    fontStyle:'italic'
   },
   input: {
     height: hp('7.5%'),
@@ -95,12 +96,14 @@ export default StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     alignSelf: 'center',
+    fontStyle:'italic'
   },
   category: {
     fontSize: wp(5),
     fontWeight: 'bold',
     color: 'black',
     marginTop: '2%',
+    fontStyle:'italic'
   },
   categoryContainer: {
     height: hp('16%'),
@@ -153,6 +156,7 @@ export default StyleSheet.create({
     color: 'black',
     // marginTop:'2%',
     fontSize: wp(3),
+    fontStyle:'italic'
   },
   ViewContainer: {
     height: '85%',

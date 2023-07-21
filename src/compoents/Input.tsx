@@ -59,6 +59,7 @@ const Input: React.FC<Props> = ({
             marginLeft: wp('4%'),
             fontWeight: '600',
             top: 1,
+            fontStyle:'italic'
           }}>
           {error}
         </Text>
@@ -128,6 +129,7 @@ const Input: React.FC<Props> = ({
               marginRight: wp(5.6),
               fontSize: wp(6.8),
               color: '#a26a39',
+              fontStyle:'italic'
              
             }}
           />

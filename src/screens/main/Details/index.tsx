@@ -340,7 +340,9 @@ const Details: React.FC<Props> = ({navigation}) => {
                 <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
                 <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
                 <AntDesign name="staro" size={wp(3.5)} color="#FFD700" />
-                <Text style={{fontSize: wp(3)}}>{'(170)'}</Text>
+                <Text style={{fontSize: wp(3), fontStyle: 'italic'}}>
+                  {'(170)'}
+                </Text>
               </View>
             </View>
             <View style={styles.quantityContainer}>
@@ -361,7 +363,12 @@ const Details: React.FC<Props> = ({navigation}) => {
                   justifyContent: 'center',
                   width: '40%',
                 }}>
-                <Text style={{fontSize: wp(4), fontWeight: '600'}}>
+                <Text
+                  style={{
+                    fontSize: wp(4),
+                    fontWeight: '600',
+                    fontStyle: 'italic',
+                  }}>
                   {quantity}
                 </Text>
               </View>
@@ -410,35 +417,37 @@ const Details: React.FC<Props> = ({navigation}) => {
               }}
             />
           </View>
-          {items?.variants.nodes.length>1?<FlatList
-            data={items.variants.nodes}
-            horizontal={true}
-            renderItem={({item, index}) => {
-              return (
-                <TouchableOpacity
-                  style={[
-                    styles.varBtn,
-                    {borderColor: item.id === veriantId ? '#A36B25' : 'grey'},
-                  ]}
-                  onPress={() => setVariendtId(item.id)}>
-                  <Text
+          {items?.variants.nodes.length > 1 ? (
+            <FlatList
+              data={items.variants.nodes}
+              horizontal={true}
+              renderItem={({item, index}) => {
+                return (
+                  <TouchableOpacity
                     style={[
-                      styles.varTitle,
-                      {color: item.id === veriantId ? '#A36B25' : 'grey'},
-                    ]}>
-                    {item.title}
-                  </Text>
-                  <RadioButton
-                    value={variantVlaue}
-                    status={item.id === veriantId ? 'checked' : 'unchecked'}
-                    onPress={() => setVariendtId(item.id)}
-                    uncheckedColor="grey"
-                    color={item.id === veriantId ? '#A36B25' : 'grey'}
-                  />
-                </TouchableOpacity>
-              );
-            }}
-          />:null}
+                      styles.varBtn,
+                      {borderColor: item.id === veriantId ? '#A36B25' : 'grey'},
+                    ]}
+                    onPress={() => setVariendtId(item.id)}>
+                    <Text
+                      style={[
+                        styles.varTitle,
+                        {color: item.id === veriantId ? '#A36B25' : 'grey'},
+                      ]}>
+                      {item.title}
+                    </Text>
+                    <RadioButton
+                      value={variantVlaue}
+                      status={item.id === veriantId ? 'checked' : 'unchecked'}
+                      onPress={() => setVariendtId(item.id)}
+                      uncheckedColor="grey"
+                      color={item.id === veriantId ? '#A36B25' : 'grey'}
+                    />
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          ) : null}
           <View style={styles.specification}>
             <TouchableOpacity
               onPress={() => setShow(!show)}
@@ -449,10 +458,18 @@ const Details: React.FC<Props> = ({navigation}) => {
                 height: hp(4),
                 alignItems: 'center',
               }}>
-              <Text style={{fontWeight: 'bold', fontSize: wp(4)}}>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: wp(4),
+                  fontStyle: 'italic',
+                }}>
                 Specification
               </Text>
-              <Entypo name="chevron-down" style={{fontSize: wp(6)}} />
+              <Entypo
+                name="chevron-down"
+                style={{fontSize: wp(6), fontStyle: 'italic'}}
+              />
             </TouchableOpacity>
             {show ? (
               <View style={{}}>
@@ -476,11 +493,16 @@ const Details: React.FC<Props> = ({navigation}) => {
                   cartOperation();
                 } else {
                   // createThreeButtonAlert();
-                  cartOperation()
+                  cartOperation();
                 }
               }}>
               <Text
-                style={{fontSize: wp(5), fontWeight: '500', color: 'white'}}>
+                style={{
+                  fontSize: wp(5),
+                  fontWeight: '500',
+                  color: 'white',
+                  fontStyle: 'italic',
+                }}>
                 Add to Card
               </Text>
             </TouchableOpacity>
@@ -490,7 +512,7 @@ const Details: React.FC<Props> = ({navigation}) => {
                 if (token != null || token != undefined) {
                   createCheckout();
                 } else {
-                  createCheckout()
+                  createCheckout();
                 }
               }}
               style={[
@@ -498,7 +520,12 @@ const Details: React.FC<Props> = ({navigation}) => {
                 {marginTop: wp(3), backgroundColor: 'black'},
               ]}>
               <Text
-                style={{fontSize: wp(5), fontWeight: '500', color: 'white'}}>
+                style={{
+                  fontSize: wp(5),
+                  fontWeight: '500',
+                  color: 'white',
+                  fontStyle: 'italic',
+                }}>
                 Buy It Now
               </Text>
             </TouchableOpacity>
@@ -513,7 +540,8 @@ const Details: React.FC<Props> = ({navigation}) => {
               alignSelf: 'center',
               borderColor: 'lightgrey',
             }}>
-            <Text style={{fontSize: wp(4), fontWeight: '500'}}>
+            <Text
+              style={{fontSize: wp(4), fontWeight: '500', fontStyle: 'italic'}}>
               Costumer Reviews
             </Text>
             <Text style={{}}>No Reviews yet</Text>
@@ -548,7 +576,12 @@ const Details: React.FC<Props> = ({navigation}) => {
               }}>
               <Fontisto name="facebook" size={wp(3)} color={'grey'} />
               <Text
-                style={{fontWeight: '300', fontSize: wp(3.5), color: 'grey'}}>
+                style={{
+                  fontWeight: '300',
+                  fontSize: wp(3.5),
+                  color: 'grey',
+                  fontStyle: 'italic',
+                }}>
                 Share
               </Text>
             </View>
@@ -561,7 +594,12 @@ const Details: React.FC<Props> = ({navigation}) => {
               }}>
               <Fontisto name="twitter" size={wp(3)} color={'grey'} />
               <Text
-                style={{fontWeight: '300', fontSize: wp(3.5), color: 'grey'}}>
+                style={{
+                  fontWeight: '300',
+                  fontSize: wp(3.5),
+                  color: 'grey',
+                  fontStyle: 'italic',
+                }}>
                 Tweet
               </Text>
             </View>
@@ -574,7 +612,12 @@ const Details: React.FC<Props> = ({navigation}) => {
               }}>
               <Fontisto name="pinterest" size={wp(3)} color={'grey'} />
               <Text
-                style={{fontWeight: '300', fontSize: wp(3.5), color: 'grey'}}>
+                style={{
+                  fontWeight: '300',
+                  fontSize: wp(3.5),
+                  color: 'grey',
+                  fontStyle: 'italic',
+                }}>
                 Pin it
               </Text>
             </View>
@@ -586,6 +629,7 @@ const Details: React.FC<Props> = ({navigation}) => {
                 marginTop: wp(3),
                 fontSize: wp(4),
                 fontWeight: 'bold',
+                fontStyle: 'italic',
               }}>
               You May Also Like
             </Text>

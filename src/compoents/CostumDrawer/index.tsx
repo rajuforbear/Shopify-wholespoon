@@ -339,7 +339,7 @@ const CostumDrawer: React.FC<Props> = () => {
         <View style={styles.input}>
           <TextInput
             placeholder="Search our store"
-            style={{fontSize: wp(4), flex: 1}}
+            style={{fontSize: wp(4),fontStyle:'italic', flex: 1}}
             placeholderTextColor={'grey'}
             value={text}
             onChangeText={(input)=>setText(input)}
@@ -411,7 +411,7 @@ const CostumDrawer: React.FC<Props> = () => {
                                 }}
                                 style={[
                                   styles.title,
-                                  {fontSize: wp(4), fontWeight: '400'},
+                                  {fontSize: wp(4), fontWeight: '400',fontStyle:'italic'},
                                 ]}>
                                 {item.title}
                               </Text>
@@ -502,6 +502,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'grey',
     paddingVertical: wp(1),
+    fontStyle:'italic'
   },
   searchIocnCOntianer: {
     alignSelf: 'flex-end',
@@ -516,6 +517,7 @@ const styles = StyleSheet.create({
     fontSize: wp(5),
     textAlign: 'left',
     fontWeight: '500',
+    fontStyle:'italic'
   },
   titleContainer: {
     paddingVertical: wp(2),

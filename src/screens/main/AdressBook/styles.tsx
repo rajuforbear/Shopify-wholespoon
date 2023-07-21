@@ -48,12 +48,14 @@ export default StyleSheet.create({
     fontSize: wp(4),
     fontWeight: '800',
     textDecorationLine: 'underline',
+    fontStyle:'italic'
   },
   plusIcon: {
     fontSize: wp(12),
     position: 'absolute',
     bottom: wp(23),
     right: wp(5),
+    fontStyle:'italic'
   },
   default: {
     position: 'absolute',

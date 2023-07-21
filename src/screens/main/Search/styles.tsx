@@ -22,12 +22,14 @@ export default StyleSheet.create({
     },
     icon:{
         fontSize:wp(6),
-        color:'grey'
+        color:'grey',
+        fontStyle:'italic'
     },
     textInput:{
         fontSize:wp(5),
         marginLeft:wp(3),
-        color:'grey'
+        color:'grey',
+        fontStyle:'italic'
     },
     list:{
     
@@ -56,6 +58,7 @@ export default StyleSheet.create({
         width:wp(50),
         fontWeight:'600',
         color:'black',
+        fontStyle:'italic'
        
     },
     price:{
@@ -65,6 +68,7 @@ export default StyleSheet.create({
         width:wp(50),
         fontWeight:'600',
         color:'black',
-        marginTop:wp(2)
+        marginTop:wp(2),
+        fontStyle:"italic"
     }
 });

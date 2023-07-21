@@ -115,8 +115,8 @@ const Header = () => {
         }}>
         <Image
           style={{
-            height: hp(10),
-            width: hp(10),
+            height: hp(6),
+            width: hp(6),
           }}
           source={{
             uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,

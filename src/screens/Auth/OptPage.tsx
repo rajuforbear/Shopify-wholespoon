@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     fontSize: wp('6%'),
     fontWeight: 'bold',
     color: 'black', //'#a26a39',
-    //fontStyle: 'italic',
+    fontStyle: 'italic',
     alignSelf: 'center',
     marginTop: wp(6),
   },

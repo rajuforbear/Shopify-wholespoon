@@ -241,6 +241,7 @@ const BottumTab = () => {
             fontSize: wp(3.5),
             marginTop: wp(1),
             color: 'black',
+            fontStyle:'italic'
           }}>
           Home
         </Text>
@@ -257,6 +258,7 @@ const BottumTab = () => {
             fontSize: wp(3.5),
             marginTop: wp(1),
             color: 'black',
+            fontStyle:'italic'
           }}>
           Profile
         </Text>
@@ -274,6 +276,7 @@ const BottumTab = () => {
             fontSize: wp(3.5),
             color: 'black',
             marginTop: wp(1),
+            fontStyle:'italic'
           }}>
           Categories
         </Text>
@@ -309,6 +312,7 @@ const BottumTab = () => {
             color: 'black',
             fontSize: wp(3.5),
             marginTop: wp(1),
+            fontStyle:'italic'
           }}>
           Cart
         </Text>

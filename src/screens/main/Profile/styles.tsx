@@ -21,6 +21,7 @@ export default StyleSheet.create({
   txt: {
     fontSize: wp(4),
     color: 'grey',
+    fontStyle:'italic'
   },
   container: {
     marginVertical: wp(1),
@@ -124,6 +125,7 @@ export default StyleSheet.create({
     marginTop: wp(5),
     fontWeight: 'bold',
     fontSize: wp(5),
+    fontStyle:'italic'
   },
   line: {
     borderWidth: wp(0.5),

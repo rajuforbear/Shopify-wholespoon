@@ -37,7 +37,7 @@ const Button:React.FC<Props> = ({name, onPress=()=>{}, ...props}) => {
           fontWeight: '600',
           color: 'white',
           alignSelf: 'center',
-          //  fontStyle: 'italic',
+          fontStyle: 'italic',
         }}>
         {name}
       </Text>

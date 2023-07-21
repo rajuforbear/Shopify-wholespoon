@@ -13,10 +13,9 @@ const Innternet:React.FC<Props> = ({navigation}) => {
   
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text style={{fontSize: wp(4), fontWeight: '700'}}>
+      <Text style={{fontSize: wp(4), fontWeight: '700',fontStyle:'italic'}}>
         Looks like you are not connected to the internet !
       </Text>
-      <Button title="Realod" onPress={() => navigation.replace('Splash')} />
     </View>
   );
 };

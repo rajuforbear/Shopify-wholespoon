@@ -19,16 +19,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import Loading from '../../../compoents/Loader';
 import CheckBox from '@react-native-community/checkbox';
-import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper/Helper';
-import { RootState } from '../../../sopify/Redux/store';
-type Props=StackScreenProps<HelperNavigationParams,'Address'>
-const Address:React.FC<Props> = props => {
+import {StackScreenProps} from '@react-navigation/stack';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
+import {RootState} from '../../../sopify/Redux/store';
+type Props = StackScreenProps<HelperNavigationParams, 'Address'>;
+const Address: React.FC<Props> = props => {
   const dispatch = useDispatch();
   const data = props.route.params.data;
   const navigation = useNavigation();
   const countries = ['India', 'Canada', 'Australia', 'Ireland'];
-  const isLoading = useSelector((state:RootState) => state.data.isLoading);
+  const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [address, setAddress] = React.useState({
     firstName: data?.firstName ? data.firstName : '',
@@ -42,7 +42,7 @@ const Address:React.FC<Props> = props => {
     zip: data?.zip ? data.zip : '',
     company: data?.company ? data.company : '',
   });
-  const handleOnChangeText = (text:string, input:string) => {
+  const handleOnChangeText = (text: string, input: string) => {
     setAddress(prev => ({...prev, [text]: input}));
   };
   const handleOnSave = async () => {
@@ -114,7 +114,7 @@ const Address:React.FC<Props> = props => {
       });
     }
   };
-  console.log(address.phone)
+  console.log(address.phone);
   return (
     <View style={{flex: 1}}>
       {isLoading ? <Loading /> : null}
@@ -147,7 +147,7 @@ const Address:React.FC<Props> = props => {
                 onChangeText={input => {
                   handleOnChangeText('firstName', input);
                 }}
-                style={{flex: 1, fontSize: wp(4)}}
+                style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
               />
             </View>
             <View
@@ -167,6 +167,7 @@ const Address:React.FC<Props> = props => {
                 onChangeText={input => {
                   handleOnChangeText('lastName', input);
                 }}
+                style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
               />
             </View>
           </View>
@@ -175,11 +176,11 @@ const Address:React.FC<Props> = props => {
             notlable
             placeholder="Mobile/Phone*"
             value={address.phone}
-            onChangeText={(input) => {
+            onChangeText={input => {
               handleOnChangeText('phone', input);
             }}
-            lable=''
-            lable2=''
+            lable=""
+            lable2=""
             notInput={false}
           />
           <Input
@@ -189,16 +190,15 @@ const Address:React.FC<Props> = props => {
             onChangeText={input => {
               handleOnChangeText('company', input);
             }}
-            lable=''
+            lable=""
             notInput={false}
-             lable2=''
+            lable2=""
           />
           <View style={styles.contact}>
             <Text style={styles.cont}>Shipping Address</Text>
           </View>
           <View style={[styles.inputfield2]}>
             <SelectDropdown
-      
               data={countries}
               defaultButtonText={data?.country ? data.country : 'Country'}
               dropdownStyle={{
@@ -208,7 +208,6 @@ const Address:React.FC<Props> = props => {
                 handleOnChangeText('country', selectedItem);
               }}
               // dropdownOverlayColor="red"
-      
             />
             <Fontisto
               name="angle-down"
@@ -225,17 +224,17 @@ const Address:React.FC<Props> = props => {
               handleOnChangeText('address1', input);
             }}
             notInput={false}
-            lable=''
-            lable2=''
+            lable=""
+            lable2=""
           />
           <Input
             notlable
             placeholder="Address(2) (House NO,Building,Street,Area)"
             value={address.address2}
             onChangeText={input => handleOnChangeText('address2', input)}
-            lable=''
+            lable=""
             notInput={false}
-            lable2=''
+            lable2=""
           />
 
           <View
@@ -260,7 +259,7 @@ const Address:React.FC<Props> = props => {
                 onChangeText={input => {
                   handleOnChangeText('city', input);
                 }}
-                style={{flex: 1, fontSize: wp(4)}}
+                style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
               />
             </View>
             <View
@@ -275,7 +274,7 @@ const Address:React.FC<Props> = props => {
               }}>
               <TextInput
                 placeholder="State"
-                style={{flex: 1, fontSize: wp(4)}}
+                style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
                 value={address.province}
                 onChangeText={input => {
                   handleOnChangeText('province', input);
@@ -296,7 +295,7 @@ const Address:React.FC<Props> = props => {
               }}>
               <TextInput
                 placeholder="Pincode"
-                style={{flex: 1, fontSize: wp(3.8)}}
+                style={{flex: 1, fontSize: wp(3.8), fontStyle: 'italic'}}
                 value={address.zip}
                 onChangeText={input => {
                   handleOnChangeText('zip', input);
@@ -319,8 +318,8 @@ const Address:React.FC<Props> = props => {
                 value={toggleCheckBox}
                 onValueChange={() => setToggleCheckBox(!toggleCheckBox)}
               />
-              <Text style={{fontWeight: '500', marginLeft: wp(2)}}>
-                Set it default
+              <Text style={{fontWeight: '500', marginLeft: wp(2),fontStyle:'italic'}}>
+                Set as default address
               </Text>
             </View>
           ) : null}
@@ -329,8 +328,14 @@ const Address:React.FC<Props> = props => {
           onPress={() => {
             handleOnSave();
           }}
-          style={[styles.btn2, {marginTop: data === null ? wp(3) :wp(0)}]}>
-          <Text style={{color: 'white', fontWeight: '500', fontSize: wp(4)}}>
+          style={[styles.btn2, {marginTop: data === null ? wp(3) : wp(0)}]}>
+          <Text
+            style={{
+              color: 'white',
+              fontWeight: '500',
+              fontSize: wp(4),
+              fontStyle: 'italic',
+            }}>
             {'Save'}
           </Text>
         </TouchableOpacity>

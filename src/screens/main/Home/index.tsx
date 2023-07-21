@@ -31,8 +31,6 @@ import {RootState} from '../../../sopify/Redux/store';
 import productquery from '../../../data/productquery';
 type Props = StackScreenProps<HelperNavigationParams, 'HomeScreen'>;
 const Home: React.FC<Props> = ({navigation}) => {
- 
-
   const dispatch = useDispatch();
   const collection = useSelector((state: RootState) => state.data.collection);
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
@@ -201,6 +199,7 @@ const Home: React.FC<Props> = ({navigation}) => {
                   fontWeight: '400',
                   textDecorationLine: 'underline',
                   fontSize: wp(4),
+                  fontStyle: 'italic',
                 },
               ]}>
               See All
@@ -307,6 +306,7 @@ const Home: React.FC<Props> = ({navigation}) => {
                   textDecorationLine: 'underline',
                   fontSize: wp(4),
                   marginTop: '-6%',
+                  fontStyle: 'italic',
                 },
               ]}>
               See All
@@ -362,7 +362,12 @@ const Home: React.FC<Props> = ({navigation}) => {
         </View>
         <View style={{paddingVertical: wp(1), marginTop: wp(-15)}}>
           <Text
-            style={{fontSize: wp(4), textAlign: 'center', fontWeight: 'bold'}}>
+            style={{
+              fontSize: wp(4),
+              textAlign: 'center',
+              fontWeight: 'bold',
+              fontStyle: 'italic',
+            }}>
             MAKE YOUR MEALS IN MINUTES #COOKWITHWHOLESPOON #GIFTWITHWHOLESPOON
           </Text>
         </View>

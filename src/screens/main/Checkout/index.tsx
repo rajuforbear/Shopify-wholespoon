@@ -119,7 +119,6 @@ const Checkout: React.FC<Props> = ({navigation}) => {
   useEffect(() => {
     getAddress();
   }, []);
-   
 
   const getAddress = async () => {
     if (
@@ -257,7 +256,12 @@ const Checkout: React.FC<Props> = ({navigation}) => {
             onPress={() => {
               setSHow(!show);
             }}
-            style={{fontSize: wp(4), fontWeight: '600', color: '#A36B25'}}>
+            style={{
+              fontSize: wp(4),
+              fontWeight: '600',
+              color: '#A36B25',
+              fontStyle: 'italic',
+            }}>
             <Feather name="shopping-cart" size={wp(3.5)} />
             {'  '}
             {!show ? 'Show Order Summery' : 'Hide Order Summery'}
@@ -310,6 +314,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                             fontSize: wp(3.4),
                             fontWeight: '500',
                             textAlign: 'left',
+                            fontStyle: 'italic',
                           }}>
                           {item.node.title}
                         </Text>
@@ -320,6 +325,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                           alignSelf: 'center',
                           fontWeight: '500',
                           fontSize: wp(3.5),
+                          fontStyle: 'italic',
                         }}>
                         ₹
                         {parseInt(item.node.variant.price.amount) *
@@ -353,6 +359,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                   fontSize: wp(4),
                   fontWeight: '500',
                   marginRight: wp(4),
+                  fontStyle: 'italic',
                 }}>
                 {itemprice('')}
               </Text>
@@ -371,6 +378,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                   fontWeight: '600',
                   color: 'black',
                   marginLeft: wp(3),
+                  fontStyle: 'italic',
                 }}>
                 Shipping
               </Text>
@@ -379,6 +387,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                   fontSize: wp(4),
                   fontWeight: '500',
                   marginRight: wp(4),
+                  fontStyle: 'italic',
                 }}>
                 {'₹ 99'}
               </Text>
@@ -398,6 +407,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                   fontWeight: '600',
                   color: 'black',
                   marginLeft: wp(3),
+                  fontStyle: 'italic',
                 }}>
                 Total
               </Text>
@@ -406,8 +416,16 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                   fontSize: wp(5),
                   fontWeight: '700',
                   marginRight: wp(3),
+                  fontStyle: 'italic',
                 }}>
-                <Text style={{fontSize: wp(3.4), color: 'grey'}}>INR</Text>{' '}
+                <Text
+                  style={{
+                    fontSize: wp(3.4),
+                    color: 'grey',
+                    fontStyle: 'italic',
+                  }}>
+                  INR
+                </Text>{' '}
                 {itemprice('99')}
               </Text>
             </View>
@@ -444,7 +462,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                   onChangeText={input => {
                     handleonSubmit('firstName', input);
                   }}
-                  style={{flex: 1, fontSize: wp(4)}}
+                  style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
                 />
               </View>
               <View
@@ -568,7 +586,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                   onChangeText={input => {
                     handleonSubmit('city', input);
                   }}
-                  style={{flex: 1, fontSize: wp(4)}}
+                  style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
                 />
               </View>
               <View
@@ -584,7 +602,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 }}>
                 <TextInput
                   placeholder="State"
-                  style={{flex: 1, fontSize: wp(4)}}
+                  style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
                   value={address.province}
                   onChangeText={input => {
                     handleonSubmit('province', input);
@@ -604,7 +622,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 }}>
                 <TextInput
                   placeholder="Pincode"
-                  style={{flex: 1, fontSize: wp(4)}}
+                  style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
                   value={address.zip}
                   onChangeText={input => {
                     handleonSubmit('zip', input);
@@ -630,11 +648,22 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 borderTopLeftRadius: wp(1),
                 //borderRadius: wp(1),
               }}>
-              <Text style={{fontSize: wp(4), fontWeight: '600', color: 'grey'}}>
+              <Text
+                style={{
+                  fontSize: wp(4),
+                  fontWeight: '600',
+                  color: 'grey',
+                  fontStyle: 'italic',
+                }}>
                 contact
               </Text>
               <View style={{width: '66%'}}>
-                <Text style={{fontSize: wp(4), fontWeight: '600'}}>
+                <Text
+                  style={{
+                    fontSize: wp(4),
+                    fontWeight: '600',
+                    fontStyle: 'italic',
+                  }}>
                   {email}
                 </Text>
               </View>
@@ -649,6 +678,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                   fontWeight: '400',
                   textDecorationLine: 'underline',
                   color: '#A36B25',
+                  fontStyle: 'italic',
                 }}>
                 {null}
               </Text>
@@ -667,12 +697,23 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 borderBottomRightRadius: wp(1),
                 borderBottomLeftRadius: wp(3),
               }}>
-              <Text style={{fontSize: wp(4), fontWeight: '600', color: 'grey'}}>
+              <Text
+                style={{
+                  fontSize: wp(4),
+                  fontWeight: '600',
+                  color: 'grey',
+                  fontStyle: 'italic',
+                }}>
                 ship to
               </Text>
               <View style={{width: '50%'}}>
                 <Text
-                  style={{fontSize: wp(4), fontWeight: '600', color: 'black'}}>
+                  style={{
+                    fontSize: wp(4),
+                    fontWeight: '600',
+                    color: 'black',
+                    fontStyle: 'italic',
+                  }}>
                   {address?.address1 +
                     ', ' +
                     address?.city +
@@ -695,6 +736,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                   fontWeight: '400',
                   textDecorationLine: 'underline',
                   color: '#A36B25',
+                  fontStyle: 'italic',
                 }}>
                 Change
               </Text>
@@ -705,6 +747,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 marginTop: wp(4),
                 fontSize: wp(4.5),
                 fontWeight: '600',
+                fontStyle: 'italic',
               }}>
               Shipping Method
             </Text>
@@ -722,7 +765,12 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 paddingHorizontal: wp(3),
               }}>
               <Text
-                style={{fontSize: wp(4), fontWeight: '500', color: 'black'}}>
+                style={{
+                  fontSize: wp(4),
+                  fontWeight: '500',
+                  color: 'black',
+                  fontStyle: 'italic',
+                }}>
                 Outside Delivery
               </Text>
               <Text
@@ -731,6 +779,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                   fontWeight: '500',
                   color: 'black',
                   marginRight: wp(6),
+                  fontStyle: 'italic',
                 }}>
                 ₹ 99.00
               </Text>
@@ -741,7 +790,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
         <TouchableOpacity
           onPress={async () => {
             const token = await AsyncStorage.getItem('Token');
-            updateCheckoutEmail()
+            updateCheckoutEmail();
             if (token) {
               if (iseSevedAddres?.length <= 0) {
                 setSHow(true);
@@ -751,7 +800,6 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 setSHow(true);
                 setIsEdited(false);
               } else {
-                
                 dispatch({
                   type: 'sopify/updateCheckout',
                   id: checkout?.id,
@@ -764,15 +812,19 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 id: checkout?.id,
                 address: address,
               });
-             
+
               setIsEdited(false);
               setSHow(true);
             }
-           
-           
           }}
           style={styles.btn2}>
-          <Text style={{color: 'white', fontWeight: '500', fontSize: wp(3.5)}}>
+          <Text
+            style={{
+              color: 'white',
+              fontWeight: '500',
+              fontSize: wp(3.5),
+              fontStyle: 'italic',
+            }}>
             {iseSevedAddres?.length <= 0 ||
             isEdited ||
             updateCheckout.shippingAddress === null ||

@@ -45,7 +45,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
   };
 
   const createCheckout = async () => {
-    let varients =[] as {variantId:string,quantity:number}[];
+    let varients = [] as {variantId: string; quantity: number}[];
     cartItem?.lines?.edges?.map((item, index) => {
       let variant = {
         variantId: item.node.merchandise.id,
@@ -108,7 +108,6 @@ const Cart: React.FC<Props> = ({navigation}) => {
       data: data,
       navigation,
     });
-  
   };
 
   const cartItemRemove = async (id: string) => {
@@ -182,7 +181,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
     <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
       {isLoading ? <Loading /> : null}
 
-      {cartItem?.lines?.edges?.length>0 ? (
+      {cartItem?.lines?.edges?.length > 0 ? (
         <View style={{flex: 1}}>
           <FlatList
             data={cartItem?.lines.edges}
@@ -212,6 +211,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
                           marginTop: '5%',
                           fontSize: wp(4),
                           fontWeight: '400',
+                          fontStyle: 'italic',
                         }}>
                         {item?.node.merchandise.product?.title?.substring(
                           0,
@@ -227,9 +227,15 @@ const Cart: React.FC<Props> = ({navigation}) => {
                           // fontWeight: 'bold',
                           color: 'black',
                           fontSize: wp(3.9),
+                          fontStyle: 'italic',
                         }}>
                         {'  ₹'}
-                        <Text style={{fontSize: wp(4.5), fontWeight: 'bold'}}>
+                        <Text
+                          style={{
+                            fontSize: wp(4.5),
+                            fontWeight: 'bold',
+                            fontStyle: 'italic',
+                          }}>
                           {+item?.node.merchandise.product?.priceRange
                             .maxVariantPrice.amount + '.00'}
                         </Text>
@@ -240,12 +246,14 @@ const Cart: React.FC<Props> = ({navigation}) => {
                           fontSize: wp(3.5),
                           textDecorationLine: 'line-through',
                           color: 'grey',
+                          fontStyle: 'italic',
                         }}>
                         {'   '}₹
                         <Text
                           style={{
                             fontSize: wp(4.5),
                             fontWeight: 'bold',
+                            fontStyle: 'italic',
                           }}>
                           {2 *
                             parseInt(
@@ -261,6 +269,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
                           color: '#CC0066',
                           fontSize: wp(3),
                           marginLeft: '3%',
+                          fontStyle: 'italic',
                         }}>
                         50%
                       </Text>
@@ -294,7 +303,12 @@ const Cart: React.FC<Props> = ({navigation}) => {
                             justifyContent: 'center',
                             width: '40%',
                           }}>
-                          <Text style={{fontSize: wp(4), fontWeight: '600'}}>
+                          <Text
+                            style={{
+                              fontSize: wp(4),
+                              fontWeight: '600',
+                              fontStyle: 'italic',
+                            }}>
                             {item.node.quantity}
                           </Text>
                         </View>
@@ -315,7 +329,12 @@ const Cart: React.FC<Props> = ({navigation}) => {
                           handleRemove(item.node.id);
                         }}
                         style={styles.delebtn}>
-                        <Text style={{color: 'grey', fontSize: wp(3.5)}}>
+                        <Text
+                          style={{
+                            color: 'grey',
+                            fontSize: wp(3.5),
+                            fontStyle: 'italic',
+                          }}>
                           Delete
                         </Text>
                       </TouchableOpacity>
@@ -336,7 +355,13 @@ const Cart: React.FC<Props> = ({navigation}) => {
         </View>
       ) : (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={{fontSize: wp(5), fontWeight: '700', color: 'grey'}}>
+          <Text
+            style={{
+              fontSize: wp(5),
+              fontWeight: '700',
+              color: 'grey',
+              fontStyle: 'italic',
+            }}>
             Your Cart Is Empty
           </Text>
         </View>

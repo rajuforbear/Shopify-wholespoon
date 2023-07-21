@@ -70,8 +70,9 @@ const Profile: React.FC<Props> = ({navigation}) => {
                       fontSize: wp(5),
 
                       //  marginTop: wp(4),
-                      fontStyle: 'normal',
+                      fontStyle: 'italic',
                       fontWeight: '600',
+                      
                     }}>
                     Oder History
                   </Text>
@@ -95,7 +96,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
                       fontSize: wp(5),
 
                       //  marginTop: wp(4),
-                      fontStyle: 'normal',
+                      fontStyle: 'italic',
                       fontWeight: '600',
                     }}>
                     Saved Addresses
@@ -136,6 +137,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
                   alignSelf: 'center',
                   fontSize: wp(4.5),
                   fontWeight: '600',
+                  fontStyle:'italic'
                 }}>
                 Login
               </Text>

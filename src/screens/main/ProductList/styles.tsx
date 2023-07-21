@@ -21,6 +21,7 @@ export default StyleSheet.create({
     fontSize: wp(5),
     color: 'black',
     fontWeight: '700',
+    fontStyle:"italic"
   },
   cardView: {
     height: hp(28),
@@ -53,6 +54,7 @@ export default StyleSheet.create({
     fontSize: wp(4),
     fontWeight: '500',
     color: 'black',
+    fontStyle:"italic"
   },
   btn: {
     borderRadius: wp(1),
@@ -79,17 +81,20 @@ export default StyleSheet.create({
     alignSelf: 'center',
     fontWeight: '500',
     color: 'black',
+    fontStyle:"italic"
   },
   icon: {
     fontSize: wp(5),
     position: 'absolute',
     right: wp(3),
     top: wp(2),
+    fontStyle:'italic'
   },
   title: {
     marginTop: wp(1),
     alignSelf: 'center',
     fontWeight: 'bold',
     color: 'black',
+    fontStyle:'italic'
   },
 });

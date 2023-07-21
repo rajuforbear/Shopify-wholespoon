@@ -21,11 +21,13 @@ export default StyleSheet.create({
     fontSize: wp(5),
     color: 'black',
     fontWeight: '700',
+    fontStyle:'italic'
   },
   contact: {
     height: hp(5),
     width: '100%',
     backgroundColor: '#F6F6F6', //'#f2f5f4',
+    
   },
   cont: {
     position: 'absolute',
@@ -34,6 +36,7 @@ export default StyleSheet.create({
     left: wp(3),
     fontWeight: '700',
     color: 'black',
+    fontStyle:"italic"
   },
   inputfield: {
     height: hp(6.2),
@@ -112,6 +115,7 @@ export default StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: wp(4),
+    fontStyle:'italic'
   },
   listImage: {
     height: wp(16),

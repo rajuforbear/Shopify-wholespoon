@@ -111,6 +111,7 @@ export default StyleSheet.create({
     fontSize: wp(4),
     fontWeight: '500',
     color: 'white',
+    fontStyle:'italic'
   },
   quantity: {
     height: '100%',

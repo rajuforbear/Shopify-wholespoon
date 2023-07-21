@@ -43,6 +43,7 @@ const Input: React.FC<Props> = ({
             style={{
               fontSize: wp(3),
               position: 'relative',
+              fontStyle:'italic'
             }}>
             {lable}
           </Text>
@@ -50,7 +51,7 @@ const Input: React.FC<Props> = ({
       )}
       {!notInput ? (
         <TextInput
-          style={{fontSize: wp(4), flex: 1}}
+          style={{fontSize: wp(4), flex: 1,fontStyle:'italic'}}
           {...props}
           value={value}
           placeholder={placeholder}
@@ -63,7 +64,7 @@ const Input: React.FC<Props> = ({
             width: '100%',
             justifyContent: 'space-between',
           }}>
-          <Text style={{fontSize: wp(4)}}>Country</Text>
+          <Text style={{fontSize: wp(4),fontStyle:'italic'}}>Country</Text>
           <Entypo name="chevron-down" size={wp(6)} />
         </View>
       )}

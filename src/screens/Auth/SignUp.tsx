@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
     fontSize: wp('6%'),
     fontWeight: 'bold',
     color: 'black', //'#a26a39',
-    //fontStyle: 'italic',
+    fontStyle: 'italic',
     alignSelf: 'center',
     marginTop: wp(6),
   },
@@ -393,5 +393,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: 'black',
     marginTop: wp(1),
+    fontStyle:'italic'
   },
 });

@@ -19,6 +19,7 @@ export default StyleSheet.create({
   txt: {
     fontSize: wp(4),
     color: 'grey',
+    fontStyle:'italic'
   },
   lable: {
     height: hp(3),
@@ -38,6 +39,7 @@ export default StyleSheet.create({
     fontSize: wp(5),
     color: 'grey',
     fontWeight: '500',
+    fontStyle:"italic"
   },
   btnText: {
     marginTop: wp(2),
