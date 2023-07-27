@@ -60,7 +60,6 @@ const Search: React.FC<Props> = ({navigation,route}) => {
   }, [input,isFocused]);
   
   const fetDetails = (id:string) => {
-    const axios = require('axios');
     let data = JSON.stringify({
       query: `query getProductById($id: ID!) {
   product(id: $id) 
