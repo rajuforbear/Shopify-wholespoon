@@ -59,7 +59,7 @@ const Search: React.FC<Props> = ({navigation,route}) => {
     };
   }, [input,isFocused]);
   
-  const fetDetails = (id:string) => {
+  const fetDetails = (id:string) => {`  1qq11 q2`
     let data = JSON.stringify({
       query: `query getProductById($id: ID!) {
   product(id: $id) 

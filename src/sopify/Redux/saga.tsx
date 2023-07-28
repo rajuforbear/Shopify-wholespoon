@@ -53,6 +53,10 @@ function* getProductById(action: action) {
       type: 'sopify/fetchProductByIdFaill',
     });
     console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 
@@ -69,6 +73,11 @@ function* fetchProductOption(action: action) {
   } catch (err) {
     yield put({
       type: 'sopify/fetchPorductOptionFail',
+    });
+    console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
     });
   }
 }
@@ -91,6 +100,10 @@ function* fetAllProducts(action: action) {
   } catch (err) {
     yield put({type: 'sopify/fetchAllProductsFaill'});
     console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 
@@ -126,6 +139,15 @@ function* doLogin(action: action) {
     yield put({
       type: 'sopify/loginFail',
     });
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
+    console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* doRegister(action: action) {
@@ -153,6 +175,11 @@ function* doRegister(action: action) {
   } catch (err) {
     yield put({
       type: 'sopify/registerError',
+    });
+    console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
     });
   }
 }
@@ -182,6 +209,11 @@ function* getUserData(action: action) {
     yield put({
       type: 'sopify/userDataError',
     });
+    console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* createCart(action: action) {
@@ -206,6 +238,10 @@ function* createCart(action: action) {
       type: 'sopify/createCartError',
     });
     console.log(error);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* getCartItem(action: action) {
@@ -222,6 +258,10 @@ function* getCartItem(action: action) {
       type: 'getCartItemFaill',
     });
     console.log(error);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* fetchProduct(action: action) {
@@ -235,6 +275,11 @@ function* fetchProduct(action: action) {
     yield put({
       type: 'sopify/fetchProductFaill',
     });
+    console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* removeCartItem(action: action) {
@@ -247,6 +292,11 @@ function* removeCartItem(action: action) {
   } catch (error) {
     yield put({
       type: 'sopify/cartItemRemoveError',
+    });
+    console.log(error);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
     });
   }
 }
@@ -264,6 +314,10 @@ function* createCheckout(action: action) {
       type: '/sopify/createCheckoutFaill',
     });
     console.log(error);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* updateCart(action: action) {
@@ -284,6 +338,10 @@ function* updateCart(action: action) {
       type: 'sopify/updateCartFaill',
     });
     console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* addAddress(action: action) {
@@ -357,6 +415,10 @@ function* fetchMenu(action: action) {
       type: 'sopify/fetchMenuError',
     });
     console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* aboutUs(action: action) {
@@ -378,6 +440,11 @@ function* aboutUs(action: action) {
     yield put({
       type: 'sopify/pageDeatailsFaill',
     });
+    console.log(error);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* fetchPages(action: action) {
@@ -398,6 +465,10 @@ function* fetchPages(action: action) {
       type: 'sopify/fetchPagesError',
     });
     console.log(er);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* deleteAddress(action: action) {
@@ -548,6 +619,11 @@ function* setDefaulAddress(action: action) {
     yield put({
       type: 'setDefaulAddressError',
     });
+    console.log(err);
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* updateProfile(action: action) {
@@ -670,6 +746,10 @@ function* updateCheckout(action: action) {
     yield put({
       type: 'sopify/updateCheckoutError',
     });
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
   }
 }
 function* searchProduct(action: action) {
@@ -758,9 +838,9 @@ function* fetchHome(action: action) {
     console.log(err);
   }
 }
-function* updateCheckoutEMail(action:action){
-  const res:string= yield call(Shopify.userControll,action.data)
-  console.log(JSON.stringify(res))
+function* updateCheckoutEMail(action: action) {
+  const res: string = yield call(Shopify.userControll, action.data);
+  console.log(JSON.stringify(res));
 }
 function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/getCollection', getCollection);
@@ -789,7 +869,7 @@ function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/searchProduct', searchProduct);
   yield takeEvery('sopify/ProductDetails', productDetails);
   yield takeEvery('sopify/fetchHome', fetchHome);
-  yield takeEvery('sopify/updateCheckoutEMail',updateCheckoutEMail)
+  yield takeEvery('sopify/updateCheckoutEMail', updateCheckoutEMail);
 }
 
 export default Saga;

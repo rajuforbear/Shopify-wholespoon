@@ -525,7 +525,9 @@ const Checkout: React.FC<Props> = ({navigation}) => {
             <View style={styles.inputfield2}>
               <SelectDropdown
                 data={countries}
-                defaultButtonText="Country"
+                defaultButtonText={
+                  address.country ? address.country : 'Country'
+                }
                 dropdownStyle={{
                   width: '100%',
                 }}
