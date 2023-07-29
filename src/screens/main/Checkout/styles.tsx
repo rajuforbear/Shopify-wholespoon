@@ -42,10 +42,11 @@ export default StyleSheet.create({
     height: hp(6.2),
     marginHorizontal: wp(3),
     borderWidth: 1,
-    marginVertical: wp(3),
+    marginVertical: wp(1),
     borderRadius: wp(1),
     borderColor: 'grey',
     paddingHorizontal: wp(3),
+    marginBottom:wp(3)
   },
   inputfield2: {
     height: hp(6.2),
@@ -123,4 +124,24 @@ export default StyleSheet.create({
     borderRadius: wp(2),
     overflow: 'hidden',
   },
+  input2:{
+    height: hp(5.5),
+    borderRadius: wp(2),
+    borderWidth: wp(0.1),
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal:wp(2),
+    width:wp(30)
+    
+  },
+  input3:{
+    height: hp(5.5),
+    borderRadius: wp(2),
+    borderWidth: wp(0.1),
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal:wp(2),
+    width:wp(45)
+    
+  }
 });

@@ -6,6 +6,7 @@ import {
   TextInput,
   FlatList,
   Image,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
@@ -24,7 +25,9 @@ import Loading from '../../../compoents/Loader';
 import {StackScreenProps} from '@react-navigation/stack';
 import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import {RootState} from '../../../sopify/Redux/store';
+
 type Props = StackScreenProps<HelperNavigationParams>;
+
 const Checkout: React.FC<Props> = ({navigation}) => {
   const iseSevedAddres = useSelector(
     (state: RootState) => state.data.userData?.addresses?.nodes,
@@ -38,7 +41,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
   console.log(isLoading);
   const useData = useSelector((state: RootState) => state.data.userData);
-  const [address, setAddress] = React.useState({
+  const [address, setAddress] = useState({
     firstName: useData?.defaultAddress?.firstName
       ? useData?.defaultAddress?.firstName
       : updateCheckout?.shippingAddress?.firstName
@@ -115,9 +118,16 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       data: data,
     });
   };
-
+  const [token, setToken] = useState<string>();
+  const getToken = async () => {
+    let tok = await AsyncStorage.getItem('Token');
+    if (tok) {
+      setToken(tok);
+    }
+  };
   useEffect(() => {
     getAddress();
+    getToken();
   }, []);
 
   const getAddress = async () => {
@@ -131,8 +141,8 @@ const Checkout: React.FC<Props> = ({navigation}) => {
 
     return false;
   };
-  const handleonSubmit = (text: string, input: string) => {
-    setAddress(prev => ({...prev, [text]: input}));
+  const handleonSubmit = (param: string, input: string) => {
+    setAddress(prev => ({...prev, [param]: input}));
   };
   const [show, setSHow] = useState(false);
 
@@ -186,6 +196,106 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       op: 'create',
     });
   };
+
+  const [error, setError] = useState({
+    firstName: '',
+    lastName: '',
+    address1: '',
+    city: '',
+    province: '',
+    phone: '',
+    zip: '',
+    Email: '',
+  });
+  const handleOnError = (param: string, msg: string) => {
+    setError(prev => ({...prev, [param]: msg}));
+  };
+  const handleOnChangeText = async () => {
+    const token = await AsyncStorage.getItem('Token');
+    let valid = true;
+    if (!address.firstName) {
+      handleOnError('firstName', 'Please enter first name');
+      valid = false;
+    } else if (address.firstName.length < 3) {
+      handleOnError('firstName', 'Name sould be greater then 2 charecter');
+      valid = false;
+    }
+    if (!address.lastName) {
+      handleOnError('lastName', 'Please enter last name');
+      valid = false;
+    } else if (address.firstName.length < 3) {
+      handleOnError('lastName', 'lastname sould be greater then 2 charecter');
+      valid = false;
+    }
+    if (!address.address1) {
+      handleOnError('address1', 'Please enter your address');
+      valid = false;
+    } else if (address.address1.length < 15) {
+      handleOnError('address1', 'please enter full address');
+      valid = false;
+    }
+    if (!address.city) {
+      handleOnError('city', 'Please enter your city name');
+      valid = false;
+    }
+
+    if (!address.province) {
+      handleOnError('province', 'Please enter your state name');
+      valid = false;
+    }
+    if (!address.phone) {
+      handleOnError('phone', 'Please enter your phone number');
+      valid = false;
+    } else if (address.phone.length < 10) {
+      handleOnError('phone', 'phone must be 10 digits');
+      valid = false;
+    }
+    if (!address.zip) {
+      handleOnError('zip', 'Please enter yout pincode');
+      valid = false;
+    }
+    if (!email) {
+      handleOnError('Email', 'Please Enter Email');
+      valid = false;
+    } else if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+      handleOnError('Email', 'Please Enter Valid Email');
+      valid = false;
+    }
+    if (valid) {
+      if (!address.country) {
+        Alert.alert('Please select country');
+        valid = false;
+      } else {
+        updateCheckoutEmail();
+        if (token) {
+          if (iseSevedAddres?.length <= 0) {
+            setSHow(true);
+            createAddress();
+          } else if (isEdited) {
+            editAddress();
+            setSHow(true);
+            setIsEdited(false);
+          } else {
+            dispatch({
+              type: 'sopify/updateCheckout',
+              id: checkout?.id,
+              address: address,
+            });
+          }
+        } else {
+          dispatch({
+            type: 'sopify/updateCheckout',
+            id: checkout?.id,
+            address: address,
+          });
+
+          setIsEdited(false);
+          setSHow(true);
+        }
+      }
+    }
+  };
+
   const editAddress = async () => {
     const userToke = await AsyncStorage.getItem('Token');
     let data2 = JSON.stringify({
@@ -220,25 +330,8 @@ const Checkout: React.FC<Props> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      {isLoading ? <Loading /> : null}
-      {/* <View style={styles.header}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}>
-          <AntDesign
-            onPress={() => navigation.goBack()}
-            name="arrowleft"
-            size={wp(6)}
-            color="black"
-          />
-          <Text style={styles.txt}> Checkout</Text>
-          <View style={{width: '20%'}}></View>
-        </View>
-      </View> */}
+      {isLoading ? <Loading /> : undefined}
+
       <ScrollView contentContainerStyle={{paddingBottom: wp(20)}}>
         <View
           style={[
@@ -431,10 +524,14 @@ const Checkout: React.FC<Props> = ({navigation}) => {
             </View>
           </View>
         ) : null}
-        {iseSevedAddres?.length <= 0 ||
+         {iseSevedAddres?.length <= 0 ||
         updateCheckout?.shippingAddress === undefined ||
-        isEdited ? (
+        isEdited ? ( 
+       
           <View>
+             {/* {token ? (
+          iseSevedAddres.length <= 0 || isEdited
+        ) : updateCheckout.shippingAddress === undefined || isEdited ? ( */}
             <View style={[styles.contact, {marginTop: wp(4)}]}>
               <Text style={styles.cont}>Contact</Text>
             </View>
@@ -442,82 +539,66 @@ const Checkout: React.FC<Props> = ({navigation}) => {
               style={{
                 flexDirection: 'row',
                 marginVertical: wp(3),
-                // borderWidth: 1,
-                marginHorizontal: wp(2),
+                width: '100%',
+                justifyContent: 'space-evenly',
               }}>
-              <View
-                style={{
-                  height: hp(5.6),
-                  //alignItems: 'center',
-                  justifyContent: 'center',
-                  // backgroundColor: 'white',
-                  width: wp(45),
-                  borderRadius: wp(2),
-                  paddingHorizontal: wp(3),
-                  borderWidth: wp(0.1),
-                }}>
-                <TextInput
-                  placeholder="Firstname*"
-                  value={address.firstName}
-                  onChangeText={input => {
-                    handleonSubmit('firstName', input);
-                  }}
-                  style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
-                />
-              </View>
-              <View
-                style={{
-                  height: hp(5.6),
-                  justifyContent: 'center',
-                  // backgroundColor: 'lightgrey',
-                  width: wp(45),
-                  borderRadius: wp(2),
-                  marginLeft: wp(3),
-                  borderWidth: wp(0.1),
-                  paddingHorizontal: wp(3),
-                }}>
-                <TextInput
-                  placeholder="Lastname*"
-                  value={address.lastName}
-                  onChangeText={input => {
-                    handleonSubmit('lastName', input);
-                  }}
-                />
-              </View>
+              <Input
+                placeholder="Firstname*"
+                value={address.firstName}
+                onChangeText={input => {
+                  handleonSubmit('firstName', input);
+                }}
+                style={styles.input3}
+                error={error.firstName}
+                onFocus={() => handleOnError('firstName', '')}
+                input2={true}
+              />
+
+              <Input
+                placeholder="Lastname*"
+                value={address.lastName}
+                onChangeText={input => {
+                  handleonSubmit('lastName', input);
+                }}
+                style={styles.input3}
+                error={error.lastName}
+                onFocus={() => handleOnError('lastName', '')}
+                input2={true}
+              />
             </View>
 
             <Input
-              notlable
               placeholder="Mobile/Phone*"
               value={address.phone}
               onChangeText={input => {
                 handleonSubmit('phone', input);
               }}
-              lable=""
-              notInput={false}
-              lable2=""
+              input2={false}
+              style={styles.inputfield}
+              error={error.phone}
+              onFocus={() => handleOnError('phone', '')}
             />
             <Input
-              notlable
               placeholder="Email*"
               value={email}
               onChangeText={input => {
                 setEmail(input);
               }}
-              lable=""
-              notInput={false}
-              lable2=""
+              input2={false}
+              style={styles.inputfield}
+              error={error.Email}
+              onFocus={() => handleOnError('Email', '')}
             />
             <Input
-              notlable
               placeholder="Company"
               value={address.company}
               onChangeText={input => {
                 handleonSubmit('company', input);
               }}
-              lable=""
-              lable2=""
-              notInput={false}
+              input2={false}
+              style={styles.inputfield}
+              error=""
+              onFocus={() => null}
             />
             <View style={styles.contact}>
               <Text style={styles.cont}>Shipping Address</Text>
@@ -544,24 +625,35 @@ const Checkout: React.FC<Props> = ({navigation}) => {
             </View>
 
             <Input
-              notlable
               placeholder="Address (House NO,Building,Street,Area)*"
               value={address.address1}
               onChangeText={input => {
                 handleonSubmit('address1', input);
               }}
-              lable=""
-              lable2=""
-              notInput={false}
+              input2={false}
+              style={styles.inputfield}
+              error={error.address1}
+              onFocus={() => handleOnError('address1', '')}
             />
             <Input
-              notlable
               placeholder="Address(2) (House NO,Building,Street,Area)"
               value={address.address2}
               onChangeText={input => handleonSubmit('address2', input)}
-              lable=""
-              lable2=""
-              notInput={false}
+              input2={false}
+              style={styles.inputfield}
+              error=""
+              onFocus={() => null}
+            />
+            <Input
+              placeholder="State"
+              value={address.province}
+              onChangeText={input => {
+                handleonSubmit('province', input);
+              }}
+              style={styles.inputfield}
+              error={error.province}
+              onFocus={() => handleOnError('province', '')}
+              input2={false}
             />
 
             <View
@@ -569,68 +661,35 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 flexDirection: 'row',
                 marginVertical: wp(3),
                 // borderWidth: 1,
+
+                justifyContent: 'space-evenly',
+
+                alignSelf: 'center',
                 marginHorizontal: wp(2),
               }}>
-              <View
-                style={{
-                  height: hp(5.5),
-                  //alignItems: 'center',
-                  justifyContent: 'center',
-                  // backgroundColor: 'white',
-                  width: wp(30),
-                  borderRadius: wp(2),
-                  paddingHorizontal: wp(3),
-                  borderWidth: wp(0.1),
-                }}>
-                <TextInput
-                  placeholder="City"
-                  value={address.city}
-                  onChangeText={input => {
-                    handleonSubmit('city', input);
-                  }}
-                  style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
-                />
-              </View>
-              <View
-                style={{
-                  height: hp(5.5),
-                  justifyContent: 'center',
-                  // backgroundColor: 'lightgrey',
-                  width: wp(30),
-                  borderRadius: wp(2),
-                  marginLeft: wp(3),
-                  borderWidth: wp(0.1),
-                  paddingHorizontal: wp(3),
-                }}>
-                <TextInput
-                  placeholder="State"
-                  style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
-                  value={address.province}
-                  onChangeText={input => {
-                    handleonSubmit('province', input);
-                  }}
-                />
-              </View>
-              <View
-                style={{
-                  height: hp(5.5),
-                  justifyContent: 'center',
-                  // backgroundColor: 'lightgrey',
-                  width: wp(30),
-                  borderRadius: wp(2),
-                  marginLeft: wp(3),
-                  borderWidth: wp(0.1),
-                  paddingHorizontal: wp(3),
-                }}>
-                <TextInput
-                  placeholder="Pincode"
-                  style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
-                  value={address.zip}
-                  onChangeText={input => {
-                    handleonSubmit('zip', input);
-                  }}
-                />
-              </View>
+              <Input
+                placeholder="City"
+                value={address.city}
+                onChangeText={input => {
+                  handleonSubmit('city', input);
+                }}
+                style={styles.input3}
+                error={error.city}
+                onFocus={() => handleOnError('city', '')}
+                input2={true}
+              />
+
+              <Input
+                placeholder="Pincode"
+                input2={true}
+                value={address.zip}
+                onChangeText={input => {
+                  handleonSubmit('zip', input);
+                }}
+                style={styles.input3}
+                error={error.zip}
+                onFocus={() => handleOnError('zip', '')}
+              />
             </View>
           </View>
         ) : (
@@ -791,33 +850,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
 
         <TouchableOpacity
           onPress={async () => {
-            const token = await AsyncStorage.getItem('Token');
-            updateCheckoutEmail();
-            if (token) {
-              if (iseSevedAddres?.length <= 0) {
-                setSHow(true);
-                createAddress();
-              } else if (isEdited) {
-                editAddress();
-                setSHow(true);
-                setIsEdited(false);
-              } else {
-                dispatch({
-                  type: 'sopify/updateCheckout',
-                  id: checkout?.id,
-                  address: address,
-                });
-              }
-            } else {
-              dispatch({
-                type: 'sopify/updateCheckout',
-                id: checkout?.id,
-                address: address,
-              });
-
-              setIsEdited(false);
-              setSHow(true);
-            }
+            handleOnChangeText();
           }}
           style={styles.btn2}>
           <Text

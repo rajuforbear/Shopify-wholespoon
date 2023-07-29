@@ -5,70 +5,46 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import Entypo from 'react-native-vector-icons/Entypo';
+
 
 type Props = {
-  lable: string;
-  notlable: boolean;
-  lable2: string;
-  notInput: boolean;
   placeholder: string;
   value: string;
-  onChangeText:(input:string)=>void
+  onChangeText: (input: string) => void;
+  input2: boolean;
+  error:string,
+  style:object,
+  onFocus:()=>void;
 };
 const Input: React.FC<Props> = ({
-  lable,
   placeholder,
-  notlable,
-  lable2,
-  notInput,
   value,
-  onChangeText=()=>{},
+  input2,
+  error,
+  style,
+  onChangeText = () => {},
+  onFocus=()=>{},
   ...props
 }) => {
   return (
-    <View
-      style={[
-        styles.inputfield,
-        notInput && {
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: wp(4),
-        },
-      ]}>
-      {!notlable && (
-        <View style={styles.lable}>
-          <Text
-            style={{
-              fontSize: wp(3),
-              position: 'relative',
-              fontStyle:'italic'
-            }}>
-            {lable}
-          </Text>
-        </View>
-      )}
-      {!notInput ? (
+  
+    <View>
+      <View style={{height:wp(3.5)}}>
+     {error? <Text style={{fontSize:wp(3),marginLeft:wp(3),color:'red',marginBottom:wp(.5)}}>{error}</Text>:null}
+     </View>
+      <View
+        style={[style,{borderColor:error?'red':null,borderWidth:error?wp(.3):wp(0.1)}]}>
         <TextInput
-          style={{fontSize: wp(4), flex: 1,fontStyle:'italic'}}
+          style={{fontSize: wp(4),flex:1, fontStyle: 'italic'}}
           {...props}
           value={value}
           placeholder={placeholder}
           onChangeText={onChangeText}
+          onFocus={onFocus}
         />
-      ) : (
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-between',
-          }}>
-          <Text style={{fontSize: wp(4),fontStyle:'italic'}}>Country</Text>
-          <Entypo name="chevron-down" size={wp(6)} />
-        </View>
-      )}
-    </View>
+      </View>
+      </View>
+
   );
 };
 export default Input;

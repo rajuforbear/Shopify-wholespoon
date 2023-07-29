@@ -5,6 +5,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import styles from './styles';
 import {
@@ -45,6 +46,74 @@ const Address: React.FC<Props> = props => {
   const handleOnChangeText = (text: string, input: string) => {
     setAddress(prev => ({...prev, [text]: input}));
   };
+
+  const [error, setError] = useState({
+    firstName: '',
+    lastName: '',
+    address1: '',
+    city: '',
+    province: '',
+    phone: '',
+    zip: '',
+  });
+  const handleOnError = (param: string, msg: string) => {
+    setError(prev => ({...prev, [param]: msg}));
+  };
+  const handleonSubmit = () => {
+    let valid = true;
+    if (!address.firstName) {
+      handleOnError('firstName', 'Please enter first name');
+      valid = false;
+    } else if (address.firstName.length < 3) {
+      handleOnError('firstName', 'Name sould be greater then 2 charecter');
+      valid = false;
+    }
+    if (!address.lastName) {
+      handleOnError('lastName', 'Please enter last name');
+      valid = false;
+    } else if (address.firstName.length < 3) {
+      handleOnError('lastName', 'lastname sould be greater then 2 charecter');
+      valid = false;
+    }
+    if (!address.address1) {
+      handleOnError('address1', 'Please enter your address');
+      valid = false;
+    } else if (address.address1.length < 15) {
+      handleOnError('address1', 'please enter full address');
+      valid = false;
+    }
+    if (!address.city) {
+      handleOnError('city', 'Please enter your city name');
+      valid = false;
+    }
+    
+    if (!address.province) {
+      handleOnError('province', 'Please enter your state name');
+      valid = false;
+    }
+    if (!address.phone) {
+      handleOnError('phone', 'Please enter your phone number');
+      valid = false;
+    } else if (address.phone.length < 10) {
+      handleOnError('phone', 'phone must be 10 digits');
+      valid = false;
+    }
+    if (!address.zip) {
+      handleOnError('zip', 'Please enter yout pincode');
+      valid = false;
+    }
+    if(valid){
+      if (!address.country) {
+        Alert.alert('Please select country');
+        valid = false;
+      }else{
+        handleOnSave()
+      }
+      console.log(valid);
+      
+    }
+  };
+
   const handleOnSave = async () => {
     const userToke = await AsyncStorage.getItem('Token');
     if (data === undefined) {
@@ -114,7 +183,7 @@ const Address: React.FC<Props> = props => {
       });
     }
   };
-  console.log(address.phone);
+
   return (
     <View style={{flex: 1}}>
       {isLoading ? <Loading /> : null}
@@ -127,72 +196,55 @@ const Address: React.FC<Props> = props => {
             style={{
               flexDirection: 'row',
               marginVertical: wp(3),
-              // borderWidth: 1,
-              marginHorizontal: wp(2),
+              width:'100%',
+              justifyContent:'space-evenly'
             }}>
-            <View
-              style={{
-                height: hp(5.6),
-                //alignItems: 'center',
-                justifyContent: 'center',
-                // backgroundColor: 'white',
-                width: wp(45),
-                borderRadius: wp(2),
-                paddingHorizontal: wp(3),
-                borderWidth: wp(0.1),
-              }}>
-              <TextInput
-                placeholder="Firstname*"
-                value={address.firstName}
-                onChangeText={input => {
-                  handleOnChangeText('firstName', input);
-                }}
-                style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
-              />
-            </View>
-            <View
-              style={{
-                height: hp(5.6),
-                justifyContent: 'center',
-                // backgroundColor: 'lightgrey',
-                width: wp(45),
-                borderRadius: wp(2),
-                marginLeft: wp(3),
-                borderWidth: wp(0.1),
-                paddingHorizontal: wp(3),
-              }}>
-              <TextInput
-                placeholder="Lastname*"
-                value={address.lastName}
-                onChangeText={input => {
-                  handleOnChangeText('lastName', input);
-                }}
-                style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
-              />
-            </View>
+            <Input
+              placeholder="Firstname*"
+              value={address.firstName}
+              onChangeText={input => {
+                handleOnChangeText('firstName', input);
+              }}
+              error={error.firstName}
+              input2={true}
+              style={[styles.input3]}
+              onFocus={()=>handleOnError('firstName','')}
+            />
+
+            <Input
+              placeholder="Lastname*"
+              value={address.lastName}
+              onChangeText={input => {
+                handleOnChangeText('lastName', input);
+              }}
+              input2={true}
+              error={error.lastName}
+              style={styles.input3}
+              onFocus={()=>handleOnError('lastName','')}
+            />
           </View>
 
           <Input
-            notlable
             placeholder="Mobile/Phone*"
             value={address.phone}
             onChangeText={input => {
               handleOnChangeText('phone', input);
             }}
-            lable=""
-            lable2=""
-            notInput={false}
+            input2={false}
+            error={error.phone}
+            style={styles.inputfield}
+            onFocus={()=>handleOnError('phone','')}
           />
           <Input
-            notlable
             placeholder="Company*"
             value={address.company}
             onChangeText={input => {
               handleOnChangeText('company', input);
             }}
-            lable=""
-            notInput={false}
-            lable2=""
+            input2={false}
+            error=''
+            style={styles.inputfield}
+            onFocus={()=>{null}}
           />
           <View style={styles.contact}>
             <Text style={styles.cont}>Shipping Address</Text>
@@ -217,91 +269,74 @@ const Address: React.FC<Props> = props => {
           </View>
 
           <Input
-            notlable
             placeholder="Address (House NO,Building,Street,Area)*"
             value={address.address1}
             onChangeText={input => {
               handleOnChangeText('address1', input);
             }}
-            notInput={false}
-            lable=""
-            lable2=""
+            input2={false}
+            error={error.address1}
+            style={styles.inputfield}
+            onFocus={()=>handleOnError('address1','')}
           />
           <Input
-            notlable
             placeholder="Address(2) (House NO,Building,Street,Area)"
             value={address.address2}
             onChangeText={input => handleOnChangeText('address2', input)}
-            lable=""
-            notInput={false}
-            lable2=""
+            input2={false}
+            style={styles.inputfield}
+            error=''
+            onFocus={()=>null}
           />
+           <Input
+              placeholder="State"
+              value={address.province}
+              onChangeText={input => {
+                handleOnChangeText('province', input);
+              }}
+              input2={true}
+              style={styles.inputfield}
+              error={error.province}
+              onFocus={()=>handleOnError('province','')}
+            />
 
           <View
             style={{
               flexDirection: 'row',
               marginVertical: wp(3),
               // borderWidth: 1,
-              marginHorizontal: wp(2),
+
+              justifyContent: 'space-evenly',
+            
+              alignSelf: 'center',
+              marginHorizontal:wp(2)
+      
             }}>
-            <View
-              style={{
-                height: hp(5.5),
-                width: wp(25),
-                borderRadius: wp(2),
-                borderWidth: wp(0.1),
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <TextInput
-                placeholder="City"
-                value={address.city}
-                onChangeText={input => {
-                  handleOnChangeText('city', input);
-                }}
-                style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
-              />
-            </View>
-            <View
-              style={{
-                height: hp(5.5),
-                width: wp(40),
-                borderRadius: wp(2),
-                marginLeft: wp(3),
-                borderWidth: wp(0.1),
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <TextInput
-                placeholder="State"
-                style={{flex: 1, fontSize: wp(4), fontStyle: 'italic'}}
-                value={address.province}
-                onChangeText={input => {
-                  handleOnChangeText('province', input);
-                }}
-              />
-            </View>
-            <View
-              style={{
-                height: hp(5.5),
-                justifyContent: 'center',
-                // backgroundColor: 'lightgrey',
-                width: wp(25),
-                borderRadius: wp(2),
-                marginLeft: wp(3),
-                borderWidth: wp(0.1),
-                //paddingHorizontal: wp(3),
-                alignItems: 'center',
-              }}>
-              <TextInput
-                placeholder="Pincode"
-                style={{flex: 1, fontSize: wp(3.8), fontStyle: 'italic'}}
-                value={address.zip}
-                onChangeText={input => {
-                  handleOnChangeText('zip', input);
-                }}
-              />
-            </View>
+            <Input
+              placeholder="City"
+              value={address.city}
+              onChangeText={input => {
+                handleOnChangeText('city', input);
+              }}
+              input2={true}
+              style={styles.input3}
+              error={error.city}
+              onFocus={()=>handleOnError('city','')}
+            />
+
+           
+
+            <Input
+              placeholder="Pincode"
+              value={address.zip}
+              onChangeText={input => {
+                handleOnChangeText('zip', input);
+              }}
+              input2={true}
+              style={styles.input3}
+              error={error.zip}
+              onFocus={()=>handleOnError('zip','')}
+            />
           </View>
 
           {data != undefined ? (
@@ -318,7 +353,12 @@ const Address: React.FC<Props> = props => {
                 value={toggleCheckBox}
                 onValueChange={() => setToggleCheckBox(!toggleCheckBox)}
               />
-              <Text style={{fontWeight: '500', marginLeft: wp(2),fontStyle:'italic'}}>
+              <Text
+                style={{
+                  fontWeight: '500',
+                  marginLeft: wp(2),
+                  fontStyle: 'italic',
+                }}>
                 Set as default address
               </Text>
             </View>
@@ -326,7 +366,7 @@ const Address: React.FC<Props> = props => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            handleOnSave();
+            handleonSubmit();
           }}
           style={[styles.btn2, {marginTop: data === null ? wp(3) : wp(0)}]}>
           <Text
