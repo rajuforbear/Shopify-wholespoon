@@ -529,9 +529,6 @@ const Checkout: React.FC<Props> = ({navigation}) => {
         isEdited ? ( 
        
           <View>
-             {/* {token ? (
-          iseSevedAddres.length <= 0 || isEdited
-        ) : updateCheckout.shippingAddress === undefined || isEdited ? ( */}
             <View style={[styles.contact, {marginTop: wp(4)}]}>
               <Text style={styles.cont}>Contact</Text>
             </View>

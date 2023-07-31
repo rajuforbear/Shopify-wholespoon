@@ -71,7 +71,7 @@ const Address: React.FC<Props> = props => {
     if (!address.lastName) {
       handleOnError('lastName', 'Please enter last name');
       valid = false;
-    } else if (address.firstName.length < 3) {
+    } else if (address.lastName.length < 3) {
       handleOnError('lastName', 'lastname sould be greater then 2 charecter');
       valid = false;
     }
@@ -86,7 +86,7 @@ const Address: React.FC<Props> = props => {
       handleOnError('city', 'Please enter your city name');
       valid = false;
     }
-    
+
     if (!address.province) {
       handleOnError('province', 'Please enter your state name');
       valid = false;
@@ -102,15 +102,14 @@ const Address: React.FC<Props> = props => {
       handleOnError('zip', 'Please enter yout pincode');
       valid = false;
     }
-    if(valid){
+    if (valid) {
       if (!address.country) {
         Alert.alert('Please select country');
         valid = false;
-      }else{
-        handleOnSave()
+      } else {
+        handleOnSave();
       }
       console.log(valid);
-      
     }
   };
 
@@ -196,8 +195,8 @@ const Address: React.FC<Props> = props => {
             style={{
               flexDirection: 'row',
               marginVertical: wp(3),
-              width:'100%',
-              justifyContent:'space-evenly'
+              width: '100%',
+              justifyContent: 'space-evenly',
             }}>
             <Input
               placeholder="Firstname*"
@@ -208,7 +207,7 @@ const Address: React.FC<Props> = props => {
               error={error.firstName}
               input2={true}
               style={[styles.input3]}
-              onFocus={()=>handleOnError('firstName','')}
+              onFocus={() => handleOnError('firstName', '')}
             />
 
             <Input
@@ -220,7 +219,7 @@ const Address: React.FC<Props> = props => {
               input2={true}
               error={error.lastName}
               style={styles.input3}
-              onFocus={()=>handleOnError('lastName','')}
+              onFocus={() => handleOnError('lastName', '')}
             />
           </View>
 
@@ -233,7 +232,7 @@ const Address: React.FC<Props> = props => {
             input2={false}
             error={error.phone}
             style={styles.inputfield}
-            onFocus={()=>handleOnError('phone','')}
+            onFocus={() => handleOnError('phone', '')}
           />
           <Input
             placeholder="Company*"
@@ -242,9 +241,11 @@ const Address: React.FC<Props> = props => {
               handleOnChangeText('company', input);
             }}
             input2={false}
-            error=''
+            error=""
             style={styles.inputfield}
-            onFocus={()=>{null}}
+            onFocus={() => {
+              null;
+            }}
           />
           <View style={styles.contact}>
             <Text style={styles.cont}>Shipping Address</Text>
@@ -277,7 +278,7 @@ const Address: React.FC<Props> = props => {
             input2={false}
             error={error.address1}
             style={styles.inputfield}
-            onFocus={()=>handleOnError('address1','')}
+            onFocus={() => handleOnError('address1', '')}
           />
           <Input
             placeholder="Address(2) (House NO,Building,Street,Area)"
@@ -285,20 +286,20 @@ const Address: React.FC<Props> = props => {
             onChangeText={input => handleOnChangeText('address2', input)}
             input2={false}
             style={styles.inputfield}
-            error=''
-            onFocus={()=>null}
+            error=""
+            onFocus={() => null}
           />
-           <Input
-              placeholder="State"
-              value={address.province}
-              onChangeText={input => {
-                handleOnChangeText('province', input);
-              }}
-              input2={true}
-              style={styles.inputfield}
-              error={error.province}
-              onFocus={()=>handleOnError('province','')}
-            />
+          <Input
+            placeholder="State"
+            value={address.province}
+            onChangeText={input => {
+              handleOnChangeText('province', input);
+            }}
+            input2={true}
+            style={styles.inputfield}
+            error={error.province}
+            onFocus={() => handleOnError('province', '')}
+          />
 
           <View
             style={{
@@ -307,10 +308,9 @@ const Address: React.FC<Props> = props => {
               // borderWidth: 1,
 
               justifyContent: 'space-evenly',
-            
+
               alignSelf: 'center',
-              marginHorizontal:wp(2)
-      
+              marginHorizontal: wp(2),
             }}>
             <Input
               placeholder="City"
@@ -321,10 +321,8 @@ const Address: React.FC<Props> = props => {
               input2={true}
               style={styles.input3}
               error={error.city}
-              onFocus={()=>handleOnError('city','')}
+              onFocus={() => handleOnError('city', '')}
             />
-
-           
 
             <Input
               placeholder="Pincode"
@@ -335,7 +333,7 @@ const Address: React.FC<Props> = props => {
               input2={true}
               style={styles.input3}
               error={error.zip}
-              onFocus={()=>handleOnError('zip','')}
+              onFocus={() => handleOnError('zip', '')}
             />
           </View>
 

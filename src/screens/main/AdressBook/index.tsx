@@ -128,19 +128,21 @@ const AddressBook: React.FC<Props> = ({navigation}) => {
                   ) : null}
 
                   <View style={{flexDirection: 'row'}}>
-                    {item.zip ? (
-                      <Text style={styles.adText}>{item.zip}</Text>
-                    ) : null}
+                   
                     {item.city ? (
                       <Text style={styles.adText}>{' ' + item.city}</Text>
                     ) : null}
                     {item.province ? (
-                      <Text style={styles.adText}>{'   ' + item.province}</Text>
+                      <Text style={styles.adText}>{'  ' + item.province}</Text>
+                    ) : null}
+                     {item.country ? (
+                    <Text style={styles.adText}>{' '+item?.country}</Text>
+                  ) : null}
+                     {item.zip ? (
+                      <Text style={styles.adText}>{' '+item.zip}</Text>
                     ) : null}
                   </View>
-                  {item.country ? (
-                    <Text style={styles.adText}>{item?.country}</Text>
-                  ) : null}
+                 
                   <View
                     style={{
                       width: '10%',
