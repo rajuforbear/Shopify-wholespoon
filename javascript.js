@@ -93,7 +93,6 @@ function sum() {
 // we can avoid the hostibng usifng use strict
 // examplke
 
-
 var xx = 23; // Gives an error since 'x' is not declared
 
 /*
@@ -113,12 +112,11 @@ let obj = {
   brae: 'raju',
   somechanfr: 'raju',
   barde: 'ragjussss',
-  
 };
 
 class app {
   xx;
-  constructor(props:number, pro2:number) {
+  constructor(props, pro2) {
     this.xx = pro2;
   }
 

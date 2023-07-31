@@ -41,11 +41,12 @@ const Home: React.FC<Props> = ({navigation}) => {
   const userData = useSelector((state: RootState) => state.data.userData);
   const getCollection = () => {
     // console.log('the length....', collection.length);
-    console.log('this is user data...', userData);
+
     dispatch({
       type: 'sopify/getCollection',
     });
   };
+  console.log('this is user data...', JSON.stringify(userData));
   const isFocused = useIsFocused();
   useEffect(() => {
     if (collection?.length <= 1) {

@@ -17,8 +17,6 @@ export interface user {
     defaultAddress: DefaultAddress
     addresses: Addresses
     orders: Orders
-    password:string
-    confrimPassword:string
   }
   
   export interface DefaultAddress {
