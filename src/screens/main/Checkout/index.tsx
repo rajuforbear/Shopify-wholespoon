@@ -83,9 +83,9 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       ? updateCheckout?.shippingAddress?.province
       : '',
     phone: useData?.defaultAddress?.phone
-      ? useData?.defaultAddress?.phone
+      ? useData?.defaultAddress?.phone.slice(3, 13)
       : updateCheckout?.shippingAddress?.phone
-      ? updateCheckout?.shippingAddress?.phone
+      ? updateCheckout?.shippingAddress?.phone.slice(3, 13)
       : '',
     zip: useData?.defaultAddress?.zip
       ? useData?.defaultAddress?.zip
@@ -161,6 +161,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
 
   const createAddress = async () => {
     const userToke = await AsyncStorage.getItem('Token');
+    const address2 = {...address, phone: `+91${address.phone}`};
 
     let data1 = JSON.stringify({
       query: `mutation customerAddressCreate($address: MailingAddressInput!, $customerAccessToken: String!) {
@@ -183,7 +184,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
         }
       }`,
       variables: {
-        address: address,
+        address: address2,
         customerAccessToken: userToke,
       },
     });
@@ -286,7 +287,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
           dispatch({
             type: 'sopify/updateCheckout',
             id: checkout?.id,
-            address: address,
+            address: {...address, phone: `+91${address.phone}`},
           });
 
           setIsEdited(false);
@@ -298,6 +299,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
 
   const editAddress = async () => {
     const userToke = await AsyncStorage.getItem('Token');
+    const addres2 = {...address, phone: `+91${address.phone}`};
     let data2 = JSON.stringify({
       query: `mutation customerAddressUpdate($address: MailingAddressInput!, $customerAccessToken: String!, $id: ID!) {
       customerAddressUpdate(address: $address, customerAccessToken: $customerAccessToken, id: $id) {
@@ -313,7 +315,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       }
     }`,
       variables: {
-        address: address,
+        address: addres2,
         customerAccessToken: userToke,
         id: useData.defaultAddress?.id,
       },
@@ -524,10 +526,9 @@ const Checkout: React.FC<Props> = ({navigation}) => {
             </View>
           </View>
         ) : null}
-         {iseSevedAddres?.length <= 0 ||
+        {iseSevedAddres?.length <= 0 ||
         updateCheckout?.shippingAddress === undefined ||
-        isEdited ? ( 
-       
+        isEdited ? (
           <View>
             <View style={[styles.contact, {marginTop: wp(4)}]}>
               <Text style={styles.cont}>Contact</Text>

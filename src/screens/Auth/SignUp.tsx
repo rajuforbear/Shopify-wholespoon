@@ -18,13 +18,12 @@ import Loading from '../../compoents/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {query} from '../main/Home/query';
 import CheckBox from '@react-native-community/checkbox';
-import { StackScreenProps } from '@react-navigation/stack';
-import { NavigationParams } from '../../navigation';
-import { RootState } from '../../sopify/Redux/store';
-import { Customer } from '../../Types/user';
-type Props=StackScreenProps<NavigationParams,'Register'>
-const SignUp:React.FC<Props> = ({navigation, route}) => {
-  const userData = useSelector((state:RootState) => state.data.userData);
+import {StackScreenProps} from '@react-navigation/stack';
+import {NavigationParams} from '../../navigation';
+import {RootState} from '../../sopify/Redux/store';
+type Props = StackScreenProps<NavigationParams, 'Register'>;
+const SignUp: React.FC<Props> = ({navigation, route}) => {
+  const userData = useSelector((state: RootState) => state.data.userData);
   const page = route.params?.page;
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
@@ -36,15 +35,15 @@ const SignUp:React.FC<Props> = ({navigation, route}) => {
     confrimPassword: '',
   });
   const [errors, setErros] = useState({
-      firstName:'',
-      lastName:'',
-      email:'',
-      phone:'',
-      password:'',
-      confrimPassword:''
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    password: '',
+    confrimPassword: '',
   });
-  const isLoading = useSelector((state:RootState) => state.data.isLoading);
-  const handleOnchange = (input:string, name:string) => {
+  const isLoading = useSelector((state: RootState) => state.data.isLoading);
+  const handleOnchange = (input: string, name: string) => {
     setInputs(prev => ({...prev, [name]: input}));
   };
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
@@ -172,7 +171,7 @@ const SignUp:React.FC<Props> = ({navigation, route}) => {
     }
     console.log(valid);
   };
-  const handleError = (errorMassege:string, input:string) => {
+  const handleError = (errorMassege: string, input: string) => {
     setErros(prevState => ({...prevState, [input]: errorMassege}));
   };
 
@@ -214,7 +213,7 @@ const SignUp:React.FC<Props> = ({navigation, route}) => {
             isOtp={false}
             isPhone={false}
             password={false}
-            placeholder=''
+            placeholder=""
           />
           <Input
             //  /lable="Last Name"
@@ -229,7 +228,7 @@ const SignUp:React.FC<Props> = ({navigation, route}) => {
             isOtp={false}
             isPhone={false}
             password={false}
-            placeholder=''
+            placeholder=""
           />
           <Input
             lable="E-mail"
@@ -243,7 +242,7 @@ const SignUp:React.FC<Props> = ({navigation, route}) => {
             isOtp={false}
             isPhone={false}
             password={false}
-            placeholder=''
+            placeholder=""
           />
           <Input
             // lable="Telephone"
@@ -258,7 +257,7 @@ const SignUp:React.FC<Props> = ({navigation, route}) => {
             onFocus={() => handleError('', 'phone')}
             isOtp={false}
             password={false}
-            placeholder=''
+            placeholder=""
           />
           {page != 'update' ? (
             <>
@@ -274,7 +273,7 @@ const SignUp:React.FC<Props> = ({navigation, route}) => {
                 onFocus={() => handleError('', 'password')}
                 isOtp={false}
                 isPhone={false}
-                placeholder=''
+                placeholder=""
               />
               <Input
                 // lable="Confirm Password"
@@ -289,7 +288,7 @@ const SignUp:React.FC<Props> = ({navigation, route}) => {
                 onFocus={() => handleError('', 'confrimPassword')}
                 isOtp={false}
                 isPhone={false}
-                placeholder=''
+                placeholder=""
               />
             </>
           ) : null}
@@ -393,6 +392,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: 'black',
     marginTop: wp(1),
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
 });

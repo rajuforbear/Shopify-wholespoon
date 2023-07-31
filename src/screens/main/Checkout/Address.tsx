@@ -39,7 +39,7 @@ const Address: React.FC<Props> = props => {
     city: data?.city ? data.city : '',
     country: data?.country ? data.country : '',
     province: data?.province ? data.province : '',
-    phone: data?.phone ? data.phone : '',
+    phone: data?.phone ? data.phone?.slice(3, 13) : '',
     zip: data?.zip ? data.zip : '',
     company: data?.company ? data.company : '',
   });
@@ -115,6 +115,7 @@ const Address: React.FC<Props> = props => {
 
   const handleOnSave = async () => {
     const userToke = await AsyncStorage.getItem('Token');
+    const address2 = {...address, phone: `+91${address.phone}`};
     if (data === undefined) {
       let data1 = JSON.stringify({
         query: `mutation customerAddressCreate($address: MailingAddressInput!, $customerAccessToken: String!) {
@@ -137,7 +138,7 @@ const Address: React.FC<Props> = props => {
         }
       }`,
         variables: {
-          address: address,
+          address: address2,
           customerAccessToken: userToke,
         },
       });
@@ -165,7 +166,7 @@ const Address: React.FC<Props> = props => {
         }
       }`,
         variables: {
-          address: address,
+          address: address2,
           customerAccessToken: userToke,
           id: data.id,
         },

@@ -12,11 +12,11 @@ type Props = {
   error: string;
   isPhone: boolean;
   isOtp: boolean;
-  onFocus: ()=>void;
+  onFocus: () => void;
   password: boolean;
-  onChangeText:(input:string)=>void;
-  placeholder:string,
-  value:string
+  onChangeText: (input: string) => void;
+  placeholder: string;
+  value: string;
 };
 const Input: React.FC<Props> = ({
   iconName,
@@ -25,7 +25,7 @@ const Input: React.FC<Props> = ({
   isPhone,
   isOtp,
   onFocus = () => {},
-  onChangeText=()=>{},
+  onChangeText = () => {},
   password,
   placeholder,
   value,
@@ -59,7 +59,7 @@ const Input: React.FC<Props> = ({
             marginLeft: wp('4%'),
             fontWeight: '600',
             top: 1,
-            fontStyle:'italic'
+            fontStyle: 'italic',
           }}>
           {error}
         </Text>
@@ -92,6 +92,7 @@ const Input: React.FC<Props> = ({
               fontWeight: '600',
               fontStyle: 'italic',
               color: 'grey',
+              marginTop: 10,
             }}>
             +91
           </Text>
@@ -105,12 +106,12 @@ const Input: React.FC<Props> = ({
             fontStyle: 'italic',
             fontWeight: '500',
             height: wp(15),
-            marginTop:10
+            marginTop: 10,
           }}
           placeholderTextColor={'#a26a39'}
-           {...Props}
-           value={value}
-           onChangeText={onChangeText}
+          {...Props}
+          value={value}
+          onChangeText={onChangeText}
           placeholder={placeholder}
           onFocus={() => {
             onFocus();
@@ -129,8 +130,7 @@ const Input: React.FC<Props> = ({
               marginRight: wp(5.6),
               fontSize: wp(6.8),
               color: '#a26a39',
-              fontStyle:'italic'
-             
+              fontStyle: 'italic',
             }}
           />
         ) : null}
