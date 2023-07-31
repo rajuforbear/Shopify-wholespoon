@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
 import {Text, View, TextInput} from 'react-native';
-import styles from './styles';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 type Props = {
   placeholder: string;
@@ -26,6 +22,7 @@ const Input: React.FC<Props> = ({
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
+
   return (
     <View>
       <View style={{height: wp(4)}}>

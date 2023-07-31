@@ -36,7 +36,6 @@ const Home: React.FC<Props> = ({navigation}) => {
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const product = useSelector((state: RootState) => state.data.products);
   const HomeData = useSelector((state: RootState) => state.data.homeData);
-  console.log('thois isi ', HomeData);
 
   const userData = useSelector((state: RootState) => state.data.userData);
   const getCollection = () => {
@@ -46,8 +45,7 @@ const Home: React.FC<Props> = ({navigation}) => {
       type: 'sopify/getCollection',
     });
   };
-  console.log('this is user data...', JSON.stringify(userData));
-  const isFocused = useIsFocused();
+
   useEffect(() => {
     if (collection?.length <= 1) {
       getCollection();
