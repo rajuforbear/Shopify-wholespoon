@@ -4,8 +4,9 @@ import { CompositeNavigationProp } from "@react-navigation/native";
 import { StackScreenProps,StackNavigationProp } from "@react-navigation/stack";
 import { DrawerNavigationProp, } from "@react-navigation/drawer";
 import { DrawerNavigationPramas } from "../navigation/drawer";
-export type RootNavigationParams = CompositeNavigationProp<
+export type RootStackNavigationParams = CompositeNavigationProp<
 StackNavigationProp<NavigationParams>,
 StackNavigationProp<HelperNavigationParams>>
 
-type DrawerProps= DrawerNavigationProp<DrawerNavigationPramas>
+type DrawerProps= DrawerNavigationProp<DrawerNavigationPramas> 
+export type RootNavigationParams=CompositeNavigationProp<RootStackNavigationParams,DrawerProps>

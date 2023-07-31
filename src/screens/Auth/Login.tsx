@@ -16,27 +16,26 @@ import Button from '../../compoents/Button';
 import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../../compoents/Loader';
 import {CompositeScreenProps, useNavigation} from '@react-navigation/native';
-import { RootState } from '../../sopify/Redux/store';
-import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../navigation/Helper/Helper';
-import { NavigationParams } from '../../navigation';
+import {RootState} from '../../sopify/Redux/store';
+import {StackScreenProps} from '@react-navigation/stack';
+import {HelperNavigationParams} from '../../navigation/Helper/Helper';
+import {NavigationParams} from '../../navigation';
 type Props = CompositeScreenProps<
-StackScreenProps<NavigationParams,'Login'>,
+  StackScreenProps<NavigationParams, 'Login'>,
   StackScreenProps<HelperNavigationParams>
 >;
 
-const Login:React.FC<Props> = ({navigation}) => {
-  
+const Login: React.FC<Props> = ({navigation}) => {
   const [input, setInput] = useState({
     email: '',
     password: '',
   });
   const dispatch = useDispatch();
-  const handleOnchange = (input:string, name:string) => {
+  const handleOnchange = (input: string, name: string) => {
     setInput(prev => ({...prev, [name]: input}));
   };
   ///console.log(input.password);
-  const isLoading = useSelector((state:RootState) => state.data.isLoading);
+  const isLoading = useSelector((state: RootState) => state.data.isLoading);
   //const userToken = useSelector(state => state.data.userToken);
   const handleLogin = () => {
     let data = JSON.stringify({
@@ -57,7 +56,6 @@ const Login:React.FC<Props> = ({navigation}) => {
       navigation,
       data: data,
     });
-   
   };
 
   return (
@@ -85,29 +83,28 @@ const Login:React.FC<Props> = ({navigation}) => {
             iconName="mail"
             lable="Email"
             value={input.email}
-            onChangeText={(text) => handleOnchange(text, 'email')}
-            error=''
+            onChangeText={text => handleOnchange(text, 'email')}
+            error=""
             isOtp={false}
             isPhone={false}
             password={false}
-            placeholder=''
-            onFocus={()=>null}
+            placeholder=""
+            onFocus={() => null}
           />
           <Input
-          
             iconName="lock"
             lable="Password"
             value={input.password}
             onChangeText={text => handleOnchange(text, 'password')}
             password
-            error=''
+            error=""
             isOtp={false}
             isPhone={false}
-            onFocus={()=>null}
-            placeholder=''
+            onFocus={() => null}
+            placeholder=""
           />
           <Button name="LOGIN" onPress={() => handleLogin()} />
-         
+
           <View
             style={{
               width: wp(65),
@@ -117,7 +114,7 @@ const Login:React.FC<Props> = ({navigation}) => {
               justifyContent: 'center',
             }}>
             <Text
-              onPress={() => navigation.navigate('Register',{page:'login'})}
+              onPress={() => navigation.navigate('Register', {page: 'login'})}
               style={styles.text}>
               Create Account
             </Text>
@@ -172,7 +169,7 @@ const styles = StyleSheet.create({
     fontSize: hp('2%'),
     fontWeight: '400',
     color: 'grey',
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
 
   line: {
@@ -188,6 +185,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: 'black',
     marginTop: wp(1),
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
 });

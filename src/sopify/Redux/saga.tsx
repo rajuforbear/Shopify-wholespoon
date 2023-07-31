@@ -404,7 +404,7 @@ function* fetchMenu(action: action) {
         type: 'sopify/fetchMenuSuccess',
         payload: res.data.menu,
       });
-      action.navigations.openDrawer();
+      action.navigation.openDrawer();
     } else {
       yield put({
         type: 'sopify/fetchMenuError',

@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Image,
-  View,
-} from 'react-native';
+import {Image, View} from 'react-native';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome5 from 'react-native-vector-icons/Entypo';
@@ -17,27 +14,27 @@ import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RootState} from '../../sopify/Redux/store';
 import {RootNavigationParams} from '../../Types/NavigationProps';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { DrawerNavigationPramas } from '../../navigation/drawer';
-import { Menu } from '../../Types/Menu';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {DrawerNavigationPramas} from '../../navigation/drawer';
+import {Menu} from '../../Types/Menu';
 
 const Header = () => {
   const navigation = useNavigation<RootNavigationParams>();
-  const navigation2 = useNavigation<DrawerNavigationProp<DrawerNavigationPramas>>();
-  const [token,setToken]=useState<string>()
+  const navigation2 =
+    useNavigation<DrawerNavigationProp<DrawerNavigationPramas>>();
+  const [token, setToken] = useState<string>();
   const menu = useSelector((state: RootState) => state.data.menu);
   const dispatch = useDispatch();
-  useEffect(()=>{
-    getToken()
-  },[])
+  useEffect(() => {
+    getToken();
+  }, []);
   const getToken = async () => {
     let token = await AsyncStorage.getItem('Token');
     if (token != null) {
-     setToken(token)
+      setToken(token);
     }
-    
   };
-  
+
   const handleMenu = () => {
     let data = JSON.stringify({
       query: `query{
@@ -65,7 +62,7 @@ const Header = () => {
     dispatch({
       type: 'sopify/fetchMenu',
       data,
-      navigations: navigation,
+      navigation: navigation,
     });
   };
   const handleLogin = async () => {
@@ -93,14 +90,12 @@ const Header = () => {
       <View style={{width: '33.67%'}}>
         <Feather
           onPress={() => {
-            if (menu.id===undefined) {
+            if (menu.id === undefined) {
               handleMenu();
-              console.log('called1')
+              console.log('called1');
             } else {
-              navigation2.openDrawer();   
+              navigation2.openDrawer();
             }
-         
-            
           }}
           name="menu"
           style={{fontSize: wp(9), color: 'black'}}
@@ -124,7 +119,12 @@ const Header = () => {
         />
       </View>
       <View style={[styles.container2, {width: '33.67%', paddingLeft: wp(14)}]}>
-        <AntDesign name="search1" onPress={()=>navigation.navigate('Search',{searchText:''})} size={wp(5.6)} color="black" />
+        <AntDesign
+          name="search1"
+          onPress={() => navigation.navigate('Search', {searchText: ''})}
+          size={wp(5.6)}
+          color="black"
+        />
         <FontAwesome5
           name={token ? 'log-out' : 'login'}
           size={wp(6)}
