@@ -1,11 +1,4 @@
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {
   heightPercentageToDP as hp,
@@ -75,7 +68,6 @@ const Login: React.FC<Props> = ({navigation}) => {
             <View style={styles.line}></View>
           </View>
           <Input
-            iconName="mail"
             lable="Email"
             value={input.email}
             onChangeText={text => handleOnchange(text, 'email')}
@@ -87,7 +79,6 @@ const Login: React.FC<Props> = ({navigation}) => {
             onFocus={() => null}
           />
           <Input
-            iconName="lock"
             lable="Password"
             value={input.password}
             onChangeText={text => handleOnchange(text, 'password')}

@@ -210,7 +210,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
             onChangeText={text => {
               handleOnchange(text, 'firstName');
             }}
-            iconName="user"
             error={errors.firstName}
             onFocus={() => handleError('', 'firstName')}
             isOtp={false}
@@ -225,7 +224,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
             onChangeText={text => {
               handleOnchange(text, 'lastName');
             }}
-            iconName="user"
             onFocus={() => handleError('', 'lastName')}
             error={errors.lastName}
             isOtp={false}
@@ -239,7 +237,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
             onChangeText={text => {
               handleOnchange(text, 'email');
             }}
-            iconName="mail"
             onFocus={() => handleError('', 'email')}
             error={errors.email}
             isOtp={false}
@@ -255,7 +252,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
               handleOnchange(text, 'phone');
             }}
             isPhone
-            iconName="phone"
             error={errors.phone}
             onFocus={() => handleError('', 'phone')}
             isOtp={false}
@@ -270,7 +266,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
                 onChangeText={text => {
                   handleOnchange(text, 'password');
                 }}
-                iconName="lock"
                 password
                 error={errors.password}
                 onFocus={() => handleError('', 'password')}
@@ -284,7 +279,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
                 onChangeText={text => {
                   handleOnchange(text, 'confrimPassword');
                 }}
-                iconName="lock"
                 password
                 value={inputs.confrimPassword}
                 error={errors.confrimPassword}

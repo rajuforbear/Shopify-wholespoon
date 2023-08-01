@@ -7,7 +7,6 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import Eye from 'react-native-vector-icons/MaterialCommunityIcons';
 type Props = {
-  iconName: string;
   lable: string;
   error: string;
   isPhone: boolean;
@@ -19,7 +18,6 @@ type Props = {
   value: string;
 };
 const Input: React.FC<Props> = ({
-  iconName,
   lable,
   error,
   isPhone,

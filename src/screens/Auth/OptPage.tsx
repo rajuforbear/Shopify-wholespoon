@@ -95,7 +95,6 @@ const Opt: React.FC<Props> = ({navigation}) => {
               }}
               value={email}
               error={err}
-              iconName=""
               onFocus={() => null}
               isPhone={false}
               password={false}
