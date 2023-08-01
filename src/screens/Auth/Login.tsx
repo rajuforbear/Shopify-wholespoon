@@ -15,7 +15,7 @@ import Input from '../../compoents/Input';
 import Button from '../../compoents/Button';
 import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../../compoents/Loader';
-import {CompositeScreenProps, useNavigation} from '@react-navigation/native';
+import {CompositeScreenProps} from '@react-navigation/native';
 import {RootState} from '../../sopify/Redux/store';
 import {StackScreenProps} from '@react-navigation/stack';
 import {HelperNavigationParams} from '../../navigation/Helper/Helper';
@@ -34,9 +34,7 @@ const Login: React.FC<Props> = ({navigation}) => {
   const handleOnchange = (input: string, name: string) => {
     setInput(prev => ({...prev, [name]: input}));
   };
-  ///console.log(input.password);
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
-  //const userToken = useSelector(state => state.data.userToken);
   const handleLogin = () => {
     let data = JSON.stringify({
       query: `mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
@@ -74,9 +72,6 @@ const Login: React.FC<Props> = ({navigation}) => {
 
           <View style={styles.infoTextContainer}>
             <Text style={styles.login}>Login</Text>
-            {/* <Text style={styles.info}>
-            Please enter the details below to continue
-          </Text> */}
             <View style={styles.line}></View>
           </View>
           <Input

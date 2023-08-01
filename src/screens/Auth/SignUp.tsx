@@ -85,7 +85,7 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
       navigation,
     });
   };
-  const updateCotumer = async () => {
+  const updateCostumer = async () => {
     const token = await AsyncStorage.getItem('Token');
 
     let data = JSON.stringify({
@@ -151,25 +151,28 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
       handleError('Please Enter 10 Digit Mobile Number', 'phone');
       valid = false;
     }
-    if (!inputs.password) {
-      handleError('Please Enter Password', 'password');
-      valid = page != 'update' ? false : true;
-    } else if (!inputs.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {
-      handleError('Password Must Contain Special Charecters', 'password');
-      valid = page != 'update' ? false : true;
-    }
+    if (page != 'update') {
+      if (!inputs.password) {
+        handleError('Please Enter Password', 'password');
+        valid = false;
+      } else if (
+        !inputs.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
+      ) {
+        handleError('Password Must Contain Special Charecters', 'password');
+        valid = false;
+      }
 
-    if (!inputs.confrimPassword) {
-      handleError('please re-enter your password', 'confrimPassword');
-      valid = page != 'update' ? false : true;
-    } else if (inputs.password != inputs.confrimPassword) {
-      handleError("Password Dosen't Matched", 'confrimPassword');
-      valid = page != 'update' ? false : true;
+      if (!inputs.confrimPassword) {
+        handleError('please re-enter your password', 'confrimPassword');
+        valid = false;
+      } else if (inputs.password != inputs.confrimPassword) {
+        handleError("Password Dosen't Matched", 'confrimPassword');
+        valid = false;
+      }
     }
     if (valid) {
-      page != 'update' ? Register() : updateCotumer();
+      page != 'update' ? Register() : updateCostumer();
     }
-    console.log(valid);
   };
   const handleError = (errorMassege: string, input: string) => {
     setErros(prevState => ({...prevState, [input]: errorMassege}));

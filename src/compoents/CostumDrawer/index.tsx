@@ -327,7 +327,7 @@ const CostumDrawer: React.FC<Props> = () => {
   useEffect(() => {
     fetchPeges();
   }, []);
-      const [text,setText]=useState<string>('');
+  const [text, setText] = useState<string>('');
   return (
     <View style={{height: hp(100), backgroundColor: 'black'}}>
       {isLoading ? <Loading /> : null}
@@ -339,12 +339,14 @@ const CostumDrawer: React.FC<Props> = () => {
         <View style={styles.input}>
           <TextInput
             placeholder="Search our store"
-            style={{fontSize: wp(4),fontStyle:'italic', flex: 1}}
+            style={{fontSize: wp(4), fontStyle: 'italic', flex: 1}}
             placeholderTextColor={'grey'}
             value={text}
-            onChangeText={(input)=>setText(input)}
+            onChangeText={input => setText(input)}
           />
-          <TouchableOpacity onPress={()=>navigation.navigate('Search',{searchText:text})} style={styles.searchIocnCOntianer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Search', {searchText: text})}
+            style={styles.searchIocnCOntianer}>
             <AntDesign name="search1" size={wp(5)} color="white" />
           </TouchableOpacity>
         </View>
@@ -411,7 +413,11 @@ const CostumDrawer: React.FC<Props> = () => {
                                 }}
                                 style={[
                                   styles.title,
-                                  {fontSize: wp(4), fontWeight: '400',fontStyle:'italic'},
+                                  {
+                                    fontSize: wp(4),
+                                    fontWeight: '400',
+                                    fontStyle: 'italic',
+                                  },
                                 ]}>
                                 {item.title}
                               </Text>
@@ -433,10 +439,10 @@ const CostumDrawer: React.FC<Props> = () => {
 
           <Text
             onPress={() => {
-              if (token === undefined) {
+              if (token !== undefined) {
                 handleProfile();
               } else {
-                navigation.navigate('Profile');
+                navigation.navigate('Register', {page: 'home'});
               }
             }}
             style={[styles.title, {marginTop: wp(4)}]}>
@@ -502,7 +508,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'grey',
     paddingVertical: wp(1),
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   searchIocnCOntianer: {
     alignSelf: 'flex-end',
@@ -517,7 +523,7 @@ const styles = StyleSheet.create({
     fontSize: wp(5),
     textAlign: 'left',
     fontWeight: '500',
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   titleContainer: {
     paddingVertical: wp(2),

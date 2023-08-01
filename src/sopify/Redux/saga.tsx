@@ -169,7 +169,7 @@ function* doRegister(action: action) {
       });
       Toast.show({
         type: 'info',
-        text1: 'somethig went wrong',
+        text1: res.data.customerCreate.customerUserErrors[0].message,
       });
     }
   } catch (err) {

@@ -9,15 +9,15 @@ import Button from '../../compoents/Button';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
 import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../../compoents/Loader';
-import { StackScreenProps } from '@react-navigation/stack';
-import { NavigationParams } from '../../navigation';
-import { RootState } from '../../sopify/Redux/store';
-type Props=StackScreenProps<NavigationParams,'Otp'>
-const Opt:React.FC<Props> = ({navigation}) => {
+import {StackScreenProps} from '@react-navigation/stack';
+import {NavigationParams} from '../../navigation';
+import {RootState} from '../../sopify/Redux/store';
+type Props = StackScreenProps<NavigationParams, 'Otp'>;
+const Opt: React.FC<Props> = ({navigation}) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [err, setError] = useState('');
-  const isLoading = useSelector((state:RootState) => state.data.isLoading);
+  const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const validate = () => {
     let valid = true;
     if (!email) {
@@ -72,9 +72,6 @@ const Opt:React.FC<Props> = ({navigation}) => {
           </View>
           <View style={styles.infoTextContainer}>
             <Text style={styles.login}>Reset Your Passwod</Text>
-            {/* <Text style={styles.info}>
-            Please enter the details below to continue
-          </Text> */}
             <View style={{width: wp(60), alignSelf: 'center'}}>
               <Text
                 style={{
@@ -98,12 +95,11 @@ const Opt:React.FC<Props> = ({navigation}) => {
               }}
               value={email}
               error={err}
-              iconName=''
-              onFocus={()=>null}
+              iconName=""
+              onFocus={() => null}
               isPhone={false}
               password={false}
-              placeholder=''
-
+              placeholder=""
             />
             <Button name="SUBMIT" onPress={() => validate()} />
             <Text

@@ -166,19 +166,15 @@ const Home: React.FC<Props> = ({navigation}) => {
             pagingEnabled
             keyExtractor={(item, index) => item.node.id}
             renderItem={({item}) => {
-              if (item.node.image) {
-                return (
-                  <TouchableOpacity onPress={() => getUserData()}>
-                    <ImageBackground
-                      source={{uri: item.node?.image.url}}
-                      style={styles.photos}>
-                      <View style={styles.con}></View>
-                    </ImageBackground>
-                  </TouchableOpacity>
-                );
-              } else {
-                return null;
-              }
+              return item.node.image ? (
+                <View>
+                  <ImageBackground
+                    source={{uri: item.node?.image.url}}
+                    style={styles.photos}>
+                    <View style={styles.con}></View>
+                  </ImageBackground>
+                </View>
+              ) : null;
             }}
           />
         </View>
@@ -228,49 +224,45 @@ const Home: React.FC<Props> = ({navigation}) => {
               showsHorizontalScrollIndicator={false}
               horizontal
               renderItem={({item}) => {
-                if (item.node.image) {
-                  return (
-                    <TouchableOpacity
-                      onPress={() =>
-                        // navigation.navigate('ProductList', {title: item.title})
-                        {
-                          dispatch({
-                            type: 'sopify/fetchProductById',
-                            prId: item.node.id,
-                            navigation,
-                            title: item.node.title,
-                            length: 10,
-                            page: 'home',
-                          });
-                        }
+                return item.node.image ? (
+                  <TouchableOpacity
+                    onPress={() =>
+                      // navigation.navigate('ProductList', {title: item.title})
+                      {
+                        dispatch({
+                          type: 'sopify/fetchProductById',
+                          prId: item.node.id,
+                          navigation,
+                          title: item.node.title,
+                          length: 10,
+                          page: 'home',
+                        });
                       }
-                      activeOpacity={8}
+                    }
+                    activeOpacity={8}
+                    style={{
+                      height: hp(18),
+                      width: hp(15),
+                      marginHorizontal: wp(1.3),
+                      //borderWidth: 1,
+                    }}>
+                    <Image
+                      style={styles.cardImage}
+                      source={{uri: item?.node.image.url}}
+                    />
+                    <Text
                       style={{
-                        height: hp(18),
-                        width: hp(15),
-                        marginHorizontal: wp(1.3),
-                        //borderWidth: 1,
+                        color: 'black',
+                        fontSize: wp(3.5),
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontStyle: 'italic',
+                        marginTop: wp(1),
                       }}>
-                      <Image
-                        style={styles.cardImage}
-                        source={{uri: item?.node.image.url}}
-                      />
-                      <Text
-                        style={{
-                          color: 'black',
-                          fontSize: wp(3.5),
-                          fontWeight: '700',
-                          textAlign: 'center',
-                          fontStyle: 'italic',
-                          marginTop: wp(1),
-                        }}>
-                        {item.node.title}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                } else {
-                  return null;
-                }
+                      {item.node.title}
+                    </Text>
+                  </TouchableOpacity>
+                ) : null;
               }}
             />
           </View>
