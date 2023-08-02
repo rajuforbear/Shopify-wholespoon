@@ -6,19 +6,16 @@ import {
 } from 'react-native-responsive-screen';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Feather from 'react-native-vector-icons/Feather';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {query} from '../../screens/main/Cart/queries';
 import {useSelector, useDispatch} from 'react-redux';
-import { RootNavigationParams } from '../../Types/NavigationProps';
-import { RootState } from '../../sopify/Redux/store';
+import {RootNavigationParams} from '../../Types/NavigationProps';
+import {RootState} from '../../sopify/Redux/store';
 const BottumTab = () => {
-
-  const navigation=useNavigation<RootNavigationParams>()
+  const navigation = useNavigation<RootNavigationParams>();
   const handleProfile = async () => {
     const token = await AsyncStorage.getItem('Token');
-    
 
     let data = JSON.stringify({
       query: `query{
@@ -208,8 +205,8 @@ const BottumTab = () => {
     }
   };
   const dispatch = useDispatch();
-  const cartItem = useSelector((state:RootState) => state.data.cartItem);
-  const userData = useSelector((state:RootState) => state.data.userData);
+  const cartItem = useSelector((state: RootState) => state.data.cartItem);
+  const userData = useSelector((state: RootState) => state.data.userData);
   console.log('this is the cartItme', cartItem?.lines?.edges?.length);
   useEffect(() => {
     getCartItem();
@@ -241,7 +238,7 @@ const BottumTab = () => {
             fontSize: wp(3.5),
             marginTop: wp(1),
             color: 'black',
-            fontStyle:'italic'
+            fontStyle: 'italic',
           }}>
           Home
         </Text>
@@ -258,7 +255,7 @@ const BottumTab = () => {
             fontSize: wp(3.5),
             marginTop: wp(1),
             color: 'black',
-            fontStyle:'italic'
+            fontStyle: 'italic',
           }}>
           Profile
         </Text>
@@ -276,7 +273,7 @@ const BottumTab = () => {
             fontSize: wp(3.5),
             color: 'black',
             marginTop: wp(1),
-            fontStyle:'italic'
+            fontStyle: 'italic',
           }}>
           Categories
         </Text>
@@ -312,7 +309,7 @@ const BottumTab = () => {
             color: 'black',
             fontSize: wp(3.5),
             marginTop: wp(1),
-            fontStyle:'italic'
+            fontStyle: 'italic',
           }}>
           Cart
         </Text>
@@ -341,9 +338,9 @@ const BottumTab = () => {
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={9}
-          onPress={async() => {
-            let token=await AsyncStorage.getItem('Token')
-            if (token===null) {
+          onPress={async () => {
+            let token = await AsyncStorage.getItem('Token');
+            if (token === null) {
               handleProfile();
             } else {
               navigation.navigate('Profile');

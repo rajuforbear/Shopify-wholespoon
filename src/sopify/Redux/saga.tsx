@@ -524,6 +524,7 @@ function* updateAddress(action: action) {
       variables: {},
     });
     const res: Address = yield call(Shopify.userControll, action.data);
+    console.log(JSON.stringify(res.data));
     if (res.data.customerAddressUpdate.customerAddress != null) {
       yield put({
         type: 'sopify/updateAddressSuccess',
@@ -563,7 +564,8 @@ function* updateAddress(action: action) {
       });
       Toast.show({
         type: 'info',
-        text1: 'Something went wrong',
+        text1: res.data.customerAddressUpdate.customerUserErrors[0].code,
+        text2: res.data.customerAddressUpdate.customerUserErrors[0].message,
       });
     }
   } catch (err) {

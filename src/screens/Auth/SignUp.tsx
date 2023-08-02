@@ -158,12 +158,15 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
       } else if (
         !inputs.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
       ) {
-        handleError('Password Must Contain Special Charecters', 'password');
+        handleError(
+          'Password Must Contain Number ,Spacial Charecters,Upper and Lower case Charecters',
+          'password',
+        );
         valid = false;
       }
 
       if (!inputs.confrimPassword) {
-        handleError('please re-enter your password', 'confrimPassword');
+        handleError('Please re-enter your password', 'confrimPassword');
         valid = false;
       } else if (inputs.password != inputs.confrimPassword) {
         handleError("Password Dosen't Matched", 'confrimPassword');
@@ -333,7 +336,22 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
                 Return to Store
               </Text>
             </View>
-          ) : null}
+          ) : (
+            <View
+              style={{
+                width: wp(65),
+                alignSelf: 'center',
+                marginTop: wp(0),
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                onPress={() => navigation.replace('Home')}
+                style={styles.text}>
+                Return to Store
+              </Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     </View>

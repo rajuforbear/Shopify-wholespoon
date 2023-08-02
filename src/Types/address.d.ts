@@ -10,20 +10,20 @@ export interface Address {
   }
   export interface CustomerDefaultAddressUpdate {
     customer: Customer
-    customerUserErrors: any[]
+    customerUserErrors: CustomerUserError[]
   }
   export interface CustomerAddressUpdate {
     customerAddress: CustomerAddress
-    customerUserErrors: any[]
+    customerUserErrors:CustomerUserError[]
   }
   export interface CustomerAddressDelete {
-    customerUserErrors: any[]
+    customerUserErrors: CustomerUserError[]
     deletedCustomerAddressId: string
   }
   
   export interface CustomerAddressCreate {
     customerAddress: CustomerAddress
-    customerUserErrors: any[]
+    customerUserErrors: CustomerUserError[]
   }
   
   export interface CustomerAddress {
@@ -35,4 +35,8 @@ export interface Address {
     firstName: string
     lastName: string
   }
-  
+  export interface CustomerUserError {
+    code: string
+    field: string[]
+    message: string
+  }

@@ -22,8 +22,8 @@ const Input: React.FC<Props> = ({
   error,
   isPhone,
   isOtp,
-  onFocus = () => {},
-  onChangeText = () => {},
+  onFocus,
+  onChangeText,
   password,
   placeholder,
   value,
@@ -37,14 +37,8 @@ const Input: React.FC<Props> = ({
         height: wp(12.8),
         marginBottom: hp('2%'),
         marginHorizontal: wp('5%'),
-        borderWidth: isOtp ? 1.9 : error ? 1 : 1,
-        borderColor: isOtp
-          ? '#a26a39'
-          : isFocused
-          ? '#a26a39'
-          : error
-          ? 'red'
-          : '#c1c0c2',
+        borderWidth: isOtp ? 1.9 : 1,
+        borderColor: isOtp || isFocused ? '#a26a39' : error ? 'red' : '#c1c0c2',
         borderRadius: wp(1.5),
         justifyContent: 'center',
       }}>
