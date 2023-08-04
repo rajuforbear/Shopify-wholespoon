@@ -12,34 +12,34 @@ type Props = {
 const Button: React.FC<Props> = ({name, onPress = () => {}, ...props}) => {
   return (
     <TouchableOpacity
-      style={{
-        height: hp('6%'),
-        marginVertical: hp('2%'),
-        marginHorizontal: wp('3%'),
-        backgroundColor: 'black',
-        elevation: 5,
-        flexDirection: 'row',
-        borderRadius: hp('.50%'),
-        justifyContent: 'center',
-      }}
+      style={styles.button}
       activeOpacity={0.5}
       {...props}
       onFocus={() => {}}
       onPress={onPress}>
-      <Text
-        style={{
-          fontSize: wp('4.5%'),
-          fontWeight: '600',
-          color: 'white',
-          alignSelf: 'center',
-          fontStyle: 'italic',
-        }}>
-        {name}
-      </Text>
+      <Text style={styles.text}>{name}</Text>
     </TouchableOpacity>
   );
 };
 
 export default Button;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  button: {
+    height: hp('6%'),
+    marginVertical: hp('2%'),
+    marginHorizontal: wp('3%'),
+    backgroundColor: 'black',
+    elevation: 5,
+    flexDirection: 'row',
+    borderRadius: hp('.50%'),
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: wp('4.5%'),
+    fontWeight: '600',
+    color: 'white',
+    alignSelf: 'center',
+    fontStyle: 'italic',
+  },
+});

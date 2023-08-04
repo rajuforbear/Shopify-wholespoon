@@ -4,7 +4,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import Icon from 'react-native-vector-icons/AntDesign';
 import Eye from 'react-native-vector-icons/MaterialCommunityIcons';
 type Props = {
   lable: string;
