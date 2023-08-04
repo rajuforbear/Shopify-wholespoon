@@ -1,5 +1,5 @@
 import React from 'react';
-import {StackNavigationProp, createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import MyDrawer from './drawer';
 import Splash from '../screens/Auth/Splash';
@@ -13,12 +13,12 @@ export type NavigationParams = {
   Home: undefined;
   Login: undefined;
   Register: {
-    page:string
+    page: string;
   };
   Internet: undefined;
   Otp: undefined;
-  Search:{
-    searchText:string
+  Search: {
+    searchText: string;
   };
 };
 
@@ -36,7 +36,7 @@ const RootNavigation: React.FC = () => {
         <Stack.Screen name="Register" component={SignUp} />
         <Stack.Screen name="Internet" component={Internet} />
         <Stack.Screen name="Otp" component={Otp} />
-        <Stack.Screen name='Search' component={Search}/>
+        <Stack.Screen name="Search" component={Search} />
       </Stack.Navigator>
     </NavigationContainer>
   );

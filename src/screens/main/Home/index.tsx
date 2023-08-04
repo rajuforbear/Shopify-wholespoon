@@ -15,14 +15,9 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-
-import {useIsFocused, useNavigation} from '@react-navigation/native';
-
 import {useDispatch, useSelector} from 'react-redux';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {url} from '../../../data/url';
-import YoutubeIframe from 'react-native-youtube-iframe';
 import Loading from '../../../compoents/Loader';
 import {query} from './query';
 import type {HelperNavigationParams} from '../../../navigation/Helper/Helper';
@@ -72,7 +67,6 @@ const Home: React.FC<Props> = ({navigation}) => {
     }`,
       variables: {},
     });
-    //console.log(userToke);
     dispatch({
       type: 'sopify/userDatareq',
       data: data,
@@ -151,9 +145,6 @@ const Home: React.FC<Props> = ({navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       {isLoading ? <Loading /> : null}
-      {/* <ImageBackground
-        style={{flex: 1}}
-        source={require('../../../assests/bgImg.jpg')}> */}
       <ScrollView
         style={{width: '100%'}}
         contentContainerStyle={{paddingBottom: wp(2)}}
@@ -183,10 +174,7 @@ const Home: React.FC<Props> = ({navigation}) => {
           <View style={styles.titleContainer}>
             <Text style={styles.category}>Top Categories</Text>
             <Text
-              onPress={
-                () => navigation.navigate('Categories')
-                // dispatch({type: 'sopify/fetchAllProducts', page: 'home'})
-              }
+              onPress={() => navigation.navigate('Categories')}
               style={[
                 styles.category,
                 {
@@ -226,25 +214,21 @@ const Home: React.FC<Props> = ({navigation}) => {
               renderItem={({item}) => {
                 return item.node.image ? (
                   <TouchableOpacity
-                    onPress={() =>
-                      // navigation.navigate('ProductList', {title: item.title})
-                      {
-                        dispatch({
-                          type: 'sopify/fetchProductById',
-                          prId: item.node.id,
-                          navigation,
-                          title: item.node.title,
-                          length: 10,
-                          page: 'home',
-                        });
-                      }
-                    }
+                    onPress={() => {
+                      dispatch({
+                        type: 'sopify/fetchProductById',
+                        prId: item.node.id,
+                        navigation,
+                        title: item.node.title,
+                        length: 10,
+                        page: 'home',
+                      });
+                    }}
                     activeOpacity={8}
                     style={{
                       height: hp(18),
                       width: hp(15),
                       marginHorizontal: wp(1.3),
-                      //borderWidth: 1,
                     }}>
                     <Image
                       style={styles.cardImage}
@@ -311,11 +295,8 @@ const Home: React.FC<Props> = ({navigation}) => {
             scrollEnabled={false}
             keyExtractor={(item, index) => item.node.id}
             renderItem={({item}) => {
-              // console.log(item);
-
               return (
                 <View style={styles.cardView}>
-                  {/* <AntDesign name="hearto" style={styles.icon} /> */}
                   <TouchableOpacity
                     onPress={() =>
                       fetDetails(item.node.products.edges[0].node.id)
@@ -363,24 +344,15 @@ const Home: React.FC<Props> = ({navigation}) => {
           </Text>
         </View>
 
-        {/* <YoutubeIframe
-          height={hp(30)}
-          //play={playing}
-          videoId={'moTS8-17BSA'}
-          // onChangeState={onStateChange}
-        /> */}
-
         <View style={{marginTop: wp(-10)}}>
           <SliderBox
             images={url}
             resizeMode="contain"
-            //sliderBoxHeight={hp(30)}
             ImageComponentStyle={{height: hp(70), width: wp(100)}}
             dotStyle={{height: 0, width: 0}}
           />
         </View>
       </ScrollView>
-      {/* </ImageBackground> */}
     </View>
   );
 };

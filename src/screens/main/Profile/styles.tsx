@@ -21,7 +21,7 @@ export default StyleSheet.create({
   txt: {
     fontSize: wp(4),
     color: 'grey',
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   container: {
     marginVertical: wp(1),
@@ -32,7 +32,6 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   img: {
-    // borderWidth:1,
     height: hp(10),
     width: hp(10),
     marginRight: wp(15),
@@ -44,7 +43,6 @@ export default StyleSheet.create({
     height: '65%',
     alignSelf: 'center',
     alignItems: 'center',
-    // justifyContent:'center',
     paddingHorizontal: wp(2),
     borderRadius: wp(3),
     borderWidth: wp(0.1),
@@ -83,13 +81,9 @@ export default StyleSheet.create({
   listContainer: {
     borderTopWidth: wp(0.2),
     borderColor: 'grey',
-    //marginTop:wp(3),
     paddingVertical: wp(2),
     backgroundColor: '#f2f5f4',
     paddingHorizontal: wp(2),
-    //alignItems:'center',
-    // justifyContent: 'space-between',
-    //flexDirection: 'row',
   },
   btn: {
     marginVertical: wp(4),
@@ -104,7 +98,6 @@ export default StyleSheet.create({
   },
   HideView: {
     paddingVertical: wp(3),
-    //: 'center',
     width: '58%',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -125,7 +118,7 @@ export default StyleSheet.create({
     marginTop: wp(5),
     fontWeight: 'bold',
     fontSize: wp(5),
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   line: {
     borderWidth: wp(0.5),

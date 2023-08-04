@@ -1,29 +1,22 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import styles from './styles';
 import {Products} from '../../../Types/product';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper/Helper';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import productquery from '../../../data/productquery';
-import { useDispatch } from 'react-redux';
-type Props={
-  Products:Products,
- 
-}
-const List:React.FC<Props> = ({Products}) => {
-  const dispatch=useDispatch()
-  const fetDetails = (id:string) => {
+import {useDispatch} from 'react-redux';
+type Props = {
+  Products: Products;
+};
+const List: React.FC<Props> = ({Products}) => {
+  const dispatch = useDispatch();
+  const fetDetails = (id: string) => {
     const axios = require('axios');
     let data = JSON.stringify({
       query: `query getProductById($id: ID!) {
@@ -32,7 +25,7 @@ const List:React.FC<Props> = ({Products}) => {
     ${productquery}
   }
 }`,
-      variables: {id:id},
+      variables: {id: id},
     });
     dispatch({
       type: 'sopify/ProductDetails',
@@ -40,18 +33,18 @@ const List:React.FC<Props> = ({Products}) => {
       navigation,
     });
   };
-  const navigation:StackNavigationProp<HelperNavigationParams>=useNavigation()
+  const navigation: StackNavigationProp<HelperNavigationParams> =
+    useNavigation();
   return (
     <View style={styles.CardContainer}>
       <FlatList
         scrollEnabled={false}
         data={Products}
         numColumns={2}
-        keyExtractor={(item, index) =>item.id}
+        keyExtractor={(item, index) => item.id}
         renderItem={({item, index}) => {
           return (
             <View style={styles.cardView}>
-              {/* <AntDesign name="hearto" style={styles.icon} /> */}
               <TouchableOpacity
                 onPress={() => fetDetails(item.id)}
                 style={styles.imgcontainer}>

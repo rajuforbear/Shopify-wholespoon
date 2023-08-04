@@ -6,8 +6,6 @@ import {
 export default StyleSheet.create({
   conatainer: {
     flex: 1,
-    //marginTop: wp(5),
-    //#0f3a8d
   },
 
   headerContainer: {
@@ -28,7 +26,7 @@ export default StyleSheet.create({
     fontSize: hp('5%'),
     color: '#0f3a8d',
     alignSelf: 'center',
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   input: {
     height: hp('7.5%'),
@@ -55,16 +53,11 @@ export default StyleSheet.create({
     height: hp('30%'),
     width: wp('100%'),
     alignItems: 'center',
-    //justifyContent: 'center',
-    // backgroundColor: '#e6f0f2',
-
-    //borderWidth:1
   },
   con: {
     alignItems: 'center',
     flexDirection: 'row',
     width: '95%',
-    // borderWidth: 1,
     height: '70%',
     justifyContent: 'space-between',
   },
@@ -74,7 +67,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    // borderWidth:1
   },
   cicle: {
     height: hp('5%'),
@@ -96,14 +88,14 @@ export default StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     alignSelf: 'center',
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   category: {
     fontSize: wp(5),
     fontWeight: 'bold',
     color: 'black',
     marginTop: '2%',
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   categoryContainer: {
     height: hp('16%'),
@@ -130,23 +122,12 @@ export default StyleSheet.create({
   listCard: {
     height: hp(12),
     width: hp(12),
-    //borderWidth:1,
-
     borderRadius: wp(3),
     backgroundColor: 'white',
-
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //     width: 0,
-    //     height: 2,
-    // },
-    // shadowOpacity: 0.15,
-    // shadowRadius: 2.84,
   },
   cardImage: {
     height: hp(15),
     width: hp(15),
-    //borderRadius: wp(3),
     resizeMode: 'cover',
     alignItems: 'center',
     justifyContent: 'center',
@@ -154,14 +135,12 @@ export default StyleSheet.create({
   text: {
     alignSelf: 'center',
     color: 'black',
-    // marginTop:'2%',
     fontSize: wp(3),
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   ViewContainer: {
     height: '85%',
     width: '58%',
-    //  borderWidth:1,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -171,7 +150,6 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   img2: {
-    //borderWidth:1,
     height: '100%',
     width: '55%',
     alignSelf: 'center',
@@ -179,7 +157,6 @@ export default StyleSheet.create({
     marginLeft: '-7%',
   },
   btn: {
-    // borderWidth:1,
     height: '15%',
     width: '28%',
     marginLeft: '-45%',
@@ -194,15 +171,11 @@ export default StyleSheet.create({
     marginVertical: wp(1),
     width: wp(46),
     marginHorizontal: wp(1),
-    //borderRadius: wp(2),
-    // shadowColor: 'black',
-    // shadowOpacity: 0.05,
   },
   imgcontainer: {
     height: wp(40),
     width: '100%',
     alignSelf: 'center',
-    // marginTop: wp(3),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#e6f0f2',

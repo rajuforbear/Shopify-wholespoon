@@ -21,7 +21,7 @@ export default StyleSheet.create({
     fontSize: wp(5),
     color: 'black',
     fontWeight: '700',
-    fontStyle:"italic"
+    fontStyle: 'italic',
   },
   cardView: {
     height: hp(28),
@@ -34,7 +34,6 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // marginTop: wp(1),
   },
   imgcontainer: {
     height: wp(40),
@@ -54,7 +53,7 @@ export default StyleSheet.create({
     fontSize: wp(4),
     fontWeight: '500',
     color: 'black',
-    fontStyle:"italic"
+    fontStyle: 'italic',
   },
   btn: {
     borderRadius: wp(1),
@@ -72,7 +71,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '89%',
-    //justifyContent:'space-between',
     marginTop: wp(1),
     alignSelf: 'center',
   },
@@ -81,20 +79,20 @@ export default StyleSheet.create({
     alignSelf: 'center',
     fontWeight: '500',
     color: 'black',
-    fontStyle:"italic"
+    fontStyle: 'italic',
   },
   icon: {
     fontSize: wp(5),
     position: 'absolute',
     right: wp(3),
     top: wp(2),
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   title: {
     marginTop: wp(1),
     alignSelf: 'center',
     fontWeight: 'bold',
     color: 'black',
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
 });

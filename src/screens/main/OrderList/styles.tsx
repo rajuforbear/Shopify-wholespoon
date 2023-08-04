@@ -15,11 +15,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: wp(3),
-    // shadowColor: 'black',
-    // shadowOffset: {width: -2, height: 4},
-    // shadowOpacity: 1,
-    // shadowRadius: 3,
-    // elevation: 2,
   },
   txt: {
     fontSize: wp(4),

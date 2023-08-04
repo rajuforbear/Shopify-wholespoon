@@ -68,11 +68,8 @@ const Profile: React.FC<Props> = ({navigation}) => {
                   <Text
                     style={{
                       fontSize: wp(5),
-
-                      //  marginTop: wp(4),
                       fontStyle: 'italic',
                       fontWeight: '600',
-                      
                     }}>
                     Oder History
                   </Text>
@@ -94,8 +91,6 @@ const Profile: React.FC<Props> = ({navigation}) => {
                   <Text
                     style={{
                       fontSize: wp(5),
-
-                      //  marginTop: wp(4),
                       fontStyle: 'italic',
                       fontWeight: '600',
                     }}>
@@ -123,13 +118,13 @@ const Profile: React.FC<Props> = ({navigation}) => {
               justifyContent: 'center',
             }}>
             <TouchableOpacity
-            onPress={()=>navigation.navigate('Login')}
+              onPress={() => navigation.navigate('Login')}
               style={{
                 height: hp(5),
                 width: wp(40),
                 backgroundColor: 'black',
                 justifyContent: 'center',
-                borderRadius:wp(1.5)
+                borderRadius: wp(1.5),
               }}>
               <Text
                 style={{
@@ -137,7 +132,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
                   alignSelf: 'center',
                   fontSize: wp(4.5),
                   fontWeight: '600',
-                  fontStyle:'italic'
+                  fontStyle: 'italic',
                 }}>
                 Login
               </Text>

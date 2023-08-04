@@ -1,15 +1,14 @@
-import {View, Text, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import React, {useEffect} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import netinfo from '@react-native-community/netinfo';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { StackScreenProps } from '@react-navigation/stack';
-import { NavigationParams } from '../../navigation';
-type Props=StackScreenProps<NavigationParams,'Splash'>
-const Splash:React.FC<Props> = ({navigation}) => {
+import {StackScreenProps} from '@react-navigation/stack';
+import {NavigationParams} from '../../navigation';
+type Props = StackScreenProps<NavigationParams, 'Splash'>;
+const Splash: React.FC<Props> = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
       goTo();

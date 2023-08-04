@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import {
   heightPercentageToDP as hp,

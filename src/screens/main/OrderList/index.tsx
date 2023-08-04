@@ -7,13 +7,13 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {FlatList} from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../sopify/Redux/store';
-import { StackScreenProps } from '@react-navigation/stack';
-import { HelperNavigationParams } from '../../../navigation/Helper/Helper';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../sopify/Redux/store';
+import {StackScreenProps} from '@react-navigation/stack';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 type Props = StackScreenProps<HelperNavigationParams, 'OrderList'>;
-const OrderList:React.FC<Props> = ({navigation}) => {
-const products=  useSelector((state:RootState)=>state.data.products)
+const OrderList: React.FC<Props> = ({navigation}) => {
+  const products = useSelector((state: RootState) => state.data.products);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -34,11 +34,11 @@ const products=  useSelector((state:RootState)=>state.data.products)
       </View>
       <FlatList
         data={products}
-        keyExtractor={(item, index) => item.id}
-        renderItem={({item, index}) => {
+        keyExtractor={item => item.id}
+        renderItem={({item}) => {
           return (
             <View style={styles.listCard}>
-              <Image style={styles.img} source={{uri:item.images[0].src}} />
+              <Image style={styles.img} source={{uri: item.images[0].src}} />
               <View style={{height: hp(12), marginLeft: wp(10)}}>
                 <Text style={{fontWeight: '500', fontSize: wp(4)}}>
                   {item.title}

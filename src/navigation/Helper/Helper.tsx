@@ -13,9 +13,7 @@ import OrderDetails from '../../screens/main/OrderDetails';
 import AddressBook from '../../screens/main/AdressBook';
 import About from '../../screens/main/About';
 import Address from '../../screens/main/Checkout/Address';
-import { product } from '../../Types/product';
-import { CustomerAddress } from '../../Types/address';
-import { Node } from '../../Types/user';
+import {Node} from '../../Types/user';
 export type HelperNavigationParams = {
   HomeScreen: undefined;
   Cart: undefined;
@@ -26,14 +24,14 @@ export type HelperNavigationParams = {
     title: string;
   };
   OrderList: undefined;
-  Checkout:undefined;
+  Checkout: undefined;
   Payment: undefined;
   OrderDetails: undefined;
   AddressBook: undefined;
   About: undefined;
   Address: {
-    data:Node
- };
+    data: Node;
+  };
 };
 const Stack = createStackNavigator<HelperNavigationParams>();
 const HelperStack = () => {

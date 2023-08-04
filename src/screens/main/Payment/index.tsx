@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  YellowBox,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles';
 import {
