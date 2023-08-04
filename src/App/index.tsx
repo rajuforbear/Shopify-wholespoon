@@ -6,6 +6,7 @@ import RootNavigation from '../navigation';
 import Toast from 'react-native-toast-message';
 import netInfo from '@react-native-community/netinfo';
 
+
 const App: React.FC = () => {
   LogBox.ignoreAllLogs();
 

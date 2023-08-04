@@ -5,13 +5,11 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/AntDesign';
-type Props={
-  name:string,
-  onPress:()=>void
-}
-const Button:React.FC<Props> = ({name, onPress=()=>{}, ...props}) => {
-  const [isFocused, setIsfocused] = useState(true);
-  //console.log(isFocused);
+type Props = {
+  name: string;
+  onPress: () => void;
+};
+const Button: React.FC<Props> = ({name, onPress = () => {}, ...props}) => {
   return (
     <TouchableOpacity
       style={{
@@ -26,10 +24,7 @@ const Button:React.FC<Props> = ({name, onPress=()=>{}, ...props}) => {
       }}
       activeOpacity={0.5}
       {...props}
-      onFocus={() => {
-        setIsfocused(true);
-      }}
-      onBlur={() => setIsfocused(false)}
+      onFocus={() => {}}
       onPress={onPress}>
       <Text
         style={{
