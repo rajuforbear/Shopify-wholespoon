@@ -13,8 +13,9 @@ import productquery from '../../../data/productquery';
 import {useDispatch} from 'react-redux';
 type Props = {
   Products: Products;
+  onEndReached: () => void;
 };
-const List: React.FC<Props> = ({Products}) => {
+const List: React.FC<Props> = ({Products, onEndReached = () => {}}) => {
   const dispatch = useDispatch();
   const fetDetails = (id: string) => {
     const axios = require('axios');
@@ -38,8 +39,9 @@ const List: React.FC<Props> = ({Products}) => {
   return (
     <View style={styles.CardContainer}>
       <FlatList
-        scrollEnabled={false}
+        scrollEnabled={true}
         data={Products}
+        onEndReached={() => onEndReached()}
         numColumns={2}
         keyExtractor={(item, index) => item.id}
         renderItem={({item, index}) => {

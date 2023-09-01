@@ -52,7 +52,7 @@ export default StyleSheet.create({
   },
   ratting: {
     width: wp(30),
-    marginLeft: wp(8),
+    marginLeft: wp(-8),
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',

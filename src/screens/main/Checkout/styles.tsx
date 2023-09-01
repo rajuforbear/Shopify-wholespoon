@@ -21,13 +21,13 @@ export default StyleSheet.create({
     fontSize: wp(5),
     color: 'black',
     fontWeight: '700',
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   contact: {
     height: hp(5),
     width: '100%',
     backgroundColor: '#F6F6F6', //'#f2f5f4',
-    
+    flexDirection: 'row',
   },
   cont: {
     position: 'absolute',
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     left: wp(3),
     fontWeight: '700',
     color: 'black',
-    fontStyle:"italic"
+    fontStyle: 'italic',
   },
   inputfield: {
     height: hp(6.2),
@@ -46,7 +46,7 @@ export default StyleSheet.create({
     borderRadius: wp(1),
     borderColor: 'grey',
     paddingHorizontal: wp(3),
-    marginBottom:wp(3)
+    marginBottom: wp(3),
   },
   inputfield2: {
     height: hp(6.2),
@@ -116,7 +116,7 @@ export default StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: wp(4),
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   listImage: {
     height: wp(16),
@@ -124,24 +124,22 @@ export default StyleSheet.create({
     borderRadius: wp(2),
     overflow: 'hidden',
   },
-  input2:{
+  input2: {
     height: hp(5.5),
     borderRadius: wp(2),
     borderWidth: wp(0.1),
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal:wp(2),
-    width:wp(30)
-    
+    marginHorizontal: wp(2),
+    width: wp(30),
   },
-  input3:{
+  input3: {
     height: hp(5.5),
     borderRadius: wp(2),
     borderWidth: wp(0.1),
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal:wp(2),
-    width:wp(45)
-    
-  }
+    marginHorizontal: wp(2),
+    width: wp(45),
+  },
 });

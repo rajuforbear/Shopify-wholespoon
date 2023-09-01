@@ -192,7 +192,6 @@ const Cart: React.FC<Props> = ({navigation}) => {
               console.log('ended');
             }}
             renderItem={({item, index}) => {
-              console.log('this is itemmmmm', item);
               return (
                 <View style={styles.listContainer}>
                   <View style={styles.imgContainer}>

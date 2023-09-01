@@ -7,7 +7,7 @@ import Details from '../../screens/main/Details';
 import Categories from '../../screens/main/Categories';
 import ProductList from '../../screens/main/ProductList';
 import OrderList from '../../screens/main/OrderList';
-import Checkout from '../../screens/main/Checkout';
+
 import Payment from '../../screens/main/Payment';
 import OrderDetails from '../../screens/main/OrderDetails';
 import AddressBook from '../../screens/main/AdressBook';
@@ -24,7 +24,7 @@ export type HelperNavigationParams = {
     title: string;
   };
   OrderList: undefined;
-  Checkout: undefined;
+
   Payment: undefined;
   OrderDetails: undefined;
   AddressBook: undefined;
@@ -46,7 +46,7 @@ const HelperStack = () => {
       <Stack.Screen name="Categories" component={Categories} />
       <Stack.Screen name="ProductList" component={ProductList} />
       <Stack.Screen name="OrderList" component={OrderList} />
-      <Stack.Screen name="Checkout" component={Checkout} />
+
       <Stack.Screen name="Payment" component={Payment} />
       <Stack.Screen name="OrderDetails" component={OrderDetails} />
       <Stack.Screen name="AddressBook" component={AddressBook} />

@@ -29,6 +29,7 @@ import {CompositeScreenProps} from '@react-navigation/native';
 import {NavigationParams} from '../../../navigation';
 import productquery from '../../../data/productquery';
 import RenderHTML from 'react-native-render-html';
+import {Rating, AirbnbRating} from 'react-native-ratings';
 type Props = CompositeScreenProps<
   StackScreenProps<HelperNavigationParams, 'Details'>,
   StackScreenProps<NavigationParams, 'Login'>

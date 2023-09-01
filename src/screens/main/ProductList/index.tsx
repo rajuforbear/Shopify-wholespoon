@@ -46,13 +46,8 @@ const ProductList: React.FC<Props> = props => {
   return (
     <View style={styles.container}>
       {isFetching ? <Loading /> : null}
-      <ScrollView
-        onTouchEnd={() => {
-          handleOnReachEnd();
-        }}
-        contentContainerStyle={{paddingBottom: wp(8)}}>
-        <List Products={Products} />
-      </ScrollView>
+
+      <List onEndReached={() => handleOnReachEnd()} Products={Products} />
     </View>
   );
 };

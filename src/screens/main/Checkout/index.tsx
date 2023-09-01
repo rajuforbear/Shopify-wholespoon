@@ -22,10 +22,12 @@ import SelectDropdown from 'react-native-select-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../../compoents/Loader';
 import {StackScreenProps} from '@react-navigation/stack';
-import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import {RootState} from '../../../sopify/Redux/store';
+import {TabRouter} from '@react-navigation/native';
+import {NavigationParams} from '../../../navigation';
+import RazorpayCheckout from 'react-native-razorpay';
 
-type Props = StackScreenProps<HelperNavigationParams>;
+type Props = StackScreenProps<NavigationParams>;
 
 const Checkout: React.FC<Props> = ({navigation}) => {
   const iseSevedAddres = useSelector(
@@ -36,65 +38,28 @@ const Checkout: React.FC<Props> = ({navigation}) => {
   );
   const dispatch = useDispatch();
   const [isEdited, setIsEdited] = useState(false);
+  const [tokenn, setToken] = useState<boolean>(false);
   const checkout = useSelector((state: RootState) => state.data.checkoutData);
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
   console.log(isLoading);
   const useData = useSelector((state: RootState) => state.data.userData);
   const [address, setAddress] = useState({
-    firstName: useData?.defaultAddress?.firstName
-      ? useData?.defaultAddress?.firstName
-      : updateCheckout?.shippingAddress?.firstName
-      ? updateCheckout?.shippingAddress?.firstName
-      : '',
-    lastName: useData?.defaultAddress?.lastName
-      ? useData?.defaultAddress?.lastName
-      : updateCheckout?.shippingAddress?.lastName
-      ? updateCheckout?.shippingAddress?.lastName
-      : '',
-    company: useData?.defaultAddress?.company
-      ? useData?.defaultAddress?.company
-      : updateCheckout?.shippingAddress?.company
-      ? updateCheckout?.shippingAddress?.company
-      : '',
-    address1: useData?.defaultAddress?.address1
-      ? useData?.defaultAddress?.address1
-      : updateCheckout?.shippingAddress?.address1
-      ? updateCheckout?.shippingAddress?.address1
-      : '',
-    address2: useData?.defaultAddress?.address2
-      ? useData?.defaultAddress?.address2
-      : updateCheckout?.shippingAddress?.address2
-      ? updateCheckout?.shippingAddress?.address2
-      : '',
-    city: useData?.defaultAddress?.city
-      ? useData?.defaultAddress?.city
-      : updateCheckout?.shippingAddress?.city
-      ? updateCheckout?.shippingAddress?.city
-      : '',
-    country: useData?.defaultAddress?.country
-      ? useData?.defaultAddress?.country
-      : updateCheckout?.shippingAddress?.country
-      ? updateCheckout?.shippingAddress?.country
-      : '',
-    province: useData?.defaultAddress?.province
-      ? useData?.defaultAddress?.province
-      : updateCheckout?.shippingAddress?.province
-      ? updateCheckout?.shippingAddress?.province
-      : '',
-    phone: useData?.defaultAddress?.phone
-      ? useData?.defaultAddress?.phone.slice(3, 13)
-      : updateCheckout?.shippingAddress?.phone
-      ? updateCheckout?.shippingAddress?.phone.slice(3, 13)
-      : '',
-    zip: useData?.defaultAddress?.zip
-      ? useData?.defaultAddress?.zip
-      : updateCheckout?.shippingAddress?.zip
-      ? updateCheckout?.shippingAddress?.zip
-      : '',
+    firstName: '',
+    lastName: '',
+    address1: '',
+    address2: '',
+    city: '',
+    company: '',
+    country: '',
+    phone: '',
+    province: '',
+    zip: '',
   });
+  console.log(updateCheckout.id);
   const [email, setEmail] = useState<string>(
     useData?.email ? useData.email : updateCheckout.email,
   );
+  const [booladdress, setIsBoolAddress] = useState<boolean>(false);
   const updateCheckoutEmail = () => {
     let data = JSON.stringify({
       query: `mutation checkoutEmailUpdateV2($checkoutId: ID!, $email: String!) {
@@ -117,34 +82,110 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       data: data,
     });
   };
-  const [token, setToken] = useState<string>();
-  const getToken = async () => {
-    let tok = await AsyncStorage.getItem('Token');
-    if (tok) {
-      setToken(tok);
-    }
-  };
+
   useEffect(() => {
     getAddress();
-    getToken();
-  }, []);
+  }, [useData]);
 
   const getAddress = async () => {
-    if (
-      iseSevedAddres?.length > 0 ||
-      updateCheckout.shippingAddress != undefined ||
-      updateCheckout.shippingAddress != null
-    ) {
-      setSHow(true);
-    }
-
-    return false;
+    setAddress(prev => ({
+      firstName: useData?.defaultAddress?.firstName
+        ? useData?.defaultAddress?.firstName
+        : updateCheckout?.shippingAddress?.firstName
+        ? updateCheckout?.shippingAddress?.firstName
+        : '',
+      lastName: useData?.defaultAddress?.lastName
+        ? useData?.defaultAddress?.lastName
+        : updateCheckout?.shippingAddress?.lastName
+        ? updateCheckout?.shippingAddress?.lastName
+        : '',
+      company: useData?.defaultAddress?.company
+        ? useData?.defaultAddress?.company
+        : updateCheckout?.shippingAddress?.company
+        ? updateCheckout?.shippingAddress?.company
+        : '',
+      address1: useData?.defaultAddress?.address1
+        ? useData?.defaultAddress?.address1
+        : updateCheckout?.shippingAddress?.address1
+        ? updateCheckout?.shippingAddress?.address1
+        : '',
+      address2: useData?.defaultAddress?.address2
+        ? useData?.defaultAddress?.address2
+        : updateCheckout?.shippingAddress?.address2
+        ? updateCheckout?.shippingAddress?.address2
+        : '',
+      city: useData?.defaultAddress?.city
+        ? useData?.defaultAddress?.city
+        : updateCheckout?.shippingAddress?.city
+        ? updateCheckout?.shippingAddress?.city
+        : '',
+      country: useData?.defaultAddress?.country
+        ? useData?.defaultAddress?.country
+        : updateCheckout?.shippingAddress?.country
+        ? updateCheckout?.shippingAddress?.country
+        : '',
+      province: useData?.defaultAddress?.province
+        ? useData?.defaultAddress?.province
+        : updateCheckout?.shippingAddress?.province
+        ? updateCheckout?.shippingAddress?.province
+        : '',
+      phone: useData?.defaultAddress?.phone
+        ? useData?.defaultAddress?.phone.slice(3, 13)
+        : updateCheckout?.shippingAddress?.phone
+        ? updateCheckout?.shippingAddress?.phone.slice(3, 13)
+        : '',
+      zip: useData?.defaultAddress?.zip
+        ? useData?.defaultAddress?.zip
+        : updateCheckout?.shippingAddress?.zip
+        ? updateCheckout?.shippingAddress?.zip
+        : '',
+    }));
   };
   const handleonSubmit = (param: string, input: string) => {
     setAddress(prev => ({...prev, [param]: input}));
   };
   const [show, setSHow] = useState(false);
+  useEffect(() => {
+    adressses();
+  }, [useData]);
 
+  const adressses = async () => {
+    const token = await AsyncStorage.getItem('Token');
+
+    if (token === null) {
+      if (
+        updateCheckout.shippingAddress === null ||
+        updateCheckout.shippingAddress === undefined
+      ) {
+        setSHow(false);
+        setEmail('');
+        setIsBoolAddress(false);
+        setAddress(prev => ({
+          ...prev,
+          firstName: '',
+          lastName: '',
+          address1: '',
+          address2: '',
+          city: '',
+          company: '',
+          country: '',
+          phone: '',
+          province: '',
+          zip: '',
+        }));
+      } else {
+        setIsBoolAddress(true);
+        setSHow(true);
+        setEmail(updateCheckout.email);
+      }
+    } else if (iseSevedAddres?.length > 0) {
+      setIsBoolAddress(true);
+      setSHow(true);
+      setEmail(useData.email);
+    } else {
+      setToken(true);
+    }
+  };
   const itemprice = (price: string) => {
     // console.log(checkout?.lineItems?.edges[0].node?.variant?.price?.amount);
     let amount = 0;
@@ -262,6 +303,8 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       valid = false;
     }
     if (valid) {
+      console.log('caalde');
+
       if (!address.country) {
         Alert.alert('Please select country');
         valid = false;
@@ -271,10 +314,12 @@ const Checkout: React.FC<Props> = ({navigation}) => {
           if (iseSevedAddres?.length <= 0) {
             setSHow(true);
             createAddress();
+            setIsBoolAddress(true);
           } else if (isEdited) {
             editAddress();
             setSHow(true);
             setIsEdited(false);
+            setIsBoolAddress(true);
           } else {
             dispatch({
               type: 'sopify/updateCheckout',
@@ -291,6 +336,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
 
           setIsEdited(false);
           setSHow(true);
+          setIsBoolAddress(true);
         }
       }
     }
@@ -333,7 +379,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
     <View style={styles.container}>
       {isLoading ? <Loading /> : undefined}
 
-      <ScrollView contentContainerStyle={{paddingBottom: wp(20)}}>
+      <ScrollView>
         <View
           style={[
             styles.contact,
@@ -343,7 +389,8 @@ const Checkout: React.FC<Props> = ({navigation}) => {
               flexDirection: 'row',
               paddingHorizontal: wp(4),
               backgroundColor: '#F6F6F6',
-              height: hp(7),
+              height: hp(10),
+              marginTop: wp(4),
             },
           ]}>
           <Text
@@ -376,7 +423,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
         </View>
 
         {show ? (
-          <View style={{paddingVertical: wp(2), backgroundColor: '#FAFAFA'}}>
+          <View style={{paddingBottom: wp(3), backgroundColor: '#FAFAFA'}}>
             <FlatList
               scrollEnabled={false}
               data={checkout?.lineItems?.edges}
@@ -525,17 +572,59 @@ const Checkout: React.FC<Props> = ({navigation}) => {
             </View>
           </View>
         ) : null}
-        {iseSevedAddres?.length <= 0 ||
-        updateCheckout?.shippingAddress === undefined ||
-        isEdited ? (
+        {!booladdress || isEdited ? (
           <View>
-            <View style={[styles.contact, {marginTop: wp(4)}]}>
-              <Text style={styles.cont}>Contact</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingHorizontal: wp(3),
+              }}>
+              <Text
+                style={{
+                  fontWeight: '700',
+                  color: 'black',
+                  fontStyle: 'italic',
+                  fontSize: wp(5),
+                  marginTop: wp(4),
+                }}>
+                Contact
+              </Text>
+              {tokenn ? (
+                <Text
+                  style={{
+                    fontSize: wp(3.5),
+                    fontWeight: '500',
+                    marginRight: wp(2),
+                    fontStyle: 'italic',
+                  }}>
+                  Have and acoount {'  '}
+                  <TouchableOpacity
+                    style={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      alignSelf: 'center',
+                    }}
+                    onPress={() => {
+                      navigation.replace('Login', {page: 'check'});
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: wp(4),
+                        fontWeight: '600',
+                        color: '#A36B25',
+                        fontStyle: 'italic',
+                      }}>
+                      Login?
+                    </Text>
+                  </TouchableOpacity>
+                </Text>
+              ) : null}
             </View>
             <View
               style={{
                 flexDirection: 'row',
-                marginVertical: wp(3),
+                marginBottom: wp(3),
                 width: '100%',
                 justifyContent: 'space-evenly',
               }}>
@@ -705,6 +794,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 borderTopRightRadius: wp(1),
                 borderTopLeftRadius: wp(1),
                 //borderRadius: wp(1),
+                marginTop: wp(10),
               }}>
               <Text
                 style={{
@@ -857,10 +947,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
               fontSize: wp(3.5),
               fontStyle: 'italic',
             }}>
-            {iseSevedAddres?.length <= 0 ||
-            isEdited ||
-            updateCheckout.shippingAddress === null ||
-            updateCheckout.shippingAddress === undefined
+            {isEdited || !booladdress
               ? 'Continue Shipping'
               : 'Continue for Payment'}
           </Text>

@@ -38,31 +38,39 @@ const Profile: React.FC<Props> = ({navigation}) => {
       <ScrollView>
         {Token ? (
           <View>
-            <Text style={[styles.title, {marginLeft: wp(14)}]}>
-              {userData?.firstName + ' ' + userData?.lastName}
-              {'        '}
-              <Pencil
-                onPress={() => {
-                  navigation.navigate('Register', {page: 'update'});
-                }}
-                name="edit"
-                size={wp(4)}
-              />{' '}
-            </Text>
-            <Text style={{alignSelf: 'center', color: '#A36B25'}}>
-              {userData?.email}
-            </Text>
-            <View style={styles.line}></View>
+            <View style={styles.head}>
+              <Text style={[styles.title, {marginLeft: wp(14)}]}>
+                {userData?.firstName + ' ' + userData?.lastName}
+                {'        '}
+                <Pencil
+                  onPress={() => {
+                    navigation.navigate('Register', {page: 'update'});
+                  }}
+                  name="edit"
+                  size={wp(4)}
+                />{' '}
+              </Text>
+              <Text style={{alignSelf: 'center', color: 'white'}}>
+                {userData?.email}
+              </Text>
+              <View style={styles.line}></View>
+            </View>
             <View style={{flex: 1, marginTop: wp(3)}}>
               <TouchableOpacity
                 style={{
                   flexDirection: 'row',
                   paddingVertical: wp(3),
                   width: '100%',
-                  borderWidth: wp(0.1),
+                  backgroundColor: 'white',
+                  shadowOffset: {height: wp(0.1), width: 0},
+                  shadowColor: 'black',
+                  // shadowRadius: wp(3),
+                  shadowOpacity: 0.5,
+                  //  borderWidth: wp(0.1),
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   paddingHorizontal: wp(8),
+                  elevation: 4,
                 }}>
                 <View>
                   <Text
@@ -86,6 +94,20 @@ const Profile: React.FC<Props> = ({navigation}) => {
                   userData?.addresses?.nodes?.length > 0
                     ? {paddingVertical: wp(4.8)}
                     : null,
+                  {
+                    flexDirection: 'row',
+                    width: '100%',
+                    backgroundColor: 'white',
+                    shadowOffset: {height: wp(0.1), width: 0},
+                    shadowColor: 'black',
+                    // shadowRadius: wp(3),
+                    shadowOpacity: 0.5,
+
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingHorizontal: wp(8),
+                    elevation: 4,
+                  },
                 ]}>
                 <View>
                   <Text
@@ -118,7 +140,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
               justifyContent: 'center',
             }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Login')}
+              onPress={() => navigation.navigate('Login', {page: ''})}
               style={{
                 height: hp(5),
                 width: wp(40),

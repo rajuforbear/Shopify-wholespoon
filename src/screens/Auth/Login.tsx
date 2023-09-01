@@ -18,7 +18,8 @@ type Props = CompositeScreenProps<
   StackScreenProps<HelperNavigationParams>
 >;
 
-const Login: React.FC<Props> = ({navigation}) => {
+const Login: React.FC<Props> = ({navigation, route}) => {
+  const page = route.params?.page;
   const [input, setInput] = useState({
     email: '',
     password: '',
@@ -46,6 +47,7 @@ const Login: React.FC<Props> = ({navigation}) => {
       type: 'sopify/login',
       navigation,
       data: data,
+      page: page,
     });
   };
 

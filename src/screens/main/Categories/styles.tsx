@@ -5,14 +5,14 @@ import {
 } from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
-  header: {
-    height: hp(6),
-    backgroundColor: '#e6f0f2',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: wp(5),
-    flexDirection: 'row',
-  },
+  // header: {
+  //   height: hp(6),
+  //   backgroundColor: '#e6f0f2',
+  //   alignItems: 'center',
+  //   justifyContent: 'space-between',
+  //   paddingHorizontal: wp(5),
+  //   flexDirection: 'row',
+  // },
   back: {
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -69,23 +69,27 @@ const Header = () => {
     let token = await AsyncStorage.getItem('Token');
     if (token != null) {
       dispatch({type: 'sopify/userLogout'});
-      await AsyncStorage.clear();
+      await AsyncStorage.setItem('Token', '');
       navigation.replace('Home');
     } else {
-      navigation.replace('Login');
+      navigation.replace('Login', {page: ''});
     }
   };
   return (
     <View
       style={{
         width: '100%',
-        backgroundColor: '#e6f0f2',
+        backgroundColor: '#ededed',
 
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: '4%',
         paddingBottom: wp(1),
+        shadowColor: 'black',
+        shadowOffset: {height: 3, width: 0},
+        shadowOpacity: wp(2),
+        elevation: 5,
       }}>
       <View style={{width: '33.67%'}}>
         <Feather

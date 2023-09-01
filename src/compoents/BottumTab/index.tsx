@@ -201,13 +201,13 @@ const BottumTab = () => {
         navigation,
       });
     } else {
-      navigation.navigate('Profile');
+      navigation.navigate('Login', {page: ''});
     }
   };
   const dispatch = useDispatch();
   const cartItem = useSelector((state: RootState) => state.data.cartItem);
   const userData = useSelector((state: RootState) => state.data.userData);
-  console.log('this is the cartItme', cartItem?.lines?.edges?.length);
+
   useEffect(() => {
     getCartItem();
   }, []);
@@ -357,22 +357,23 @@ export default BottumTab;
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '#e6f0f2',
+    backgroundColor: '#ededed',
     height: hp(8),
     position: 'absolute',
     width: '100%',
     //borderWidth:1,
-    elevation: 3,
+
     shadowColor: 'black',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.15,
-    shadowRadius: 2.84,
+    shadowOpacity: wp(1),
+    shadowRadius: 0,
     alignItems: 'center',
     justifyContent: 'center',
     bottom: 0,
+    elevation: 5,
   },
   itemConatiner: {
     alignItems: 'center',

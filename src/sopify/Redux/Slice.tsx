@@ -324,6 +324,15 @@ export const MySlice = createSlice({
     fetchHomeFail: state => {
       state.isLoading = false;
     },
+    updateCheckoutEMail: state => {
+      state.isLoading = true;
+    },
+    updateCheckoutEMailSuccess: state => {
+      state.isLoading = false;
+    },
+    updateCheckoutEMailError: state => {
+      state.isLoading = false;
+    },
   },
 });
 export const {getCollection, getCollectionSuccess, getCollectionFail} =

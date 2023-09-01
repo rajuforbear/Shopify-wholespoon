@@ -8,15 +8,9 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    paddingBottom: wp(16),
   },
-  header: {
-    height: hp(7),
-    backgroundColor: '#e6f0f2',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: wp(3),
-  },
+
   txt: {
     fontSize: wp(5),
     color: 'black',

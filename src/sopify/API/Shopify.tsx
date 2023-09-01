@@ -4,8 +4,6 @@ import {client} from './client';
 import axios from 'axios';
 
 class Shopify {
-  storefrontAccessToken = 'd099c1a3a200a215e22a93f50d551938';
-
   static getCollection = async () => {
     try {
       const cls = client.collection

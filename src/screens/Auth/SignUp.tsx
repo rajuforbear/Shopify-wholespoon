@@ -151,10 +151,7 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
       } else if (
         !inputs.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
       ) {
-        handleError(
-          'Password Must Contain Number ,Spacial Charecters,Upper and Lower case Charecters',
-          'password',
-        );
+        handleError('Password not secure', 'password');
         valid = false;
       }
 
@@ -319,7 +316,7 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
                 justifyContent: 'center',
               }}>
               <Text
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => navigation.navigate('Login', {page: ''})}
                 style={styles.text}>
                 Login
               </Text>

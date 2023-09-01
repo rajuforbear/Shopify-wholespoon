@@ -80,10 +80,10 @@ const CostumDrawer: React.FC<Props> = () => {
   const handleLogin = async () => {
     if (token != null) {
       dispatch({type: 'sopify/userLogout'});
-      await AsyncStorage.clear();
+      await AsyncStorage.setItem('Token', '');
       navigation.replace('Home');
     } else {
-      navigation.navigate('Login');
+      navigation.navigate('Login', {page: ''});
     }
   };
   const userData = useSelector((state: RootState) => state.data.userData);

@@ -23,7 +23,8 @@ import {Menus} from '../../Types/Menu';
 import {SearchProduct} from '../../Types/SerachProduct';
 import {ProductDetail} from '../../Types/ProductDetail';
 import {HomeType} from '../../Types/HomeType';
-
+import userQuery from '../../data/userQuery';
+import RazorpayCheckout from 'react-native-razorpay';
 function* getCollection() {
   try {
     const data: collections = yield call(Shopify.getCollection);
@@ -120,11 +121,28 @@ function* doLogin(action: action) {
         payload:
           res?.data.customerAccessTokenCreate.customerAccessToken.accessToken,
       });
+      let data = JSON.stringify({
+        query: `query{
+          customer(customerAccessToken:${JSON.stringify(costumerToken)}){
+             ${userQuery}
+          }
+      }`,
+        variables: {},
+      });
+      yield put({
+        type: 'sopify/userDatareq',
+        data: data,
+        page: 'home',
+        navigation: action.navigation,
+      });
       Toast.show({
         type: 'info',
         text1: 'Successfully Loged in',
       });
-      action.navigation.replace('Home');
+
+      action.page === 'check'
+        ? action.navigation.replace('Checkout')
+        : action.navigation.replace('Home');
     } else {
       yield put({
         type: 'sopify/loginFail',
@@ -162,7 +180,7 @@ function* doRegister(action: action) {
         type: 'info',
         text1: 'Account created  Successfully',
       });
-      action.navigation.replace('Login');
+      action.navigation.replace('Login', {page: ''});
     } else {
       yield put({
         type: 'sopify/registerError',
@@ -186,6 +204,7 @@ function* doRegister(action: action) {
 function* getUserData(action: action) {
   try {
     const user: user = yield call(Shopify.userControll, action.data);
+
     if (user.data) {
       yield put({
         type: 'sopify/userDataSuccess',
@@ -232,7 +251,10 @@ function* createCart(action: action) {
       payload: tempdartdata,
     });
 
-    Alert.alert('Added successs');
+    Toast.show({
+      type: 'info',
+      text1: 'Item Added To Cart',
+    });
   } catch (error) {
     yield put({
       type: 'sopify/createCartError',
@@ -524,7 +546,6 @@ function* updateAddress(action: action) {
       variables: {},
     });
     const res: Address = yield call(Shopify.userControll, action.data);
-    console.log(JSON.stringify(res.data));
     if (res.data.customerAddressUpdate.customerAddress != null) {
       yield put({
         type: 'sopify/updateAddressSuccess',
@@ -594,10 +615,18 @@ function* setDefaulAddress(action: action) {
       }
     } 
 }`,
+
       variables: {
         addressId: action.id,
         customerAccessToken: action.token,
       },
+    });
+    let data2 = JSON.stringify({
+      query: `query{
+        customer(customerAccessToken:${JSON.stringify(action.token)}){
+        ${query}
+    }`,
+      variables: {},
     });
     const res: Address = yield call(Shopify.userControll, data);
 
@@ -607,7 +636,7 @@ function* setDefaulAddress(action: action) {
       });
       yield put({
         type: 'sopify/userDatareq',
-        data: action.data,
+        data: data2,
         page: 'home',
         navigation: action.navigation,
         msg: action.msg,
@@ -619,7 +648,7 @@ function* setDefaulAddress(action: action) {
     }
   } catch (err) {
     yield put({
-      type: 'setDefaulAddressError',
+      type: 'sopify/setDefaulAddressError',
     });
     console.log(err);
     Toast.show({
@@ -729,7 +758,10 @@ function* resetPassword(action: action) {
 }
 function* updateCheckout(action: action) {
   try {
-    console.log('update calledd');
+    // const Intance = new Rozorpay({
+    //   key_id: 'rzp_test_AOorY1425MKPXq',
+    //   key_secret: 'ZXLqNJAaq6jKGIPH7rJPyHSO',
+    // });
 
     const res: updateCheckouts = yield call(
       Shopify.updateCheckout,
@@ -741,7 +773,31 @@ function* updateCheckout(action: action) {
         type: 'sopify/updateCheckoutSuccess',
         payload: res,
       });
-      console.log('saved.........');
+      var options = {
+        description: 'Credits towards consultation',
+        image:
+          'https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611',
+        currency: res.subtotalPrice.currencyCode,
+        key: 'rzp_test_AOorY1425MKPXq', //Your api key
+        amount: '500',
+        name: 'Wholespoon',
+        prefill: {
+          email: res.email,
+          contact: res.shippingAddress.phone,
+          name: 'Razorpay Software',
+        },
+        theme: {color: '#A36B25'},
+        // order_id: 'AB2342',
+      };
+      yield RazorpayCheckout.open(options)
+        .then(data => {
+          // handle success
+          Alert.alert(`Success: ${data.razorpay_payment_id}`);
+        })
+        .catch(error => {
+          // handle failure
+          console.log(`Error: ${error.code} | ${error.description}`);
+        });
     }
   } catch (err) {
     console.log(err);
@@ -841,8 +897,17 @@ function* fetchHome(action: action) {
   }
 }
 function* updateCheckoutEMail(action: action) {
-  const res: string = yield call(Shopify.userControll, action.data);
-  console.log(JSON.stringify(res));
+  try {
+    const res: string = yield call(Shopify.userControll, action.data);
+    yield put({
+      type: 'sopify/updateCheckoutEMailSuccess',
+    });
+  } catch (err) {
+    yield put({
+      type: 'sopify/updateCheckoutEMailError',
+    });
+    console.log(err);
+  }
 }
 function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/getCollection', getCollection);

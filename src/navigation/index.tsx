@@ -8,10 +8,13 @@ import SignUp from '../screens/Auth/SignUp';
 import Internet from '../screens/Auth/Internet';
 import Otp from '../screens/Auth/OptPage';
 import Search from '../screens/main/Search';
+import Checkout from '../screens/main/Checkout';
 export type NavigationParams = {
   Splash: undefined;
   Home: undefined;
-  Login: undefined;
+  Login: {
+    page: string;
+  };
   Register: {
     page: string;
   };
@@ -20,6 +23,7 @@ export type NavigationParams = {
   Search: {
     searchText: string;
   };
+  Checkout: undefined;
 };
 
 const RootNavigation: React.FC = () => {
@@ -37,6 +41,7 @@ const RootNavigation: React.FC = () => {
         <Stack.Screen name="Internet" component={Internet} />
         <Stack.Screen name="Otp" component={Otp} />
         <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="Checkout" component={Checkout} />
       </Stack.Navigator>
     </NavigationContainer>
   );
