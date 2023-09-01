@@ -24,8 +24,6 @@ class Shopify {
       const product = client.collection
         .fetchWithProducts(productId, {productsFirst: length})
         .then((collection: product) => {
-          // Do something with the collection
-          // console.log('Pord........', collection);
           return collection.products;
         });
       return product;

@@ -13,23 +13,25 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../sopify/Redux/store';
 import query from './query';
 import productquery from '../../../data/productquery';
-import { StackScreenProps} from '@react-navigation/stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import {CompositeScreenProps, useIsFocused} from '@react-navigation/native';
 import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import {NavigationParams} from '../../../navigation';
+import Loading from '../../../compoents/Loader';
 type Props = CompositeScreenProps<
   StackScreenProps<NavigationParams, 'Search'>,
   StackScreenProps<HelperNavigationParams>
 >;
-const Search: React.FC<Props> = ({navigation,route}) => {
-  const seachText=route.params?.searchText
+const Search: React.FC<Props> = ({navigation, route}) => {
+  const seachText = route.params?.searchText;
+  const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const Products = useSelector(
     (state: RootState) => state.data.searchProduct.edges,
   );
   const ProductsDetais = useSelector(
     (state: RootState) => state.data.productDetail,
   );
-  console.log(ProductsDetais)
+  console.log(ProductsDetais);
   const [input, setInput] = useState<string>(seachText);
   const dispatch = useDispatch();
   const handleonSearch = () => {
@@ -45,21 +47,22 @@ const Search: React.FC<Props> = ({navigation,route}) => {
     dispatch({
       type: 'sopify/searchProduct',
       data: data,
-      navigation
+      navigation,
     });
   };
-  const isFocused=useIsFocused()
+  const isFocused = useIsFocused();
   useEffect(() => {
-    const delay = 200;
+    const delay = 100;
     const deBounce = setTimeout(() => {
       handleonSearch();
     }, delay);
     return () => {
       clearTimeout(deBounce);
     };
-  }, [input,isFocused]);
-  
-  const fetDetails = (id:string) => {`  1qq11 q2`
+  }, [input, isFocused]);
+
+  const fetDetails = (id: string) => {
+    `  1qq11 q2`;
     let data = JSON.stringify({
       query: `query getProductById($id: ID!) {
   product(id: $id) 
@@ -67,7 +70,7 @@ const Search: React.FC<Props> = ({navigation,route}) => {
     ${productquery}
   }
 }`,
-      variables: {id:id},
+      variables: {id: id},
     });
     dispatch({
       type: 'sopify/ProductDetails',
@@ -77,6 +80,7 @@ const Search: React.FC<Props> = ({navigation,route}) => {
   };
   return (
     <View style={styles.container}>
+      {isLoading ? <Loading /> : null}
       <View style={styles.input}>
         <Icon name="search1" style={styles.icon} />
         <TextInput
@@ -92,9 +96,10 @@ const Search: React.FC<Props> = ({navigation,route}) => {
         data={Products}
         keyExtractor={(item, index) => item.node.id}
         renderItem={({item, index}) => {
-          
           return (
-            <TouchableOpacity onPress={() => fetDetails(item.node.id)} style={styles.list}>
+            <TouchableOpacity
+              onPress={() => fetDetails(item.node.id)}
+              style={styles.list}>
               <View style={styles.imgContainer}>
                 <Image
                   style={styles.img}

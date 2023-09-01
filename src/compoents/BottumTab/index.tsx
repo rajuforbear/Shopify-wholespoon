@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {
   heightPercentageToDP as hp,
@@ -12,183 +12,18 @@ import {query} from '../../screens/main/Cart/queries';
 import {useSelector, useDispatch} from 'react-redux';
 import {RootNavigationParams} from '../../Types/NavigationProps';
 import {RootState} from '../../sopify/Redux/store';
+import userQuery from '../../data/userQuery';
 const BottumTab = () => {
+  const [foucused, setFocused] = useState<number[]>([0]);
   const navigation = useNavigation<RootNavigationParams>();
+
   const handleProfile = async () => {
     const token = await AsyncStorage.getItem('Token');
 
     let data = JSON.stringify({
       query: `query{
         customer(customerAccessToken:${JSON.stringify(token)}){
-            firstName
-            lastName
-            email
-            acceptsMarketing
-            createdAt
-            numberOfOrders
-            defaultAddress{
-                address2
-                            city
-                            company
-                            country
-                            countryCodeV2
-                            firstName
-                            formatted
-                            formattedArea
-                            id
-                            lastName
-                            latitude
-                            longitude
-                            zip
-                            provinceCode
-                            province
-                            phone
-                            name
-            }
-            addresses(first:10){
-                nodes{
-                    address1
-                            address2
-                            city
-                            company
-                            country
-                            countryCodeV2
-                            firstName
-                            formatted
-                            formattedArea
-                            id
-                            lastName
-                            latitude
-                            longitude
-                            zip
-                            provinceCode
-                            province
-                            phone
-                            name
-                }
-                edges{
-                    cursor
-                    node{
-                        address1
-                            address2
-                            city
-                            company
-                            country
-                            countryCodeV2
-                            firstName
-                            formatted
-                            formattedArea
-                            id
-                            lastName
-                            latitude
-                            longitude
-                            zip
-                            provinceCode
-                            province
-                            phone
-                            name
-                    }
-                }
-            }
-            orders(first:10){
-                edges{
-                    cursor
-                    node{
-                        billingAddress{
-                            address1
-                            address2
-                            city
-                            company
-                            country
-                            countryCodeV2
-                            firstName
-                            formatted
-                            formattedArea
-                            id
-                            lastName
-                            latitude
-                            longitude
-                            zip
-                            provinceCode
-                            province
-                            phone
-                            name
-                        }
-                    }
-                }
-               nodes{
-                   billingAddress{
-                        address1
-                            address2
-                            city
-                            company
-                            country
-                            countryCodeV2
-                            firstName
-                            formatted
-                            formattedArea
-                            id
-                            lastName
-                            latitude
-                            longitude
-                            zip
-                            provinceCode
-                            province
-                            phone
-                            name
-                   }
-                   canceledAt
-                   cancelReason
-                   currencyCode
-                  currentSubtotalPrice{
-                      amount
-                      currencyCode
-                  }
-                  totalPrice{
-                      amount
-                      currencyCode
-                  }
-                  subtotalPrice{
-                      amount
-                      currencyCode
-                  }
-                  currentTotalDuties{
-                      amount
-                      currencyCode
-                  }
-                  billingAddress{
-                      address1
-                            address2
-                            city
-                            company
-                            country
-                            countryCodeV2
-                            firstName
-                            formatted
-                            formattedArea
-                            id
-                            lastName
-                            latitude
-                            longitude
-                            zip
-                            provinceCode
-                            province
-                            phone
-                            name
-                  }
-                  email
-                  totalShippingPrice{
-                      amount
-                      currencyCode
-                  }
-                  originalTotalPrice{
-                      amount
-                      currencyCode
-                  }
-                  orderNumber
-                 
-               }
-            }
+           ${userQuery}
         }
     }`,
       variables: {},
@@ -228,14 +63,18 @@ const BottumTab = () => {
       data: data,
     });
   };
+
+  const handleFocuse = (num: number) => {
+    setFocused([num]);
+  };
   const renderHome = () => {
     return (
       <View style={[styles.itemConatiner]}>
-        <SimpleLineIcons name="home" size={wp(7)} color="black" />
+        <SimpleLineIcons name="home" size={wp(6)} color={'black'} />
         <Text
           style={{
             textAlign: 'center',
-            fontSize: wp(3.5),
+            fontSize: wp(3),
             marginTop: wp(1),
             color: 'black',
             fontStyle: 'italic',
@@ -248,11 +87,11 @@ const BottumTab = () => {
   const renderUser = () => {
     return (
       <View style={[styles.itemConatiner]}>
-        <SimpleLineIcons name="user" size={wp(6)} color="black" />
+        <SimpleLineIcons name="user" size={wp(5)} color={'black'} />
         <Text
           style={{
             textAlign: 'center',
-            fontSize: wp(3.5),
+            fontSize: wp(3),
             marginTop: wp(1),
             color: 'black',
             fontStyle: 'italic',
@@ -266,14 +105,13 @@ const BottumTab = () => {
   const renderCategoties = () => {
     return (
       <View style={[styles.itemConatiner]}>
-        <Feather name="grid" size={wp(6)} color="black" />
+        <Feather name="grid" size={wp(5)} color={'black'} />
         <Text
           style={{
             textAlign: 'center',
-            fontSize: wp(3.5),
+            fontSize: wp(3),
             color: 'black',
             marginTop: wp(1),
-            fontStyle: 'italic',
           }}>
           Categories
         </Text>
@@ -284,7 +122,7 @@ const BottumTab = () => {
   const renderCart = () => {
     return (
       <View style={[styles.itemConatiner]}>
-        <Feather color="black" name="shopping-bag" size={wp(7)} />
+        <Feather color={'black'} name="shopping-bag" size={wp(6)} />
         {cartItem && cartItem?.lines?.edges?.length ? (
           <View
             style={{
@@ -307,7 +145,7 @@ const BottumTab = () => {
           style={{
             textAlign: 'center',
             color: 'black',
-            fontSize: wp(3.5),
+            fontSize: wp(3),
             marginTop: wp(1),
             fontStyle: 'italic',
           }}>
@@ -321,24 +159,33 @@ const BottumTab = () => {
     <View style={styles.main}>
       <View style={styles.cont}>
         <TouchableOpacity
-          activeOpacity={9}
-          onPress={() => navigation.navigate('HomeScreen')}>
+          style={[foucused.includes(0) ? styles.opacity : {}]}
+          onPress={() => {
+            handleFocuse(0);
+            navigation.navigate('HomeScreen');
+          }}>
           {renderHome()}
         </TouchableOpacity>
         <TouchableOpacity
-          activeOpacity={9}
-          onPress={() => navigation.navigate('Categories')}>
+          style={[foucused.includes(1) ? styles.opacity : {}]}
+          onPress={() => {
+            handleFocuse(1);
+            navigation.navigate('Categories');
+          }}>
           {renderCategoties()}
         </TouchableOpacity>
 
         <TouchableOpacity
-          activeOpacity={9}
-          onPress={() => navigation.navigate('Cart')}>
+          style={[foucused.includes(2) ? styles.opacity : {}]}
+          onPress={() => {
+            handleFocuse(2), navigation.navigate('Cart');
+          }}>
           {renderCart()}
         </TouchableOpacity>
         <TouchableOpacity
-          activeOpacity={9}
+          style={[foucused.includes(3) ? styles.opacity : {}]}
           onPress={async () => {
+            handleFocuse(3);
             let token = await AsyncStorage.getItem('Token');
             if (token === null) {
               handleProfile();
@@ -385,5 +232,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '98%',
+  },
+  opacity: {
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: hp(4.5),
+    paddingVertical: wp(1),
+    shadowColor: 'black',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: 3,
+    backgroundColor: 'white',
+    paddingHorizontal: wp(1),
+    elevation: 5,
   },
 });

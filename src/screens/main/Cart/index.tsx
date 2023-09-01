@@ -178,7 +178,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
+    <View style={{flex: 1, backgroundColor: '#e6f0f2', paddingBottom: hp(1)}}>
       {isLoading ? <Loading /> : null}
 
       {cartItem?.lines?.edges?.length > 0 ? (
