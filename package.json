@@ -10,7 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.14",
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-native-community/checkbox": "^0.5.15",
     "@react-native-community/netinfo": "^9.3.10",
@@ -22,7 +21,7 @@
     "axios": "^1.4.0",
     "react": "18.2.0",
     "react-devtools": "^2.1.7",
-    "react-native": "0.72.3",
+    "react-native": "0.72.4",
     "react-native-element-dropdown": "^2.9.0",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-gradle-plugin": "^0.71.19",
