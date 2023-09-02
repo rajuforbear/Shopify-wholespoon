@@ -23,6 +23,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
   const cartItem = useSelector((state: RootState) => state.data.cartItem);
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const userData = useSelector((state: RootState) => state.data.userData);
+  console.log('thississisii', JSON.stringify(cartItem));
   useEffect(() => {
     getCartItem();
   }, [isFocused]);

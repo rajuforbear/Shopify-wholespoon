@@ -295,6 +295,7 @@ const Home: React.FC<Props> = ({navigation}) => {
             scrollEnabled={false}
             keyExtractor={(item, index) => item.node.id}
             renderItem={({item}) => {
+              console.log(JSON.stringify(item));
               return (
                 <View style={styles.cardView}>
                   <TouchableOpacity

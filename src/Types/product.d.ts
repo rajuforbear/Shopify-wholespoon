@@ -90,8 +90,8 @@ export interface Variant {
   weight: number
   available: boolean
   sku: string
-  compareAtPrice: any
-  compareAtPriceV2: any
+  compareAtPrice: FieldBaseTypes4
+  compareAtPriceV2: FieldBaseTypes4
   image: Image2
   selectedOptions: SelectedOption[]
   unitPrice: any

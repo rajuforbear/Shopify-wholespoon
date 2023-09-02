@@ -39,8 +39,10 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
   const handleOnchange = (input: string, name: string) => {
     setInputs(prev => ({...prev, [name]: input}));
   };
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  console.log(toggleCheckBox);
+  const [toggleCheckBox, setToggleCheckBox] = useState(
+    userData.acceptsMarketing,
+  );
+  //  console.log(toggleCheckBox);
 
   const Register = () => {
     let data = JSON.stringify({

@@ -45,8 +45,30 @@ const List: React.FC<Props> = ({Products, onEndReached = () => {}}) => {
         numColumns={2}
         keyExtractor={(item, index) => item.id}
         renderItem={({item, index}) => {
+          console.log(
+            parseInt(item?.variants[0]?.compareAtPrice?.amount) -
+              parseInt(item?.variants[0]?.price?.amount),
+          );
           return (
             <View style={styles.cardView}>
+              {parseInt(item?.variants[0]?.compareAtPrice?.amount) -
+                parseInt(item?.variants[0]?.price?.amount) >
+              0 ? (
+                <View style={styles.discount}>
+                  <Text
+                    style={{
+                      fontSize: wp(2),
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                      color: '#A36B25',
+                    }}>
+                    {'Save'}
+                    {'   Rs ' +
+                      (parseInt(item?.variants[0]?.compareAtPrice?.amount) -
+                        parseInt(item?.variants[0]?.price?.amount))}
+                  </Text>
+                </View>
+              ) : null}
               <TouchableOpacity
                 onPress={() => fetDetails(item.id)}
                 style={styles.imgcontainer}>

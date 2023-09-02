@@ -46,7 +46,7 @@ const Details: React.FC<Props> = ({navigation}) => {
 
   const dispatch = useDispatch();
   const isFetching = useSelector((state: RootState) => state.data.isLoading);
-  const product = useSelector((state: RootState) => state.data.product);
+
   const [quantity, setQuantity] = useState(1);
   const setArr = () => {
     let arr = [] as string[];
@@ -55,15 +55,13 @@ const Details: React.FC<Props> = ({navigation}) => {
     });
     setImages(arr);
   };
-  const [toolbox, setTogleBox] = useState();
+
   const [variantVlaue, setVariantVlue] = useState(
     items.variants.nodes[0].title,
   );
   useEffect(() => {
     setArr();
   }, [items]);
-
-  const userData = useSelector((state: RootState) => state.data.userData);
 
   const cartOperation = async () => {
     const cartId = await AsyncStorage.getItem('cartId');
@@ -73,6 +71,7 @@ const Details: React.FC<Props> = ({navigation}) => {
       addItemtoCart();
     }
   };
+
   const createCart = async () => {
     let data = JSON.stringify({
       query: `mutation {
@@ -197,7 +196,6 @@ const Details: React.FC<Props> = ({navigation}) => {
     });
   };
   const addItemtoCart = async () => {
-    console.log('called');
     const cartId = await AsyncStorage.getItem('cartId');
     let data = JSON.stringify({
       query: `mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
@@ -230,12 +228,12 @@ const Details: React.FC<Props> = ({navigation}) => {
       navigation,
     });
   };
-  console.log(veriantId);
+
   const createThreeButtonAlert = () =>
     Alert.alert('Request Login', 'Please Login', [
       {
         text: 'Ok',
-        onPress: () => navigation.navigate('Login'),
+        onPress: () => navigation.navigate('Login', {page: ''}),
       },
       {
         text: 'Cancel',
