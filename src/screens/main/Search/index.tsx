@@ -31,7 +31,6 @@ const Search: React.FC<Props> = ({navigation, route}) => {
   const ProductsDetais = useSelector(
     (state: RootState) => state.data.productDetail,
   );
-  console.log(ProductsDetais);
   const [input, setInput] = useState<string>(seachText);
   const dispatch = useDispatch();
   const handleonSearch = () => {

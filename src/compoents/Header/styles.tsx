@@ -20,7 +20,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   search: {
-    // borderWidth:1,
     height: '72%',
     width: '65%',
     borderRadius: wp(5),
@@ -41,8 +40,6 @@ export default StyleSheet.create({
   bell: {
     height: '72%',
     width: '11%',
-    //borderWidth: 1,
-    //marginLeft: '6%',
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -58,7 +55,6 @@ export default StyleSheet.create({
   },
   container2: {
     width: wp(20),
-    //marginRight: wp(7),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

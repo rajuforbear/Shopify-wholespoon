@@ -23,7 +23,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
   const cartItem = useSelector((state: RootState) => state.data.cartItem);
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const userData = useSelector((state: RootState) => state.data.userData);
-  console.log('thississisii', JSON.stringify(cartItem));
+
   useEffect(() => {
     getCartItem();
   }, [isFocused]);
@@ -177,7 +177,6 @@ const Cart: React.FC<Props> = ({navigation}) => {
       data: data,
     });
   };
-
   return (
     <View style={{flex: 1, backgroundColor: '#e6f0f2', paddingBottom: hp(1)}}>
       {isLoading ? <Loading /> : null}
@@ -186,13 +185,9 @@ const Cart: React.FC<Props> = ({navigation}) => {
         <View style={{flex: 1}}>
           <FlatList
             data={cartItem?.lines.edges}
-            //scrollEnabled={false}
             showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => item.node.id}
-            onEndReached={() => {
-              console.log('ended');
-            }}
-            renderItem={({item, index}) => {
+            keyExtractor={item => item.node.id}
+            renderItem={({item}) => {
               return (
                 <View style={styles.listContainer}>
                   <View style={styles.imgContainer}>
@@ -224,7 +219,6 @@ const Cart: React.FC<Props> = ({navigation}) => {
                       <Text
                         style={{
                           marginTop: '2%',
-                          // fontWeight: 'bold',
                           color: 'black',
                           fontSize: wp(3.9),
                           fontStyle: 'italic',
@@ -265,7 +259,6 @@ const Cart: React.FC<Props> = ({navigation}) => {
                       <Text
                         style={{
                           marginTop: '2%',
-                          //fontWeight: '800',
                           color: '#CC0066',
                           fontSize: wp(3),
                           marginLeft: '3%',

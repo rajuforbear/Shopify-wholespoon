@@ -152,7 +152,6 @@ function* doLogin(action: action) {
         text1: res.data.customerAccessTokenCreate.customerUserErrors[0].message,
       });
     }
-    //
   } catch (err) {
     yield put({
       type: 'sopify/loginFail',
@@ -267,7 +266,6 @@ function* createCart(action: action) {
   }
 }
 function* getCartItem(action: action) {
-  //console.log('raju barde');
   try {
     const res: CartItem = yield call(Shopify.userControll, action.data);
 
@@ -758,11 +756,6 @@ function* resetPassword(action: action) {
 }
 function* updateCheckout(action: action) {
   try {
-    // const Intance = new Rozorpay({
-    //   key_id: 'rzp_test_AOorY1425MKPXq',
-    //   key_secret: 'ZXLqNJAaq6jKGIPH7rJPyHSO',
-    // });
-
     const res: updateCheckouts = yield call(
       Shopify.updateCheckout,
       action.id,
@@ -778,7 +771,7 @@ function* updateCheckout(action: action) {
         image:
           'https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611',
         currency: res.subtotalPrice.currencyCode,
-        key: 'rzp_test_AOorY1425MKPXq', //Your api key
+        key: 'rzp_test_AOorY1425MKPXq',
         amount: '500',
         name: 'Wholespoon',
         prefill: {
@@ -791,11 +784,9 @@ function* updateCheckout(action: action) {
       };
       yield RazorpayCheckout.open(options)
         .then(data => {
-          // handle success
           Alert.alert(`Success: ${data.razorpay_payment_id}`);
         })
         .catch(error => {
-          // handle failure
           console.log(`Error: ${error.code} | ${error.description}`);
         });
     }
@@ -854,7 +845,6 @@ function* productDetails(action: action) {
         type: 'info',
         text1: 'Something went wrong',
       });
-      console.log(res.data);
     }
   } catch (err) {
     console.log(err);

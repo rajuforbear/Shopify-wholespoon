@@ -95,11 +95,7 @@ const AddressBook: React.FC<Props> = ({navigation}) => {
               return (
                 <View style={styles.addressContainer}>
                   <View>
-                    <Text
-                      // onPress={() => editAddress(item)}
-                      style={styles.nameTitle}>
-                      {item.name}
-                    </Text>
+                    <Text style={styles.nameTitle}>{item.name}</Text>
                     <Text style={[styles.nameTitle, {marginTop: wp(0.5)}]}>
                       {item?.address1 ? item.address1 + ',' : ''}
                     </Text>

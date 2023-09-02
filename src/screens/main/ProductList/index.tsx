@@ -39,8 +39,6 @@ const ProductList: React.FC<Props> = props => {
           length: length,
         });
       }
-
-      console.log(length);
     }
   };
   return (

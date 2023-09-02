@@ -7,10 +7,7 @@ import {
   Platform,
   StyleSheet,
 } from 'react-native';
-//import colors from '../colors';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-
-//Main loader component0
 export default class Loading extends React.Component {
   render() {
     return (

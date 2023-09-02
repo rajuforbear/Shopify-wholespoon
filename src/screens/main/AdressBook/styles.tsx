@@ -15,7 +15,6 @@ export default StyleSheet.create({
     fontSize: wp(5),
     fontWeight: '700',
     color: '#A97732',
-    //fontStyle: 'italic',
   },
   line: {
     borderWidth: wp(0.5),
@@ -27,7 +26,6 @@ export default StyleSheet.create({
     borderColor: '#A97732',
   },
   adText: {
-    // alignSelf: 'center',
     fontSize: wp(4),
     fontWeight: '500',
     color: 'black',
@@ -37,12 +35,9 @@ export default StyleSheet.create({
   },
   btn: {
     height: hp(4),
-    // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     width: wp(30),
-    // borderRadius: wp(1),
-    // backgroundColor: '#abdbe3',
   },
   btnText: {
     color: '#D9C5AA',

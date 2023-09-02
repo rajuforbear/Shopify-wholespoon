@@ -50,7 +50,6 @@ const Categories: React.FC<Props> = ({navigation}) => {
             height: '80%',
             width: '100%',
             alignSelf: 'center',
-            //resizeMode: 'contain',
             borderRadius: wp(0),
             justifyContent: 'center',
           }}

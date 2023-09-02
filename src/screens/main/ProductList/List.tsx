@@ -45,10 +45,6 @@ const List: React.FC<Props> = ({Products, onEndReached = () => {}}) => {
         numColumns={2}
         keyExtractor={(item, index) => item.id}
         renderItem={({item, index}) => {
-          console.log(
-            parseInt(item?.variants[0]?.compareAtPrice?.amount) -
-              parseInt(item?.variants[0]?.price?.amount),
-          );
           return (
             <View style={styles.cardView}>
               {parseInt(item?.variants[0]?.compareAtPrice?.amount) -

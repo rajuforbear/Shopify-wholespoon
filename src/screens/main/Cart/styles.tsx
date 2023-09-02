@@ -8,19 +8,15 @@ export default StyleSheet.create({
     height: hp(6.5),
     backgroundColor: '#e6f0f2',
     alignItems: 'center',
-    //justifyContent: 'space-between',
     paddingHorizontal: wp(5),
     flexDirection: 'row',
   },
   back: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // borderWidth:1,
-
     alignItems: 'center',
   },
   card: {
-    // borderWidth:1,
     width: wp(32),
     height: hp(20),
     margin: wp(0.5),
@@ -39,10 +35,8 @@ export default StyleSheet.create({
     backgroundColor: 'green',
   },
   item: {
-    // borderWidth:1,
     height: hp(6),
     paddingHorizontal: wp(5),
-    //backgroundColor: '#e6f0f2',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -67,17 +61,13 @@ export default StyleSheet.create({
     height: hp(20),
     width: '40%',
     marginTop: '3%',
-    //backgroundColor: '#e6f0f2',
   },
   img: {
     height: '87%',
     width: '100%',
     resizeMode: 'cover',
-    // marginTop: '8%',
   },
   itemContainer: {
-    // marginLeft:'5%',
-    // borderWidth:1,
     width: '60%',
     height: '100%',
     marginLeft: '5%',
@@ -111,13 +101,12 @@ export default StyleSheet.create({
     fontSize: wp(4),
     fontWeight: '500',
     color: 'white',
-    fontStyle:'italic'
+    fontStyle: 'italic',
   },
   quantity: {
     height: '100%',
     width: hp(4),
     alignItems: 'center',
-    // borderWidth: 1,
     justifyContent: 'center',
     backgroundColor: '#e6f0f2',
     borderRadius: wp(1),
@@ -149,7 +138,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   btnContainer: {
-    // borderWidth: 1,
     marginTop: wp(5),
     width: '90%',
     flexDirection: 'row',

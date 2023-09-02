@@ -237,7 +237,6 @@ const Details: React.FC<Props> = ({navigation}) => {
       },
       {
         text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
     ]);
@@ -322,7 +321,6 @@ const Details: React.FC<Props> = ({navigation}) => {
               marginHorizontal: -4,
               padding: 0,
               margin: 0,
-              //position:'absolute',
             }}
             imageLoadingColor="#2196F3"
             sliderBoxHeight={300}
@@ -330,9 +328,6 @@ const Details: React.FC<Props> = ({navigation}) => {
 
           <View style={styles.cont}>
             <View style={[styles.prDeta, {flexDirection: 'row'}]}>
-              {/* <Text style={{fontSize: wp(4)}}>Options</Text>
-
-              <EvilIcons name="chevron-down" size={wp(9)} /> */}
               <View style={styles.ratting}>
                 <AntDesign name="star" size={wp(3.5)} color="#FFD700" />
                 <AntDesign name="star" size={wp(3.5)} color="#FFD700" />

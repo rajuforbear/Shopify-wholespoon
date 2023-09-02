@@ -153,7 +153,6 @@ export default StyleSheet.create({
   },
   head: {
     alignItems: 'center',
-    //borderWidth: 1,
     justifyContent: 'center',
     paddingVertical: wp(3),
     marginTop: wp(4),

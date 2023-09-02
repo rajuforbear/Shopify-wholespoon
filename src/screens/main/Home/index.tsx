@@ -34,8 +34,6 @@ const Home: React.FC<Props> = ({navigation}) => {
 
   const userData = useSelector((state: RootState) => state.data.userData);
   const getCollection = () => {
-    // console.log('the length....', collection.length);
-
     dispatch({
       type: 'sopify/getCollection',
     });
@@ -295,7 +293,6 @@ const Home: React.FC<Props> = ({navigation}) => {
             scrollEnabled={false}
             keyExtractor={(item, index) => item.node.id}
             renderItem={({item}) => {
-              console.log(JSON.stringify(item));
               return (
                 <View style={styles.cardView}>
                   <TouchableOpacity

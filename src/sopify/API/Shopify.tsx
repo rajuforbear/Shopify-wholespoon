@@ -47,8 +47,6 @@ class Shopify {
       const checkItems = client.checkout
         .addLineItems(checkoutId, lineItemsToAdd)
         .then((checkout: any) => {
-          // Do something with the updated checkout
-          // Array with one additional line item
           return checkout.lineItems;
         });
       return checkItems;
@@ -58,7 +56,6 @@ class Shopify {
   };
 
   static updateCheckout = (check: string, address: Node) => {
-    //console.log('this is id by checkout', checkoutId);
     try {
       const res = client.checkout
         .updateShippingAddress(check, address)

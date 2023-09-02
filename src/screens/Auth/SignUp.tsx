@@ -42,8 +42,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(
     userData.acceptsMarketing,
   );
-  //  console.log(toggleCheckBox);
-
   const Register = () => {
     let data = JSON.stringify({
       query: `mutation customerCreate($input: CustomerCreateInput!) {
@@ -192,14 +190,10 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
             <Text style={styles.login}>
               {page != 'update' ? 'Create Account' : 'Update Account'}
             </Text>
-            {/* <Text style={styles.info}>
-            Please enter the details below to continue
-          </Text> */}
             <View style={styles.line}></View>
           </View>
 
           <Input
-            //  lable="First Name"
             lable="First name"
             value={inputs.firstName}
             onChangeText={text => {
@@ -213,7 +207,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
             placeholder=""
           />
           <Input
-            //  /lable="Last Name"
             lable="Last name"
             value={inputs.lastName}
             onChangeText={text => {
@@ -240,7 +233,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
             placeholder=""
           />
           <Input
-            // lable="Telephone"
             lable="Telephone"
             value={inputs.phone}
             onChangeText={text => {
@@ -269,7 +261,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
                 placeholder=""
               />
               <Input
-                // lable="Confirm Password"
                 lable="Confirm  Password"
                 onChangeText={text => {
                   handleOnchange(text, 'confrimPassword');
@@ -304,7 +295,6 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
           <Button
             name={page === 'update' ? 'UPDATE' : 'REGISTER'}
             onPress={() => {
-              //hanleOnPress();
               Vailidate();
             }}
           />

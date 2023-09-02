@@ -48,7 +48,6 @@ const BottumTab = () => {
   }, []);
   const getCartItem = async () => {
     const cartId = await AsyncStorage.getItem('cartId');
-    console.log('this is cart item', cartItem);
     let data = JSON.stringify({
       query: `{
       cart(id:${JSON.stringify(cartId)}) {
@@ -208,8 +207,6 @@ const styles = StyleSheet.create({
     height: hp(8),
     position: 'absolute',
     width: '100%',
-    //borderWidth:1,
-
     shadowColor: 'black',
     shadowOffset: {
       width: 0,

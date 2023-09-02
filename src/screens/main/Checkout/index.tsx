@@ -41,7 +41,6 @@ const Checkout: React.FC<Props> = ({navigation}) => {
   const [tokenn, setToken] = useState<boolean>(false);
   const checkout = useSelector((state: RootState) => state.data.checkoutData);
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
-  console.log(isLoading);
   const useData = useSelector((state: RootState) => state.data.userData);
   const [address, setAddress] = useState({
     firstName: '',
@@ -55,7 +54,6 @@ const Checkout: React.FC<Props> = ({navigation}) => {
     province: '',
     zip: '',
   });
-  console.log(updateCheckout.id);
   const [email, setEmail] = useState<string>(
     useData?.email ? useData.email : updateCheckout.email,
   );
@@ -187,7 +185,6 @@ const Checkout: React.FC<Props> = ({navigation}) => {
     }
   };
   const itemprice = (price: string) => {
-    // console.log(checkout?.lineItems?.edges[0].node?.variant?.price?.amount);
     let amount = 0;
     checkout?.lineItems?.edges?.map((item, index) => {
       amount =
@@ -303,8 +300,6 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       valid = false;
     }
     if (valid) {
-      console.log('caalde');
-
       if (!address.country) {
         Alert.alert('Please select country');
         valid = false;
@@ -701,7 +696,6 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 onSelect={(selectedItem, index) => {
                   handleonSubmit('country', selectedItem);
                 }}
-                // dropdownOverlayColor="red"
               />
               <Fontisto
                 name="angle-down"
@@ -746,10 +740,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
               style={{
                 flexDirection: 'row',
                 marginVertical: wp(3),
-                // borderWidth: 1,
-
                 justifyContent: 'space-evenly',
-
                 alignSelf: 'center',
                 marginHorizontal: wp(2),
               }}>
@@ -793,7 +784,6 @@ const Checkout: React.FC<Props> = ({navigation}) => {
                 borderLeftWidth: wp(0.1),
                 borderTopRightRadius: wp(1),
                 borderTopLeftRadius: wp(1),
-                //borderRadius: wp(1),
                 marginTop: wp(10),
               }}>
               <Text

@@ -49,7 +49,6 @@ const CostumDrawer: React.FC<Props> = () => {
     }
   };
   const menu = useSelector((state: RootState) => state.data.menu);
-  // console.log('this is menu', menu);
   const handleOnPress = (type: string, title: string, id: string) => {
     let data = JSON.stringify({
       query: `{

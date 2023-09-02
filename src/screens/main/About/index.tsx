@@ -12,8 +12,6 @@ import {RootState} from '../../../sopify/Redux/store';
 type Props = StackScreenProps<HelperNavigationParams, 'About'>;
 const About: React.FC<Props> = () => {
   const about = useSelector((state: RootState) => state.data.about);
-  console.log(about);
-  console.log('this is about', about);
   return (
     <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
       <ScrollView

@@ -96,7 +96,6 @@ const Header = () => {
           onPress={() => {
             if (menu.id === undefined) {
               handleMenu();
-              console.log('called1');
             } else {
               navigation2.openDrawer();
             }

@@ -109,7 +109,6 @@ const Address: React.FC<Props> = props => {
       } else {
         handleOnSave();
       }
-      console.log(valid);
     }
   };
 
@@ -261,7 +260,6 @@ const Address: React.FC<Props> = props => {
               onSelect={(selectedItem, index) => {
                 handleOnChangeText('country', selectedItem);
               }}
-              // dropdownOverlayColor="red"
             />
             <Fontisto
               name="angle-down"
@@ -306,10 +304,7 @@ const Address: React.FC<Props> = props => {
             style={{
               flexDirection: 'row',
               marginVertical: wp(3),
-              // borderWidth: 1,
-
               justifyContent: 'space-evenly',
-
               alignSelf: 'center',
               marginHorizontal: wp(2),
             }}>
