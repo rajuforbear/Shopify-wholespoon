@@ -30,9 +30,10 @@ const Home: React.FC<Props> = ({navigation}) => {
   const collection = useSelector((state: RootState) => state.data.collection);
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const product = useSelector((state: RootState) => state.data.products);
-  const HomeData = useSelector((state: RootState) => state.data.homeData);
 
+  const HomeData = useSelector((state: RootState) => state.data.homeData);
   const userData = useSelector((state: RootState) => state.data.userData);
+  console.log('this is id', userData.id);
   const getCollection = () => {
     dispatch({
       type: 'sopify/getCollection',
@@ -153,13 +154,13 @@ const Home: React.FC<Props> = ({navigation}) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             pagingEnabled
-            keyExtractor={(item, index) => item.node.id}
+            keyExtractor={item => item.node.id}
             renderItem={({item}) => {
               return item.node.image ? (
                 <View>
                   <ImageBackground
                     source={{uri: item.node?.image.url}}
-                    style={styles.photos}>
+                    style={[styles.photos]}>
                     <View style={styles.con}></View>
                   </ImageBackground>
                 </View>
@@ -356,3 +357,148 @@ const Home: React.FC<Props> = ({navigation}) => {
 };
 
 export default Home;
+{
+  /*
+  {
+  "input": {
+    "appliedDiscount": {
+      "amount": "0",
+      "description": "bndnd",
+      "title": "ntnt",
+      "value": 1.1,
+      "valueType": "na"
+    },
+    "billingAddress": {
+      "address1": "kodiyakhal,birul,bhiakgaon",
+      "address2": "",
+      "city": "indore",
+      "company": "forebear",
+      "country": "india",
+      "countryCode": "91",
+      "firstName": "raju",
+      "id": "na",
+      "lastName": "barde",
+      "phone": "9133944239",
+      "province": "MP",
+      "provinceCode": "NA",
+      "zip": "451331"
+    },
+    "customAttributes": [
+      {
+        "key": "raju",
+        "value": "barde"
+      }
+    ],
+    "customerId": "na",
+    "email": "rajubarde54@gmail.com",
+    "lineItems": [
+      {
+        "appliedDiscount": {
+          "amount": "235",
+          "description": "thisidffn",
+          "title": "product",
+          "value": 1.1,
+          "valueType": "NA"
+        },
+        "customAttributes": [
+          {
+            "key": "rrt",
+            "value": "dcccc"
+          }
+        ],
+        "grams": 1,
+        "originalUnitPrice": "233",
+        "quantity": 1,
+        "requiresShipping": true,
+        "sku": "",
+        "taxable": true,
+        "title": "something",
+        "variantId": "someting",
+        "weight": {
+          "unit": "2.4",
+          "value": 1.1
+        }
+      }
+    ],
+    "localizationExtensions": [
+      {
+        "key": "raju",
+        "value": "nohtign"
+      }
+    ],
+    "marketRegionCountryCode": "rju",
+    "metafields": [
+      {
+        "description": "NA",
+        "id": "NA",
+        "key": "NA",
+        "namespace": "NA",
+        "type": "NA",
+        "value": "NA"
+      }
+    ],
+    "note": "NA",
+    "paymentTerms": {
+      "paymentSchedules": [
+        {
+          "dueAt": "NA",
+          "issuedAt": "NA"
+        }
+      ],
+      "paymentTermsTemplateId": ""
+    },
+    "phone": "9867656567",
+    "poNumber": "343445",
+    "presentmentCurrencyCode": "INR",
+    "privateMetafields": [
+      {
+        "key": "NA",
+        "namespace": "NA",
+        "owner": "NA",
+        "valueInput": {
+          "value": "NA",
+          "valueType": "NA"
+        }
+      }
+    ],
+    "purchasingEntity": {
+      "customerId": "",
+      "purchasingCompany": {
+        "companyContactId": "",
+        "companyId": "",
+        "companyLocationId": ""
+      }
+    },
+    "reserveInventoryUntil": "",
+    "shippingAddress": {
+     "address1": "kodiyakhal,birul,bhiakgaon",
+      "address2": "",
+      "city": "indore",
+      "company": "forebear",
+      "country": "india",
+      "countryCode": "91",
+      "firstName": "raju",
+      "id": "na",
+      "lastName": "barde",
+      "phone": "9133944239",
+      "province": "MP",
+      "provinceCode": "NA",
+      "zip": "451331"
+    },
+    "shippingLine": {
+      "price": "99",
+      "shippingRateHandle": "nothing",
+      "title": ""
+    },
+    "sourceName": "raju",
+    "tags": [
+      "nothing"
+    ],
+    "taxExempt": true,
+    "useCustomerDefaultAddress": true,
+    "visibleToCustomer": true
+  }
+}
+
+*/
+}

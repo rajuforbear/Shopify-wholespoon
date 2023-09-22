@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Image, View} from 'react-native';
 import styles from './styles';
-import Entypo from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome5 from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
@@ -9,14 +8,13 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {useNavigation, StackActions} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RootState} from '../../sopify/Redux/store';
 import {RootNavigationParams} from '../../Types/NavigationProps';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {DrawerNavigationPramas} from '../../navigation/drawer';
-import {Menu} from '../../Types/Menu';
 
 const Header = () => {
   const navigation = useNavigation<RootNavigationParams>();

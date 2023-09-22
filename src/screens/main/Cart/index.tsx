@@ -15,6 +15,7 @@ import {query} from './queries';
 import {RootState} from '../../../sopify/Redux/store';
 import {StackScreenProps} from '@react-navigation/stack';
 import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
+import checkout from '../../../data/checkout';
 
 type Props = StackScreenProps<HelperNavigationParams, 'Cart'>;
 const Cart: React.FC<Props> = ({navigation}) => {
@@ -58,34 +59,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
       query: `mutation checkoutCreate($input: CheckoutCreateInput!) {
         checkoutCreate(input: $input) {
           checkout {
-            id 
-            lineItemsSubtotalPrice{
-                amount
-                currencyCode
-            }
-            lineItems(first:10){
-              
-                edges{
-                    node{
-                       id
-                       quantity
-                       title
-                      variant{
-                          id
-                          image{
-                              id
-                              url
-                          }
-                          price{
-                            amount
-                            currencyCode
-                        }
-                      }
-      
-      
-                    }
-                }
-            }
+           ${checkout}
           }
           checkoutUserErrors {
              field
@@ -108,6 +82,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
       type: 'sopify/createCheckout',
       data: data,
       navigation,
+      varients,
     });
   };
 

@@ -1,3 +1,3 @@
 export const url =
-  'https://wholespoon-india.myshopify.com/api/2023-07/graphql.json';
-export const token = 'd099c1a3a200a215e22a93f50d551938';
+  'https://mystore123432.myshopify.com/api/2023-07/graphql.json';
+export const token = '3572ee78623329d2791194588706b0a9'; // 'd099c1a3a200a215e22a93f50d551938';

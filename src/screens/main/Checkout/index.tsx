@@ -25,7 +25,7 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {RootState} from '../../../sopify/Redux/store';
 import {TabRouter} from '@react-navigation/native';
 import {NavigationParams} from '../../../navigation';
-import RazorpayCheckout from 'react-native-razorpay';
+import checkOuerry from '../../../data/checkout';
 
 type Props = StackScreenProps<NavigationParams>;
 
@@ -36,6 +36,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
   const updateCheckout = useSelector(
     (state: RootState) => state.data.updateCheckout,
   );
+  console.log('this is the id,checkout id', updateCheckout.id);
   const dispatch = useDispatch();
   const [isEdited, setIsEdited] = useState(false);
   const [tokenn, setToken] = useState<boolean>(false);
@@ -249,6 +250,8 @@ const Checkout: React.FC<Props> = ({navigation}) => {
     setError(prev => ({...prev, [param]: msg}));
   };
   const handleOnChangeText = async () => {
+    console.log('this is caleed');
+
     const token = await AsyncStorage.getItem('Token');
     let valid = true;
     if (!address.firstName) {
@@ -299,6 +302,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       handleOnError('Email', 'Please Enter Valid Email');
       valid = false;
     }
+
     if (valid) {
       if (!address.country) {
         Alert.alert('Please select country');
@@ -306,6 +310,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       } else {
         updateCheckoutEmail();
         if (token) {
+          console.log('called');
           if (iseSevedAddres?.length <= 0) {
             setSHow(true);
             createAddress();
@@ -316,18 +321,20 @@ const Checkout: React.FC<Props> = ({navigation}) => {
             setIsEdited(false);
             setIsBoolAddress(true);
           } else {
-            dispatch({
-              type: 'sopify/updateCheckout',
-              id: checkout?.id,
-              address: address,
-            });
+            // dispatch({
+            //   type: 'sopify/updateCheckout',
+            //   id: checkout?.id,
+            //   address: address,
+            // });
+            doupdateCheckout();
           }
         } else {
-          dispatch({
-            type: 'sopify/updateCheckout',
-            id: checkout?.id,
-            address: {...address, phone: `+91${address.phone}`},
-          });
+          // dispatch({
+          //   type: 'sopify/updateCheckout',
+          //   id: checkout?.id,
+          //   address: {...address, phone: `+91${address.phone}`},
+          // });
+          doupdateCheckout();
 
           setIsEdited(false);
           setSHow(true);
@@ -336,7 +343,38 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       }
     }
   };
+  const doupdateCheckout = () => {
+    console.log('called');
+    let data = JSON.stringify({
+      query: `mutation checkoutShippingAddressUpdateV2($checkoutId: ID!, $shippingAddress: MailingAddressInput!) {
+      checkoutShippingAddressUpdateV2(checkoutId: $checkoutId, shippingAddress: $shippingAddress) {
+        checkout {
+         ${checkOuerry}
+        }
+        checkoutUserErrors {
+          # CheckoutUserError fields
+          code
+          field
+          message
+        }
+      }
+    }`,
+      variables: {
+        checkoutId: checkout.id,
+        shippingAddress: {
+          ...address,
+          phone: `+91${address.phone}`,
+        },
+      },
+    });
 
+    dispatch({
+      type: 'sopify/updateCheckout',
+      id: checkout?.id,
+      data: data,
+    });
+  };
+  console.log(checkout.lineItems.edges[0].node.id);
   const editAddress = async () => {
     const userToke = await AsyncStorage.getItem('Token');
     const addres2 = {...address, phone: `+91${address.phone}`};
@@ -369,12 +407,21 @@ const Checkout: React.FC<Props> = ({navigation}) => {
       op: 'create',
     });
   };
-
+  const ship = ['Cart', 'Information', 'Shipping', 'Payment'];
   return (
     <View style={styles.container}>
       {isLoading ? <Loading /> : undefined}
 
       <ScrollView>
+        <View>
+          <FlatList
+            data={ship}
+            horizontal
+            renderItem={({item, index}) => {
+              return <Text>{item}</Text>;
+            }}
+          />
+        </View>
         <View
           style={[
             styles.contact,
@@ -385,7 +432,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
               paddingHorizontal: wp(4),
               backgroundColor: '#F6F6F6',
               height: hp(10),
-              marginTop: wp(4),
+              marginTop: wp(0),
             },
           ]}>
           <Text
@@ -422,7 +469,8 @@ const Checkout: React.FC<Props> = ({navigation}) => {
             <FlatList
               scrollEnabled={false}
               data={checkout?.lineItems?.edges}
-              renderItem={({item, index}) => {
+              keyExtractor={item => item.node.id}
+              renderItem={({item}) => {
                 return (
                   <View style={{paddingVertical: wp(2)}}>
                     <View style={styles.mainList}>

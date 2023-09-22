@@ -641,7 +641,11 @@ const Details: React.FC<Props> = ({navigation}) => {
                         style={styles.imgcontainer}>
                         <Image
                           style={styles.img}
-                          source={{uri: item.images[0].src}}
+                          source={
+                            item.images[0]?.src
+                              ? {uri: item.images[0].src}
+                              : require('../../../assests/noimg.jpeg')
+                          }
                         />
                       </TouchableOpacity>
                       <Text style={styles.title}>{item.title}</Text>

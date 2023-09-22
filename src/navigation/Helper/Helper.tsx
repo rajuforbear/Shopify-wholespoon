@@ -7,7 +7,6 @@ import Details from '../../screens/main/Details';
 import Categories from '../../screens/main/Categories';
 import ProductList from '../../screens/main/ProductList';
 import OrderList from '../../screens/main/OrderList';
-
 import Payment from '../../screens/main/Payment';
 import OrderDetails from '../../screens/main/OrderDetails';
 import AddressBook from '../../screens/main/AdressBook';
@@ -24,7 +23,6 @@ export type HelperNavigationParams = {
     title: string;
   };
   OrderList: undefined;
-
   Payment: undefined;
   OrderDetails: undefined;
   AddressBook: undefined;

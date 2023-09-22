@@ -50,7 +50,7 @@ export default StyleSheet.create({
     margin: '.50%',
   },
   photos: {
-    height: hp('30%'),
+    height: hp('50%'),
     width: wp('100%'),
     alignItems: 'center',
   },

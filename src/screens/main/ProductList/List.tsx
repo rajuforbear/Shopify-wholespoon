@@ -68,7 +68,14 @@ const List: React.FC<Props> = ({Products, onEndReached = () => {}}) => {
               <TouchableOpacity
                 onPress={() => fetDetails(item.id)}
                 style={styles.imgcontainer}>
-                <Image style={styles.img} source={{uri: item.images[0].src}} />
+                <Image
+                  style={styles.img}
+                  source={
+                    item.images[0]?.src
+                      ? {uri: item.images[0].src}
+                      : require('../../../assests/noimg.jpeg')
+                  }
+                />
               </TouchableOpacity>
               <Text style={styles.title}>{item.title}</Text>
               <Text style={[styles.title, {marginVertical: wp(0)}]}>

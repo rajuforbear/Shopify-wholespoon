@@ -19,4 +19,5 @@ export interface action{
     op:string,
     check:boolean,
     address:Node,
+    varients:[]
 }

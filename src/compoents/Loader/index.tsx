@@ -3,7 +3,6 @@ import {
   View,
   Text,
   ActivityIndicator,
-  StatusBar,
   Platform,
   StyleSheet,
 } from 'react-native';

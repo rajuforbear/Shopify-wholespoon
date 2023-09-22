@@ -49,7 +49,7 @@ const AddressBook: React.FC<Props> = ({navigation}) => {
     });
     handleOnVisible(index);
   };
-
+  console.log(userData.id);
   const editAddress = (item: Node, index: number) => {
     navigation.navigate('Address', {data: item});
     handleOnVisible(index);

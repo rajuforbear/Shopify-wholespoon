@@ -25,6 +25,7 @@ import {ProductDetail} from '../../Types/ProductDetail';
 import {HomeType} from '../../Types/HomeType';
 import userQuery from '../../data/userQuery';
 import RazorpayCheckout from 'react-native-razorpay';
+import checkOuerry from '../../data/checkout';
 function* getCollection() {
   try {
     const data: collections = yield call(Shopify.getCollection);
@@ -142,7 +143,7 @@ function* doLogin(action: action) {
 
       action.page === 'check'
         ? action.navigation.replace('Checkout')
-        : action.navigation.replace('Home');
+        : action.navigation.reset({index: 0, routes: [{name: 'Home'}]});
     } else {
       yield put({
         type: 'sopify/loginFail',
@@ -323,10 +324,34 @@ function* removeCartItem(action: action) {
 function* createCheckout(action: action) {
   try {
     const res: Checkouts = yield call(Shopify.userControll, action.data);
+    let data = JSON.stringify({
+      query: `mutation checkoutLineItemsAdd($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
+      checkoutLineItemsAdd(checkoutId: $checkoutId, lineItems: $lineItems) {
+        checkout {
+          # Checkout fields
+        ${checkOuerry}
+        }
+        checkoutUserErrors {
+          # CheckoutUserError fields
+          code
+          field
+          message
+        }
+      }
+    }`,
+      variables: {
+        checkoutId: res.data.checkoutCreate.checkout.id,
+        lineItems: action.varients,
+      },
+    });
 
     yield put({
       type: 'sopify/createCheckoutSuccess',
       payload: res.data.checkoutCreate.checkout,
+    });
+    yield put({
+      type: 'sopify/updateCheckout',
+      data: data,
     });
     action.navigation.navigate('Checkout');
   } catch (error) {
@@ -756,11 +781,8 @@ function* resetPassword(action: action) {
 }
 function* updateCheckout(action: action) {
   try {
-    const res: updateCheckouts = yield call(
-      Shopify.updateCheckout,
-      action.id,
-      action.address,
-    );
+    const res: updateCheckouts = yield call(Shopify.userControll, action.data);
+    console.log('this is update res', JSON.stringify(res));
     if (res.id) {
       yield put({
         type: 'sopify/updateCheckoutSuccess',
@@ -784,7 +806,8 @@ function* updateCheckout(action: action) {
       };
       yield RazorpayCheckout.open(options)
         .then(data => {
-          Alert.alert(`Success: ${data.razorpay_payment_id}`);
+          // Alert.alert(`Success: ${data.razorpay_payment_id}`);
+          console.log('this data', JSON.stringify(data));
         })
         .catch(error => {
           console.log(`Error: ${error.code} | ${error.description}`);

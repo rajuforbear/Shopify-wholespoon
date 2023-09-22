@@ -9,6 +9,7 @@ export interface user {
   export interface Customer {
     firstName: string
     lastName: string
+    id:string
     email: string
     phone: string
     acceptsMarketing: boolean
