@@ -324,39 +324,104 @@ function* removeCartItem(action: action) {
 function* createCheckout(action: action) {
   try {
     const res: Checkouts = yield call(Shopify.userControll, action.data);
-    let data = JSON.stringify({
-      query: `mutation checkoutLineItemsAdd($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
-      checkoutLineItemsAdd(checkoutId: $checkoutId, lineItems: $lineItems) {
-        checkout {
-          # Checkout fields
-        ${checkOuerry}
-        }
-        checkoutUserErrors {
-          # CheckoutUserError fields
-          code
-          field
-          message
-        }
-      }
-    }`,
+    let address = {
+      firstName: action.address?.firstName,
+      lastName: action.address?.lastName,
+      address1: action.address?.address1,
+      address2: action.address?.address2,
+      city: action.address?.city,
+      company: action.address?.company,
+      country: action.address?.country,
+      phone: action.address?.phone,
+      province: action.address?.province,
+      zip: action.address?.zip,
+    };
+
+    let data1 = JSON.stringify({
+      query: `mutation checkoutEmailUpdateV2($checkoutId: ID!, $email: String!) {
+  checkoutEmailUpdateV2(checkoutId: $checkoutId, email: $email) {
+    checkout {
+      ${checkOuerry}
+    }
+    checkoutUserErrors {
+      code
+      field
+      message
+    }
+  }
+}`,
       variables: {
         checkoutId: res.data.checkoutCreate.checkout.id,
-        lineItems: action.varients,
+        email: action.email,
       },
     });
 
-    yield put({
-      type: 'sopify/createCheckoutSuccess',
-      payload: res.data.checkoutCreate.checkout,
-    });
-    yield put({
-      type: 'sopify/updateCheckout',
-      data: data,
-    });
-    action.navigation.navigate('Checkout');
+    if (res.data.checkoutCreate?.checkout.id) {
+      const res2: Checkouts = yield call(Shopify.userControll, data1);
+
+      if (res2.data.checkoutEmailUpdateV2?.checkout.id) {
+        let data3 = JSON.stringify({
+          query: `mutation checkoutShippingAddressUpdateV2($checkoutId: ID!, $shippingAddress: MailingAddressInput!) {
+          checkoutShippingAddressUpdateV2(checkoutId: $checkoutId, shippingAddress: $shippingAddress) {
+            checkout {
+              ${checkOuerry}
+            }
+            checkoutUserErrors {
+              # CheckoutUserError fields
+              code
+              field
+              message
+            }
+          }
+        }`,
+          variables: {
+            checkoutId: res2.data.checkoutEmailUpdateV2?.checkout.id,
+            shippingAddress: address,
+          },
+        });
+        const res4: Checkouts = yield call(Shopify.userControll, data3);
+        console.log('thi is some kind of data', JSON.stringify(res4.data));
+
+        if (res4.data.checkoutShippingAddressUpdateV2?.checkout.id) {
+          console.log('thi is some kind of data', JSON.stringify(res4.data));
+          yield put({
+            type: 'sopify/createCheckoutSuccess',
+            payload: res4.data.checkoutShippingAddressUpdateV2?.checkout,
+          });
+          action.navigation.navigate('Webview', {
+            checkouturl:
+              res4.data.checkoutShippingAddressUpdateV2.checkout.webUrl,
+          });
+        } else {
+          yield put({
+            type: '/sopify/createCheckoutFaill',
+          });
+          Toast.show({
+            type: 'info',
+            text1: 'Something went wrong',
+          });
+        }
+      } else {
+        yield put({
+          type: '/sopify/createCheckoutFaill',
+        });
+        Toast.show({
+          type: 'info',
+          text1: 'Something went wrong',
+        });
+      }
+    } else {
+      yield put({
+        type: '/sopify/createCheckoutFaill',
+      });
+      Toast.show({
+        type: 'info',
+        text1: 'Something went wrong',
+      });
+    }
   } catch (error) {
     yield put({
-      type: '/sopify/createCheckoutFaill',
+      type: 'sopify/createCheckoutFaill',
     });
     console.log(error);
     Toast.show({
@@ -782,7 +847,7 @@ function* resetPassword(action: action) {
 function* updateCheckout(action: action) {
   try {
     const res: updateCheckouts = yield call(Shopify.userControll, action.data);
-    console.log('this is update res', JSON.stringify(res));
+    console.log('udate checkout called', JSON.stringify(res));
     if (res.id) {
       yield put({
         type: 'sopify/updateCheckoutSuccess',

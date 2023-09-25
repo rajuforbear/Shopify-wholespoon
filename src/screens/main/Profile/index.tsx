@@ -57,29 +57,45 @@ const Profile: React.FC<Props> = ({navigation}) => {
             </View>
             <View style={{flex: 1, marginTop: wp(3)}}>
               <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                  paddingVertical: wp(3),
-                  width: '100%',
-                  backgroundColor: 'white',
-                  shadowOffset: {height: wp(0.1), width: 0},
-                  shadowColor: 'black',
-                  shadowOpacity: 0.5,
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  paddingHorizontal: wp(8),
-                  elevation: 4,
-                }}>
+                onPress={() => {
+                  navigation.navigate('OrderList');
+                }}
+                style={[
+                  styles.list,
+                  userData?.addresses?.nodes?.length > 0
+                    ? {paddingVertical: wp(4.8)}
+                    : null,
+                  {
+                    flexDirection: 'row',
+                    width: '100%',
+                    backgroundColor: 'white',
+                    shadowOffset: {height: wp(0.1), width: 0},
+                    shadowColor: 'black',
+                    shadowOpacity: 0.5,
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingHorizontal: wp(8),
+                    elevation: 4,
+                  },
+                ]}>
                 <View>
                   <Text
                     style={{
                       fontSize: wp(5),
                       fontStyle: 'italic',
                       fontWeight: '600',
+                      width: 200,
                     }}>
-                    Oder History
+                    Orders
                   </Text>
-                  <Text style={{marginTop: wp(1)}}>No orders yet</Text>
+                  {userData?.orders?.nodes?.length === 0 ? (
+                    <Text style={{marginTop: wp(1)}}>No order yet</Text>
+                  ) : null}
+                </View>
+                <View style={styles.circle}>
+                  <Text style={{color: 'white', fontWeight: 'bold'}}>
+                    {userData?.orders?.nodes?.length}
+                  </Text>
                 </View>
                 <AntDesign name="right" size={wp(5)} color="black" />
               </TouchableOpacity>
@@ -111,6 +127,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
                       fontSize: wp(5),
                       fontStyle: 'italic',
                       fontWeight: '600',
+                      width: 200,
                     }}>
                     Saved Addresses
                   </Text>

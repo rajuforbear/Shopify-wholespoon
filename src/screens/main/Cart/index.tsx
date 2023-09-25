@@ -45,6 +45,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
       data: data,
     });
   };
+  console.log('this is id', cartItem?.checkoutUrl);
 
   const createCheckout = async () => {
     let varients = [] as {variantId: string; quantity: number}[];
@@ -82,7 +83,8 @@ const Cart: React.FC<Props> = ({navigation}) => {
       type: 'sopify/createCheckout',
       data: data,
       navigation,
-      varients,
+      email: userData.email,
+      address: userData.defaultAddress,
     });
   };
 

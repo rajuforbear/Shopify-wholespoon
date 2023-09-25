@@ -33,7 +33,7 @@ const Home: React.FC<Props> = ({navigation}) => {
 
   const HomeData = useSelector((state: RootState) => state.data.homeData);
   const userData = useSelector((state: RootState) => state.data.userData);
-  console.log('this is id', userData.id);
+
   const getCollection = () => {
     dispatch({
       type: 'sopify/getCollection',
@@ -58,6 +58,7 @@ const Home: React.FC<Props> = ({navigation}) => {
   }, [dispatch]);
   const getUserData = async () => {
     const userToke = await AsyncStorage.getItem('Token');
+    console.log('this is userToke', userToke);
 
     let data = JSON.stringify({
       query: `query{

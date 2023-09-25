@@ -14,14 +14,14 @@ var str1 = 'raju barde';
 var str2 = 'bare raju';
 console.log(
   str1 +
-    ' is ' +
-    typeof str1 +
-    ' type' +
-    '\n' +
-    str2 +
-    ' is ' +
-    typeof str2 +
-    ' type',
+  ' is ' +
+  typeof str1 +
+  ' type' +
+  '\n' +
+  str2 +
+  ' is ' +
+  typeof str2 +
+  ' type',
 );
 
 /*

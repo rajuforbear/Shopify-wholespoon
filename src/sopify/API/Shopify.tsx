@@ -111,5 +111,27 @@ class Shopify {
       throw new Error(error.message);
     }
   };
+
+  static shipingZones = () => {
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://MyStore123432.myshopify.com/admin/api/2023-07/shipping_zones.json',
+      headers: {
+        'X-Shopify-Access-Token': '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',
+        'Access-Control-Origin': '*',
+        'Content-Type': ' application/json',
+      },
+    };
+
+    axios
+      .request(config)
+      .then(response => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 }
 export default Shopify;

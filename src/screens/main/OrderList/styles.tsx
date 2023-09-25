@@ -17,8 +17,11 @@ export default StyleSheet.create({
     paddingHorizontal: wp(3),
   },
   txt: {
+    alignSelf: 'center',
+    marginTop: 5,
     fontSize: wp(4),
-    color: 'grey',
+    fontWeight: '800',
+    color: 'black',
   },
   listCard: {
     height: hp(20),

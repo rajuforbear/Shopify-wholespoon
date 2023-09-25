@@ -36,7 +36,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
   const updateCheckout = useSelector(
     (state: RootState) => state.data.updateCheckout,
   );
-  console.log('this is the id,checkout id', updateCheckout.id);
+
   const dispatch = useDispatch();
   const [isEdited, setIsEdited] = useState(false);
   const [tokenn, setToken] = useState<boolean>(false);
@@ -58,6 +58,7 @@ const Checkout: React.FC<Props> = ({navigation}) => {
   const [email, setEmail] = useState<string>(
     useData?.email ? useData.email : updateCheckout.email,
   );
+
   const [booladdress, setIsBoolAddress] = useState<boolean>(false);
   const updateCheckoutEmail = () => {
     let data = JSON.stringify({

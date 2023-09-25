@@ -29,7 +29,7 @@ import {CompositeScreenProps} from '@react-navigation/native';
 import {NavigationParams} from '../../../navigation';
 import productquery from '../../../data/productquery';
 import RenderHTML from 'react-native-render-html';
-import {Rating, AirbnbRating} from 'react-native-ratings';
+import checkoutQuerry from '../../../data/checkout';
 type Props = CompositeScreenProps<
   StackScreenProps<HelperNavigationParams, 'Details'>,
   StackScreenProps<NavigationParams, 'Login'>
@@ -46,6 +46,7 @@ const Details: React.FC<Props> = ({navigation}) => {
 
   const dispatch = useDispatch();
   const isFetching = useSelector((state: RootState) => state.data.isLoading);
+  const userData = useSelector((state: RootState) => state.data.userData);
 
   const [quantity, setQuantity] = useState(1);
   const setArr = () => {
@@ -249,34 +250,7 @@ const Details: React.FC<Props> = ({navigation}) => {
       query: `mutation checkoutCreate($input: CheckoutCreateInput!) {
           checkoutCreate(input: $input) {
             checkout {
-              id 
-              lineItemsSubtotalPrice{
-                  amount
-                  currencyCode
-              }
-              lineItems(first:10){
-                
-                  edges{
-                      node{
-                         id
-                         quantity
-                         title
-                        variant{
-                            id
-                            image{
-                                id
-                                url
-                            }
-                            price{
-                              amount
-                              currencyCode
-                          }
-                        }
-        
-        
-                      }
-                  }
-              }
+            ${checkoutQuerry}
             }
             checkoutUserErrors {
                field
@@ -298,6 +272,8 @@ const Details: React.FC<Props> = ({navigation}) => {
       type: 'sopify/createCheckout',
       data: data,
       navigation,
+      email: userData.email,
+      address: userData.defaultAddress,
     });
   };
 

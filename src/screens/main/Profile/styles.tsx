@@ -150,6 +150,7 @@ export default StyleSheet.create({
     elevation: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'flex-end',
   },
   head: {
     alignItems: 'center',
