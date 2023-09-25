@@ -102,7 +102,11 @@ const Search: React.FC<Props> = ({navigation, route}) => {
               <View style={styles.imgContainer}>
                 <Image
                   style={styles.img}
-                  source={{uri: item.node.featuredImage.url}}
+                  source={
+                    item.node.featuredImage?.url
+                      ? {uri: item.node.featuredImage.url}
+                      : require('../../../assests/noimg.jpeg')
+                  }
                 />
               </View>
               <View>

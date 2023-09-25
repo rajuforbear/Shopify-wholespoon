@@ -45,7 +45,6 @@ const Cart: React.FC<Props> = ({navigation}) => {
       data: data,
     });
   };
-  console.log('this is id', cartItem?.checkoutUrl);
 
   const createCheckout = async () => {
     let varients = [] as {variantId: string; quantity: number}[];
