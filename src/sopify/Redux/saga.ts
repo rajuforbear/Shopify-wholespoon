@@ -16,7 +16,7 @@ import {Updatecustumer} from '../../Types/costumerupdate';
 import {CustomerRecovers} from '../../Types/customerRecover';
 import {Checkouts} from '../../Types/checkoutdata';
 import {updateCheckouts} from '../../Types/updateCheckout';
-import {Page} from '../../Types/Pages.d';
+import {Page} from '../../Types/Pages';
 import {PageDetail} from '../../Types/PageDetails';
 import {Menus} from '../../Types/Menu';
 import {SearchProduct} from '../../Types/SerachProduct';
@@ -389,7 +389,7 @@ function* createCheckout(action: action) {
           });
           action.navigation.navigate('Webview', {
             checkouturl:
-              res4.data.checkoutShippingAddressUpdateV2.checkout.webUrl,
+              res4.data.checkoutShippingAddressUpdateV2.checkout.webUrl,page:action.page
           });
         } else {
           yield put({
@@ -397,7 +397,7 @@ function* createCheckout(action: action) {
             payload: res2.data.checkoutEmailUpdateV2?.checkout,
           });
           action.navigation.navigate('Webview', {
-            checkouturl: res2.data.checkoutEmailUpdateV2.checkout.webUrl,
+            checkouturl: res2.data.checkoutEmailUpdateV2.checkout.webUrl,page:action.page
           });
         }
       } else {
@@ -406,7 +406,7 @@ function* createCheckout(action: action) {
           payload: res.data.checkoutCreate?.checkout,
         });
         action.navigation.navigate('Webview', {
-          checkouturl: res.data.checkoutCreate.checkout.webUrl,
+          checkouturl: res.data.checkoutCreate.checkout.webUrl,page:action.page
         });
       }
     } else {
@@ -494,7 +494,7 @@ function* createCHeckout2(action: action) {
               });
               action.navigation.navigate('Webview', {
                 checkouturl:
-                  res3.data?.checkoutShippingAddressUpdateV2.checkout.webUrl,
+                  res3.data?.checkoutShippingAddressUpdateV2.checkout.webUrl,page:action.page
               });
             } else {
               yield put({
@@ -512,7 +512,7 @@ function* createCHeckout2(action: action) {
               payload: res2.data?.checkoutEmailUpdateV2?.checkout,
             });
             action.navigation.navigate('Webview', {
-              checkouturl: res2.data?.checkoutEmailUpdateV2.checkout.webUrl,
+              checkouturl: res2.data?.checkoutEmailUpdateV2.checkout.webUrl,page:action.page
             });
           }
         }
@@ -522,7 +522,7 @@ function* createCHeckout2(action: action) {
           payload: res.data?.checkoutCreate?.checkout,
         });
         action.navigation.navigate('Webview', {
-          checkouturl: res.data?.checkoutCreate.checkout.webUrl,
+          checkouturl: res.data?.checkoutCreate.checkout.webUrl,page:action.page
         });
       }
     } else {
@@ -1029,6 +1029,7 @@ function* searchProduct(action: action) {
 function* productDetails(action: action) {
   try {
     const res: ProductDetail = yield call(Shopify.userControll, action.data);
+    console.log('this is res',JSON.stringify(res))
 
     if (res.data?.product) {
       yield put({
@@ -1050,7 +1051,7 @@ function* productDetails(action: action) {
       });
     }
   } catch (err) {
-    console.log(err);
+    console.log('this is err',err);
     yield put({
       type: 'sopify/ProductDetailsError',
     });

@@ -5,6 +5,9 @@ import {NavigationParams} from '../../../navigation';
 import WebView from 'react-native-webview';
 import Loading from '../../../compoents/Loader';
 import {mainuirl} from '../../../sopify/Constants';
+import {query} from '../Home/query';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
 type Props = StackScreenProps<NavigationParams, 'Webview'>;
 type Navraf = {
   target: number;
@@ -16,10 +19,32 @@ type Navraf = {
   navigationType: string;
 };
 const Webview: React.FC<Props> = ({route, navigation}) => {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const {checkouturl} = route.params;
+  const {checkouturl, page} = route.params;
   const webViewRef = useRef(null);
-  const onNavigationStateChange = (navRaf: Navraf) => {};
+  const onNavigationStateChange = async (navRaf: Navraf) => {
+    const userToke = await AsyncStorage.getItem('Token');
+    if (page === 'cart') {
+      await AsyncStorage.setItem('cartId', '');
+    }
+    if (navRaf.title === 'MyStore123432') {
+      let data = JSON.stringify({
+        query: `query{
+          customer(customerAccessToken:${JSON.stringify(userToke)}){
+          ${query}
+      }`,
+        variables: {},
+      });
+      dispatch({
+        type: 'sopify/userDatareq',
+        data: data,
+        page: 'home',
+        navigation,
+      });
+      navigation.reset({index: 0, routes: [{name: 'Home'}]});
+    }
+  };
 
   return (
     <View style={{flex: 1}}>

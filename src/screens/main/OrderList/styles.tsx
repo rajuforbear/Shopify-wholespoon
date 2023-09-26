@@ -57,4 +57,7 @@ export default StyleSheet.create({
     marginTop: hp(2),
     marginLeft: wp(2),
   },
+  listContainer: {
+    paddingBottom: hp(10),
+  },
 });

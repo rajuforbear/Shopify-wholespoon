@@ -278,6 +278,7 @@ const Details: React.FC<Props> = ({navigation}) => {
       navigation,
       email: userData.email,
       address: userData.defaultAddress,
+      page: 'data',
     });
   };
   const noImage = [require('../../../assests/noimg.jpeg')];

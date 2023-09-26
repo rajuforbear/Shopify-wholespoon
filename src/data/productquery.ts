@@ -69,7 +69,7 @@ media(first:10)
     }
 }
 onlineStoreUrl
-options{
+options(first:20){
     id
     name
     values
@@ -103,7 +103,7 @@ sellingPlanGroups(first:10)
             {
                 name
             }
-            sellingPlans
+            sellingPlans(first:20)
             {
                 edges
                 {

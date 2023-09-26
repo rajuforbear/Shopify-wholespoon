@@ -85,6 +85,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
       navigation,
       email: userData.email,
       address: userData.defaultAddress,
+      page: 'cart',
     });
   };
   const pecentcalculate = (low: string, high: string) => {

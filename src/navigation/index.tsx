@@ -27,6 +27,7 @@ export type NavigationParams = {
   Checkout: undefined;
   Webview: {
     checkouturl: string;
+    page: string;
   };
 };
 
