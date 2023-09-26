@@ -24,7 +24,6 @@ const Cart: React.FC<Props> = ({navigation}) => {
   const cartItem = useSelector((state: RootState) => state.data.cartItem);
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const userData = useSelector((state: RootState) => state.data.userData);
-  console.log('this is cartItem', JSON.stringify(cartItem));
 
   useEffect(() => {
     getCartItem();
@@ -215,7 +214,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
                             fontWeight: 'bold',
                             fontStyle: 'italic',
                           }}>
-                          {+item.node.cost.amountPerQuantity.amount}
+                          {+item.node.cost?.amountPerQuantity.amount}
                         </Text>
                       </Text>
                       {item.node.cost?.compareAtAmountPerQuantity?.amount ? (
@@ -235,7 +234,10 @@ const Cart: React.FC<Props> = ({navigation}) => {
                                 fontWeight: 'bold',
                                 fontStyle: 'italic',
                               }}>
-                              {item.node.cost.compareAtAmountPerQuantity.amount}
+                              {
+                                item.node.cost?.compareAtAmountPerQuantity
+                                  .amount
+                              }
                             </Text>
                           </Text>
 

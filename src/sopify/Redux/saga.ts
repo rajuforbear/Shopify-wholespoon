@@ -23,7 +23,6 @@ import {SearchProduct} from '../../Types/SerachProduct';
 import {ProductDetail} from '../../Types/ProductDetail';
 import {HomeType} from '../../Types/HomeType';
 import userQuery from '../../data/userQuery';
-import RazorpayCheckout from 'react-native-razorpay';
 import checkOuerry from '../../data/checkout';
 function* getCollection() {
   try {
@@ -203,7 +202,7 @@ function* doRegister(action: action) {
 function* getUserData(action: action) {
   try {
     const user: user = yield call(Shopify.userControll, action.data);
-    console.log('this is userdata', user);
+
     if (user.data) {
       yield put({
         type: 'sopify/userDataSuccess',
