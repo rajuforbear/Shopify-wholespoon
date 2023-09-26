@@ -54,7 +54,11 @@ const Details: React.FC<Props> = ({navigation}) => {
     items?.images.nodes.map((item, index) => {
       arr.push(item.url);
     });
-    setImages(arr);
+    if (items.images.nodes.length > 0) {
+      setImages(arr);
+    } else {
+      setImages(require('../../../assests/noimg.jpeg'));
+    }
   };
 
   const [variantVlaue, setVariantVlue] = useState(
@@ -276,6 +280,7 @@ const Details: React.FC<Props> = ({navigation}) => {
       address: userData.defaultAddress,
     });
   };
+  const noImage = [require('../../../assests/noimg.jpeg')];
 
   return (
     <View style={{flex: 1, backgroundColor: '#e6f0f2'}}>
@@ -287,7 +292,7 @@ const Details: React.FC<Props> = ({navigation}) => {
             paddingBottom: wp(7),
           }}>
           <SliderBox
-            images={images}
+            images={items.images.edges.length > 0 ? images : noImage}
             dotColor="#fddae8"
             inactiveDotColor="#cccccc"
             dotStyle={{

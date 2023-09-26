@@ -177,9 +177,14 @@ const Cart: React.FC<Props> = ({navigation}) => {
                   <View style={styles.imgContainer}>
                     <Image
                       style={styles.img}
-                      source={{
-                        uri: item?.node.merchandise.product?.featuredImage.url,
-                      }}
+                      source={
+                        item?.node.merchandise.product?.featuredImage?.url
+                          ? {
+                              uri: item?.node.merchandise.product?.featuredImage
+                                .url,
+                            }
+                          : require('../../../assests/noimg.jpeg')
+                      }
                     />
                   </View>
 
