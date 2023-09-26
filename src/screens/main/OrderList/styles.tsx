@@ -28,11 +28,16 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     marginVertical: wp(1),
     flexDirection: 'row',
-    alignItems: 'center',
     paddingHorizontal: wp(4),
   },
   img: {
-    height: hp(12),
-    width: hp(8),
+    height: '100%',
+    width: wp(25),
+  },
+  txt2: {
+    marginTop: hp(2),
+    fontSize: wp(4.5),
+    fontWeight: '600',
+    color: 'black',
   },
 });

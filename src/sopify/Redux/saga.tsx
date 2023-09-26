@@ -2,7 +2,6 @@ import {put, takeEvery, call, StrictEffect} from 'redux-saga/effects';
 import Shopify from '../API/Shopify';
 import {getCollectionSuccess} from './Slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert} from 'react-native';
 import Toast from 'react-native-toast-message';
 import {query} from '../../screens/main/Home/query';
 import {collections} from '../../Types/collection';
@@ -204,7 +203,7 @@ function* doRegister(action: action) {
 function* getUserData(action: action) {
   try {
     const user: user = yield call(Shopify.userControll, action.data);
-
+    console.log('this is userdata', user);
     if (user.data) {
       yield put({
         type: 'sopify/userDataSuccess',
@@ -970,30 +969,30 @@ function* updateCheckout(action: action) {
         type: 'sopify/updateCheckoutSuccess',
         payload: res,
       });
-      var options = {
-        description: 'Credits towards consultation',
-        image:
-          'https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611',
-        currency: res.subtotalPrice.currencyCode,
-        key: 'rzp_test_AOorY1425MKPXq',
-        amount: '500',
-        name: 'Wholespoon',
-        prefill: {
-          email: res.email,
-          contact: res.shippingAddress.phone,
-          name: 'Razorpay Software',
-        },
-        theme: {color: '#A36B25'},
-        // order_id: 'AB2342',
-      };
-      yield RazorpayCheckout.open(options)
-        .then(data => {
-          // Alert.alert(`Success: ${data.razorpay_payment_id}`);
-          console.log('this data', JSON.stringify(data));
-        })
-        .catch(error => {
-          console.log(`Error: ${error.code} | ${error.description}`);
-        });
+      // var options = {
+      //   description: 'Credits towards consultation',
+      //   image:
+      //     'https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611',
+      //   currency: res.subtotalPrice.currencyCode,
+      //   key: 'rzp_test_AOorY1425MKPXq',
+      //   amount: '500',
+      //   name: 'Wholespoon',
+      //   prefill: {
+      //     email: res.email,
+      //     contact: res.shippingAddress.phone,
+      //     name: 'Razorpay Software',
+      //   },
+      //   theme: {color: '#A36B25'},
+      //   // order_id: 'AB2342',
+      // };
+      // yield RazorpayCheckout.open(options)
+      //   .then(data => {
+      //     // Alert.alert(`Success: ${data.razorpay_payment_id}`);
+      //     console.log('this data', JSON.stringify(data));
+      // })
+      // .catch(error => {
+      //   console.log(`Error: ${error.code} | ${error.description}`);
+      // });
     }
   } catch (err) {
     console.log(err);

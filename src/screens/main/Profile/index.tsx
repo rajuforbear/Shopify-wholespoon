@@ -88,13 +88,13 @@ const Profile: React.FC<Props> = ({navigation}) => {
                     }}>
                     Orders
                   </Text>
-                  {userData?.orders?.nodes?.length === 0 ? (
+                  {userData?.orders?.edges?.length === 0 ? (
                     <Text style={{marginTop: wp(1)}}>No order yet</Text>
                   ) : null}
                 </View>
                 <View style={styles.circle}>
                   <Text style={{color: 'white', fontWeight: 'bold'}}>
-                    {userData?.orders?.nodes?.length}
+                    {userData?.orders?.edges?.length}
                   </Text>
                 </View>
                 <AntDesign name="right" size={wp(5)} color="black" />
