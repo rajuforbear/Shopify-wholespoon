@@ -1,10 +1,18 @@
-import {View, Text, FlatList, Image} from 'react-native';
+import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../sopify/Redux/store';
 import styles from './styles';
-
-const OrderList = () => {
+import {StackScreenProps} from '@react-navigation/stack';
+import {CompositeScreenProps} from '@react-navigation/native';
+import {RootNavigationParams} from '../../../Types/NavigationProps';
+import {HelperNavigationParams} from '../../../navigation/Helper/Helper';
+import {NavigationParams} from '../../../navigation';
+type Props = CompositeScreenProps<
+  StackScreenProps<HelperNavigationParams, 'OrderList'>,
+  StackScreenProps<NavigationParams, 'Webview'>
+>;
+const OrderList: React.FC<Props> = ({navigation}) => {
   const orders = useSelector(
     (state: RootState) => state.data.userData.orders.edges,
   );
@@ -16,17 +24,45 @@ const OrderList = () => {
         data={orders}
         keyExtractor={(item, index) => item.node.id}
         renderItem={({item, index}) => (
-          <View style={styles.listCard}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Webview', {checkouturl: item.node.statusUrl})
+            }
+            style={styles.listCard}>
+            <Text style={styles.txt3}>{'#' + item.node.orderNumber}</Text>
             <Image
               style={styles.img}
               source={{uri: item.node.lineItems.nodes[0].variant.image.url}}
             />
             <View>
               <Text style={styles.txt2}>
-                {item.node.lineItems.nodes[0].title.substring(0, 24) + '...'}
+                {item.node.lineItems.nodes[0].quantity + ' items'}
+              </Text>
+              <Text style={styles.add}>
+                {item.node.shippingAddress?.address1
+                  ? item.node.shippingAddress.address1
+                  : ''}
+                {item.node.shippingAddress?.address2
+                  ? ', ' + item.node.shippingAddress.address2
+                  : ''}
+                {item.node.shippingAddress?.city
+                  ? ', ' + item.node.shippingAddress.city
+                  : ''}
+                {item.node.shippingAddress?.company
+                  ? ', ' + item.node.shippingAddress.company
+                  : ''}
+                {item.node.shippingAddress?.province
+                  ? ', ' + item.node.shippingAddress.province
+                  : ''}
+                {item.node.shippingAddress?.country
+                  ? ', ' + item.node.shippingAddress.country
+                  : ''}
+                {item.node.shippingAddress?.zip
+                  ? ', ' + item.node.shippingAddress.zip
+                  : ''}
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>
