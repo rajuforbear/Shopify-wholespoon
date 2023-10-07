@@ -30,6 +30,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
   }, [isFocused]);
   const getCartItem = async () => {
     const cartId = await AsyncStorage.getItem('cartId');
+    console.log(cartId);
 
     let data = JSON.stringify({
       query: `{
@@ -45,7 +46,6 @@ const Cart: React.FC<Props> = ({navigation}) => {
       data: data,
     });
   };
-  console.log('this is id', cartItem?.checkoutUrl);
 
   const createCheckout = async () => {
     let varients = [] as {variantId: string; quantity: number}[];
@@ -86,6 +86,13 @@ const Cart: React.FC<Props> = ({navigation}) => {
       email: userData.email,
       address: userData.defaultAddress,
     });
+  };
+  const pecentcalculate = (low: string, high: string) => {
+    let percent = 0;
+    const n1 = parseInt(low);
+    const n2 = parseInt(high);
+    percent = ((n2 - n1) / n1) * 100;
+    return percent.toFixed(2);
   };
 
   const cartItemRemove = async (id: string) => {
@@ -171,9 +178,14 @@ const Cart: React.FC<Props> = ({navigation}) => {
                     <Image
                       // resizeMode="center"
                       style={styles.img}
-                      source={{
-                        uri: item?.node.merchandise.product?.featuredImage.url,
-                      }}
+                      source={
+                        item?.node.merchandise.product?.featuredImage?.url
+                          ? {
+                              uri: item?.node.merchandise.product?.featuredImage
+                                .url,
+                            }
+                          : require('../../../assests/noimg.jpeg')
+                      }
                     />
                   </View>
 
@@ -208,42 +220,51 @@ const Cart: React.FC<Props> = ({navigation}) => {
                             fontWeight: 'bold',
                             fontStyle: 'italic',
                           }}>
-                          {+item?.node.merchandise.product?.priceRange
-                            .maxVariantPrice.amount + '.00'}
+                          {+item.node.cost?.amountPerQuantity.amount}
                         </Text>
                       </Text>
-                      <Text
-                        style={{
-                          marginTop: '2%',
-                          fontSize: wp(3.5),
-                          textDecorationLine: 'line-through',
-                          color: 'grey',
-                          fontStyle: 'italic',
-                        }}>
-                        {'   '}₹
-                        <Text
-                          style={{
-                            fontSize: wp(4.5),
-                            fontWeight: 'bold',
-                            fontStyle: 'italic',
-                          }}>
-                          {2 *
-                            parseInt(
-                              item?.node.merchandise.product?.priceRange
-                                .maxVariantPrice.amount,
-                            )}
-                        </Text>
-                      </Text>
-                      <Text
-                        style={{
-                          marginTop: '2%',
-                          color: '#CC0066',
-                          fontSize: wp(3),
-                          marginLeft: '3%',
-                          fontStyle: 'italic',
-                        }}>
-                        50%
-                      </Text>
+                      {item.node.cost?.compareAtAmountPerQuantity?.amount ? (
+                        <View style={{flexDirection: 'row'}}>
+                          <Text
+                            style={{
+                              marginTop: '2%',
+                              fontSize: wp(3.5),
+                              textDecorationLine: 'line-through',
+                              color: 'grey',
+                              fontStyle: 'italic',
+                            }}>
+                            {'   '}₹
+                            <Text
+                              style={{
+                                fontSize: wp(4.5),
+                                fontWeight: 'bold',
+                                fontStyle: 'italic',
+                              }}>
+                              {
+                                item.node.cost?.compareAtAmountPerQuantity
+                                  .amount
+                              }
+                            </Text>
+                          </Text>
+
+                          <Text
+                            style={{
+                              marginTop: '2%',
+                              color: '#CC0066',
+                              fontSize: wp(3),
+                              marginLeft: '3%',
+                              fontStyle: 'italic',
+                            }}>
+                            {' ' +
+                              pecentcalculate(
+                                item.node.cost?.amountPerQuantity?.amount,
+                                item.node.cost?.compareAtAmountPerQuantity
+                                  ?.amount,
+                              ) +
+                              '%'}
+                          </Text>
+                        </View>
+                      ) : null}
                     </View>
 
                     <Text style={{marginLeft: '3%', color: 'grey'}}>

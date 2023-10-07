@@ -5,7 +5,6 @@ import store from '../sopify/Redux/store';
 import RootNavigation from '../navigation';
 import Toast from 'react-native-toast-message';
 import netInfo from '@react-native-community/netinfo';
-import {MenuProvider} from 'react-native-popup-menu';
 
 const App: React.FC = () => {
   LogBox.ignoreAllLogs();
@@ -24,9 +23,8 @@ const App: React.FC = () => {
             flex: 1,
             backgroundColor: '#ededed',
           }}>
-          <MenuProvider>
-            <RootNavigation />
-          </MenuProvider>
+          <RootNavigation />
+
           <Toast position="bottom" bottomOffset={50} />
         </SafeAreaView>
       </Provider>

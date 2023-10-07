@@ -23,7 +23,7 @@ export interface Customer {
 
 export interface DefaultAddress {
   address1: string
-  address2: string
+  address2: any
   city: string
   company: string
   country: string
@@ -49,7 +49,7 @@ export interface Addresses {
 
 export interface Node {
   address1: string
-  address2: string
+  address2?: string
   city: string
   company: string
   country: string
@@ -75,7 +75,7 @@ export interface Edge {
 
 export interface Node2 {
   address1: string
-  address2: string
+  address2?: string
   city: string
   company: string
   country: string
@@ -215,7 +215,7 @@ export interface Node5 {
   originalTotalPrice: OriginalTotalPrice
   quantity: number
   title: string
-  variant: any
+  variant: Variant
 }
 
 export interface CustomAttribute2 {
@@ -253,6 +253,167 @@ export interface DiscountedTotalPrice {
 export interface OriginalTotalPrice {
   amount: string
   currencyCode: string
+}
+
+export interface Variant {
+  availableForSale: boolean
+  barcode?: string
+  compareAtPrice?: CompareAtPrice
+  currentlyNotInStock: boolean
+  id: string
+  image: Image
+  price: Price
+  product: Product
+  quantityAvailable: number
+  requiresShipping: boolean
+  selectedOptions: SelectedOption[]
+  sellingPlanAllocations: SellingPlanAllocations
+  sku: string
+  storeAvailability: StoreAvailability
+  title: string
+  unitPrice: any
+  unitPriceMeasurement: UnitPriceMeasurement
+  weight: number
+  weightUnit: string
+}
+
+export interface CompareAtPrice {
+  amount: string
+  currencyCode: string
+}
+
+export interface Image {
+  altText: string
+  height: number
+  id: string
+  url: string
+  width: number
+}
+
+export interface Price {
+  amount: string
+  currencyCode: string
+}
+
+export interface Product {
+  availableForSale: boolean
+  collections: Collections
+  id: string
+  images: Images
+}
+
+export interface Collections {
+  nodes: Node6[]
+}
+
+export interface Node6 {
+  title: string
+  id: string
+}
+
+export interface Images {
+  nodes: Node7[]
+}
+
+export interface Node7 {
+  altText: string
+  height: number
+  id: string
+  url: string
+  width: number
+}
+
+export interface SelectedOption {
+  name: string
+  value: string
+}
+
+export interface SellingPlanAllocations {
+  nodes: Node8[]
+}
+
+export interface Node8 {
+  checkoutChargeAmount: CheckoutChargeAmount
+  priceAdjustments: PriceAdjustment[]
+  remainingBalanceChargeAmount: RemainingBalanceChargeAmount
+  sellingPlan: SellingPlan
+}
+
+export interface CheckoutChargeAmount {
+  amount: string
+  currencyCode: string
+}
+
+export interface PriceAdjustment {
+  compareAtPrice: CompareAtPrice2
+  perDeliveryPrice: PerDeliveryPrice
+  price: Price2
+  unitPrice: any
+}
+
+export interface CompareAtPrice2 {
+  amount: string
+  currencyCode: string
+}
+
+export interface PerDeliveryPrice {
+  amount: string
+  currencyCode: string
+}
+
+export interface Price2 {
+  amount: string
+  currencyCode: string
+}
+
+export interface RemainingBalanceChargeAmount {
+  amount: string
+  currencyCode: string
+}
+
+export interface SellingPlan {
+  checkoutCharge: CheckoutCharge
+  description: any
+  id: string
+  name: string
+  options: Option[]
+  priceAdjustments: PriceAdjustment2[]
+  recurringDeliveries: boolean
+}
+
+export interface CheckoutCharge {
+  type: string
+  value: Value3
+}
+
+export interface Value3 {
+  __typename: string
+}
+
+export interface Option {
+  name: string
+  value: string
+}
+
+export interface PriceAdjustment2 {
+  adjustmentValue: AdjustmentValue
+  orderCount: any
+}
+
+export interface AdjustmentValue {
+  __typename: string
+}
+
+export interface StoreAvailability {
+  nodes: any[]
+}
+
+export interface UnitPriceMeasurement {
+  measuredType: any
+  quantityUnit: any
+  quantityValue: number
+  referenceUnit: any
+  referenceValue: number
 }
 
 export interface OriginalTotalDuties {
@@ -309,15 +470,4 @@ export interface TotalShippingPrice {
 export interface TotalTax {
   amount: string
   currencyCode: string
-}
-
-export interface Error {
-  message: string
-  locations: Location[]
-  path: any[]
-}
-
-export interface Location {
-  line: number
-  column: number
 }

@@ -2,7 +2,6 @@ import {put, takeEvery, call, StrictEffect} from 'redux-saga/effects';
 import Shopify from '../API/Shopify';
 import {getCollectionSuccess} from './Slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert} from 'react-native';
 import Toast from 'react-native-toast-message';
 import {query} from '../../screens/main/Home/query';
 import {collections} from '../../Types/collection';
@@ -24,7 +23,6 @@ import {SearchProduct} from '../../Types/SerachProduct';
 import {ProductDetail} from '../../Types/ProductDetail';
 import {HomeType} from '../../Types/HomeType';
 import userQuery from '../../data/userQuery';
-import RazorpayCheckout from 'react-native-razorpay';
 import checkOuerry from '../../data/checkout';
 function* getCollection() {
   try {
@@ -356,10 +354,10 @@ function* createCheckout(action: action) {
       },
     });
 
-    if (res.data.checkoutCreate?.checkout.id) {
+    if (res.data?.checkoutCreate?.checkout.id) {
       const res2: Checkouts = yield call(Shopify.userControll, data1);
 
-      if (res2.data.checkoutEmailUpdateV2?.checkout.id) {
+      if (res2.data.checkoutEmailUpdateV2?.checkout.id && action?.email) {
         let data3 = JSON.stringify({
           query: `mutation checkoutShippingAddressUpdateV2($checkoutId: ID!, $shippingAddress: MailingAddressInput!) {
           checkoutShippingAddressUpdateV2(checkoutId: $checkoutId, shippingAddress: $shippingAddress) {
@@ -380,10 +378,11 @@ function* createCheckout(action: action) {
           },
         });
         const res4: Checkouts = yield call(Shopify.userControll, data3);
-        console.log('thi is some kind of data', JSON.stringify(res4.data));
 
-        if (res4.data.checkoutShippingAddressUpdateV2?.checkout.id) {
-          console.log('thi is some kind of data', JSON.stringify(res4.data));
+        if (
+          res4.data.checkoutShippingAddressUpdateV2?.checkout.id &&
+          action.address?.country
+        ) {
           yield put({
             type: 'sopify/createCheckoutSuccess',
             payload: res4.data.checkoutShippingAddressUpdateV2?.checkout,
@@ -394,20 +393,20 @@ function* createCheckout(action: action) {
           });
         } else {
           yield put({
-            type: '/sopify/createCheckoutFaill',
+            type: 'sopify/createCheckoutSuccess',
+            payload: res2.data.checkoutEmailUpdateV2?.checkout,
           });
-          Toast.show({
-            type: 'info',
-            text1: 'Something went wrong',
+          action.navigation.navigate('Webview', {
+            checkouturl: res2.data.checkoutEmailUpdateV2.checkout.webUrl,
           });
         }
       } else {
         yield put({
-          type: '/sopify/createCheckoutFaill',
+          type: 'sopify/createCheckoutSuccess',
+          payload: res.data.checkoutCreate?.checkout,
         });
-        Toast.show({
-          type: 'info',
-          text1: 'Something went wrong',
+        action.navigation.navigate('Webview', {
+          checkouturl: res.data.checkoutCreate.checkout.webUrl,
         });
       }
     } else {
@@ -427,6 +426,122 @@ function* createCheckout(action: action) {
     Toast.show({
       type: 'info',
       text1: 'Something went wrong',
+    });
+  }
+}
+function* createCHeckout2(action: action) {
+  try {
+    const res: Checkouts = yield call(Shopify.userControll, action.data);
+    if (res.data.checkoutCreate.checkout.id) {
+      if (action?.email) {
+        let data1 = JSON.stringify({
+          query: `mutation checkoutEmailUpdateV2($checkoutId: ID!, $email: String!) {
+      checkoutEmailUpdateV2(checkoutId: $checkoutId, email: $email) {
+        checkout {
+          ${checkOuerry}
+        }
+        checkoutUserErrors {
+          code
+          field
+          message
+        }
+      }
+    }`,
+          variables: {
+            checkoutId: res.data.checkoutCreate.checkout.id,
+            email: action.email,
+          },
+        });
+        let address = {
+          firstName: action.address?.firstName,
+          lastName: action.address?.lastName,
+          address1: action.address?.address1,
+          address2: action.address?.address2,
+          city: action.address?.city,
+          company: action.address?.company,
+          country: action.address?.country,
+          phone: action.address?.phone,
+          province: action.address?.province,
+          zip: action.address?.zip,
+        };
+        const res2: Checkouts = yield call(Shopify.userControll, data1);
+        if (res2.data?.checkoutEmailUpdateV2.checkout.id) {
+          if (action.address?.country) {
+            let data3 = JSON.stringify({
+              query: `mutation checkoutShippingAddressUpdateV2($checkoutId: ID!, $shippingAddress: MailingAddressInput!) {
+              checkoutShippingAddressUpdateV2(checkoutId: $checkoutId, shippingAddress: $shippingAddress) {
+                checkout {
+                  ${checkOuerry}
+                }
+                checkoutUserErrors {
+                  # CheckoutUserError fields
+                  code
+                  field
+                  message
+                }
+              }
+            }`,
+              variables: {
+                checkoutId: res2.data.checkoutEmailUpdateV2?.checkout.id,
+                shippingAddress: address,
+              },
+            });
+            const res3: Checkouts = yield call(Shopify.userControll, data3);
+            if (res3.data?.checkoutShippingAddressUpdateV2.checkout.id) {
+              yield put({
+                type: 'sopify/createCheckoutSuccess',
+                payload: res3.data?.checkoutShippingAddressUpdateV2?.checkout,
+              });
+              action.navigation.navigate('Webview', {
+                checkouturl:
+                  res3.data?.checkoutShippingAddressUpdateV2.checkout.webUrl,
+              });
+            } else {
+              yield put({
+                type: 'sopify/createCheckoutFaill',
+              });
+              console.log(JSON.stringify(res.data));
+              Toast.show({
+                type: 'info',
+                text1: 'Something went wrong',
+              });
+            }
+          } else {
+            yield put({
+              type: 'sopify/createCheckoutSuccess',
+              payload: res2.data?.checkoutEmailUpdateV2?.checkout,
+            });
+            action.navigation.navigate('Webview', {
+              checkouturl: res2.data?.checkoutEmailUpdateV2.checkout.webUrl,
+            });
+          }
+        }
+      } else {
+        yield put({
+          type: 'sopify/createCheckoutSuccess',
+          payload: res.data?.checkoutCreate?.checkout,
+        });
+        action.navigation.navigate('Webview', {
+          checkouturl: res.data?.checkoutCreate.checkout.webUrl,
+        });
+      }
+    } else {
+      yield put({
+        type: 'sopify/createCheckoutFaill',
+      });
+      console.log(JSON.stringify(res.data));
+      Toast.show({
+        type: 'info',
+        text1: 'Something went wrong',
+      });
+    }
+  } catch (err) {
+    Toast.show({
+      type: 'info',
+      text1: 'Something went wrong',
+    });
+    yield put({
+      type: 'sopify/createCheckoutFaill',
     });
   }
 }
@@ -877,6 +992,30 @@ function* updateCheckout(action: action) {
         .catch(error => {
           console.log(`Error: ${error.code} | ${error.description}`);
         });
+      // var options = {
+      //   description: 'Credits towards consultation',
+      //   image:
+      //     'https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611',
+      //   currency: res.subtotalPrice.currencyCode,
+      //   key: 'rzp_test_AOorY1425MKPXq',
+      //   amount: '500',
+      //   name: 'Wholespoon',
+      //   prefill: {
+      //     email: res.email,
+      //     contact: res.shippingAddress.phone,
+      //     name: 'Razorpay Software',
+      //   },
+      //   theme: {color: '#A36B25'},
+      //   // order_id: 'AB2342',
+      // };
+      // yield RazorpayCheckout.open(options)
+      //   .then(data => {
+      //     // Alert.alert(`Success: ${data.razorpay_payment_id}`);
+      //     console.log('this data', JSON.stringify(data));
+      // })
+      // .catch(error => {
+      //   console.log(`Error: ${error.code} | ${error.description}`);
+      // });
     }
   } catch (err) {
     console.log(err);
@@ -999,7 +1138,7 @@ function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/getCartItem', getCartItem);
   yield takeEvery('sopify/fetchProduct', fetchProduct);
   yield takeEvery('sopify/cartItemRemove', removeCartItem);
-  yield takeEvery('sopify/createCheckout', createCheckout);
+  yield takeEvery('sopify/createCheckout', createCHeckout2);
   yield takeEvery('sopify/updateCart', updateCart);
   yield takeEvery('sopify/addAdress', addAddress);
   yield takeEvery('sopify/fetchMenu', fetchMenu);
