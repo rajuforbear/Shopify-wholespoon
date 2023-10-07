@@ -116,7 +116,7 @@ class Shopify {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'https://MyStore123432.myshopify.com/admin/api/2023-07/shipping_zones.json',
+      url: 'https://testdevelper.myshopify.com/admin/api/2023-07/shipping_zones.json',
       headers: {
         'X-Shopify-Access-Token': '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',
         'Access-Control-Origin': '*',

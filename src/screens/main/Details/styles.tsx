@@ -106,7 +106,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: wp(1),
-    backgroundColor: '#c5c0cf',
+    backgroundColor: 'green',
   },
   imgcontainer: {
     height: wp(40),
@@ -122,7 +122,7 @@ export default StyleSheet.create({
   },
   title: {
     marginTop: wp(1),
-    alignSelf: 'center',
+    textAlign: 'center',
     fontWeight: 'bold',
     color: 'black',
   },
@@ -132,6 +132,7 @@ export default StyleSheet.create({
     marginVertical: wp(1),
     width: wp(46),
     marginHorizontal: wp(1),
+    
   },
   quantity: {
     height: hp(4),

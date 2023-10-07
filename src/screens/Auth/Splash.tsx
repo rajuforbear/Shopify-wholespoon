@@ -27,9 +27,10 @@ const Splash: React.FC<Props> = ({navigation}) => {
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Image
         style={{height: wp(80), width: wp(80)}}
-        source={{
-          uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
-        }}
+        // source={{
+        //   uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
+        // }}
+        source={require('../../assests/logo.png')}
       />
     </View>
   );

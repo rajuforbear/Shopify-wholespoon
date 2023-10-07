@@ -114,9 +114,7 @@ const Header = () => {
             height: hp(6),
             width: hp(6),
           }}
-          source={{
-            uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
-          }}
+          source={require('../../assests/logo.png')}
         />
       </View>
       <View style={[styles.container2, {width: '33.67%', paddingLeft: wp(14)}]}>

@@ -65,9 +65,10 @@ const Opt: React.FC<Props> = ({navigation}) => {
           <View style={styles.logoConatainer}>
             <Image
               style={styles.img}
-              source={{
-                uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
-              }}
+              // source={{
+              //   uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
+              // }}
+              source={require('../../assests/logo.png')}
             />
           </View>
           <View style={styles.infoTextContainer}>

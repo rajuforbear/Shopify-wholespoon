@@ -41,6 +41,7 @@ export default StyleSheet.create({
   img: {
     height: '90%',
     width: '90%',
+    resizeMode:'center'
   },
   txt2: {
     alignSelf: 'center',
@@ -85,7 +86,7 @@ export default StyleSheet.create({
   },
   title: {
     marginTop: wp(1),
-    alignSelf: 'center',
+    textAlign: 'center',
     fontWeight: 'bold',
     color: 'black',
     fontStyle: 'italic',

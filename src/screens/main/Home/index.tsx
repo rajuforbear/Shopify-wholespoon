@@ -149,20 +149,32 @@ const Home: React.FC<Props> = ({navigation}) => {
         style={{width: '100%'}}
         contentContainerStyle={{paddingBottom: wp(2)}}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.conatainer}>
+        <View style={[styles.conatainer,{
+          margin:10,
+          // borderWidth:1,
+          
+          shadowOffset: {width: 2, height: 2},
+          shadowOpacity: 0.2,
+          shadowColor: '#000',
+          shadowRadius: 15,
+          borderRadius: 16,
+          backgroundColor:'#fff',
+          elevation:5,
+  
+          }]}>
           <FlatList
             data={data}
             horizontal
             showsHorizontalScrollIndicator={false}
             pagingEnabled
-            keyExtractor={item => item.node.id}
+            keyExtractor={item => item.node.id}          
             renderItem={({item}) => {
               return item.node.image ? (
-                <View>
+                <View style={{borderRadius:16}}>
                   <ImageBackground
                     source={{uri: item.node?.image.url}}
-                    style={[styles.photos]}>
-                    <View style={styles.con}></View>
+                    style={[styles.photos,{}]}>
+                    <View style={[styles.con]}></View>
                   </ImageBackground>
                 </View>
               ) : null;
@@ -193,21 +205,64 @@ const Home: React.FC<Props> = ({navigation}) => {
           style={{
             width: '100%',
             backgroundColor: 'white',
-            height: hp('22%'),
+            // height: hp('22%'),
             justifyContent: 'center',
             alignItems: 'center',
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.15,
-            shadowRadius: 0.84,
-            elevation: 1,
-            //borderWidth:1
+            
+            marginTop:15
           }}>
+              <View style={{width: '97%', alignSelf: 'center',borderWidth:0 }}>
+          <FlatList
+            data={data}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            renderItem={({item}) => {
+              return item.node.image ? (
+                <View  style={[styles.cardView]}>
+                <TouchableOpacity
+                  onPress={() => {
+                    dispatch({
+                      type: 'sopify/fetchProductById',
+                      prId: item.node.id,
+                      navigation,
+                      title: item.node.title,
+                      length: 10,
+                      page: 'home',
+                    });
+                  }}
+                  activeOpacity={8}
+                  // style={{
+                  //   height: hp(18),
+                  //   width: hp(15),
+                  //   marginHorizontal: wp(1.3),
+                  
+                  // }}
+                  style={styles.imgcontainer}
+                  >
+                  <Image
+                 
+                    style={[styles.cardImage,{borderWidth:1}]}
+                    source={{uri: item?.node.image.url}}
+                  />
+                  <Text
+                    style={{
+                      color: 'black',
+                      fontSize: wp(3.5),
+                      fontWeight: '700',
+                      textAlign: 'center',
+                      fontStyle: 'italic',
+                      marginTop: wp(1),
+                    }}>
+                    {item.node.title}
+                  </Text>
+                </TouchableOpacity>
+                </View>
+              ) : null;
+            }}
+          />
+        </View>
           <View style={{marginTop: '4%'}}>
-            <FlatList
+            {/* <FlatList
               data={data}
               showsHorizontalScrollIndicator={false}
               horizontal
@@ -229,9 +284,13 @@ const Home: React.FC<Props> = ({navigation}) => {
                       height: hp(18),
                       width: hp(15),
                       marginHorizontal: wp(1.3),
-                    }}>
+                    
+                    }}
+                
+                    >
                     <Image
-                      style={styles.cardImage}
+                   
+                      style={[styles.cardImage,{borderWidth:1}]}
                       source={{uri: item?.node.image.url}}
                     />
                     <Text
@@ -248,7 +307,7 @@ const Home: React.FC<Props> = ({navigation}) => {
                   </TouchableOpacity>
                 ) : null;
               }}
-            />
+            /> */}
           </View>
         </View>
         <View
@@ -303,6 +362,7 @@ const Home: React.FC<Props> = ({navigation}) => {
                     }
                     style={styles.imgcontainer}>
                     <Image
+                     resizeMode='center'
                       style={styles.img}
                       source={{
                         uri: item.node.products.edges[0]?.node.images.nodes[0]
@@ -317,7 +377,7 @@ const Home: React.FC<Props> = ({navigation}) => {
                         : item?.node?.products?.edges[0]?.node?.title
                       : 'Thai Paste'}
                   </Text>
-                  <Text style={[styles.title, {marginVertical: wp(0)}]}>
+                  <Text style={[styles.title, {marginVertical: wp(0)}]}>{'₹'}
                     {item?.node?.products?.edges.length > 0
                       ? item?.node?.products?.edges[1]?.node?.priceRange
                           .minVariantPrice.amount
@@ -332,7 +392,7 @@ const Home: React.FC<Props> = ({navigation}) => {
             }}
           />
         </View>
-        <View style={{paddingVertical: wp(1), marginTop: wp(-15)}}>
+        <View style={{paddingVertical: wp(1), marginTop: wp(-15),paddingHorizontal:10}}>
           <Text
             style={{
               fontSize: wp(4),
@@ -344,14 +404,15 @@ const Home: React.FC<Props> = ({navigation}) => {
           </Text>
         </View>
 
-        <View style={{marginTop: wp(-10)}}>
+        {/* <View style={{marginTop: wp(-10)}}>
           <SliderBox
             images={url}
             resizeMode="contain"
             ImageComponentStyle={{height: hp(70), width: wp(100)}}
             dotStyle={{height: 0, width: 0}}
           />
-        </View>
+        </View> */}
+        <View style={{height:20}}/>
       </ScrollView>
     </View>
   );

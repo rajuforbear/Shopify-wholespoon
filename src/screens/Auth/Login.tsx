@@ -1,24 +1,24 @@
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import Input from '../../compoents/Input';
 import Button from '../../compoents/Button';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../compoents/Loader';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {RootState} from '../../sopify/Redux/store';
-import {StackScreenProps} from '@react-navigation/stack';
-import {HelperNavigationParams} from '../../navigation/Helper/Helper';
-import {NavigationParams} from '../../navigation';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { RootState } from '../../sopify/Redux/store';
+import { StackScreenProps } from '@react-navigation/stack';
+import { HelperNavigationParams } from '../../navigation/Helper/Helper';
+import { NavigationParams } from '../../navigation';
 type Props = CompositeScreenProps<
   StackScreenProps<NavigationParams, 'Login'>,
   StackScreenProps<HelperNavigationParams>
 >;
 
-const Login: React.FC<Props> = ({navigation, route}) => {
+const Login: React.FC<Props> = ({ navigation, route }) => {
   const page = route.params?.page;
   const [input, setInput] = useState({
     email: '',
@@ -26,7 +26,7 @@ const Login: React.FC<Props> = ({navigation, route}) => {
   });
   const dispatch = useDispatch();
   const handleOnchange = (input: string, name: string) => {
-    setInput(prev => ({...prev, [name]: input}));
+    setInput(prev => ({ ...prev, [name]: input }));
   };
   const isLoading = useSelector((state: RootState) => state.data.isLoading);
   const handleLogin = () => {
@@ -41,7 +41,7 @@ const Login: React.FC<Props> = ({navigation, route}) => {
         }
       }
     }`,
-      variables: {input: {email: input.email, password: input.password}},
+      variables: { input: { email: input.email, password: input.password } },
     });
     dispatch({
       type: 'sopify/login',
@@ -55,13 +55,14 @@ const Login: React.FC<Props> = ({navigation, route}) => {
     <View style={styles.container}>
       {isLoading ? <Loading /> : null}
       <ScrollView>
-        <View style={{marginTop: wp(25)}}>
+        <View style={{ marginTop: wp(25) }}>
           <View style={styles.logoConatainer}>
             <Image
               style={styles.img}
-              source={{
-                uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
-              }}
+              // source={{
+              //   uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
+              // }}
+              source={require('../../assests/logo.png')}
             />
           </View>
 
@@ -101,11 +102,7 @@ const Login: React.FC<Props> = ({navigation, route}) => {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Text
-              onPress={() => navigation.navigate('Register', {page: 'login'})}
-              style={styles.text}>
-              Create Account
-            </Text>
+
             <Text
               onPress={() => navigation.replace('Home')}
               style={styles.text}>
@@ -116,9 +113,22 @@ const Login: React.FC<Props> = ({navigation, route}) => {
               style={styles.text}>
               Forgot your password?
             </Text>
+            <Text
+
+            >
+
+            </Text>
           </View>
         </View>
       </ScrollView>
+      <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',bottom:10}}>
+        <Text style={{fontSize:16}}>Don't have account ?</Text>
+      <Text
+        onPress={() => navigation.navigate('Register', { page: 'login' })}
+        style={styles.text}>
+        Create Account
+      </Text>
+      </View>
     </View>
   );
 };
@@ -174,5 +184,6 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: wp(1),
     fontStyle: 'italic',
+    borderBottomWidth: 1
   },
 });

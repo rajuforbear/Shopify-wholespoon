@@ -855,8 +855,8 @@ function* updateCheckout(action: action) {
       });
       var options = {
         description: 'Credits towards consultation',
-        image:
-          'https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611',
+        image: require('../../assests/logo.png'),
+          // 'https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611',
         currency: res.subtotalPrice.currencyCode,
         key: 'rzp_test_AOorY1425MKPXq',
         amount: '500',

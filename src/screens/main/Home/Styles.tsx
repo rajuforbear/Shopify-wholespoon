@@ -166,7 +166,7 @@ export default StyleSheet.create({
     backgroundColor: '#0f3a8d',
   },
   cardView: {
-    height: hp(28),
+    // height: hp(28),
     backgroundColor: 'white',
     marginVertical: wp(1),
     width: wp(46),
@@ -186,8 +186,9 @@ export default StyleSheet.create({
   },
   title: {
     marginTop: wp(1),
-    alignSelf: 'center',
+    // alignSelf: 'center',
     fontWeight: 'bold',
     color: 'black',
+    textAlign:'center'
   },
 });

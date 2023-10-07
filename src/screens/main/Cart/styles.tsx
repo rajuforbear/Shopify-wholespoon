@@ -65,7 +65,7 @@ export default StyleSheet.create({
   img: {
     height: '87%',
     width: '100%',
-    resizeMode: 'cover',
+    resizeMode: 'center',
   },
   itemContainer: {
     width: '60%',
@@ -91,7 +91,7 @@ export default StyleSheet.create({
   btn: {
     height: hp(5.5),
     width: wp(95),
-    backgroundColor: '#A97732',
+    backgroundColor: 'green',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: wp(1),

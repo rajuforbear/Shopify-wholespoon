@@ -300,6 +300,8 @@ const Details: React.FC<Props> = ({navigation}) => {
             }}
             imageLoadingColor="#2196F3"
             sliderBoxHeight={300}
+            resizeMode="center"
+            
           />
 
           <View style={styles.cont}>
@@ -616,7 +618,8 @@ const Details: React.FC<Props> = ({navigation}) => {
                         onPress={() => fetDetails(item.id)}
                         style={styles.imgcontainer}>
                         <Image
-                          style={styles.img}
+                          style={[styles.img,{borderWidth:1}]}
+                          resizeMode='center'
                           source={
                             item.images[0]?.src
                               ? {uri: item.images[0].src}
@@ -637,6 +640,7 @@ const Details: React.FC<Props> = ({navigation}) => {
                 }
               }}
             />
+            <View style={{height:50}}/>
           </View>
         </ScrollView>
       </View>

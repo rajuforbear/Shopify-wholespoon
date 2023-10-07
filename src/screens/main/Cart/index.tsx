@@ -169,6 +169,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
                 <View style={styles.listContainer}>
                   <View style={styles.imgContainer}>
                     <Image
+                      // resizeMode="center"
                       style={styles.img}
                       source={{
                         uri: item?.node.merchandise.product?.featuredImage.url,
