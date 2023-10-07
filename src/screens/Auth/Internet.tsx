@@ -9,8 +9,6 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {NavigationParams} from '../../navigation';
 type Props = StackScreenProps<NavigationParams, 'Internet'>;
 const Internet: React.FC<Props> = () => {
-  const betInfo = useNetInfo();
-
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text style={{fontSize: wp(4), fontWeight: '700', fontStyle: 'italic'}}>

@@ -31,6 +31,7 @@ const OrderList: React.FC<Props> = ({navigation}) => {
                 async () =>
                   navigation.navigate('Webview', {
                     checkouturl: item.node.statusUrl,
+                    page: 'name',
                   })
                 // await AsyncStorage.clear()
               }

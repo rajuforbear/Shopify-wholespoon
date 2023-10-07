@@ -24,11 +24,15 @@ const Webview: React.FC<Props> = ({route, navigation}) => {
   const {checkouturl, page} = route.params;
   const webViewRef = useRef(null);
   const onNavigationStateChange = async (navRaf: Navraf) => {
-    const userToke = await AsyncStorage.getItem('Token');
-    if (page === 'cart') {
-      await AsyncStorage.setItem('cartId', '');
-    }
-    if (navRaf.title === 'MyStore123432') {
+    console.log(navRaf);
+    if (
+      navRaf.title === 'Thank you for your purchase! - MyStore123432 - Checkout'
+    ) {
+      navigation.reset({index: 0, routes: [{name: 'Home'}]});
+      if (page === 'cart') {
+        await AsyncStorage.setItem('cartId', '');
+      }
+      const userToke = await AsyncStorage.getItem('Token');
       let data = JSON.stringify({
         query: `query{
           customer(customerAccessToken:${JSON.stringify(userToke)}){
@@ -42,7 +46,6 @@ const Webview: React.FC<Props> = ({route, navigation}) => {
         page: 'home',
         navigation,
       });
-      navigation.reset({index: 0, routes: [{name: 'Home'}]});
     }
   };
 
@@ -50,33 +53,6 @@ const Webview: React.FC<Props> = ({route, navigation}) => {
     <View style={{flex: 1}}>
       {isLoading ? <Loading /> : null}
       <WebView
-        // automaticallyAdjustContentInsets={false}
-        // ref={webViewRef}
-        // source={{
-        //   html: checkouturl,
-        // }}
-        // //injectedJavaScript={INJECTEDJAVASCRIPT}
-        // //injectedJavaScriptBeforeContentLoaded={pucJavaScript}
-        // scrollEnabled
-        // scalesPageToFit={false}
-        // originWhitelist={['*']}
-        // // onMessage={_onMessage}
-        // //javaScriptEnabled={true}
-        // cacheEnabled={true}
-        // allowFileAccessFromFileURLs={true}
-        // setSupportMultipleWindows={true}
-        // domStorageEnabled={true}
-        // allowUniversalAccessFromFileURLs={true}
-        // //    onShouldStartLoadWithRequest={(request)=>{
-        // //      const {url} = request;
-        // //      if (url === params.redirect_url || url === params.cancel_url) {
-        // //        webViewRef.current.injectJavaScript(pucJavaScript);
-        // //      }
-        // //      return true;
-        // //    }}
-        // //    startInLoadingState={true}
-        // //    onNavigationStateChange={onNavigationStateChange}
-        // //    renderLoading={ActivityIndicatorElement}
         onLoad={() => setIsLoading(false)}
         style={{flex: 1}}
         source={{uri: checkouturl}}
@@ -87,3 +63,30 @@ const Webview: React.FC<Props> = ({route, navigation}) => {
 };
 
 export default Webview;
+// automaticallyAdjustContentInsets={false}
+// ref={webViewRef}
+// source={{
+//   html: checkouturl,
+// }}
+// //injectedJavaScript={INJECTEDJAVASCRIPT}
+// //injectedJavaScriptBeforeContentLoaded={pucJavaScript}
+// scrollEnabled
+// scalesPageToFit={false}
+// originWhitelist={['*']}
+// // onMessage={_onMessage}
+// //javaScriptEnabled={true}
+// cacheEnabled={true}
+// allowFileAccessFromFileURLs={true}
+// setSupportMultipleWindows={true}
+// domStorageEnabled={true}
+// allowUniversalAccessFromFileURLs={true}
+// //    onShouldStartLoadWithRequest={(request)=>{
+// //      const {url} = request;
+// //      if (url === params.redirect_url || url === params.cancel_url) {
+// //        webViewRef.current.injectJavaScript(pucJavaScript);
+// //      }
+// //      return true;
+// //    }}
+// //    startInLoadingState={true}
+// //    onNavigationStateChange={onNavigationStateChange}
+// //    renderLoading={ActivityIndicatorElement}
