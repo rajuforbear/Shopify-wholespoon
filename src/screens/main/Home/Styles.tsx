@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -37,7 +37,7 @@ export default StyleSheet.create({
     borderRadius: hp('.5%'),
     borderWidth: 0.5,
     borderColor: 'lightgrey',
-    elevation: 1,
+    elevation: 5,
     marginTop: '2%',
   },
   picker: {
@@ -51,8 +51,10 @@ export default StyleSheet.create({
   },
   photos: {
     height: hp('50%'),
-    width: wp('100%'),
+    width: wp('95%'),
     alignItems: 'center',
+    resizeMode:'contain'
+
   },
   con: {
     alignItems: 'center',
@@ -60,6 +62,7 @@ export default StyleSheet.create({
     width: '95%',
     height: '70%',
     justifyContent: 'space-between',
+
   },
   viewcontainer: {
     backgroundColor: '#333',
@@ -127,10 +130,11 @@ export default StyleSheet.create({
   },
   cardImage: {
     height: hp(15),
-    width: hp(15),
+    width: '100%',
     resizeMode: 'cover',
     alignItems: 'center',
     justifyContent: 'center',
+   
   },
   text: {
     alignSelf: 'center',
@@ -166,29 +170,38 @@ export default StyleSheet.create({
     backgroundColor: '#0f3a8d',
   },
   cardView: {
-    // height: hp(28),
     backgroundColor: 'white',
     marginVertical: wp(1),
-    width: wp(46),
-    marginHorizontal: wp(1),
+    width: wp(45),
+    marginHorizontal: wp(2),
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowColor: '#000',
+    shadowRadius: 15,
+    
+    elevation: 5,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16
   },
   imgcontainer: {
     height: wp(40),
     width: '100%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#e6f0f2',
+  
+    // backgroundColor: '#e6f0f2',
   },
   img: {
-    height: '90%',
-    width: '90%',
+    height: '100%',
+    width: '100%',
+    borderTopLeftRadius:16,
+    borderTopRightRadius:16
   },
   title: {
-    marginTop: wp(1),
+   
     // alignSelf: 'center',
     fontWeight: 'bold',
     color: 'black',
-    textAlign:'center'
+    marginLeft:10
   },
 });

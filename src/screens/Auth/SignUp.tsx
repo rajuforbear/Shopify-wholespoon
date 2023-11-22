@@ -184,7 +184,7 @@ const SignUp: React.FC<Props> = ({navigation, route}) => {
               // source={{
               //   uri: `https://cdn.shopify.com/s/files/1/0548/9570/6327/files/Wholespoon_logo_180x.png?v=1632130611`,
               // }}
-              source={require('../../assests/logo.png')}
+              source={require('../../assests/header3.png')}
             />
           </View>
           <View style={styles.infoTextContainer}>
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
   logoConatainer: {
     top: hp('1%'),
     width: '90%',
-    height: hp('20%'),
+    height: hp('10%'),
     marginHorizontal: '5%',
   },
 

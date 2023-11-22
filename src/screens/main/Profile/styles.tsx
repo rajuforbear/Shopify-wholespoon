@@ -132,7 +132,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: wp(3),
     width: '100%',
-    borderWidth: wp(0.1),
+  
     borderTopWidth: 0,
     justifyContent: 'space-between',
     paddingHorizontal: wp(8),

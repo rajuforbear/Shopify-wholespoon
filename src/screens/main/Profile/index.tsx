@@ -67,7 +67,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
                     : null,
                   {
                     flexDirection: 'row',
-                    width: '100%',
+                    width: '95%',
                     backgroundColor: 'white',
                     shadowOffset: {height: wp(0.1), width: 0},
                     shadowColor: 'black',
@@ -76,6 +76,8 @@ const Profile: React.FC<Props> = ({navigation}) => {
                     alignItems: 'center',
                     paddingHorizontal: wp(8),
                     elevation: 4,
+                    margin:10,
+                    borderRadius:16
                   },
                 ]}>
                 <View>
@@ -110,7 +112,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
                     : null,
                   {
                     flexDirection: 'row',
-                    width: '100%',
+                    width: '95%',
                     backgroundColor: 'white',
                     shadowOffset: {height: wp(0.1), width: 0},
                     shadowColor: 'black',
@@ -119,6 +121,8 @@ const Profile: React.FC<Props> = ({navigation}) => {
                     alignItems: 'center',
                     paddingHorizontal: wp(8),
                     elevation: 4,
+                    margin:10,
+                    borderRadius:16
                   },
                 ]}>
                 <View>

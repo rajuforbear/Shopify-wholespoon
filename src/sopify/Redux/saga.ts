@@ -493,8 +493,8 @@ function* createCHeckout2(action: action) {
                 payload: res3.data?.checkoutShippingAddressUpdateV2?.checkout,
               });
               action.navigation.navigate('Webview', {
-                checkouturl:
-                  res3.data?.checkoutShippingAddressUpdateV2.checkout.webUrl,
+                checkouturl:res3.data?.checkoutShippingAddressUpdateV2.checkout.webUrl,
+                  page:action.page
               });
             } else {
               yield put({

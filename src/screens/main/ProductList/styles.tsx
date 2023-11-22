@@ -24,6 +24,16 @@ export default StyleSheet.create({
     width: wp(46),
     marginHorizontal: wp(1),
     marginTop: hp(2.3),
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowColor: '#000',
+    shadowRadius: 15,
+    marginBottom:5,
+    elevation: 5,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16
   },
   CardContainer: {
     flex: 1,
@@ -33,15 +43,16 @@ export default StyleSheet.create({
   imgcontainer: {
     height: wp(40),
     width: '100%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#e6f0f2',
+    borderTopLeftRadius:16,
+    borderTopRightRadius:16
+   
   },
   img: {
-    height: '90%',
-    width: '90%',
-    resizeMode:'center'
+    height: '100%',
+    width: '100%',
+    borderTopLeftRadius:16,
+    borderTopRightRadius:16
+    // resizeMode:'contain'
   },
   txt2: {
     alignSelf: 'center',
@@ -85,8 +96,7 @@ export default StyleSheet.create({
     fontStyle: 'italic',
   },
   title: {
-    marginTop: wp(1),
-    textAlign: 'center',
+    marginLeft:10,
     fontWeight: 'bold',
     color: 'black',
     fontStyle: 'italic',

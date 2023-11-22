@@ -5,7 +5,7 @@ import {Customer} from '../../Types/user';
 import {Cart} from '../../Types/cart';
 import {Checkout} from '../../Types/checkoutdata';
 import {Menu} from '../../Types/Menu';
-import {Data, Edge, Pages} from '../../Types/Pages.d';
+import {Data, Edge, Pages} from '../../Types/Pages';
 import {updateCheckouts} from '../../Types/updateCheckout';
 import {SearchProducts} from '../../Types/SerachProduct';
 import {ProductDetails} from '../../Types/ProductDetail';

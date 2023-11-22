@@ -61,7 +61,7 @@ const Categories: React.FC<Props> = ({navigation}) => {
         />
         <Text
           style={{
-            alignSelf: 'center',
+            marginLeft:10,
             color: 'black',
             fontWeight: '400',
             fontSize: wp(4.5),

@@ -28,18 +28,27 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     marginVertical: wp(1),
     flexDirection: 'row',
-    paddingHorizontal: wp(4),
+    paddingRight: wp(4),
+    shadowColor: 'black',
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    elevation: 5,
+    margin:10,
+    borderRadius:16
   },
   img: {
     height: '100%',
-    width: wp(25),
+    width: wp(35),
+    borderTopLeftRadius:16,
+    borderBottomLeftRadius:16
   },
   txt2: {
     marginTop: hp(2),
     fontSize: wp(5),
     fontWeight: '600',
     color: 'black',
-    marginLeft: wp(10),
+    marginLeft: wp(6),
   },
   txt3: {
     position: 'absolute',
@@ -55,6 +64,6 @@ export default StyleSheet.create({
     fontWeight: '600',
     color: 'grey',
     marginTop: hp(2),
-    marginLeft: wp(2),
+    marginLeft: wp(6),
   },
 });

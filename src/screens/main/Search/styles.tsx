@@ -40,16 +40,18 @@ export default StyleSheet.create({
   },
   list: {
     height: hp(18),
-    paddingHorizontal: wp(3),
+    paddingRight: wp(3),
     // marginVertical: wp(2),
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
-    paddingBottom: wp(3),
+    // paddingBottom: wp(3),
     shadowColor: 'black',
     shadowOffset: {height: 2, width: 0},
     shadowOpacity: 4,
     elevation: 4,
+    margin:10,
+    borderRadius:16
   },
   flatList: {
     marginTop: wp(3),
@@ -61,6 +63,8 @@ export default StyleSheet.create({
   img: {
     height: '100%',
     width: '100%',
+    borderTopLeftRadius:16,
+    borderBottomLeftRadius:16
   },
   title: {
     fontSize: wp(4),

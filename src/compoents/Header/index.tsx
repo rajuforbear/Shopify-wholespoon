@@ -111,10 +111,10 @@ const Header = () => {
         }}>
         <Image
           style={{
-            height: hp(6),
-            width: hp(6),
+            height: hp(5),
+            width: hp(5),
           }}
-          source={require('../../assests/logo.png')}
+          source={require('../../assests/header3.png')}
         />
       </View>
       <View style={[styles.container2, {width: '33.67%', paddingLeft: wp(14)}]}>

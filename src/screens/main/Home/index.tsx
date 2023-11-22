@@ -24,6 +24,9 @@ import type {HelperNavigationParams} from '../../../navigation/Helper/Helper';
 import type {StackScreenProps} from '@react-navigation/stack';
 import {RootState} from '../../../sopify/Redux/store';
 import productquery from '../../../data/productquery';
+import DOMParser from 'react-native-html-parser';
+import axios from 'axios';
+
 type Props = StackScreenProps<HelperNavigationParams, 'HomeScreen'>;
 const Home: React.FC<Props> = ({navigation}) => {
   const dispatch = useDispatch();
@@ -33,7 +36,6 @@ const Home: React.FC<Props> = ({navigation}) => {
 
   const HomeData = useSelector((state: RootState) => state.data.homeData);
   const userData = useSelector((state: RootState) => state.data.userData);
-
   const getCollection = () => {
     dispatch({
       type: 'sopify/getCollection',
@@ -49,6 +51,25 @@ const Home: React.FC<Props> = ({navigation}) => {
     if (product?.length <= 4) {
       dispatch({type: 'sopify/fetchAllProducts', page: 'home', length: 10});
     }
+  }, []);
+  const getHomeData = () => {
+    var DOMParser = require('react-native-html-parser').DOMParser;
+    axios
+      .get(
+        'https://uv24xeyzl8gvjv3n-21161923.shopifypreview.com/?sections=template--21430240739521__06d6b68f-80d3-4a5d-a7e4-c433c7dd4888',
+      )
+      .then(res => {
+        var doc1 = new DOMParser().parseFromString(
+          '<html><body>' + ` ${res.data}` + '</body></html>',
+          'text/html',
+        );
+
+        const formateData = doc1.getElementsByAttribute('class', 'b');
+        console.log('this is formateData', formateData['_node']['childNodes']);
+      });
+  };
+  useEffect(() => {
+    getHomeData();
   }, []);
   useEffect(() => {
     if (true) {
@@ -142,6 +163,7 @@ const Home: React.FC<Props> = ({navigation}) => {
       data: data,
     });
   };
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       {isLoading ? <Loading /> : null}
@@ -149,33 +171,41 @@ const Home: React.FC<Props> = ({navigation}) => {
         style={{width: '100%'}}
         contentContainerStyle={{paddingBottom: wp(2)}}
         showsVerticalScrollIndicator={false}>
-        <View style={[styles.conatainer,{
-          margin:10,
-          // borderWidth:1,
-          
-          shadowOffset: {width: 2, height: 2},
-          shadowOpacity: 0.2,
-          shadowColor: '#000',
-          shadowRadius: 15,
-          borderRadius: 16,
-          backgroundColor:'#fff',
-          elevation:5,
-  
-          }]}>
+        <View style={[styles.conatainer, {}]}>
           <FlatList
             data={data}
             horizontal
             showsHorizontalScrollIndicator={false}
             pagingEnabled
-            keyExtractor={item => item.node.id}          
+            keyExtractor={item => item.node.id}
+            contentContainerStyle={{marginLeft: 0}}
+            extraData={() => <View style={{marginLeft: 10}}></View>}
             renderItem={({item}) => {
               return item.node.image ? (
-                <View style={{borderRadius:16}}>
-                  <ImageBackground
+                <View
+                  style={{
+                    borderRadius: 16,
+                    margin: 10,
+                    shadowOffset: {width: 2, height: 2},
+                    shadowOpacity: 0.2,
+                    shadowColor: '#000',
+                    shadowRadius: 15,
+                    backgroundColor: '#fff',
+                    elevation: 10,
+                    borderTopLeftRadius: 16,
+                    borderTopRightRadius: 16,
+                    borderBottomLeftRadius: 16,
+                    borderBottomRightRadius: 16,
+                  }}>
+                  <Image
                     source={{uri: item.node?.image.url}}
-                    style={[styles.photos,{}]}>
+                    style={[styles.photos, {borderWidth: 1, borderRadius: 16}]}
+                  />
+                  {/* <ImageBackground
+                    source={{uri: item.node?.image.url}}
+                    style={[styles.photos,{borderWidth:1,borderRadius:16}]}>
                     <View style={[styles.con]}></View>
-                  </ImageBackground>
+                  </ImageBackground> */}
                 </View>
               ) : null;
             }}
@@ -205,62 +235,59 @@ const Home: React.FC<Props> = ({navigation}) => {
           style={{
             width: '100%',
             backgroundColor: 'white',
-            // height: hp('22%'),
             justifyContent: 'center',
             alignItems: 'center',
-            
-            marginTop:15
+            marginTop: 15,
           }}>
-              <View style={{width: '97%', alignSelf: 'center',borderWidth:0 }}>
-          <FlatList
-            data={data}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            renderItem={({item}) => {
-              return item.node.image ? (
-                <View  style={[styles.cardView]}>
-                <TouchableOpacity
-                  onPress={() => {
-                    dispatch({
-                      type: 'sopify/fetchProductById',
-                      prId: item.node.id,
-                      navigation,
-                      title: item.node.title,
-                      length: 10,
-                      page: 'home',
-                    });
-                  }}
-                  activeOpacity={8}
-                  // style={{
-                  //   height: hp(18),
-                  //   width: hp(15),
-                  //   marginHorizontal: wp(1.3),
-                  
-                  // }}
-                  style={styles.imgcontainer}
-                  >
-                  <Image
-                 
-                    style={[styles.cardImage,{borderWidth:1}]}
-                    source={{uri: item?.node.image.url}}
-                  />
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontSize: wp(3.5),
-                      fontWeight: '700',
-                      textAlign: 'center',
-                      fontStyle: 'italic',
-                      marginTop: wp(1),
-                    }}>
-                    {item.node.title}
-                  </Text>
-                </TouchableOpacity>
-                </View>
-              ) : null;
-            }}
-          />
-        </View>
+          <View style={{width: '97%', alignSelf: 'center', borderWidth: 0}}>
+            <FlatList
+              data={data}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              renderItem={({item}) => {
+                return item.node.image ? (
+                  <View style={[styles.cardView, {marginBottom: 9}]}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        dispatch({
+                          type: 'sopify/fetchProductById',
+                          prId: item.node.id,
+                          navigation,
+                          title: item.node.title,
+                          length: 10,
+                          page: 'home',
+                        });
+                      }}
+                      activeOpacity={8}
+                      style={[styles.imgcontainer, {borderRadius: 16}]}>
+                      <Image
+                        style={[
+                          styles.cardImage,
+                          {
+                            borderWidth: 1,
+                            borderTopRightRadius: 16,
+                            borderTopLeftRadius: 16,
+                          },
+                        ]}
+                        source={{uri: item?.node.image.url}}
+                      />
+                      <Text
+                        style={{
+                          color: 'black',
+                          fontSize: wp(3.5),
+                          fontWeight: '700',
+                          marginLeft: 10,
+                          fontStyle: 'italic',
+                          marginTop: wp(1),
+                        }}>
+                        {item.node.title}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : null;
+              }}
+            />
+          </View>
           <View style={{marginTop: '4%'}}>
             {/* <FlatList
               data={data}
@@ -355,14 +382,16 @@ const Home: React.FC<Props> = ({navigation}) => {
             keyExtractor={(item, index) => item.node.id}
             renderItem={({item}) => {
               return (
-                <View style={styles.cardView}>
+                <View style={[styles.cardView, {marginBottom: 10}]}>
                   <TouchableOpacity
                     onPress={() =>
                       fetDetails(item.node.products.edges[0].node.id)
                     }
-                    style={styles.imgcontainer}>
+                    style={[
+                      styles.imgcontainer,
+                      {borderTopLeftRadius: 16, borderTopRightRadius: 16},
+                    ]}>
                     <Image
-                     resizeMode='center'
                       style={styles.img}
                       source={{
                         uri: item.node.products.edges[0]?.node.images.nodes[0]
@@ -370,14 +399,19 @@ const Home: React.FC<Props> = ({navigation}) => {
                       }}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.title}>
+                  <Text style={[styles.title, {marginTop: 5}]}>
                     {item?.node?.products?.edges.length > 0
                       ? item?.node?.products?.edges[1]?.node?.title
                         ? item?.node?.products?.edges[1]?.node?.title
                         : item?.node?.products?.edges[0]?.node?.title
                       : 'Thai Paste'}
                   </Text>
-                  <Text style={[styles.title, {marginVertical: wp(0)}]}>{'₹'}
+                  <Text
+                    style={[
+                      styles.title,
+                      {marginVertical: wp(0), marginBottom: 5},
+                    ]}>
+                    {'₹'}
                     {item?.node?.products?.edges.length > 0
                       ? item?.node?.products?.edges[1]?.node?.priceRange
                           .minVariantPrice.amount
@@ -392,7 +426,7 @@ const Home: React.FC<Props> = ({navigation}) => {
             }}
           />
         </View>
-        <View style={{paddingVertical: wp(1), marginTop: wp(-15),paddingHorizontal:10}}>
+        {/* <View style={{paddingVertical: wp(1), marginTop: wp(-15),paddingHorizontal:10}}>
           <Text
             style={{
               fontSize: wp(4),
@@ -402,7 +436,7 @@ const Home: React.FC<Props> = ({navigation}) => {
             }}>
             MAKE YOUR MEALS IN MINUTES #COOKWITHWHOLESPOON #GIFTWITHWHOLESPOON
           </Text>
-        </View>
+        </View> */}
 
         {/* <View style={{marginTop: wp(-10)}}>
           <SliderBox
@@ -412,155 +446,10 @@ const Home: React.FC<Props> = ({navigation}) => {
             dotStyle={{height: 0, width: 0}}
           />
         </View> */}
-        <View style={{height:20}}/>
+        <View style={{height: 10}} />
       </ScrollView>
     </View>
   );
 };
 
 export default Home;
-{
-  /*
-  {
-  "input": {
-    "appliedDiscount": {
-      "amount": "0",
-      "description": "bndnd",
-      "title": "ntnt",
-      "value": 1.1,
-      "valueType": "na"
-    },
-    "billingAddress": {
-      "address1": "kodiyakhal,birul,bhiakgaon",
-      "address2": "",
-      "city": "indore",
-      "company": "forebear",
-      "country": "india",
-      "countryCode": "91",
-      "firstName": "raju",
-      "id": "na",
-      "lastName": "barde",
-      "phone": "9133944239",
-      "province": "MP",
-      "provinceCode": "NA",
-      "zip": "451331"
-    },
-    "customAttributes": [
-      {
-        "key": "raju",
-        "value": "barde"
-      }
-    ],
-    "customerId": "na",
-    "email": "rajubarde54@gmail.com",
-    "lineItems": [
-      {
-        "appliedDiscount": {
-          "amount": "235",
-          "description": "thisidffn",
-          "title": "product",
-          "value": 1.1,
-          "valueType": "NA"
-        },
-        "customAttributes": [
-          {
-            "key": "rrt",
-            "value": "dcccc"
-          }
-        ],
-        "grams": 1,
-        "originalUnitPrice": "233",
-        "quantity": 1,
-        "requiresShipping": true,
-        "sku": "",
-        "taxable": true,
-        "title": "something",
-        "variantId": "someting",
-        "weight": {
-          "unit": "2.4",
-          "value": 1.1
-        }
-      }
-    ],
-    "localizationExtensions": [
-      {
-        "key": "raju",
-        "value": "nohtign"
-      }
-    ],
-    "marketRegionCountryCode": "rju",
-    "metafields": [
-      {
-        "description": "NA",
-        "id": "NA",
-        "key": "NA",
-        "namespace": "NA",
-        "type": "NA",
-        "value": "NA"
-      }
-    ],
-    "note": "NA",
-    "paymentTerms": {
-      "paymentSchedules": [
-        {
-          "dueAt": "NA",
-          "issuedAt": "NA"
-        }
-      ],
-      "paymentTermsTemplateId": ""
-    },
-    "phone": "9867656567",
-    "poNumber": "343445",
-    "presentmentCurrencyCode": "INR",
-    "privateMetafields": [
-      {
-        "key": "NA",
-        "namespace": "NA",
-        "owner": "NA",
-        "valueInput": {
-          "value": "NA",
-          "valueType": "NA"
-        }
-      }
-    ],
-    "purchasingEntity": {
-      "customerId": "",
-      "purchasingCompany": {
-        "companyContactId": "",
-        "companyId": "",
-        "companyLocationId": ""
-      }
-    },
-    "reserveInventoryUntil": "",
-    "shippingAddress": {
-     "address1": "kodiyakhal,birul,bhiakgaon",
-      "address2": "",
-      "city": "indore",
-      "company": "forebear",
-      "country": "india",
-      "countryCode": "91",
-      "firstName": "raju",
-      "id": "na",
-      "lastName": "barde",
-      "phone": "9133944239",
-      "province": "MP",
-      "provinceCode": "NA",
-      "zip": "451331"
-    },
-    "shippingLine": {
-      "price": "99",
-      "shippingRateHandle": "nothing",
-      "title": ""
-    },
-    "sourceName": "raju",
-    "tags": [
-      "nothing"
-    ],
-    "taxExempt": true,
-    "useCustomerDefaultAddress": true,
-    "visibleToCustomer": true
-  }
-}
-
-*/
-}

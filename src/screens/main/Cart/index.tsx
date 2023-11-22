@@ -85,6 +85,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
       navigation,
       email: userData.email,
       address: userData.defaultAddress,
+      page:'cart'
     });
   };
   const pecentcalculate = (low: string, high: string) => {
@@ -166,7 +167,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
       {isLoading ? <Loading /> : null}
 
       {cartItem?.lines?.edges?.length > 0 ? (
-        <View style={{flex: 1}}>
+        <View style={{flex: 1,paddingHorizontal:10}}>
           <FlatList
             data={cartItem?.lines.edges}
             showsVerticalScrollIndicator={false}
@@ -214,14 +215,14 @@ const Cart: React.FC<Props> = ({navigation}) => {
                           fontStyle: 'italic',
                         }}>
                         {'  ₹'}
-                        <Text
+                       { <Text
                           style={{
                             fontSize: wp(4.5),
                             fontWeight: 'bold',
                             fontStyle: 'italic',
                           }}>
-                          {+item.node.cost?.amountPerQuantity.amount}
-                        </Text>
+                          {+item.node.cost?.amountPerQuantity?.amount}
+                        </Text>}
                       </Text>
                       {item.node.cost?.compareAtAmountPerQuantity?.amount ? (
                         <View style={{flexDirection: 'row'}}>
@@ -341,7 +342,7 @@ const Cart: React.FC<Props> = ({navigation}) => {
             <TouchableOpacity
               onPress={() => createCheckout()}
               style={styles.btn}>
-              <Text style={styles.btnText}>CHEKOUT</Text>
+              <Text style={styles.btnText}>CHECKOUT</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -12,12 +12,23 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    width: wp(47),
+    width: wp(45),
     height: hp(28),
-    marginHorizontal: wp(1),
+   
     borderRadius: wp(0),
-    backgroundColor: '#e6f0f2',
+    backgroundColor: '#fff',
     overflow: 'hidden',
     marginVertical: wp(2),
+    marginHorizontal: wp(2),
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowColor: '#000',
+    shadowRadius: 15,
+    
+    elevation: 5,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16
   },
 });

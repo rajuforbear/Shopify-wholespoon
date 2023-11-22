@@ -278,6 +278,7 @@ const Details: React.FC<Props> = ({navigation}) => {
       navigation,
       email: userData.email,
       address: userData.defaultAddress,
+      page:'details'
     });
   };
   const noImage = [require('../../../assests/noimg.jpeg')];
@@ -599,7 +600,7 @@ const Details: React.FC<Props> = ({navigation}) => {
               </Text>
             </View>
           </View>
-          <View style={{width: '100%', marginVertical: wp(4)}}>
+          <View style={{width: '100%', marginVertical: wp(4),paddingHorizontal:10}}>
             <Text
               style={{
                 marginLeft: wp(5),
@@ -614,16 +615,17 @@ const Details: React.FC<Props> = ({navigation}) => {
               data={Products.slice(0, 4)}
               horizontal={true}
               keyExtractor={(item, index) => item.id}
+              style={{marginTop:10}}
               renderItem={({item, index}) => {
                 if (item.title != items.title) {
                   return (
-                    <View style={styles.cardView}>
+                    <View style={[styles.cardView,{marginBottom:10}]}>
                       {/* <AntDesign name="hearto" style={styles.icon} /> */}
                       <TouchableOpacity
                         onPress={() => fetDetails(item.id)}
-                        style={styles.imgcontainer}>
+                        style={[styles.imgcontainer,]}>
                         <Image
-                          style={[styles.img,{borderWidth:1}]}
+                          style={[styles.img,]}
                           resizeMode='center'
                           source={
                             item.images[0]?.src

@@ -111,28 +111,41 @@ export default StyleSheet.create({
   imgcontainer: {
     height: wp(40),
     width: '100%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignSelf: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     backgroundColor: '#e6f0f2',
   },
   img: {
-    height: '90%',
-    width: '90%',
+    height: '100%',
+    width: '100%',
+    borderTopLeftRadius:16,
+    borderTopRightRadius:16
   },
   title: {
-    marginTop: wp(1),
-    textAlign: 'center',
+    // marginTop: wp(1),
+    // textAlign: 'center',
     fontWeight: 'bold',
     color: 'black',
+    marginLeft:10
   },
   cardView: {
     height: hp(25),
     backgroundColor: '#e6f0f2',
     marginVertical: wp(1),
-    width: wp(46),
-    marginHorizontal: wp(1),
+    width: wp(45),
+
+    marginHorizontal: wp(2),
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowColor: '#000',
+    shadowRadius: 15,
     
+    elevation: 5,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16
   },
   quantity: {
     height: hp(4),

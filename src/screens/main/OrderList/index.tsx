@@ -20,10 +20,11 @@ const OrderList: React.FC<Props> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.txt}>Your Orders</Text>
+      {/* <Text style={styles.txt}>Your Orders</Text> */}
       <FlatList
         data={orders}
         keyExtractor={(item, index) => item.node.id}
+        style={{marginBottom:65}}
         renderItem={({item, index}) => (
           <TouchableOpacity
             onPress={

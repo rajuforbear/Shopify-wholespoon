@@ -67,7 +67,7 @@ const List: React.FC<Props> = ({Products, onEndReached = () => {}}) => {
               ) : null}
               <TouchableOpacity
                 onPress={() => fetDetails(item.id)}
-                style={styles.imgcontainer}>
+                style={[styles.imgcontainer]}>
                 <Image
                   style={styles.img}
                   source={
@@ -77,7 +77,7 @@ const List: React.FC<Props> = ({Products, onEndReached = () => {}}) => {
                   }
                 />
               </TouchableOpacity>
-              <Text style={styles.title}>{item.title}</Text>
+              <Text style={[styles.title,{marginTop:wp(1)}]}>{item.title}</Text>
               <Text style={[styles.title, {marginVertical: wp(0)}]}>
                 {item?.variants[0]?.price.amount +
                   ' ' +
