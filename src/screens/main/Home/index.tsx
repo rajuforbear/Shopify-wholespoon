@@ -53,20 +53,9 @@ const Home: React.FC<Props> = ({navigation}) => {
     }
   }, []);
   const getHomeData = () => {
-    var DOMParser = require('react-native-html-parser').DOMParser;
-    axios
-      .get(
-        'https://uv24xeyzl8gvjv3n-21161923.shopifypreview.com/?sections=template--21430240739521__06d6b68f-80d3-4a5d-a7e4-c433c7dd4888',
-      )
-      .then(res => {
-        var doc1 = new DOMParser().parseFromString(
-          '<html><body>' + ` ${res.data}` + '</body></html>',
-          'text/html',
-        );
-
-        const formateData = doc1;
-        console.log('this is formateData', formateData);
-      });
+    dispatch({
+      type: 'sopify/fetchHomeData',
+    });
   };
   useEffect(() => {
     getHomeData();

@@ -133,5 +133,27 @@ class Shopify {
         console.log(error);
       });
   };
+
+  static adminHome = async() => {
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://testdevelper.myshopify.com//admin/api/2023-01/themes/160657834259/assets.json?asset[key]=templates/index.json',
+      headers: {
+        'X-Shopify-Access-Token': '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',
+        'Access-Control-Origin': '*',
+        'Content-Type': ' application/json',
+      },
+    };
+
+  return  await axios
+      .request(config)
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 }
 export default Shopify;

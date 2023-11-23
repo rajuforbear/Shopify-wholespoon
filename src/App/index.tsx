@@ -5,10 +5,10 @@ import store from '../sopify/Redux/store';
 import RootNavigation from '../navigation';
 import Toast from 'react-native-toast-message';
 import netInfo from '@react-native-community/netinfo';
-
+import data from '../../data.json';
 const App: React.FC = () => {
   LogBox.ignoreAllLogs();
-
+  console.log('tjhissisissisi', data.sections);
   netInfo.addEventListener(state => {
     if (!state.isConnected) {
       Alert.alert('No Internet', 'Please Connect to the internet');

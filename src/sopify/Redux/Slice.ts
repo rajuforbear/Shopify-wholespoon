@@ -333,6 +333,15 @@ export const MySlice = createSlice({
     updateCheckoutEMailError: state => {
       state.isLoading = false;
     },
+    fetchHomeData:(state)=>{
+      state.isLoading=true
+    },
+    fetchHomeDataSuccess:(state)=>{
+      state.isLoading=true
+    },
+    fetchHomeDataError:(state)=>{
+      state.isLoading=true
+    }
   },
 });
 export const {getCollection, getCollectionSuccess, getCollectionFail} =

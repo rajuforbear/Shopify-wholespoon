@@ -24,6 +24,7 @@ import {ProductDetail} from '../../Types/ProductDetail';
 import {HomeType} from '../../Types/HomeType';
 import userQuery from '../../data/userQuery';
 import checkOuerry from '../../data/checkout';
+import { HomeData } from '../../Types/Homedata';
 function* getCollection() {
   try {
     const data: collections = yield call(Shopify.getCollection);
@@ -1126,6 +1127,14 @@ function* updateCheckoutEMail(action: action) {
     console.log(err);
   }
 }
+function *fetchHomeData(action:action){
+  try {
+    const res:HomeData=yield call(Shopify.adminHome)
+     console.log('this is res',res.asset.value)
+  } catch (error) {
+    console.log(error)
+  }
+}
 function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/getCollection', getCollection);
   yield takeEvery('sopify/fetchProductById', getProductById);
@@ -1154,6 +1163,7 @@ function* Saga(): Generator<StrictEffect> {
   yield takeEvery('sopify/ProductDetails', productDetails);
   yield takeEvery('sopify/fetchHome', fetchHome);
   yield takeEvery('sopify/updateCheckoutEMail', updateCheckoutEMail);
+  yield takeEvery('sopify/fetchHomeData',fetchHomeData)
 }
 
 export default Saga;
