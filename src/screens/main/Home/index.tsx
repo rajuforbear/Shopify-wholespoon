@@ -64,8 +64,8 @@ const Home: React.FC<Props> = ({navigation}) => {
           'text/html',
         );
 
-        const formateData = doc1.getElementsByAttribute('class', 'b');
-        console.log('this is formateData', formateData['_node']['childNodes']);
+        const formateData = doc1;
+        console.log('this is formateData', formateData);
       });
   };
   useEffect(() => {

@@ -44,7 +44,6 @@ const HelperStack = () => {
       <Stack.Screen name="Categories" component={Categories} />
       <Stack.Screen name="ProductList" component={ProductList} />
       <Stack.Screen name="OrderList" component={OrderList} />
-
       <Stack.Screen name="Payment" component={Payment} />
       <Stack.Screen name="OrderDetails" component={OrderDetails} />
       <Stack.Screen name="AddressBook" component={AddressBook} />
