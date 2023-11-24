@@ -985,14 +985,14 @@ function* updateCheckout(action: action) {
         theme: {color: '#A36B25'},
         // order_id: 'AB2342',
       };
-      yield RazorpayCheckout.open(options)
-        .then(data => {
-          // Alert.alert(`Success: ${data.razorpay_payment_id}`);
-          console.log('this data', JSON.stringify(data));
-        })
-        .catch(error => {
-          console.log(`Error: ${error.code} | ${error.description}`);
-        });
+      // yield RazorpayCheckout.open(options)
+      //   .then(data => {
+      //     // Alert.alert(`Success: ${data.razorpay_payment_id}`);
+      //     console.log('this data', JSON.stringify(data));
+      //   })
+      //   .catch(error => {
+      //     console.log(`Error: ${error.code} | ${error.description}`);
+      //   });
       // var options = {
       //   description: 'Credits towards consultation',
       //   image:
@@ -1130,7 +1130,7 @@ function* updateCheckoutEMail(action: action) {
 function *fetchHomeData(action:action){
   try {
     const res:HomeData=yield call(Shopify.adminHome)
-     console.log('this is res',res.asset.value)
+    //  console.log('this is res',res.asset.value)
   } catch (error) {
     console.log(error)
   }
